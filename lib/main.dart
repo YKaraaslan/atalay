@@ -1,16 +1,30 @@
-import 'package:atalay/view/splash/splash_viewmodel.dart';
+import 'package:atalay/core/theme/light_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constant/routes.dart';
+import 'view/src/unauthorized/login/login_viewmodel.dart';
+import 'view/src/unauthorized/signup/signup_viewmodel.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await EasyLocalization.ensureInitialized();
   runApp(
-    MultiProvider(providers: [ //remove 'const' when you need to add a Provider 
-        ChangeNotifierProvider(create: (context) => SplashViewModel()),
-    ],
-      child: const MyApp(),
-    )
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LoginViewModel()),
+        ChangeNotifierProvider(create: (context) => SignUpViewModel()),
+      ],
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en', ''), Locale('tr', '')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('tr', ''),
+        child: const MyApp(),
+      ),
+    ),
   );
 }
 
@@ -23,12 +37,23 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2))
+        .whenComplete(() => FlutterNativeSplash.remove());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.light,
-      theme: ThemeData.light(),
+      theme: appLightTheme(context),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       routes: Routes.getRoutes(context),
-      initialRoute: Routes.splash
+      initialRoute: Routes.login,
     );
   }
 }

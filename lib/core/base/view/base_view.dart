@@ -50,9 +50,7 @@ class _BaseViewState extends State<BaseView> {
       floatingActionButton: widget.floatingActionButton,
       backgroundColor:
           widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: widget.onPageBuilder(context, widget.viewModel),
-      ),
+      body: widget.onPageBuilder(context, widget.viewModel),
     );
   }
 }
