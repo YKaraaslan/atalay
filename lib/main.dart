@@ -1,4 +1,4 @@
-import 'package:atalay/core/theme/light_theme.dart';
+import 'core/theme/light_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2))
+    Future.delayed(const Duration(seconds: 1))
         .whenComplete(() => FlutterNativeSplash.remove());
   }
 

@@ -5,6 +5,10 @@ class Sizes {
     return MediaQuery.of(context).size.height;
   }
 
+  static double height_40percent (BuildContext context) {
+    return MediaQuery.of(context).size.height * 0.4;
+  }
+
   static double height_35percent (BuildContext context) {
     return MediaQuery.of(context).size.height * 0.35;
   }

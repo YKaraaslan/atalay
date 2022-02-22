@@ -6,7 +6,20 @@ import 'package:flutter/material.dart';
 
 TextStyle titleStyle (BuildContext context) {
   return TextStyle(
-    fontSize: 18.0,
+    fontSize: 23,
     color: Theme.of(context).primaryColor,
+  );
+}
+
+
+TextStyle loginTitleStyle () {
+  return const TextStyle(
+    fontSize: 20,
+  );
+}
+
+TextStyle buttonTextStyle () {
+  return const TextStyle(
+    fontSize: 18,
   );
 }

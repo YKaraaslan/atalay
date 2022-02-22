@@ -1,5 +1,6 @@
-import 'package:atalay/core/base/view/base_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/base/view/base_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);

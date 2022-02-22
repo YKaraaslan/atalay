@@ -12,7 +12,7 @@ class Routes {
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
 
   return {
-    login: (context) => const LoginView(),
+    login: (context) => LoginView(),
     signup: (context) => const SignupView(),
     };
   }
