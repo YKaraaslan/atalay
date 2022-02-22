@@ -12,8 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.0.5
   provider: ^6.0.2
   google_fonts: ^2.3.1
+  flutter_svg: ^1.0.3
+  easy_localization: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +28,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/translations/
 
   # fonts:
   #   - family: Schyler
@@ -32,3 +36,7 @@ flutter:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
+
+flutter_native_splash:
+  color: "#004566"
+  image: assets/images/logo.png
