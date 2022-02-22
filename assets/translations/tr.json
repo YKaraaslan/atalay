@@ -1,13 +1,28 @@
 {
+    "login_section":"---------------------------------------------------------------------",
     "login_title":"Atalay Roket Takımı",
-    "login_username_validator":"Kullanici adi bos birakilamaz",
-    "username":"Kullanici adi",
-    "password":"Sifre",
-    "password_validator":"Sifre bos birakilamaz",
-    "password_repeat":"Sifre Tekrar",
-    "forgot_password":"Sifremi Unuttum",
-    "remember_me":"Beni Hatirla",
-    "login": "Giris Yap",
-    "dont_have_an_account": "Hesabiniz mi yok?", 
-    "sign_up_now": "Kayit olun!"
+    "login_username_validator":"Kullanıcı adı boş bırakılamaz",
+    "username":"Kullanıcı Adı",
+    "password":"Şifre",
+    "password_validator":"Şifre boş bırakılamaz",
+    "password_repeat":"Şifre Tekrar",
+    "forgot_password":"Şifremi Unuttum",
+    "remember_me":"Beni Hatırla",
+    "login": "Giriş Yap",
+    "dont_have_an_account": "Hesabınız mı yok?", 
+    "sign_up_now": "Kayıt olun!",
+    "our_social_media_accounts": "Sosyal Medya Hesaplarımız",
+   
+    "signup_section":"---------------------------------------------------------------------",
+    "name": "İsim",
+    "surname": "Soyisim",
+    "phone": "Telefon",
+    "name_validator": "İsim boş bırakılamaz",
+    "surname_validator": "Soyisim boş bırakılamaz",
+    "phone_validator": "Telefon numarası boş bırakılamaz",
+    "phone_length_validator": "Telefon numarası 11 haneli olmalıdır",
+    "sign_up": "Kayıt Ol",
+   
+    "forgot_password_section":"---------------------------------------------------------------------",
+    "send": "Gönder"
  }
