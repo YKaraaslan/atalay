@@ -1,3 +1,5 @@
+import 'package:atalay/view/src/unauthorized/forgot_password/forgot_password_viewmodel.dart';
+
 import 'core/theme/light_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
         ChangeNotifierProvider(create: (context) => SignUpViewModel()),
+        ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

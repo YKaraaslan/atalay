@@ -5,8 +5,8 @@ import '../../../../core/constant/sizes.dart';
 import '../../../../core/constant/styles.dart';
 import '../unauthorized_baseview.dart';
 
-class SignupView extends StatelessWidget {
-  SignupView({Key? key}) : super(key: key);
+class ForgotPasswordView extends StatelessWidget {
+  ForgotPasswordView({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -84,51 +84,6 @@ class SignupView extends StatelessWidget {
                 return null;
               },
             ),
-            const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'username'.tr(),
-                prefixIcon: const Icon(Icons.account_circle_sharp),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'login_username_validator'.tr();
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.visiblePassword,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'password'.tr(),
-                prefixIcon: const Icon(Icons.password),
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'password_validator'.tr();
-                }
-                return null;
-              },
-            ),
             const SizedBox(height: 15),
             SizedBox(
               width: Sizes.width_100percent(context),
@@ -143,7 +98,7 @@ class SignupView extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    'sign_up',
+                    'send',
                     style: buttonTextStyle(),
                   ).tr(),
                 ),
