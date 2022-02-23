@@ -1,0 +1,39 @@
+{
+    "login_section":"---------------------------------------------------------------------",
+    "login_title":"Atalay Rocket Team",
+    "login_username_validator":"Username cannot be empty",
+    "username":"Username",
+    "password":"Password",
+    "password_validator":"Password cannot be empty",
+    "password_repeat":"Password Repeat",
+    "forgot_password":"forgot Password",
+    "remember_me":"Remember Me",
+    "login": "Log In",
+    "dont_have_an_account": "Don't you have an account?", 
+    "sign_up_now": "Sign up now!",
+    "our_social_media_accounts": "Our Social Media Accounts",
+   
+    "signup_section":"---------------------------------------------------------------------",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone",
+    "name_validator": "Name cannot be empty",
+    "surname_validator": "Surname cannot be empty",
+    "phone_validator": "Phone numarası cannot be empty",
+    "phone_length_validator": "Telefon length must be 11 digits",
+    "sign_up": "Sign Up",
+   
+    "forgot_password_section":"---------------------------------------------------------------------",
+    "send": "Send",
+
+
+    "zoom_drawer_section":"---------------------------------------------------------------------",
+    "dashboard":"Home Page",
+    "projects":"Projects",
+    "groups":"Groups",
+    "references":"References",
+    "finance":"Finance",
+    "meetups":"Meetings",
+    "profile":"Profile"
+
+ }
