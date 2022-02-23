@@ -1,8 +1,8 @@
+import 'package:atalay/core/widgets/base_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/sizes.dart';
-import '../../../../core/constant/styles.dart';
+import '../../../core/widgets/base_textformfield.dart';
 import '../unauthorized_baseview.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -17,21 +17,12 @@ class ForgotPasswordView extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              keyboardType: TextInputType.name,
+            BaseTextFormField(
+              hint: 'name'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'name'.tr(),
-                prefixIcon: const Icon(Icons.all_inclusive),
-              ),
-              validator: (value) {
+              textInputType: TextInputType.name,
+              prefixIcon: const Icon(Icons.account_circle_sharp),
+              fun: (value) {
                 if (value == null || value.isEmpty) {
                   return 'name_validator'.tr();
                 }
@@ -39,21 +30,12 @@ class ForgotPasswordView extends StatelessWidget {
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.name,
+            BaseTextFormField(
+              hint: 'surname'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'surname'.tr(),
-                prefixIcon: const Icon(Icons.tune_sharp),
-              ),
-              validator: (value) {
+              textInputType: TextInputType.name,
+              prefixIcon: const Icon(Icons.tune_sharp),
+              fun: (value) {
                 if (value == null || value.isEmpty) {
                   return 'surname_validator'.tr();
                 }
@@ -61,21 +43,12 @@ class ForgotPasswordView extends StatelessWidget {
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.phone,
+            BaseTextFormField(
+              hint: 'phone'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'phone'.tr(),
-                prefixIcon: const Icon(Icons.phone_android),
-              ),
-              validator: (value) {
+              textInputType: TextInputType.phone,
+              prefixIcon: const Icon(Icons.tune_sharp),
+              fun: (value) {
                 if (value == null || value.isEmpty) {
                   return 'phone_validator'.tr();
                 } else if (value.length != 11) {
@@ -85,28 +58,12 @@ class ForgotPasswordView extends StatelessWidget {
               },
             ),
             const SizedBox(height: 15),
-            SizedBox(
-              width: Sizes.width_100percent(context),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'send',
-                    style: buttonTextStyle(),
-                  ).tr(),
-                ),
-                onPressed: () {
-                  _formKey.currentState!.validate();
-                },
-              ),
-            )
+            BaseButton(
+              text: 'send'.tr(),
+              fun: () {
+                _formKey.currentState!.validate();
+              },
+            ),
           ],
         ),
       ),

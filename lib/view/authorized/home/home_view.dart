@@ -173,31 +173,23 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextButton(
-          onPressed: () {
-            viewModel.setPage(widget);
-            viewModel.zoomDrawerController.toggle!();
-          },
-          child: Row(
-            children: [
-              CircleAvatar(radius: 10, child: Image.asset(assetName)),
-              const SizedBox(
-                width: 20,
-              ),
-              Text(
-                title,
-                style: zoomMenuTextStyle(),
-              ),
-            ],
+    return TextButton(
+      onPressed: () {
+        viewModel.setPage(widget);
+        viewModel.zoomDrawerController.toggle!();
+      },
+      child: Row(
+        children: [
+          CircleAvatar(radius: 10, child: Image.asset(assetName)),
+          const SizedBox(
+            width: 20,
           ),
-        ),
-        const Divider(
-          color: Colors.white,
-          height: 1,
-        ),
-      ],
+          Text(
+            title,
+            style: zoomMenuTextStyle(),
+          ),
+        ],
+      ),
     );
   }
 }
