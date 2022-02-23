@@ -11,7 +11,6 @@ TextStyle titleStyle (BuildContext context) {
   );
 }
 
-
 TextStyle loginTitleStyle () {
   return const TextStyle(
     fontSize: 20,
@@ -21,5 +20,13 @@ TextStyle loginTitleStyle () {
 TextStyle buttonTextStyle () {
   return const TextStyle(
     fontSize: 18,
+  );
+}
+
+
+TextStyle zoomMenuTextStyle () {
+  return const TextStyle(
+    fontSize: 17,
+    color: Colors.white,
   );
 }

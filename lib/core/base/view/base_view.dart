@@ -19,7 +19,7 @@ class BaseView<T> extends StatefulWidget {
   final Function(T model)? onModelReady;
   final VoidCallback? onDispose;
   final Color? backgroundColor;
-  final AppBar? appBar;
+  final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
   final Drawer? drawer;
   final FloatingActionButton? floatingActionButton;

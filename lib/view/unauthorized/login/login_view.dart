@@ -1,12 +1,11 @@
-import 'package:atalay/core/constant/routes.dart';
-import 'package:atalay/view/src/unauthorized/unauthorized_baseview.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/constant/assets.dart';
 import '../../../../core/constant/sizes.dart';
 import '../../../../core/constant/styles.dart';
-import 'package:easy_localization/easy_localization.dart';
-
-import 'package:flutter/material.dart';
+import '../../../core/constant/routes.dart';
+import '../../unauthorized/unauthorized_baseview.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
