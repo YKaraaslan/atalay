@@ -24,5 +24,16 @@
     "sign_up": "Kayıt Ol",
    
     "forgot_password_section":"---------------------------------------------------------------------",
-    "send": "Gönder"
+    "send": "Gönder",
+
+
+    "zoom_drawer_section":"---------------------------------------------------------------------",
+    "dashboard":"Ana Sayfa",
+    "projects":"Projeler",
+    "groups":"Gruplar",
+    "references":"Referanslar",
+    "finance":"Finans",
+    "meetups":"Toplantılar",
+    "profile":"Profil"
+
  }
