@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constant/assets.dart';
-import '../../../../core/constant/sizes.dart';
-import '../../../../core/constant/styles.dart';
 import '../../../core/constant/routes.dart';
+import '../../../core/widgets/base_button.dart';
+import '../../../core/widgets/base_textformfield.dart';
 import '../../unauthorized/unauthorized_baseview.dart';
 
 class LoginView extends StatelessWidget {
@@ -21,20 +21,12 @@ class LoginView extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                    hintText: 'username'.tr(),
-                    prefixIcon:
-                        const Icon(Icons.account_circle_sharp),
-                  ),
-                  validator: (value) {
+                BaseTextFormField(
+                  hint: 'username'.tr(),
+                  textInputAction: TextInputAction.next,
+                  textInputType: TextInputType.name,
+                  prefixIcon: const Icon(Icons.account_circle_sharp),
+                  fun: (value) {
                     if (value == null || value.isEmpty) {
                       return 'login_username_validator'.tr();
                     }
@@ -42,25 +34,18 @@ class LoginView extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                    hintText: 'password'.tr(),
-                    prefixIcon: const Icon(Icons.password),
-                  ),
-                  obscureText: false,
-                  validator: (value) {
+                BaseTextFormField(
+                  hint: 'password'.tr(),
+                  textInputAction: TextInputAction.done,
+                  textInputType: TextInputType.text,
+                  prefixIcon: const Icon(Icons.account_circle_sharp),
+                  fun: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password_validator'.tr();
                     }
                     return null;
                   },
+                  isPassword: true,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10, right: 20, bottom: 10),
@@ -89,28 +74,12 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: Sizes.width_100percent(context),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        'login',
-                        style: buttonTextStyle(),
-                      ).tr(),
-                    ),
-                    onPressed: () {
-                      _formKey.currentState!.validate();
-                    },
-                  ),
-                )
+                BaseButton(
+                  text: 'login'.tr(),
+                  fun: () {
+                    _formKey.currentState!.validate();
+                  },
+                ),
               ],
             ),
           ),
@@ -140,12 +109,9 @@ class LoginView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InkWell(
-                onTap: () {},
-                child: CircleAvatar(
-                  backgroundImage: AssetImage(Assets.facebook),
-                  radius: 20,
-                ),
+              CircleAvatar(
+                backgroundImage: AssetImage(Assets.facebook),
+                radius: 20,
               ),
               const SizedBox(
                 width: 25,

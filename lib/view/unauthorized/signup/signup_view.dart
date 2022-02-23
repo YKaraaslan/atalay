@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constant/sizes.dart';
-import '../../../../core/constant/styles.dart';
+import '../../../core/widgets/base_button.dart';
+import '../../../core/widgets/base_textformfield.dart';
 import '../unauthorized_baseview.dart';
 
 class SignupView extends StatelessWidget {
@@ -17,66 +17,39 @@ class SignupView extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              keyboardType: TextInputType.name,
+            BaseTextFormField(
+              hint: 'name'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'name'.tr(),
-                prefixIcon: const Icon(Icons.all_inclusive),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
+              textInputType: TextInputType.name,
+              prefixIcon: const Icon(Icons.all_inclusive),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
                   return 'name_validator'.tr();
                 }
                 return null;
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.name,
+            BaseTextFormField(
+              hint: 'surname'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'surname'.tr(),
-                prefixIcon: const Icon(Icons.tune_sharp),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
+              textInputType: TextInputType.name,
+              prefixIcon: const Icon(Icons.tune_sharp),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
                   return 'surname_validator'.tr();
                 }
                 return null;
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.phone,
+            BaseTextFormField(
+              hint: 'phone'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'phone'.tr(),
-                prefixIcon: const Icon(Icons.phone_android),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
+              textInputType: TextInputType.phone,
+              prefixIcon: const Icon(Icons.phone_android),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
                   return 'phone_validator'.tr();
                 } else if (value.length != 11) {
                   return 'phone_length_validator'.tr();
@@ -85,73 +58,53 @@ class SignupView extends StatelessWidget {
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.text,
+            BaseTextFormField(
+              hint: 'username'.tr(),
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'username'.tr(),
-                prefixIcon: const Icon(Icons.account_circle_sharp),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
+              textInputType: TextInputType.text,
+              prefixIcon: const Icon(Icons.account_circle_sharp),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
                   return 'login_username_validator'.tr();
                 }
                 return null;
               },
             ),
             const SizedBox(height: 10),
-            TextFormField(
-              keyboardType: TextInputType.visiblePassword,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                hintText: 'password'.tr(),
-                prefixIcon: const Icon(Icons.password),
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
+            BaseTextFormField(
+              hint: 'password'.tr(),
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.text,
+              prefixIcon: const Icon(Icons.password),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
                   return 'password_validator'.tr();
                 }
                 return null;
               },
+              isPassword: true,
             ),
-            const SizedBox(height: 15),
-            SizedBox(
-              width: Sizes.width_100percent(context),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'sign_up',
-                    style: buttonTextStyle(),
-                  ).tr(),
-                ),
-                onPressed: () {
-                  _formKey.currentState!.validate();
-                },
-              ),
-            )
+            const SizedBox(height: 10),
+            BaseTextFormField(
+              hint: 'password_repeat'.tr(),
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.text,
+              prefixIcon: const Icon(Icons.repeat),
+              fun: (value) {
+               if (value == null || value.isEmpty) {
+                  return 'password_validator'.tr();
+                }
+                return null;
+              },
+              isPassword: true,
+            ),
+            const SizedBox(height: 10),
+            BaseButton(
+              text: 'sign_up'.tr(),
+              fun: () {
+                _formKey.currentState!.validate();
+              },
+            ),
           ],
         ),
       ),
