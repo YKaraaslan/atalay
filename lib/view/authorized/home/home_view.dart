@@ -28,24 +28,45 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final HomeViewModel viewModel = context.watch<HomeViewModel>();
-    return BaseView(
-      onPageBuilder: (context, value) => ZoomDrawer(
-        controller: viewModel.zoomDrawerController,
-        borderRadius: 24,
-        style: DrawerStyle.Style1,
-        openCurve: Curves.fastOutSlowIn,
-        disableGesture: false,
-        mainScreenTapClose: false,
-        slideWidth: MediaQuery.of(context).size.width * 0.65,
-        duration: const Duration(milliseconds: 500),
-        backgroundColor: Colors.white,
-        showShadow: true,
-        angle: 0.0,
-        clipMainScreen: true,
-        mainScreen: viewModel.selectedWidget,
-        menuScreen: const _Menu(),
+    return WillPopScope(
+      onWillPop: () {
+        return _onWillPop(viewModel);
+      },
+      child: BaseView(
+        onPageBuilder: (context, value) => ZoomDrawer(
+          controller: viewModel.zoomDrawerController,
+          borderRadius: 24,
+          style: DrawerStyle.Style1,
+          openCurve: Curves.fastOutSlowIn,
+          disableGesture: false,
+          mainScreenTapClose: false,
+          slideWidth: Sizes.width_65percent(context),
+          duration: const Duration(milliseconds: 500),
+          backgroundColor: Colors.white,
+          showShadow: true,
+          angle: 0.0,
+          clipMainScreen: true,
+          mainScreen: GestureDetector(
+            onTap: () {
+              if (viewModel.zoomDrawerController.isOpen!()) {
+                viewModel.zoomDrawerController.toggle!();
+              }
+            },
+            //child: viewModel.selectedWidget),
+            child: ProjectsView(
+                zoomDrawerController: viewModel.zoomDrawerController),
+          ),
+          menuScreen: const _Menu(),
+        ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop(HomeViewModel viewModel) async {
+    if (viewModel.zoomDrawerController.isOpen!()) {
+      viewModel.zoomDrawerController.close!();
+    }
+    return false;
   }
 }
 
@@ -96,7 +117,7 @@ class _MenuItems extends StatelessWidget {
       top: Sizes.height_15percent(context),
       left: 10,
       child: SizedBox(
-        width: Sizes.width_50percent(context),
+        width: Sizes.width_60percent(context),
         child: Consumer(
           builder: (context, HomeViewModel viewModel, child) => Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

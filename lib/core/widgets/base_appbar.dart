@@ -5,10 +5,11 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import '../constant/assets.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BaseAppBar({Key? key, required this.zoomDrawerController, required this.title}) : super(key: key);
+  const BaseAppBar({Key? key, required this.zoomDrawerController, required this.title, this.bottom}) : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
   final String title;
+  final PreferredSizeWidget? bottom;
 
    @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: SvgPicture.asset(Assets.notification),
         ),
       ],
+      bottom: bottom,
     );
   }
 

@@ -34,6 +34,15 @@
     "references":"Referanslar",
     "finance":"Finans",
     "meetups":"Toplantılar",
-    "profile":"Profil"
+    "profile":"Profil",
+
+
+
+    "projects_view_section":"---------------------------------------------------------------------",
+    "active_projects": "Aktif Projeler",
+    "finished_projects": "Biten Projeler",
+    "all_projects": "Tüm Projeler",
+    "team": "Takım",
+    "duty": "Görev"
 
  }

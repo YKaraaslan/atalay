@@ -18,6 +18,7 @@ dependencies:
   flutter_svg: ^1.0.3
   easy_localization: ^3.0.0
   flutter_zoom_drawer: ^2.3.1
+  step_progress_indicator: ^1.0.2
 
 dev_dependencies:
   flutter_test:

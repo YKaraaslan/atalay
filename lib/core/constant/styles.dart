@@ -30,3 +30,12 @@ TextStyle zoomMenuTextStyle () {
     color: Colors.white,
   );
 }
+
+
+
+TextStyle cardTitleStyle () {
+  return const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+}
