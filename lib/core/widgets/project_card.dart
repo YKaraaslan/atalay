@@ -14,6 +14,7 @@ class ProjectsCard extends StatelessWidget {
       required this.photos,
       required this.dateStart,
       required this.dateEnd,
+      required this.percentage,
       this.taskAmount = 0})
       : super(key: key);
 
@@ -23,11 +24,12 @@ class ProjectsCard extends StatelessWidget {
   final String dateStart;
   final String dateEnd;
   final int taskAmount;
+  final int percentage;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       child: InkWell(
       onTap: () {
@@ -65,7 +67,7 @@ class ProjectsCard extends StatelessWidget {
                     width: Sizes.width_20percent(context),
                     height: Sizes.width_20percent(context),
                       totalSteps: 100,
-                      currentStep: 75,
+                      currentStep: percentage,
                       stepSize: 3,
                       selectedColor: Colors.greenAccent,
                       unselectedColor: Colors.grey[200],
@@ -74,7 +76,7 @@ class ProjectsCard extends StatelessWidget {
                       roundedCap: (_, __) => true,
                       child: Center(
                         child: Text(
-                          '%75',
+                          '%$percentage',
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),

@@ -1,7 +1,7 @@
-import 'package:atalay/view/authorized/pages/projects/details/project_details.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
+import '../../view/authorized/pages/projects/project_details/project_details_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
 import '../../view/unauthorized/login/login_view.dart';
 import '../../view/unauthorized/signup/signup_view.dart';
