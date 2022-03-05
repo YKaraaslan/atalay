@@ -1,3 +1,5 @@
+import 'package:atalay/view/authorized/pages/calendar/calendar_view.dart';
+
 import 'home_viewmodel.dart';
 import '../pages/dashboard/dashboard_view.dart';
 import '../pages/finance/finance_view.dart';
@@ -52,9 +54,8 @@ class _HomeViewState extends State<HomeView> {
                 viewModel.zoomDrawerController.toggle!();
               }
             },
-            //child: viewModel.selectedWidget),
-            child: ProjectsView(
-                zoomDrawerController: viewModel.zoomDrawerController),
+            child: viewModel.selectedWidget,
+            //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
           ),
           menuScreen: const _Menu(),
         ),
@@ -162,6 +163,13 @@ class _MenuItems extends StatelessWidget {
                 assetName: Assets.meetups,
                 title: 'meetups'.tr(),
                 widget: MeetupsView(
+                    zoomDrawerController: viewModel.zoomDrawerController),
+              ),
+              _Item(
+                viewModel: viewModel,
+                assetName: Assets.calendar,
+                title: 'calendar'.tr(),
+                widget: CalendarView(
                     zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(

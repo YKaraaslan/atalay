@@ -1,3 +1,4 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -63,15 +64,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.light,
-      theme: appLightTheme(context),
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routes: Routes.getRoutes(context),
-      initialRoute: Routes.home,
+    return CalendarControllerProvider(
+      controller: EventController(),
+      child: MaterialApp(
+        themeMode: ThemeMode.light,
+        theme: appLightTheme(context),
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        routes: Routes.getRoutes(context),
+        initialRoute: Routes.home,
+      ),
     );
   }
 }

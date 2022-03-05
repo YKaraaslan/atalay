@@ -5,13 +5,15 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import '../constant/assets.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BaseAppBar({Key? key, required this.zoomDrawerController, required this.title, this.bottom}) : super(key: key);
+  const BaseAppBar(
+      {Key? key, this.zoomDrawerController, required this.title, this.bottom})
+      : super(key: key);
 
-  final ZoomDrawerController zoomDrawerController;
+  final ZoomDrawerController? zoomDrawerController;
   final String title;
   final PreferredSizeWidget? bottom;
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
@@ -20,17 +22,23 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      leading: IconButton(
-        icon: SvgPicture.asset(Assets.menu),
-        onPressed: () {
-          zoomDrawerController.toggle!();
-        },
-      ),
+      leading: zoomDrawerController == null
+          ? const BackButton(color: Colors.black)
+          : IconButton(
+              icon: SvgPicture.asset(Assets.menu),
+              onPressed: () {
+                if (zoomDrawerController != null) {
+                  zoomDrawerController!.toggle!();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            ),
       actions: [
-        IconButton(
+        zoomDrawerController != null ? IconButton(
           onPressed: () => true,
           icon: SvgPicture.asset(Assets.notification),
-        ),
+        ) : Container(),
       ],
       bottom: bottom,
     );
