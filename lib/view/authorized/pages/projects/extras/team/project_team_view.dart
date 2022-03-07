@@ -1,5 +1,6 @@
 import 'package:atalay/core/base/view/base_view.dart';
 import 'package:atalay/core/widgets/base_appbar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProjectTeamView extends StatelessWidget {
@@ -8,8 +9,8 @@ class ProjectTeamView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBar: const BaseAppBar(
-        title: 'Gorevliler',
+      appBar: BaseAppBar(
+        title: 'team'.tr(),
       ),
       onPageBuilder: (context, value) => ListView.builder(
         itemBuilder: (context, index) => InkWell(
@@ -22,6 +23,7 @@ class ProjectTeamView extends StatelessWidget {
             ),
             title: Text('Yunus Karaaslan'),
             subtitle: Text('Yazilim Muhendisi'),
+            trailing: Icon(Icons.chevron_right),
           ),
         ),
       ),

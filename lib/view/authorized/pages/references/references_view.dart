@@ -15,10 +15,24 @@ class ReferencesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView(
       appBar: BaseAppBar(
-        zoomDrawerController: zoomDrawerController,
         title: 'references'.tr(),
+        zoomDrawerController: zoomDrawerController,
       ),
-      onPageBuilder: (context, value) => Container(),
+      onPageBuilder: (context, value) => ListView.builder(
+        itemBuilder: (context, index) => InkWell(
+          onTap: () {},
+          onLongPress: () {},
+          child: const ListTile(
+            leading:  CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://avatars.githubusercontent.com/u/34814190?v=4'),
+            ),
+            title:  Text('Yunus Karaaslan'),
+            subtitle: Text('Atalay Roket Takimi Mobil Yazilimci'),
+            trailing: Icon(Icons.chevron_right),
+          ),
+        ),
+      ),
     );
   }
 }

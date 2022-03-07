@@ -1,3 +1,4 @@
+import 'package:atalay/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -36,7 +37,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
       actions: [
         zoomDrawerController != null ? IconButton(
-          onPressed: () => true,
+          onPressed: () => Navigator.pushNamed(context, Routes.notifications),
           icon: SvgPicture.asset(Assets.notification),
         ) : Container(),
       ],

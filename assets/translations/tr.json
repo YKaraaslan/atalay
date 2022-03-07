@@ -36,6 +36,7 @@
     "meetups":"Toplantılar",
     "profile":"Profil",
     "calendar":"Takvim",
+    "settings":"Ayarlar",
 
 
 
@@ -44,6 +45,8 @@
     "finished_projects": "Biten Projeler",
     "all_projects": "Tüm Projeler",
     "team": "Takım",
-    "duty": "Görev"
+    "duty": "Görev",
 
+    "notifications_view_section":"---------------------------------------------------------------------",
+    "notifications": "Bildirimler"
  }

@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
@@ -15,6 +16,7 @@ class Routes {
   static const String home = '/home';
   static const String projectDetails = '/project_details';
   static const String projectTeam = '/project_team';
+  static const String notifications = '/notifications';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
 
@@ -25,6 +27,7 @@ class Routes {
     home: (context) => const HomeView(),
     projectDetails: (context) => const ProjectDetailsView(),
     projectTeam: (context) => const ProjectTeamView(),
+    notifications: (context) => const NotificationsView(),
     };
   }
 }

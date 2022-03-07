@@ -1,5 +1,6 @@
 import 'package:atalay/view/authorized/pages/calendar/calendar_view.dart';
 
+import '../pages/settings/settings_view.dart';
 import 'home_viewmodel.dart';
 import '../pages/dashboard/dashboard_view.dart';
 import '../pages/finance/finance_view.dart';
@@ -177,6 +178,13 @@ class _MenuItems extends StatelessWidget {
                 assetName: Assets.profile,
                 title: 'profile'.tr(),
                 widget: ProfileView(
+                    zoomDrawerController: viewModel.zoomDrawerController),
+              ),
+              _Item(
+                viewModel: viewModel,
+                assetName: Assets.settings,
+                title: 'settings'.tr(),
+                widget: SettingsView(
                     zoomDrawerController: viewModel.zoomDrawerController),
               ),
             ],

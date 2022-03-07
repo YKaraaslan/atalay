@@ -9,7 +9,7 @@ class Assets {
   static final String menu = _path('ic_menu', 'svg');
   static final String notification = _path('ic_notification', 'svg');
   static final String megaphone = _path('ic_megaphone', 'png');
-
+  static final String notificationBell = _path('ic_notification_bell', 'png');
   
   static final String dashboard = _path('ic_dashboard', 'png');
   static final String projects = _path('ic_projects', 'png');
@@ -19,6 +19,7 @@ class Assets {
   static final String finance = _path('ic_finance', 'png');
   static final String profile = _path('ic_profile', 'png');
   static final String calendar = _path('ic_calendar', 'png');
+  static final String settings = _path('ic_settings', 'png');
 }
 
 String _path(String name, String type) {

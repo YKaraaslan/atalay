@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../pages/dashboard/dashboard_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -14,9 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   String get version => _version;
 
   void setPage(Widget child) {
-    if (selectedWidget.toString() != child.toString()) {
-      _selectedWiget = child;
-      notifyListeners();
-    }
+    _selectedWiget = child;
+    notifyListeners();
   }
 }

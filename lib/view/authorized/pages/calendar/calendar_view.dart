@@ -39,6 +39,8 @@ class _Body extends StatelessWidget {
       eventArranger: const SideEventArranger(), // To define how simultaneous events will be arranged.
       onEventTap: (events, date) => print(events),
       onDateLongPress: (date) => print(date),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //weekPageHeaderBuilder: (date1, date2) => Text('$date1 - $date2'),
     );
   }
 }
