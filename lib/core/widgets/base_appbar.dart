@@ -1,4 +1,4 @@
-import 'package:atalay/core/constant/routes.dart';
+import '../constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';

@@ -1,4 +1,4 @@
-import 'package:atalay/view/authorized/pages/calendar/calendar_view.dart';
+import '../pages/calendar/calendar_view.dart';
 
 import '../pages/settings/settings_view.dart';
 import 'home_viewmodel.dart';

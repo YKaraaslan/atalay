@@ -1,5 +1,5 @@
-import 'package:atalay/core/constant/assets.dart';
-import 'package:atalay/core/constant/paddings.dart';
+import '../../../../core/constant/assets.dart';
+import '../../../../core/constant/paddings.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import '../../../../core/base/view/base_view.dart';

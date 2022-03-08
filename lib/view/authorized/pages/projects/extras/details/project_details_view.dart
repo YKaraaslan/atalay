@@ -1,6 +1,6 @@
-import 'package:atalay/core/base/view/base_view.dart';
-import 'package:atalay/core/constant/paddings.dart';
-import 'package:atalay/core/constant/routes.dart';
+import '../../../../../../core/base/view/base_view.dart';
+import '../../../../../../core/constant/paddings.dart';
+import '../../../../../../core/constant/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';

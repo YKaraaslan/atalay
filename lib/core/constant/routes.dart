@@ -1,7 +1,8 @@
-import 'package:atalay/view/authorized/pages/notifications/notifications_view.dart';
+import '../../view/authorized/pages/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
+import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String projectDetails = '/project_details';
   static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
+  static const String groupsDetails = '/groups_details';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
 
@@ -28,6 +30,7 @@ class Routes {
     projectDetails: (context) => const ProjectDetailsView(),
     projectTeam: (context) => const ProjectTeamView(),
     notifications: (context) => const NotificationsView(),
+    groupsDetails: (context) => const GroupsDetailsView(),
     };
   }
 }

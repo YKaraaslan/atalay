@@ -1,17 +1,12 @@
 import '../../../../../../core/base/view/base_view.dart';
-import '../../../../../../core/widgets/base_appbar.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class ProjectTeamView extends StatelessWidget {
-  const ProjectTeamView({Key? key}) : super(key: key);
+class GroupsTeamView extends StatelessWidget {
+  const GroupsTeamView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBar: BaseAppBar(
-        title: 'team'.tr(),
-      ),
       onPageBuilder: (context, value) => ListView.builder(
         itemBuilder: (context, index) => InkWell(
           onTap: () {},

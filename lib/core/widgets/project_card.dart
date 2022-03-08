@@ -29,7 +29,6 @@ class ProjectsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       child: InkWell(
       onTap: () {

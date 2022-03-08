@@ -15,7 +15,7 @@ class ProjectsViewModel extends ChangeNotifier {
     2: Text("all_projects".tr())
   };
 
-  final children = const [ProjectsActive(), ProjectsFinished(), ProjectsAll()];
+  final children = const [ProjectsActiveView(), ProjectsFinishedView(), ProjectsAllView()];
 
   late Widget _child = children[0];
   Widget get child => _child;

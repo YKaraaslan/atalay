@@ -11,20 +11,71 @@ class WeeklyDays extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _WeeklyDaysBaseView(date: DateTime.now().subtract(const Duration(days: 3),),),
-        _WeeklyDaysBaseView(date: DateTime.now().subtract(const Duration(days: 2),),),
-        _WeeklyDaysBaseView(date: DateTime.now().subtract(const Duration(days: 1),),),
-        _WeeklyDaysBaseView(date: DateTime.now(), selectionColor: const Color.fromARGB(255, 213, 231, 247),),
-        _WeeklyDaysBaseView(date: DateTime.now().add(const Duration(days: 1),),),
-        _WeeklyDaysBaseView(date: DateTime.now().add(const Duration(days: 2),),),
-        _WeeklyDaysBaseView(date: DateTime.now().add(const Duration(days: 3),),),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 1)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 1))
+                        .day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 2)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 2)).day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 3)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 3)).day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 4)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 4)).day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 5)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 5)).day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 6)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 6)).day
+                ? Colors.green.shade100
+                : null),
+        _WeeklyDaysBaseView(
+            date: DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 7)),
+            selectionColor: DateTime.now().day ==
+                    DateTime.now()
+                        .subtract(Duration(days: DateTime.now().weekday - 7)).day
+                ? Colors.green.shade100
+                : null),
       ],
     );
   }
 }
 
 class _WeeklyDaysBaseView extends StatelessWidget {
-  const _WeeklyDaysBaseView({Key? key, required this.date, this.selectionColor}) : super(key: key);
+  const _WeeklyDaysBaseView({Key? key, required this.date, this.selectionColor})
+      : super(key: key);
 
   final DateTime date;
   final Color? selectionColor;
@@ -47,16 +98,16 @@ class _WeeklyDaysBaseView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(DateFormat("MMM", 'tr').format(date).toUpperCase(), style:  defaultMonthTextStyle),
-                Text(date.day.toString(), style:  defaultDateTextStyle),
-                Text(DateFormat("E", 'tr').format(date).toUpperCase(), style:  defaultDayTextStyle)
+                Text(DateFormat("MMM", 'tr').format(date).toUpperCase(),
+                    style: defaultMonthTextStyle),
+                Text(date.day.toString(), style: defaultDateTextStyle),
+                Text(DateFormat("E", 'tr').format(date).toUpperCase(),
+                    style: defaultDayTextStyle)
               ],
             ),
           ),
         ),
-        onTap: () {
-    
-        },
+        onTap: () {},
       ),
     );
   }

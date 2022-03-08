@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../pages/dashboard/dashboard_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
+import '../pages/dashboard/dashboard_view.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
