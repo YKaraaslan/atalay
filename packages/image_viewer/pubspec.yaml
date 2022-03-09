@@ -1,6 +1,7 @@
-name: custom_package
-description: A new Flutter package project.
+name: image_viewer
+description: Flutter Image Viewer Package.
 version: 0.0.1
+project_author: Yunus Karaaslan
 homepage:
 
 environment:
