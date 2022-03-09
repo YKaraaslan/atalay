@@ -7,12 +7,13 @@ import '../constant/assets.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BaseAppBar(
-      {Key? key, this.zoomDrawerController, required this.title, this.bottom})
+      {Key? key, this.zoomDrawerController, required this.title, this.bottom, this.color})
       : super(key: key);
 
   final ZoomDrawerController? zoomDrawerController;
   final String title;
   final PreferredSizeWidget? bottom;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(color: Colors.black),
       ),
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: color ?? Colors.transparent,
       leading: zoomDrawerController == null
           ? const BackButton(color: Colors.black)
           : IconButton(

@@ -1,7 +1,8 @@
-import '../../../../../../core/base/view/base_view.dart';
-import '../../../../../../core/widgets/base_appbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/base/view/base_view.dart';
+import '../../../../../../core/widgets/base_appbar.dart';
 
 class ProjectTeamView extends StatelessWidget {
   const ProjectTeamView({Key? key}) : super(key: key);

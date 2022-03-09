@@ -12,6 +12,7 @@ class Assets {
   static final String notificationBell = _path('ic_notification_bell', 'png');
   static final String software = _path('software', 'jpg');
   
+  static final String posts = _path('ic_posts', 'png');
   static final String dashboard = _path('ic_dashboard', 'png');
   static final String projects = _path('ic_projects', 'png');
   static final String meetups = _path('ic_meetups', 'png');
@@ -25,6 +26,12 @@ class Assets {
   static final String groupsProjects = _path('groups_projects', 'png');
   static final String groupsTeam = _path('groups_team', 'png');
   static final String groupsComments = _path('groups_comments', 'png');
+
+  static final String postMenu = _path('ic_posts_menu', 'png');
+  static final String likeEmpty = _path('ic_like_empty', 'png');
+  static final String likeFilled = _path('ic_like_filled', 'png');
+  static final String comment = _path('ic_comment', 'png');
+  static final String savePosts = _path('ic_save_post', 'png');
 
 }
 

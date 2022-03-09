@@ -1,3 +1,5 @@
+import '../../view/authorized/pages/posts/details.dart/post_details_view.dart';
+
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,7 @@ class Routes {
   static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
   static const String groupsDetails = '/groups_details';
+  static const String postDetails = '/post_details';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
 
@@ -31,6 +34,7 @@ class Routes {
     projectTeam: (context) => const ProjectTeamView(),
     notifications: (context) => const NotificationsView(),
     groupsDetails: (context) => const GroupsDetailsView(),
+    postDetails: (context) => const PostDetailsView(),
     };
   }
 }

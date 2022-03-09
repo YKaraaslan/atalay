@@ -1,7 +1,7 @@
-import '../../../core/widgets/base_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/widgets/base_button.dart';
 import '../../../core/widgets/base_textformfield.dart';
 import '../unauthorized_baseview.dart';
 

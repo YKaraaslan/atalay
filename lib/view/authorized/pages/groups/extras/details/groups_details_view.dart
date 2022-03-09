@@ -1,11 +1,11 @@
-import '../../../../../../core/base/view/base_view.dart';
-import '../../../../../../core/constant/paddings.dart';
-import '../../../../../../core/constant/styles.dart';
-import 'groups_details_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/assets.dart';
+import '../../../../../../core/constant/paddings.dart';
+import '../../../../../../core/constant/styles.dart';
+import 'groups_details_viewmodel.dart';
 
 class GroupsDetailsView extends StatelessWidget {
   const GroupsDetailsView({Key? key}) : super(key: key);

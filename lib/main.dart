@@ -1,3 +1,5 @@
+import 'view/authorized/pages/posts/details.dart/post_details_viewmodel.dart';
+
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -38,6 +40,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => ProjectsViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesViewModel()),
         ChangeNotifierProvider(create: (context) => GroupDetailsViewModel()),
+        ChangeNotifierProvider(create: (context) => PostDetailsViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

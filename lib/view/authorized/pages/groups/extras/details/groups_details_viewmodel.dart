@@ -9,7 +9,7 @@ class GroupDetailsViewModel extends ChangeNotifier {
   final List<Tab> tabs = [
     Tab(text: 'Projeler', icon: Image.asset(Assets.groupsProjects, width: 30, height: 30)),
     Tab(text: 'Takim', icon: Image.asset(Assets.groupsTeam, width: 30, height: 30)),
-    Tab(text: 'Yorumlar', icon: Image.asset(Assets.groupsComments, width: 30, height: 30)),
+    Tab(text: 'Gonderiler', icon: Image.asset(Assets.groupsComments, width: 30, height: 30)),
   ];
 
   final List<Widget> pages = const [

@@ -1,3 +1,4 @@
+import '../../../../../../core/widgets/base_posts.dart';
 import 'package:flutter/material.dart';
 
 class GroupsCommentsView extends StatelessWidget {
@@ -5,6 +6,16 @@ class GroupsCommentsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BasePost(index: index),
+          ],
+        );
+      },
+    );
   }
 }

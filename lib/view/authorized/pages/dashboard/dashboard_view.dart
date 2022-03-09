@@ -1,15 +1,14 @@
-import '../../../../core/constant/assets.dart';
-import '../../../../core/constant/paddings.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
-
-import '../../../../core/base/view/base_view.dart';
-import '../../../../core/constant/sizes.dart';
-import '../../../../core/constant/styles.dart';
-import '../../../../core/widgets/base_appbar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
+import '../../../../core/base/view/base_view.dart';
+import '../../../../core/constant/assets.dart';
+import '../../../../core/constant/paddings.dart';
+import '../../../../core/constant/sizes.dart';
+import '../../../../core/constant/styles.dart';
+import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/weekly_days.dart';
 
 class DashboardView extends StatelessWidget {

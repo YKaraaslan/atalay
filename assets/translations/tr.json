@@ -28,6 +28,7 @@
 
 
     "zoom_drawer_section":"---------------------------------------------------------------------",
+    "posts": "Gönderiler",
     "dashboard":"Ana Sayfa",
     "projects":"Projeler",
     "groups":"Gruplar",
@@ -48,5 +49,8 @@
     "duty": "Görev",
 
     "notifications_view_section":"---------------------------------------------------------------------",
-    "notifications": "Bildirimler"
+    "notifications": "Bildirimler",
+
+
+    "report": "Şikayet Et"
  }

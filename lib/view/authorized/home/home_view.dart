@@ -1,3 +1,5 @@
+import '../pages/posts/posts_view.dart';
+
 import '../pages/calendar/calendar_view.dart';
 
 import '../pages/settings/settings_view.dart';
@@ -124,6 +126,13 @@ class _MenuItems extends StatelessWidget {
           builder: (context, HomeViewModel viewModel, child) => Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              _Item(
+                viewModel: viewModel,
+                assetName: Assets.posts,
+                title: 'posts'.tr(),
+                widget: PostsView(
+                    zoomDrawerController: viewModel.zoomDrawerController),
+              ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.dashboard,
