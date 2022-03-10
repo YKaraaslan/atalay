@@ -34,12 +34,32 @@ TextStyle zoomMenuTextStyle () {
   );
 }
 
-
-
 TextStyle cardTitleStyle () {
   return const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
+  );
+}
+
+TextStyle commentTitleStyle () {
+  return const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.black87
+  );
+}
+
+TextStyle commentSubTitleStyle () {
+  return  TextStyle(
+    fontSize: 13,
+    color: Colors.grey.shade800
+  );
+}
+
+TextStyle commentTimeStyle () {
+  return  TextStyle(
+    fontSize: 13,
+    color: Colors.grey.shade500
   );
 }
 

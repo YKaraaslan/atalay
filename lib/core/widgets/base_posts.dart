@@ -1,12 +1,11 @@
-import '../constant/assets.dart';
-import '../constant/routes.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
+import '../constant/assets.dart';
+import '../constant/routes.dart';
 import 'base_bottom_sheet.dart';
 
 class BasePost extends StatelessWidget {
-  const BasePost({Key? key, required this.index}) : super(key: key);
+  const BasePost({Key? key, this.index = 0}) : super(key: key);
   final int index;
 
   @override
@@ -16,29 +15,36 @@ class BasePost extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            leading: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://avatars.githubusercontent.com/u/34814190?v=4'),
-            ),
-            title: const Text('Yunus Karaaslan'),
-            subtitle: const Text('Yazilim Muhendisi'),
-            trailing: IconButton(
-              icon: SizedBox(
-                width: 15,
-                child: Image.asset(
-                  Assets.postMenu,
-                  color: Colors.grey.shade600,
-                ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                Routes.profile,
+              );
+            },
+            child: ListTile(
+              leading: const CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://avatars.githubusercontent.com/u/34814190?v=4'),
               ),
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return const BaseBottomSheet();
-                  },
-                );
-              },
+              title: const Text('Yunus Karaaslan'),
+              subtitle: const Text('Yazilim Muhendisi'),
+              trailing: IconButton(
+                icon: SizedBox(
+                  width: 15,
+                  child: Image.asset(
+                    Assets.postMenu,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return const BaseBottomSheet();
+                    },
+                  );
+                },
+              ),
             ),
           ),
           const Padding(
@@ -62,12 +68,9 @@ class BasePost extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Hero(
                   tag: 'image$index',
-                  child: ExtendedImage.network(
+                  child: Image.network(
                     'https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__480.jpg',
                     fit: BoxFit.fill,
-                    cache: true,
-                    mode: ExtendedImageMode.gesture,
-                    enableSlideOutPage: true,
                   ),
                 ),
               ),
@@ -87,10 +90,18 @@ class BasePost extends StatelessWidget {
                   ),
                 ),
               ),
-              const Text('12'),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(Routes.postLikes);
+                },
+                child: const Text('12'),
+              ),
               const SizedBox(width: 25),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(Routes.postComments, arguments: index);
+                },
                 icon: SizedBox(
                   width: 20,
                   child: Image.asset(

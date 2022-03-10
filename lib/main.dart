@@ -1,4 +1,4 @@
-import 'view/authorized/pages/posts/details.dart/post_details_viewmodel.dart';
+import 'view/authorized/pages/posts/post_details.dart/post_details_viewmodel.dart';
 
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';

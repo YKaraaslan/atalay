@@ -1,4 +1,8 @@
-import '../../view/authorized/pages/posts/details.dart/post_details_view.dart';
+import '../../view/authorized/pages/posts/post_comments.dart/post_comments_view.dart';
+import '../../view/authorized/pages/posts/post_likes.dart/post_like_view.dart';
+import '../../view/authorized/pages/profile/profile_view.dart';
+
+import '../../view/authorized/pages/posts/post_details.dart/post_details_view.dart';
 
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +16,6 @@ import '../../view/unauthorized/login/login_view.dart';
 import '../../view/unauthorized/signup/signup_view.dart';
 
 class Routes {
-
   static const String login = '/login';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot_password';
@@ -22,19 +25,24 @@ class Routes {
   static const String notifications = '/notifications';
   static const String groupsDetails = '/groups_details';
   static const String postDetails = '/post_details';
+  static const String postComments = '/post_comments';
+  static const String postLikes = '/post_likes';
+  static const String profile = '/profile';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
-
-  return {
-    login: (context) => LoginView(),
-    signup: (context) => SignupView(),
-    forgotPassword: (context) => ForgotPasswordView(),
-    home: (context) => const HomeView(),
-    projectDetails: (context) => const ProjectDetailsView(),
-    projectTeam: (context) => const ProjectTeamView(),
-    notifications: (context) => const NotificationsView(),
-    groupsDetails: (context) => const GroupsDetailsView(),
-    postDetails: (context) => const PostDetailsView(),
+    return {
+      login: (context) => LoginView(),
+      signup: (context) => SignupView(),
+      forgotPassword: (context) => ForgotPasswordView(),
+      home: (context) => const HomeView(),
+      projectDetails: (context) => const ProjectDetailsView(),
+      projectTeam: (context) => const ProjectTeamView(),
+      notifications: (context) => const NotificationsView(),
+      groupsDetails: (context) => const GroupsDetailsView(),
+      postDetails: (context) => const PostDetailsView(),
+      postComments: (context) => const PostCommentsView(),
+      postLikes: (context) => const PostLikeView(),
+      profile: (context) => const ProfileView(),
     };
   }
 }

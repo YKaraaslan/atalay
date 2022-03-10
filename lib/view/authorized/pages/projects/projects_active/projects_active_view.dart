@@ -1,6 +1,6 @@
-import '../../../../../core/constant/paddings.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constant/paddings.dart';
 import '../../../../../core/widgets/project_card.dart';
 
 class ProjectsActiveView extends StatelessWidget {

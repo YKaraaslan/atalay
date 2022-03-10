@@ -37,8 +37,8 @@ class _Body extends StatelessWidget {
       },
       heightPerMinute: 1, // height occupied by 1 minute time span.
       eventArranger: const SideEventArranger(), // To define how simultaneous events will be arranged.
-      onEventTap: (events, date) => print(events),
-      onDateLongPress: (date) => print(date),
+      onEventTap: (events, date) => events,
+      onDateLongPress: (date) => date,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       //weekPageHeaderBuilder: (date1, date2) => Text('$date1 - $date2'),
     );

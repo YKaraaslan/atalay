@@ -1,11 +1,11 @@
-import '../../../../core/constant/paddings.dart';
-import '../../../../core/constant/routes.dart';
-import '../../../../core/constant/styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/constant/paddings.dart';
+import '../../../../core/constant/routes.dart';
+import '../../../../core/constant/styles.dart';
 import '../../../../core/widgets/base_appbar.dart';
 
 class GroupsView extends StatelessWidget {

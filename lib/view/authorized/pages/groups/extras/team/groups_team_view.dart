@@ -1,5 +1,6 @@
-import '../../../../../../core/base/view/base_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/base/view/base_view.dart';
 
 class GroupsTeamView extends StatelessWidget {
   const GroupsTeamView({Key? key}) : super(key: key);

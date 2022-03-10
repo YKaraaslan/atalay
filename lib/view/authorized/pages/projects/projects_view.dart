@@ -1,4 +1,3 @@
-import 'projects_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import 'projects_viewmodel.dart';
 
 class ProjectsView extends StatelessWidget {
   const ProjectsView({Key? key, required this.zoomDrawerController})

@@ -6,10 +6,10 @@ import '../../../../core/base/view/base_view.dart';
 import '../../../../core/widgets/base_appbar.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key, required this.zoomDrawerController})
+  const ProfileView({Key? key, this.zoomDrawerController})
       : super(key: key);
 
-  final ZoomDrawerController zoomDrawerController;
+  final ZoomDrawerController? zoomDrawerController;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 name: atalay
 description: Atalay Mobile Application
+project_author: Yunus Karaaslan
 
 publish_to: 'none'
 
@@ -19,9 +20,8 @@ dependencies:
   flutter_zoom_drawer: ^2.3.1
   step_progress_indicator: ^1.0.2
   calendar_view: ^0.0.4
-  extended_image: ^6.0.1
-  story:
-    path: packages/story/
+  image_viewer:
+    path: 'packages/image_viewer/'
 
 dev_dependencies:
   flutter_test:
