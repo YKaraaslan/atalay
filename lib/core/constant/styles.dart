@@ -7,61 +7,56 @@ import 'dimens.dart';
 //   fontSize: 18.0,
 // );
 
-TextStyle titleStyle (BuildContext context) {
+TextStyle titleStyle(BuildContext context) {
   return TextStyle(
     fontSize: 23,
     color: Theme.of(context).primaryColor,
   );
 }
 
-TextStyle loginTitleStyle () {
+TextStyle loginTitleStyle() {
   return const TextStyle(
     fontSize: 20,
   );
 }
 
-TextStyle buttonTextStyle () {
+TextStyle buttonTextStyle() {
   return const TextStyle(
     fontSize: 18,
   );
 }
 
-
-TextStyle zoomMenuTextStyle () {
+TextStyle zoomMenuTextStyle() {
   return const TextStyle(
     fontSize: 17,
     color: Colors.white,
   );
 }
 
-TextStyle cardTitleStyle () {
+TextStyle cardTitleStyle() {
   return const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
   );
 }
 
-TextStyle commentTitleStyle () {
+TextStyle commentTitleStyle() {
   return const TextStyle(
-    fontSize: 15,
-    fontWeight: FontWeight.bold,
-    color: Colors.black87
-  );
+      fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black87);
 }
 
-TextStyle commentSubTitleStyle () {
-  return  TextStyle(
-    fontSize: 13,
-    color: Colors.grey.shade800
-  );
+TextStyle commentSubTitleStyle() {
+  return TextStyle(fontSize: 13, color: Colors.grey.shade800);
 }
 
-TextStyle commentTimeStyle () {
-  return  TextStyle(
-    fontSize: 13,
-    color: Colors.grey.shade500
-  );
+TextStyle commentTimeStyle() {
+  return TextStyle(fontSize: 13, color: Colors.grey.shade500);
 }
+
+const TextStyle financeTitleStyle = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.bold,
+);
 
 const TextStyle defaultMonthTextStyle = TextStyle(
   color: AppColors.defaultMonthColor,
