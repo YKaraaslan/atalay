@@ -22,6 +22,7 @@ class Assets {
   static final String profile = _path('ic_profile', 'png');
   static final String calendar = _path('ic_calendar', 'png');
   static final String settings = _path('ic_settings', 'png');
+  static final String onlineUsers = _path('ic_online_users', 'png');
 
   static final String groupsProjects = _path('groups_projects', 'png');
   static final String groupsTeam = _path('groups_team', 'png');

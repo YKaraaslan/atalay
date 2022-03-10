@@ -17,6 +17,7 @@ import '../pages/profile/profile_view.dart';
 import '../pages/projects/projects_view.dart';
 import '../pages/references/references_view.dart';
 import '../pages/settings/settings_view.dart';
+import '../pages/users/users_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
@@ -142,6 +143,13 @@ class _MenuItems extends StatelessWidget {
                 assetName: Assets.projects,
                 title: 'projects'.tr(),
                 widget: ProjectsView(
+                    zoomDrawerController: viewModel.zoomDrawerController),
+              ),
+              _Item(
+                viewModel: viewModel,
+                assetName: Assets.onlineUsers,
+                title: 'users'.tr(),
+                widget: UsersView(
                     zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
