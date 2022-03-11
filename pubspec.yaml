@@ -20,8 +20,18 @@ dependencies:
   flutter_zoom_drawer: ^2.3.1+1
   step_progress_indicator: ^1.0.2
   calendar_view: ^0.0.4
+  connectivity_plus: ^2.2.1
   image_viewer:
     path: 'packages/image_viewer/'
+  firebase_core: ^1.13.1
+  firebase_app_installations: ^0.1.0+8
+  flutterfire_ui: ^0.3.6
+  firebase_auth: ^3.3.10
+  firebase_performance: ^0.8.0+7
+  firebase_crashlytics: ^2.5.3
+  firebase_analytics: ^9.1.2
+  firebase_in_app_messaging: ^0.6.0+9
+  firebase_messaging: ^11.2.10
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +46,6 @@ flutter:
     - assets/images/
     - assets/translations/
     - android/app/build.gradle
-
 
   # fonts:
   #   - family: Schyler

@@ -55,5 +55,6 @@
 
     "report": "Şikayet Et",
     "comments": "Yorumlar",
-    "likes": "Begeniler"
+    "likes": "Begeniler",
+    "no_internet_connection": "Internet baglantisi bulunamadi. Lutfen internet baglantinizi kontrol edip uyguamayi tekrar aciniz."
  }

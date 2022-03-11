@@ -1,14 +1,12 @@
-import '../../view/authorized/pages/posts/post_comments.dart/post_comments_view.dart';
-import '../../view/authorized/pages/posts/post_likes.dart/post_like_view.dart';
-import '../../view/authorized/pages/profile/profile_view.dart';
-
-import '../../view/authorized/pages/posts/post_details.dart/post_details_view.dart';
-
-import '../../view/authorized/pages/notifications/notifications_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
+import '../../view/authorized/pages/notifications/notifications_view.dart';
+import '../../view/authorized/pages/posts/post_comments.dart/post_comments_view.dart';
+import '../../view/authorized/pages/posts/post_details.dart/post_details_view.dart';
+import '../../view/authorized/pages/posts/post_likes.dart/post_like_view.dart';
+import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';

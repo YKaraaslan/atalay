@@ -1,8 +1,8 @@
-import '../../../../../../core/constant/assets.dart';
-import '../comments/groups_comments_view.dart';
-import '../../../projects/projects_all/projects_all_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/constant/assets.dart';
+import '../../../projects/projects_all/projects_all_view.dart';
+import '../comments/groups_comments_view.dart';
 import '../team/groups_team_view.dart';
 
 class GroupDetailsViewModel extends ChangeNotifier {

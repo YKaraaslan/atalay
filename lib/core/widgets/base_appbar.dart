@@ -1,9 +1,9 @@
-import '../constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../constant/assets.dart';
+import '../constant/routes.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BaseAppBar(

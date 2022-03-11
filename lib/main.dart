@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'view/authorized/pages/posts/post_details.dart/post_details_viewmodel.dart';
 
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
@@ -24,6 +27,7 @@ import 'view/unauthorized/signup/signup_viewmodel.dart';
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
   runApp(
     MultiProvider(
@@ -60,15 +64,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 1))
-        .whenComplete(() => FlutterNativeSplash.remove());
-  }
+  late String _route;
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser == null
+        ? _route = Routes.login
+        : _route = Routes.home;
+
+    FirebaseAuth.instance.authStateChanges().listen(
+      (User? user) {
+        if (user == null) {
+          _route = Routes.login;
+        } else {
+          _route = Routes.home;
+        }
+      },
+    );
+
+    FlutterNativeSplash.remove();
     return CalendarControllerProvider(
       controller: EventController(),
       child: MaterialApp(
@@ -79,7 +93,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: Routes.getRoutes(context),
-        initialRoute: Routes.home,
+        initialRoute: _route,
       ),
     );
   }

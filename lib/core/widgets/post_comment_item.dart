@@ -1,7 +1,7 @@
-import '../constant/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../constant/routes.dart';
+import '../constant/styles.dart';
 
 class PostCommentItem extends StatelessWidget {
   const PostCommentItem({Key? key}) : super(key: key);
