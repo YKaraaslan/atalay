@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217184487124",
+    "project_id": "atalay-d5eaf",
+    "storage_bucket": "atalay-d5eaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217184487124:android:e8d0ccecec57e5dc8b1d41",
+        "android_client_info": {
+          "package_name": "com.atalay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217184487124-8ob3k6b2hunpg9i7l1esu67ri6qoe53a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atalay",
+            "certificate_hash": "94d43d8448b212a8a61909965e665f857b0a7aac"
+          }
+        },
+        {
+          "client_id": "217184487124-ba4pkj43797112610ids8p4r7j5s682o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPpHU_d0x3JcGAdrVvQurE0EBsxkilAqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217184487124-ba4pkj43797112610ids8p4r7j5s682o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

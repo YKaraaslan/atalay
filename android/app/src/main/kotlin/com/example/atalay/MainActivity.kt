@@ -1,4 +1,4 @@
-package com.example.atalay
+package com.atalay
 
 import io.flutter.embedding.android.FlutterActivity
 
