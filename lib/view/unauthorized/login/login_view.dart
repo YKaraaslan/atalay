@@ -121,8 +121,8 @@ class _FormField extends StatelessWidget {
                                 }
                               }),
                           GestureDetector(
-                            onTap: () => _viewModel.checkClickedReverse(),
-                            child: const Text('remember_me').tr())
+                              onTap: () => _viewModel.checkClickedReverse(),
+                              child: const Text('remember_me').tr())
                         ],
                       ),
                     ),
