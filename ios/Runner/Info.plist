@@ -45,7 +45,12 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
-
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>instagram</string>
+			<string>linkedin</string>
+			<string>twitter</string>
+		</array>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Upload images</string>
 		<key>NSCameraUsageDescription</key>

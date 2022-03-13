@@ -1,4 +1,8 @@
-import 'package:atalay/core/base/view/base_viewmodel.dart';
+import 'view/authorized/home/home_view.dart';
+import 'view/unauthorized/login/login_view.dart';
+
+import 'core/base/view/base_viewmodel.dart';
+import 'view/authorized/pages/settings/settings_viewmodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -45,6 +49,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => ReferencesViewModel()),
         ChangeNotifierProvider(create: (context) => GroupDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => PostDetailsViewModel()),
+        ChangeNotifierProvider(create: (context) => SettingsViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],
@@ -64,24 +69,32 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late String _route;
+  late Widget child;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     FirebaseAuth.instance.currentUser == null
-        ? _route = Routes.login
-        : _route = Routes.home;
+        ? child = const LoginView()
+        : child = const HomeView();
 
     FirebaseAuth.instance.authStateChanges().listen(
       (User? user) {
         if (user == null) {
-          _route = Routes.login;
+          setState(() {
+            child = const LoginView();
+          });
         } else {
-          _route = Routes.home;
+          setState(() {
+            child = const HomeView();
+          });
         }
       },
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return CalendarControllerProvider(
       controller: EventController(),
       child: MaterialApp(
@@ -92,8 +105,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: Routes.getRoutes(context),
-        initialRoute: Routes.login,
-        //initialRoute: _route,
+        home: child,
       ),
     );
   }

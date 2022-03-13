@@ -1,6 +1,8 @@
-import 'package:atalay/core/constant/assets.dart';
-import 'package:atalay/core/constant/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constant/assets.dart';
+import '../../../constant/colors.dart';
 
 class NoConnectionView extends StatelessWidget {
   const NoConnectionView({Key? key}) : super(key: key);
@@ -27,9 +29,9 @@ class NoConnectionView extends StatelessWidget {
                 scale: 4,
               )),
               const SizedBox(height: 15),
-              const Text(
-                'Internet baglantisi bulunamadi.\nBaglantinizi kontrol ediniz.',
-                style: TextStyle(
+              Text(
+                'no_connection_found'.tr(),
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),

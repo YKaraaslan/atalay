@@ -1,15 +1,13 @@
 import 'dart:io';
 
-import 'package:atalay/core/widgets/base_loading_dialog.dart';
-import 'package:atalay/view/unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
-import 'package:atalay/view/unauthorized/signup/sign_up_service.dart';
+import '../../../core/widgets/base_loading_dialog.dart';
+import 'widgets/signup_bottom_sheet_with_photo.dart';
+import 'sign_up_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../core/service/service_path.dart';
 import 'signup_model.dart';
 
 class SignUpViewModel extends ChangeNotifier {
@@ -23,84 +21,56 @@ class SignUpViewModel extends ChangeNotifier {
   File? image;
 
   Future signUp(BuildContext context) async {
-    String text = "Kayit islemi yapiliyor, lutfen bekleyiniz";
-    double value = 0;
-    showLoadingDialog(context, value, text);
-    try {
-      text = "Mail kaydi yapiliyor, lutfen bekleyiniz";
-      notifyListeners();
-      String? userID = await signUpService(mailController, passwordController);
-      if (userID == null) {
-        Navigator.of(context, rootNavigator: true).pop();
-        return showSnackbar(context, "Kayit islemi basarisiz");
-      }
-      else if (userID == 'weak-password') {
-        Navigator.of(context, rootNavigator: true).pop();
-        return showSnackbar(context, "Sifreniz kullanima uygun degilir. Lutfen guclu bir sifre kullaniniz.");
-      }
-      else if (userID == 'email-already-in-use') {
-        Navigator.of(context, rootNavigator: true).pop();
-        return showSnackbar(context, "Bu mail adresine kayitli bir hesap zaten bulunmaktadir.");
-      }
-      text = "Kullanici kaydi yapiliyor, lutfen bekleyiniz";
-      notifyListeners();
-      await signUpRegisterService(
-        SignUpModel(
-          id: userID,
-          name: nameController.text.trim(),
-          surname: surnameController.text.trim(),
-          phone: phoneController.text.trim(),
-          birthday: Timestamp.fromDate(
-              DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
-          mail: mailController.text.trim(),
-          password: passwordController.text.trim(),
-          image: image!,
-          signUpDateTime: Timestamp.fromDate(DateTime.now()),
-          onlineTime: Timestamp.fromDate(DateTime.now()),
-        ),
-      );
-      text = "Profil kaydi yapiliyor, lutfen bekleyiniz";
-      notifyListeners();
-
-      await ServicePath.profilePhotoReference
-          .child(userID)
-          .putFile(image!)
-          .then(
-        (event) {
-          value =
-              event.bytesTransferred.toDouble() / event.totalBytes.toDouble();
-          notifyListeners();
-        },
-      );
-
-      Navigator.of(context, rootNavigator: true).pop();
-      showSnackbar(context, 'Kayit Basarili');
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        showSnackbar(context,
-            'Şifreniz zayıf bulunmuştur. Lütfen güvenli bir şifre belirleyiniz.');
-      } else if (e.code == 'email-already-in-use') {
-        showSnackbar(context,
-            'Bu e-mail adresine kayitli bir hesap zaten bulunmaktadir.');
-      }
-    } catch (e) {
-      showSnackbar(context, e.toString());
+    showLoadingDialog(context);
+    String? userID = await signUpService(mailController, passwordController);
+    if (userID == null) {
+      return dismissDialog(context, "signing_up_failed".tr());
+    } else if (userID == 'weak-password') {
+      return dismissDialog(context, "weak_password".tr());
+    } else if (userID == 'email-already-in-use'.tr()) {
+      return dismissDialog(context, "email_already_in_use".tr());
     }
+    bool signUp = await signUpRegisterService(
+      SignUpModel(
+        id: userID,
+        name: nameController.text.trim(),
+        surname: surnameController.text.trim(),
+        phone: phoneController.text.trim(),
+        birthday: Timestamp.fromDate(
+            DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
+        mail: mailController.text.trim(),
+        password: passwordController.text.trim(),
+        image: image!,
+        signUpDateTime: Timestamp.fromDate(DateTime.now()),
+        onlineTime: Timestamp.fromDate(DateTime.now()),
+      ),
+    );
+
+    if (!signUp) {
+      return dismissDialog(context, "signing_up_failed".tr());
+    }
+
+    bool photoResult = await signUpPhotoService(image!, userID);
+    if (!photoResult) {
+      return dismissDialog(context, "signing_up_photo_failed".tr());
+    }
+
+    dismissDialog(context, "signing_up_succesful".tr());
+    return Navigator.pop(context);
   }
 
   void showSnackbar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(text),
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 5),
         action: SnackBarAction(label: 'OK', onPressed: () => true),
       ),
     );
   }
 
   void getSelection(BuildContext context) {
-    showBottomSheet(
+    showModalBottomSheet(
       context: context,
       builder: (context) {
         return SignUpBottomSheet(
@@ -142,12 +112,16 @@ class SignUpViewModel extends ChangeNotifier {
     birthdayController.text = DateFormat('dd MMMM yyyy').format(newDate!);
   }
 
-  Future<void> showLoadingDialog(
-      BuildContext context, double value, String text) async {
+  Future<void> showLoadingDialog(BuildContext context) async {
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) =>
-            LoadingDialog(value: value, text: text));
+            LoadingDialog(text: "signing_up".tr()));
+  }
+
+  void dismissDialog(BuildContext context, text) {
+    Navigator.of(context, rootNavigator: true).pop();
+    return showSnackbar(context, text);
   }
 }

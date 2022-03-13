@@ -1,9 +1,8 @@
-import 'dart:developer';
-
-import 'package:atalay/core/base/view/base_viewmodel.dart';
-import 'package:atalay/core/base/view/connection/no_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'base_viewmodel.dart';
+import 'connection/no_connection.dart';
 
 class BaseView<T> extends StatefulWidget {
   const BaseView(
@@ -52,7 +51,6 @@ class _BaseViewState extends State<BaseView> {
 
   @override
   Widget build(BuildContext context) {
-    log('BUILD');
     return Consumer(
       builder: (context, BaseViewModel _viewModel, child) => Scaffold(
         appBar: widget.appBar,

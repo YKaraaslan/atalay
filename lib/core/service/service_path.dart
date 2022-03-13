@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class ServicePath {
   ServicePath._();
-
+  static final FirebaseAuth auth = FirebaseAuth.instance;
   static final CollectionReference usersCollectionReference =
       FirebaseFirestore.instance.collection('Users');
   static final CollectionReference appCollectionReference =

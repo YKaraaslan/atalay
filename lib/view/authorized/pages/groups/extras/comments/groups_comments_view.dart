@@ -1,5 +1,6 @@
-import '../../../../../../core/widgets/base_posts.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/widgets/base_posts.dart';
 
 class GroupsCommentsView extends StatelessWidget {
   const GroupsCommentsView({Key? key}) : super(key: key);

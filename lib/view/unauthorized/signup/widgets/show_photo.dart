@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:atalay/core/base/view/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_viewer/main.dart';
+
+import '../../../../core/base/view/base_view.dart';
 
 class SignUpShowPhoto extends StatelessWidget {
   const SignUpShowPhoto({Key? key}) : super(key: key);

@@ -31,10 +31,10 @@ class Routes {
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
-      login: (context) => LoginView(),
+      login: (context) => const LoginView(),
       signup: (context) => const SignupView(),
       signupShowPhoto: (context) => const SignUpShowPhoto(),
-      forgotPassword: (context) => ForgotPasswordView(),
+      forgotPassword: (context) => const ForgotPasswordView(),
       home: (context) => const HomeView(),
       projectDetails: (context) => const ProjectDetailsView(),
       projectTeam: (context) => const ProjectTeamView(),
