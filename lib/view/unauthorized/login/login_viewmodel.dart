@@ -15,7 +15,7 @@ class LoginViewModel extends ChangeNotifier {
 
   Future login(BuildContext context) async {
     showLoadingDialog(context);
-    String signInResult = await loginService(LoginModel(userName: mailController.text.trim(), password: passwordController.text.trim()));
+    String signInResult = await loginService(LoginModel(mail: mailController.text.trim(), password: passwordController.text));
     if (signInResult == "true") {
       return dismissDialog(context, 'welcome'.tr());
     }
