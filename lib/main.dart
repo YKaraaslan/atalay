@@ -7,7 +7,6 @@ import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dar
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constant/routes.dart';
@@ -25,10 +24,9 @@ import 'view/unauthorized/login/login_viewmodel.dart';
 import 'view/unauthorized/signup/signup_viewmodel.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
@@ -82,7 +80,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
 
-    FlutterNativeSplash.remove();
     return CalendarControllerProvider(
       controller: EventController(),
       child: MaterialApp(
@@ -93,7 +90,8 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: Routes.getRoutes(context),
-        initialRoute: _route,
+        initialRoute: Routes.login,
+        //initialRoute: _route,
       ),
     );
   }

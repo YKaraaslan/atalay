@@ -22,13 +22,13 @@ class LoginView extends StatelessWidget {
             child: Column(
               children: [
                 BaseTextFormField(
-                  hint: 'username'.tr(),
+                  hint: 'mail'.tr(),
                   textInputAction: TextInputAction.next,
                   textInputType: TextInputType.name,
                   prefixIcon: const Icon(Icons.account_circle_sharp),
                   fun: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'login_username_validator'.tr();
+                      return 'login_mail_validator'.tr();
                     }
                     return null;
                   },
@@ -77,7 +77,9 @@ class LoginView extends StatelessWidget {
                 BaseButton(
                   text: 'login'.tr(),
                   fun: () {
-                    _formKey.currentState!.validate();
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(context, Routes.home);
+                    }
                   },
                 ),
               ],

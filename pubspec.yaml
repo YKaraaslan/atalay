@@ -1,6 +1,8 @@
 name: atalay
 description: Atalay Mobile Application
 project_author: Yunus Karaaslan
+project_author_email: karaaslan.21@hotmail.com
+project_author_phone: '+905319823347'
 
 publish_to: 'none'
 
@@ -32,6 +34,10 @@ dependencies:
   firebase_analytics: ^9.1.2
   firebase_in_app_messaging: ^0.6.0+9
   firebase_messaging: ^11.2.10
+  email_validator: ^2.0.1
+  image_picker: ^0.8.4+11
+  cloud_firestore: ^3.1.10
+  firebase_storage: ^10.2.9
 
 dev_dependencies:
   flutter_test:

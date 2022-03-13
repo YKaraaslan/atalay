@@ -1,11 +1,16 @@
 {
     "login_section":"---------------------------------------------------------------------",
     "login_title":"Atalay Roket Takımı",
-    "login_username_validator":"Kullanıcı adı boş bırakılamaz",
-    "username":"Kullanıcı Adı",
+    "login_mail_validator":"Mail adresi boş bırakılamaz",
+    "login_mail_invalid_validator":"Mail adresi geçersizdir",
+    "mail":"Mail Adresi",
+    "birthday": "Doğum Tarihi",
+    "birthday_validator":"Doğum tarihi boş bırakılamaz",
     "password":"Şifre",
     "password_validator":"Şifre boş bırakılamaz",
+    "password_length_validator":"Şifre 8 haneden küçük olamaz",
     "password_repeat":"Şifre Tekrar",
+    "password_not_match":"Şifreniz Uyuşmamaktadır",
     "forgot_password":"Şifremi Unuttum",
     "remember_me":"Beni Hatırla",
     "login": "Giriş Yap",
@@ -56,5 +61,7 @@
     "report": "Şikayet Et",
     "comments": "Yorumlar",
     "likes": "Begeniler",
-    "no_internet_connection": "Internet baglantisi bulunamadi. Lutfen internet baglantinizi kontrol edip uyguamayi tekrar aciniz."
+    "camera": "Kamera",
+    "show_photo": "Fotoğrafı Göster",
+    "gallery": "Galeri"
  }

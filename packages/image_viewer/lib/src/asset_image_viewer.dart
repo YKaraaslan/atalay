@@ -15,7 +15,7 @@ class AssetImageViewer extends StatelessWidget {
       heroAttribute: heroAttribute,
       child: Image.asset(
         imagePath,
-        fit: BoxFit.fitWidth,
+        fit: BoxFit.cover,
       ),
     );
   }
