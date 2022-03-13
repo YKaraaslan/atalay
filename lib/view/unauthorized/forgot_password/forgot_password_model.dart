@@ -1,6 +1,5 @@
 class ForgotPasswordModel {
-  String userName;
-  String password;
+  String mail;
 
-  ForgotPasswordModel({required this.userName, required this.password});
+  ForgotPasswordModel({required this.mail});
 }

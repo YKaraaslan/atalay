@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({
     Key? key,
-    required this.value,
     required this.text,
   }) : super(key: key);
 
-  final double? value;
   final String text;
 
   @override
@@ -20,22 +18,19 @@ class LoadingDialog extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     text,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.blueAccent),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: LinearProgressIndicator(
-                    value: value,
-                    backgroundColor: Colors.white,
-                  ),
+                const CircularProgressIndicator(
+                  backgroundColor: Colors.white,
                 ),
               ],
             ),

@@ -1,5 +1,5 @@
-import 'package:atalay/core/constant/assets.dart';
-import 'package:atalay/view/unauthorized/signup/signup_viewmodel.dart';
+import '../../../core/constant/assets.dart';
+import 'signup_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -225,14 +225,14 @@ class _MailField extends StatelessWidget {
         hint: 'mail'.tr(),
         controller: _viewModel.mailController,
         textInputAction: TextInputAction.next,
-        textInputType: TextInputType.text,
+        textInputType: TextInputType.emailAddress,
         prefixIcon: const Icon(Icons.mail_outline),
         fun: (value) {
           if (value == null || value.isEmpty) {
-            return 'login_mail_validator'.tr();
+            return 'mail_validator'.tr();
           }
-          if (!EmailValidator.validate(value) || !value.endsWith('.com')) {
-            return 'login_mail_invalid_validator'.tr();
+          if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
+            return 'mail_invalid_validator'.tr();
           }
           return null;
         },
@@ -310,10 +310,10 @@ class _SignUpButton extends StatelessWidget {
       builder: (context, SignUpViewModel _viewModel, child) => BaseButton(
         text: 'sign_up'.tr(),
         fun: () {
-          if (_viewModel.image == null) {
-            _viewModel.showSnackbar(context, 'Fotograf Bos Birakilamaz');
-          }
-          else if (_viewModel.formKey.currentState!.validate()) {
+          if (_viewModel.formKey.currentState!.validate()) {
+            if (_viewModel.image == null) {
+              return _viewModel.showSnackbar(context, 'photo_validator'.tr());
+            }
             _viewModel.signUp(context);
           }
         },
@@ -321,4 +321,3 @@ class _SignUpButton extends StatelessWidget {
     );
   }
 }
-

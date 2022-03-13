@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'base_viewmodel.dart';
+import 'connection/no_connection.dart';
 
 class BaseView<T> extends StatefulWidget {
   const BaseView(
@@ -29,28 +33,36 @@ class BaseView<T> extends StatefulWidget {
 }
 
 class _BaseViewState extends State<BaseView> {
+  late final BaseViewModel _viewModel = context.read<BaseViewModel>();
+
   @override
   void initState() {
     super.initState();
     if (widget.onModelReady != null) widget.onModelReady!(widget.viewModel);
+    _viewModel.initStates();
   }
 
   @override
   void dispose() {
     super.dispose();
     if (widget.onDispose != null) widget.onDispose!();
+    _viewModel.subscription.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: widget.appBar,
-      bottomNavigationBar: widget.bottomNavigationBar,
-      drawer: widget.drawer,
-      floatingActionButton: widget.floatingActionButton,
-      backgroundColor:
-          widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-      body: widget.onPageBuilder(context, widget.viewModel),
+    return Consumer(
+      builder: (context, BaseViewModel _viewModel, child) => Scaffold(
+        appBar: widget.appBar,
+        bottomNavigationBar: widget.bottomNavigationBar,
+        drawer: widget.drawer,
+        floatingActionButton: widget.floatingActionButton,
+        backgroundColor:
+            widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        body: _viewModel.connected == true
+            ? widget.onPageBuilder(context, widget.viewModel)
+            : const NoConnectionView(),
+      ),
     );
   }
 }

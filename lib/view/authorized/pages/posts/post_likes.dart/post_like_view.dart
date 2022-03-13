@@ -1,9 +1,9 @@
-import '../../../../../core/constant/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
+import '../../../../../core/constant/routes.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 
 class PostLikeView extends StatelessWidget {

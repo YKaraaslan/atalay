@@ -62,3 +62,7 @@ pubspec.lock
 *.js_
 *.js.deps
 *.js.map
+
+
+# Custom
+/android/app/google-services.json

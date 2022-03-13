@@ -21,19 +21,21 @@ import '../pages/users/users_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key, this.pageToShow}) : super(key: key);
+  final String? pageToShow;
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  late HomeViewModel viewModel = context.watch<HomeViewModel>();
+
   @override
   Widget build(BuildContext context) {
-    final HomeViewModel viewModel = context.watch<HomeViewModel>();
     return WillPopScope(
       onWillPop: () {
-        return _onWillPop(viewModel);
+        return viewModel.onWillPop();
       },
       child: BaseView(
         onPageBuilder: (context, value) => ZoomDrawer(
@@ -50,25 +52,14 @@ class _HomeViewState extends State<HomeView> {
           angle: 0.0,
           clipMainScreen: true,
           mainScreen: GestureDetector(
-            onTap: () {
-              if (viewModel.zoomDrawerController.isOpen!()) {
-                viewModel.zoomDrawerController.toggle!();
-              }
-            },
-            child: viewModel.selectedWidget,
+            onTap: viewModel.menuTap,
+            child: viewModel.selectedWiget,
             //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
           ),
           menuScreen: const _Menu(),
         ),
       ),
     );
-  }
-
-  Future<bool> _onWillPop(HomeViewModel viewModel) async {
-    if (viewModel.zoomDrawerController.isOpen!()) {
-      viewModel.zoomDrawerController.close!();
-    }
-    return false;
   }
 }
 
