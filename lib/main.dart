@@ -1,3 +1,4 @@
+import 'firebase_options.dart';
 import 'view/authorized/home/home_view.dart';
 import 'view/unauthorized/login/login_view.dart';
 
@@ -31,7 +32,9 @@ import 'view/unauthorized/signup/signup_viewmodel.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -54,7 +57,7 @@ Future<void> main() async {
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],
         path: 'assets/translations',
-        fallbackLocale: const Locale('tr', ''),
+        fallbackLocale: const Locale('tr', 'TR'),
         child: const MyApp(),
       ),
     ),
