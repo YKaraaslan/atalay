@@ -26,6 +26,7 @@ class _LoginViewState extends State<LoginView> {
     _viewModel.formKey = GlobalKey<FormState>();
     _viewModel.mailController = TextEditingController();
     _viewModel.passwordController = TextEditingController();
+    _viewModel.setFieldsforInit();
   }
 
   @override

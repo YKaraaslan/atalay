@@ -1,23 +1,25 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+
+import '../../../firebase_options.dart';
 import 'signup_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import '../../../core/service/service_path.dart';
-
 
 UserCredential? userCredential;
 
-Future<String?> signUpService(TextEditingController mailController,
-    TextEditingController passwordController) async {
+Future<String?> signUpService(String mail, String password) async {
   try {
-    userCredential = await ServicePath.auth.createUserWithEmailAndPassword(
-      email: mailController.text.trim(),
-      password: passwordController.text.trim(),
+    FirebaseApp tempApp = await Firebase.initializeApp(name: 'temporaryRegister', options: DefaultFirebaseOptions.currentPlatform);
+    userCredential = await FirebaseAuth.instanceFor(app: tempApp).createUserWithEmailAndPassword(
+      email: mail,
+      password: password,
     );
     if (userCredential!.user != null) {
       return userCredential!.user!.uid;
     }
+    tempApp.delete();
     return null;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

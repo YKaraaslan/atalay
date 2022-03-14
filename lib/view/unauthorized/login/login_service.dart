@@ -5,8 +5,8 @@ import '../../../core/service/service_path.dart';
 
 Future<dynamic> loginService(LoginModel model) async {
   try {
-    await ServicePath.auth
-        .signInWithEmailAndPassword(email: model.mail, password: model.password);
+    await ServicePath.auth.signInWithEmailAndPassword(
+        email: model.mail, password: model.password);
     return "true";
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -16,5 +16,21 @@ Future<dynamic> loginService(LoginModel model) async {
     } else {
       return "false";
     }
+  }
+}
+
+Future<bool> updatePassword(LoginModel model) async {
+  try {
+    await ServicePath.usersCollectionReference
+        .where('mail', isEqualTo: model.mail)
+        .get()
+        .then((value) {
+      ServicePath.usersCollectionReference
+          .doc(value.docs.first.id)
+          .update({'password': model.password});
+    });
+    return true;
+  } catch (e) {
+    return false;
   }
 }
