@@ -1,3 +1,4 @@
+import 'core/service/service_path.dart';
 import 'firebase_options.dart';
 import 'view/authorized/home/home_view.dart';
 import 'view/unauthorized/login/login_view.dart';
@@ -73,15 +74,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Widget child;
-
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.currentUser == null
+    ServicePath.auth.currentUser == null
         ? child = const LoginView()
         : child = const HomeView();
 
-    FirebaseAuth.instance.authStateChanges().listen(
+    ServicePath.auth.authStateChanges().listen(
       (User? user) {
         if (user == null) {
           setState(() {
@@ -108,6 +108,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: Routes.getRoutes(context),
+        //home: TrainingView(),
         home: child,
       ),
     );
