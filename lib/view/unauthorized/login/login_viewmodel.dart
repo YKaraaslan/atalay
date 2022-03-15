@@ -24,8 +24,16 @@ class LoginViewModel extends ChangeNotifier {
   Future login(BuildContext context) async {
     baseDialog.text = "logging_in".tr();
     baseDialog.showLoadingDialog(context);
-    String signInResult = await loginService(LoginModel(
-        mail: mailController.text.trim(), password: passwordController.text));
+
+    LoginModel model = LoginModel(
+        mail: mailController.text.trim(), password: passwordController.text);
+
+    if (await checkIfUser(model) == "exists") {
+      setFieldsForLogin();
+      return dismissDialog(context, 'login_user_not_accepted_yet'.tr());
+    }
+
+    String signInResult = await loginService(model);
     if (signInResult == "true") {
       baseDialog.dismissDialog();
       updatePassword(LoginModel(

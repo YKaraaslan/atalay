@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/users_onhold/users_onhold_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -191,6 +192,16 @@ class _MenuItems extends StatelessWidget {
                 title: 'settings'.tr(),
                 widget: SettingsView(
                     zoomDrawerController: viewModel.zoomDrawerController),
+              ),
+              Visibility(
+                visible: true,
+                child: _Item(
+                  viewModel: viewModel,
+                  assetName: Assets.usersOnHold,
+                  title: 'users_onhold'.tr(),
+                  widget: UsersOnHoldView(
+                      zoomDrawerController: viewModel.zoomDrawerController),
+                ),
               ),
             ],
           ),
