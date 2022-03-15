@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SignUpModel {
+class UserModel {
   String id;
   String name;
   String surname;
@@ -10,8 +10,14 @@ class SignUpModel {
   String password;
   String imageURL;
   Timestamp signUpTime;
+  Timestamp signUpAcceptedTime;
+  String signUpAcceptedBy;
+  String authorization;
+  String position;
+  bool online;
+  Timestamp onlineTime;
 
-  SignUpModel({
+  UserModel({
     required this.id,
     required this.name,
     required this.surname,
@@ -21,7 +27,14 @@ class SignUpModel {
     required this.password,
     required this.imageURL,
     required this.signUpTime,
+    required this.signUpAcceptedTime,
+    required this.signUpAcceptedBy,
+    required this.authorization,
+    required this.position,
+    required this.online,
+    required this.onlineTime,
   });
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -34,6 +47,12 @@ class SignUpModel {
       'password': password,
       'imageURL': imageURL,
       'signUpTime': signUpTime,
+      'signUpAcceptedTime': signUpAcceptedTime,
+      'signUpAcceptedBy': signUpAcceptedBy,
+      'authorization': authorization,
+      'position': position,
+      'online': online,
+      'onlineTime': onlineTime,
     };
   }
 }

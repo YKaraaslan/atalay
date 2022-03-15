@@ -16,6 +16,7 @@
     "login": "Giriş Yap",
     "login_failed": "Kullanici girisi yapilamadi",
     "login_title":"Atalay Roket Takımı",
+    "login_user_not_accepted_yet":"Bu mail adresine ait kullanici henuz onaylanmadi",
     "login_user_not_found":"Bu mail adresine ait kullanici bulunamadi",
     "login_wrong_password":"Yanlis mail adresi veya sifre",
     "mail":"Mail Adresi",
@@ -53,6 +54,7 @@
     "surname": "Soyisim",
     "surname_validator": "Soyisim boş bırakılamaz",
     "team": "Takım",
+    "users_onhold": "Kayit Bekleyenler",
     "weak_password": "Sifreniz kullanima uygun degildir. Lutfen guclu bir sifre kullaniniz.",
     "welcome": "Hosgeldiniz!",
    

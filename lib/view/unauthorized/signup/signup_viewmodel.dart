@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:base_dialog/main.dart';
 import 'widgets/signup_bottom_sheet_with_photo.dart';
-import 'sign_up_service.dart';
+import 'sign_up_service_copy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,9 @@ class SignUpViewModel extends ChangeNotifier {
   Future signUp(BuildContext context) async {
     baseDialog.text = "signing_up".tr();
     baseDialog.showLoadingDialog(context);
-    String? userID = await signUpService(mailController.text.trim(), passwordController.text);
+
+    String? userID = await signUpService(
+        mailController.text.trim(), passwordController.text);
     if (userID == null) {
       return dismissDialog(context, "signing_up_failed".tr());
     } else if (userID == 'weak-password') {
@@ -32,31 +34,31 @@ class SignUpViewModel extends ChangeNotifier {
     } else if (userID == 'email-already-in-use'.tr()) {
       return dismissDialog(context, "email_already_in_use".tr());
     }
-    bool signUp = await signUpRegisterService(
-      SignUpModel(
-        id: userID,
-        name: nameController.text.trim(),
-        surname: surnameController.text.trim(),
-        phone: phoneController.text.trim(),
-        birthday: Timestamp.fromDate(
-            DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
-        mail: mailController.text.trim(),
-        password: passwordController.text.trim(),
-        image: image!,
-        signUpDateTime: Timestamp.fromDate(DateTime.now()),
-        onlineTime: Timestamp.fromDate(DateTime.now()),
-      ),
-    );
-
-    if (!signUp) {
-      return dismissDialog(context, "signing_up_failed".tr());
-    }
 
     bool photoResult = await signUpPhotoService(image!, userID);
     if (!photoResult) {
       return dismissDialog(context, "signing_up_photo_failed".tr());
     }
-       
+
+    String photoURL = await signUpPhotoURL(userID);
+
+    SignUpModel model = SignUpModel(
+      id: userID,
+      name: nameController.text.trim(),
+      surname: surnameController.text.trim(),
+      phone: phoneController.text.trim(),
+      birthday: Timestamp.fromDate(
+          DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
+      mail: mailController.text.trim(),
+      password: passwordController.text.trim(),
+      imageURL: photoURL,
+      signUpTime: Timestamp.fromDate(DateTime.now()),
+    );
+
+    bool signUp = await signUpRegisterService(model);
+    if (!signUp) {
+      return dismissDialog(context, "signing_up_failed".tr());
+    }
     dismissDialog(context, "signing_up_succesful".tr());
     return Navigator.pop(context);
   }

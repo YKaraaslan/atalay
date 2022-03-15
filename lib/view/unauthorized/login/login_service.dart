@@ -34,3 +34,21 @@ Future<bool> updatePassword(LoginModel model) async {
     return false;
   }
 }
+
+Future<String> checkIfUser(LoginModel model) async {
+  String result = "not_found";
+  try {
+    await ServicePath.usersOnHoldCollectionReference
+        .where('mail', isEqualTo: model.mail)
+        .get()
+        .then((value) {
+      if (value.docs.first.exists) {
+        result = "exists";
+      }
+    });
+  } catch (e) {
+    return result;
+  }
+
+  return result;
+}

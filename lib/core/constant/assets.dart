@@ -36,6 +36,7 @@ class Assets {
 
   static final String noConnection = _path('no_connection', 'png');
   static final String noConnectionBackground = _path('no_connection_background', 'jpg');
+  static final String usersOnHold = _path('users_onhold', 'png');
 }
 
 String _path(String name, String type) {
