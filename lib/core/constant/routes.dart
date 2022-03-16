@@ -1,5 +1,5 @@
-import 'package:atalay/core/widgets/base_photo_viewer.dart';
-import 'package:atalay/view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
+import '../widgets/base_photo_viewer.dart';
+import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';

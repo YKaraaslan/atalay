@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:animated_shimmer/animated_shimmer.dart';
-import 'package:atalay/view/authorized/pages/users/users_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/constant/routes.dart';
@@ -24,8 +20,6 @@ class UsersView extends StatefulWidget {
 }
 
 class _UsersViewState extends State<UsersView> {
-  late final UsersViewModel _viewModel = context.watch<UsersViewModel>();
-
   @override
   Widget build(BuildContext context) {
     return BaseView(

@@ -1,4 +1,4 @@
-import 'package:atalay/core/service/service_path.dart';
+import '../../../../core/service/service_path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 

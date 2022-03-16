@@ -1,5 +1,5 @@
-import 'package:atalay/view/authorized/pages/users/users_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
+import 'view/authorized/pages/users/users_viewmodel.dart';
+import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
 
 import 'core/service/service_path.dart';
 import 'firebase_options.dart';

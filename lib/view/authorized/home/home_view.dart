@@ -1,4 +1,4 @@
-import 'package:atalay/view/authorized/pages/users_onhold/users_onhold_view.dart';
+import '../pages/users_onhold/users_onhold_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';

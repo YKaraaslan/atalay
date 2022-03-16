@@ -1,6 +1,7 @@
-import 'package:atalay/core/base/view/base_view.dart';
 import 'package:base_dialog/main.dart';
 import 'package:flutter/material.dart';
+
+import 'core/base/view/base_view.dart';
 
 class TrainingView extends StatelessWidget {
   const TrainingView({Key? key}) : super(key: key);

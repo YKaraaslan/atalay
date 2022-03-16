@@ -1,4 +1,4 @@
-import 'package:atalay/core/base/view/base_view.dart';
+import '../base/view/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_viewer/main.dart';
 

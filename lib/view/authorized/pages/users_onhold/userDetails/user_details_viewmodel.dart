@@ -1,6 +1,6 @@
-import 'package:atalay/core/models/user_model.dart';
-import 'package:atalay/core/models/users_onhold_model.dart';
-import 'package:atalay/core/service/service_path.dart';
+import '../../../../../core/models/user_model.dart';
+import '../../../../../core/models/users_onhold_model.dart';
+import '../../../../../core/service/service_path.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';

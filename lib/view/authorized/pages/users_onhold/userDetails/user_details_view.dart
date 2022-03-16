@@ -1,9 +1,9 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import 'package:atalay/core/base/view/base_view.dart';
-import 'package:atalay/core/constant/paddings.dart';
-import 'package:atalay/core/models/authorization_model.dart';
-import 'package:atalay/core/widgets/base_textfield.dart';
-import 'package:atalay/view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
+import '../../../../../core/base/view/base_view.dart';
+import '../../../../../core/constant/paddings.dart';
+import '../../../../../core/models/authorization_model.dart';
+import '../../../../../core/widgets/base_textfield.dart';
+import 'user_details_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';

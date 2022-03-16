@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:base_dialog/main.dart';
-import '../../../core/models/users_onhold_model.dart';
-import 'widgets/signup_bottom_sheet_with_photo.dart';
-import 'sign_up_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../core/models/users_onhold_model.dart';
+import 'sign_up_service.dart';
+import 'widgets/signup_bottom_sheet_with_photo.dart';
 
 class SignUpViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;

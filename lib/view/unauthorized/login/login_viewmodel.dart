@@ -1,12 +1,11 @@
 import 'package:base_dialog/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'login_model.dart';
-
-import 'login_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'login_model.dart';
+import 'login_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
