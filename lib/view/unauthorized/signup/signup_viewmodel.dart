@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:base_dialog/main.dart';
+import '../../../core/models/users_onhold_model.dart';
 import 'widgets/signup_bottom_sheet_with_photo.dart';
-import 'sign_up_service_copy.dart';
+import 'sign_up_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'signup_model.dart';
 
 class SignUpViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
@@ -25,8 +24,7 @@ class SignUpViewModel extends ChangeNotifier {
     baseDialog.text = "signing_up".tr();
     baseDialog.showLoadingDialog(context);
 
-    String? userID = await signUpService(
-        mailController.text.trim(), passwordController.text);
+    String? userID = await signUpService(mailController.text.trim(), passwordController.text);
     if (userID == null) {
       return dismissDialog(context, "signing_up_failed".tr());
     } else if (userID == 'weak-password') {
@@ -41,18 +39,20 @@ class SignUpViewModel extends ChangeNotifier {
     }
 
     String photoURL = await signUpPhotoURL(userID);
+    String token = await getToken();
 
-    SignUpModel model = SignUpModel(
+    UsersOnHoldModel model = UsersOnHoldModel(
       id: userID,
       name: nameController.text.trim(),
       surname: surnameController.text.trim(),
+      fullName: nameController.text.trim() + " " + surnameController.text.trim(),
       phone: phoneController.text.trim(),
-      birthday: Timestamp.fromDate(
-          DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
+      birthday: Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
       mail: mailController.text.trim(),
       password: passwordController.text.trim(),
       imageURL: photoURL,
       signUpTime: Timestamp.fromDate(DateTime.now()),
+      token: token,
     );
 
     bool signUp = await signUpRegisterService(model);
@@ -89,8 +89,7 @@ class SignUpViewModel extends ChangeNotifier {
 
   Future getFromCamera() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.camera);
+    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -98,8 +97,7 @@ class SignUpViewModel extends ChangeNotifier {
 
   Future getFromGallery() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();

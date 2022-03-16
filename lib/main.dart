@@ -1,6 +1,10 @@
+import 'package:atalay/view/authorized/pages/users/users_viewmodel.dart';
+import 'package:atalay/view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
+
 import 'core/service/service_path.dart';
 import 'firebase_options.dart';
 import 'view/authorized/home/home_view.dart';
+import 'view/authorized/pages/users_onhold/users_onhold_viewmodel.dart';
 import 'view/unauthorized/login/login_view.dart';
 
 import 'core/base/view/base_viewmodel.dart';
@@ -54,6 +58,9 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => GroupDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => PostDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => SettingsViewModel()),
+        ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel()),
+        ChangeNotifierProvider(create: (context) => UserDetailsViewModel()),
+        ChangeNotifierProvider(create: (context) => UsersViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

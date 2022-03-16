@@ -38,7 +38,7 @@ class BaseTextFormField extends StatelessWidget {
             style: BorderStyle.none,
           ),
         ),
-        hintText: hint,
+        labelText: hint,
         prefixIcon: prefixIcon,
       ),
       validator: fun,

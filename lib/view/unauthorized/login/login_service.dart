@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'login_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,15 +22,15 @@ Future<dynamic> loginService(LoginModel model) async {
   }
 }
 
-Future<bool> updatePassword(LoginModel model) async {
+Future<bool> updatePasswordandToken(LoginModel model) async {
   try {
     await ServicePath.usersCollectionReference
         .where('mail', isEqualTo: model.mail)
         .get()
         .then((value) {
-      ServicePath.usersCollectionReference
-          .doc(value.docs.first.id)
-          .update({'password': model.password});
+      DocumentReference<Object?> docRef = ServicePath.usersCollectionReference.doc(value.docs.first.id);
+          docRef.update({'password': model.password});
+          docRef.update({'token': getToken()});
     });
     return true;
   } catch (e) {
@@ -51,4 +54,14 @@ Future<String> checkIfUser(LoginModel model) async {
   }
 
   return result;
+}
+
+Future getToken() async {
+  String token = "";
+  await FirebaseMessaging.instance.getToken().then((value) {
+    token = value ?? "";
+    return token;
+  });
+  
+  return token;
 }

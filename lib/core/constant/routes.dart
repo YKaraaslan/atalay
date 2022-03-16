@@ -1,3 +1,5 @@
+import 'package:atalay/core/widgets/base_photo_viewer.dart';
+import 'package:atalay/view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
@@ -28,6 +30,8 @@ class Routes {
   static const String postComments = '/post_comments';
   static const String postLikes = '/post_likes';
   static const String profile = '/profile';
+  static const String userDetails = '/user_details';
+  static const String basePhotoViewer = '/base_photo_viewer';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -44,6 +48,8 @@ class Routes {
       postComments: (context) => const PostCommentsView(),
       postLikes: (context) => const PostLikeView(),
       profile: (context) => const ProfileView(),
+      userDetails: (context) => const UserDetailsView(),
+      basePhotoViewer: (context) => const BasePhotoViewer(),
     };
   }
 }

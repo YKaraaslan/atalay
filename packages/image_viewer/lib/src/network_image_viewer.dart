@@ -15,7 +15,7 @@ class NetworkImageViewer extends StatelessWidget {
       heroAttribute: heroAttribute,
       child: Image.network(
         imageURL,
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
       ),
     );
   }

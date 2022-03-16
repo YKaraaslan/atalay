@@ -25,8 +25,7 @@ class LoginViewModel extends ChangeNotifier {
     baseDialog.text = "logging_in".tr();
     baseDialog.showLoadingDialog(context);
 
-    LoginModel model = LoginModel(
-        mail: mailController.text.trim(), password: passwordController.text);
+    LoginModel model = LoginModel(mail: mailController.text.trim(), password: passwordController.text);
 
     if (await checkIfUser(model) == "exists") {
       setFieldsForLogin();
@@ -36,8 +35,7 @@ class LoginViewModel extends ChangeNotifier {
     String signInResult = await loginService(model);
     if (signInResult == "true") {
       baseDialog.dismissDialog();
-      updatePassword(LoginModel(
-          mail: mailController.text.trim(), password: passwordController.text));
+      updatePasswordandToken(LoginModel(mail: mailController.text.trim(), password: passwordController.text));
       return setFieldsForLogin();
     } else if (signInResult == "user-not-found") {
       return dismissDialog(context, 'login_user_not_found'.tr());

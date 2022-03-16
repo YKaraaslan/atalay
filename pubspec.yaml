@@ -25,6 +25,8 @@ dependencies:
   calendar_view: ^0.0.4
   connectivity_plus: ^2.2.1
   shared_preferences: ^2.0.13
+  url_launcher: ^6.0.20
+  animated_shimmer: ^1.0.0
   image_viewer:
     path: 'packages/image_viewer/'
   base_dialog:
@@ -42,7 +44,6 @@ dependencies:
   image_picker: ^0.8.4+11
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.9
-  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
