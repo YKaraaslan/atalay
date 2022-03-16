@@ -1,6 +1,8 @@
 {
     "active_projects": "Aktif Projeler",
     "accepting_user": "Kullanici kaydi tamamlaniyor, lutfen bekleyiniz",
+    "add_label": "Etiket Ekle",
+    "add_image": "Resim Ekle",
     "all_projects": "Tüm Projeler",
     "authentication": "Yetki",
     "birthday": "Doğum Tarihi",
@@ -45,6 +47,8 @@
     "phone_length_validator": "Telefon numarası 11 haneli olmalıdır",
     "phone_validator": "Telefon numarası boş bırakılamaz",
     "photo_validator": "Fotograf bos birakilamaz",
+    "post_create": "Gonderi Olustur",
+    "post_create_hint_text": "Aklindan gecenleri yaz...",
     "process_finished_successfully": "Islem basariyla gerceklestirildi",
     "remember_me":"Beni Hatırla",
     "report": "Şikayet Et",

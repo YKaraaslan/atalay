@@ -1,18 +1,18 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import '../../../../../core/base/view/base_view.dart';
-import '../../../../../core/constant/paddings.dart';
-import '../../../../../core/models/authorization_model.dart';
-import '../../../../../core/widgets/base_textfield.dart';
-import 'user_details_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/base/view/base_view.dart';
+import '../../../../../core/constant/paddings.dart';
 import '../../../../../core/constant/routes.dart';
+import '../../../../../core/models/authorization_model.dart';
 import '../../../../../core/models/users_onhold_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_appbar.dart';
+import '../../../../../core/widgets/base_textfield.dart';
+import 'user_details_viewmodel.dart';
 
 class UserDetailsView extends StatelessWidget {
   const UserDetailsView({Key? key}) : super(key: key);

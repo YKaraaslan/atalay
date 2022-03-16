@@ -12,7 +12,7 @@ import 'view/authorized/pages/settings/settings_viewmodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'view/authorized/pages/posts/post_details.dart/post_details_viewmodel.dart';
+import 'view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
 
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';

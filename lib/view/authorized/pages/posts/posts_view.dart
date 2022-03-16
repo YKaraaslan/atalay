@@ -1,3 +1,4 @@
+import 'package:atalay/core/constant/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -7,8 +8,7 @@ import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/base_posts.dart';
 
 class PostsView extends StatelessWidget {
-  const PostsView({Key? key, required this.zoomDrawerController})
-      : super(key: key);
+  const PostsView({Key? key, required this.zoomDrawerController}) : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -21,6 +21,12 @@ class PostsView extends StatelessWidget {
         color: Colors.white,
       ),
       onPageBuilder: (context, value) => const _Body(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.create),
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.postCreate);
+        },
+      ),
     );
   }
 }

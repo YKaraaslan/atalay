@@ -1,3 +1,4 @@
+import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../widgets/base_photo_viewer.dart';
 import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,9 @@ import 'package:flutter/material.dart';
 import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
-import '../../view/authorized/pages/posts/post_comments.dart/post_comments_view.dart';
-import '../../view/authorized/pages/posts/post_details.dart/post_details_view.dart';
-import '../../view/authorized/pages/posts/post_likes.dart/post_like_view.dart';
+import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
+import '../../view/authorized/pages/posts/post_details/post_details_view.dart';
+import '../../view/authorized/pages/posts/post_likes/post_like_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
@@ -32,6 +33,7 @@ class Routes {
   static const String profile = '/profile';
   static const String userDetails = '/user_details';
   static const String basePhotoViewer = '/base_photo_viewer';
+  static const String postCreate = '/post_create';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -50,6 +52,7 @@ class Routes {
       profile: (context) => const ProfileView(),
       userDetails: (context) => const UserDetailsView(),
       basePhotoViewer: (context) => const BasePhotoViewer(),
+      postCreate: (context) => const PostCreateView(),
     };
   }
 }

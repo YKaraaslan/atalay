@@ -23,8 +23,7 @@ class BasePost extends StatelessWidget {
             },
             child: ListTile(
               leading: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://avatars.githubusercontent.com/u/34814190?v=4'),
+                backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/34814190?v=4'),
               ),
               title: const Text('Yunus Karaaslan'),
               subtitle: const Text('Yazilim Muhendisi'),
@@ -76,6 +75,47 @@ class BasePost extends StatelessWidget {
               ),
             ),
           ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 5,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    Chip(
+                      label: const Text('Yazilim'),
+                      backgroundColor: Colors.blue.shade100,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      deleteIcon: const Icon(Icons.delete),
+                      elevation: 2,
+                    ),
+                    Chip(
+                      label: const Text('Gomulu Sistemler'),
+                      backgroundColor: Colors.blue.shade100,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      deleteIcon: const Icon(Icons.delete),
+                      elevation: 2,
+                    ),
+                    Chip(
+                      label: const Text('Elektronik'),
+                      backgroundColor: Colors.blue.shade100,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      deleteIcon: const Icon(Icons.delete),
+                      elevation: 2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,8 +139,7 @@ class BasePost extends StatelessWidget {
               const SizedBox(width: 25),
               IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(Routes.postComments, arguments: index);
+                  Navigator.of(context).pushNamed(Routes.postComments, arguments: index);
                 },
                 icon: SizedBox(
                   width: 20,
@@ -114,8 +153,7 @@ class BasePost extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('23 saat',
-                        style: TextStyle(color: Colors.grey.shade600)),
+                    Text('23 saat', style: TextStyle(color: Colors.grey.shade600)),
                     IconButton(
                       onPressed: () {},
                       icon: SizedBox(
