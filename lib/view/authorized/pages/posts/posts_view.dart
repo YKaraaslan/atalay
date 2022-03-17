@@ -19,6 +19,7 @@ class PostsView extends StatelessWidget {
         zoomDrawerController: zoomDrawerController,
         title: 'posts'.tr(),
         color: Colors.white,
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
       floatingActionButton: FloatingActionButton(

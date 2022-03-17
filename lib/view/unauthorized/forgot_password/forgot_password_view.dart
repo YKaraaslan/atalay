@@ -65,7 +65,7 @@ class _MailField extends StatelessWidget {
         prefixIcon: const Icon(Icons.mail_outline),
         controller: _viewModel.mailController,
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'mail_validator'.tr();
           }
           if (!EmailValidator.validate(value.trim()) ||

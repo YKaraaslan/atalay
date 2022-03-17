@@ -77,7 +77,7 @@ class _FormField extends StatelessWidget {
               prefixIcon: const Icon(Icons.mail_outline),
               controller: _viewModel.mailController,
               fun: (value) {
-                if (value == null || value.isEmpty) {
+                if (value == null || value.trim().isEmpty) {
                   return 'mail_validator'.tr();
                 }
                 if (!EmailValidator.validate(value.trim()) ||
@@ -96,7 +96,7 @@ class _FormField extends StatelessWidget {
               isPassword: true,
               controller: _viewModel.passwordController,
               fun: (value) {
-                if (value == null || value.isEmpty) {
+                if (value == null || value.trim().isEmpty) {
                   return 'password_validator'.tr();
                 } else if (value.length < 8) {
                   return 'password_length_validator'.tr();

@@ -12,6 +12,7 @@ class ProjectTeamView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'team'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => ListView.builder(
         itemBuilder: (context, index) => InkWell(

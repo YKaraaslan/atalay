@@ -16,6 +16,7 @@ class PostCommentsView extends StatelessWidget {
       appBar: BaseAppBar(
         title: 'posts'.tr(),
         color: Colors.white,
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
       backgroundColor: Colors.white,

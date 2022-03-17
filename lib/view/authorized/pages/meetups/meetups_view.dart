@@ -18,6 +18,7 @@ class MeetupsView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'meetups'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

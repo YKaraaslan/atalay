@@ -120,7 +120,7 @@ class _NameField extends StatelessWidget {
         textInputType: TextInputType.name,
         prefixIcon: const Icon(Icons.all_inclusive),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'name_validator'.tr();
           }
           return null;
@@ -146,7 +146,7 @@ class _SurnameField extends StatelessWidget {
         textInputType: TextInputType.name,
         prefixIcon: const Icon(Icons.tune_sharp),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'surname_validator'.tr();
           }
           return null;
@@ -171,7 +171,7 @@ class _Birthday extends StatelessWidget {
         prefixIcon: const Icon(Icons.date_range_outlined),
         isReadOnly: true,
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'birthday_validator'.tr();
           }
           return null;
@@ -200,7 +200,7 @@ class _PhoneField extends StatelessWidget {
         textInputType: TextInputType.phone,
         prefixIcon: const Icon(Icons.phone_android),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'phone_validator'.tr();
           } else if (value.length != 11) {
             return 'phone_length_validator'.tr();
@@ -228,7 +228,7 @@ class _MailField extends StatelessWidget {
         textInputType: TextInputType.emailAddress,
         prefixIcon: const Icon(Icons.mail_outline),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'mail_validator'.tr();
           }
           if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
@@ -257,7 +257,7 @@ class _PasswordField extends StatelessWidget {
         textInputType: TextInputType.streetAddress,
         prefixIcon: const Icon(Icons.password),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'password_validator'.tr();
           } else if (value.length < 8) {
             return 'password_length_validator'.tr();
@@ -285,7 +285,7 @@ class _PasswordRepeatField extends StatelessWidget {
         textInputType: TextInputType.text,
         prefixIcon: const Icon(Icons.repeat),
         fun: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'password_validator'.tr();
           }
           if (value != _viewModel.passwordController.text) {

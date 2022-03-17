@@ -16,6 +16,7 @@ class ProjectDetailsView extends StatelessWidget {
     return BaseView(
       appBar: const BaseAppBar(
         title: 'App Animation',
+        actions: [],
       ),
       onPageBuilder: (context, value) => const _Body(),
       backgroundColor: Colors.white,

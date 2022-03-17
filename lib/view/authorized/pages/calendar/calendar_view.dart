@@ -18,6 +18,7 @@ class CalendarView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'calendar'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

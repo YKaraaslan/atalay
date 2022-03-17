@@ -18,6 +18,7 @@ class ProfileView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'profile'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

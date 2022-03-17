@@ -19,6 +19,7 @@ class FinanceView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'finance'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

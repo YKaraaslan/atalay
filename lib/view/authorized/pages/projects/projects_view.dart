@@ -21,6 +21,7 @@ class ProjectsView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'projects'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

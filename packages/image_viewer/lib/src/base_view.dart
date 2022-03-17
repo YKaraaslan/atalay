@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BaseView extends StatefulWidget {
-  const BaseView({Key? key, required this.heroAttribute, required this.child})
-      : super(key: key);
+  const BaseView({Key? key, required this.heroAttribute, required this.child}) : super(key: key);
   final String heroAttribute;
   final Widget child;
 
@@ -10,8 +9,7 @@ class BaseView extends StatefulWidget {
   State<BaseView> createState() => _BaseViewState();
 }
 
-class _BaseViewState extends State<BaseView>
-    with SingleTickerProviderStateMixin {
+class _BaseViewState extends State<BaseView> with SingleTickerProviderStateMixin {
   Animation<Matrix4>? _animation;
   late final AnimationController _animationController;
   TapDownDetails? _tapDownDetails;
@@ -48,26 +46,28 @@ class _BaseViewState extends State<BaseView>
         final zoomed = Matrix4.identity()
           ..translate(x, y)
           ..scale(scale);
-        final Matrix4 end = _transformationController.value.isIdentity()
-            ? zoomed
-            : Matrix4.identity();
+        final Matrix4 end = _transformationController.value.isIdentity() ? zoomed : Matrix4.identity();
         _transformationController.value = end;
 
         _animation = Matrix4Tween(
           begin: _transformationController.value,
           end: end,
-        ).animate(
-            CurveTween(curve: Curves.easeOut).animate(_animationController));
+        ).animate(CurveTween(curve: Curves.easeOut).animate(_animationController));
 
         _animationController.forward(from: 0);
       },
       child: InteractiveViewer(
-        maxScale: 3.0,
-        minScale: 1.0,
         transformationController: _transformationController,
+        minScale: 0.1,
+        maxScale: 4.0,
         child: Hero(
           tag: widget.heroAttribute,
-          child: widget.child,
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            body: Center(
+              child: widget.child,
+            ),
+          ),
         ),
       ),
     );

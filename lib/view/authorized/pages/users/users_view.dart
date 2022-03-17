@@ -26,6 +26,7 @@ class _UsersViewState extends State<UsersView> {
       appBar: BaseAppBar(
         title: 'users'.tr(),
         zoomDrawerController: widget.zoomDrawerController,
+        actions: const [],
       ),
       onPageBuilder: (context, value) => FirestoreQueryBuilder(
         query: ServicePath.usersCollectionReference.orderBy('online', descending: true).orderBy('onlineTime', descending: true),

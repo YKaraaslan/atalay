@@ -13,6 +13,7 @@ class NotificationsView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'notifications'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

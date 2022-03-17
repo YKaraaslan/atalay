@@ -19,12 +19,28 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageURL = ModalRoute.of(context)!.settings.arguments as String;
-    return Center(
-      child: NetworkImageViewer(
-        heroAttribute: 'photo',
-        imageURL: imageURL,
-      )
-    );
+    List<dynamic> arguments = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    dynamic imageAttribute = arguments[0];
+    String heroAttribute = arguments[1];
+    String imageType = arguments[2];
+
+    if (imageType == "network") {
+      return NetworkImageViewer(
+        heroAttribute: heroAttribute,
+        imageURL: imageAttribute,
+      );
+    } else if (imageType == "asset") {
+      return AssetImageViewer(
+        heroAttribute: heroAttribute,
+        imagePath: imageAttribute,
+      );
+    } else if (imageType == "file") {
+      return FileImageViewer(
+        heroAttribute: heroAttribute,
+        imagePath: imageAttribute,
+      );
+    } else {
+      return Container();
+    }
   }
 }

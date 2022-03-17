@@ -14,6 +14,7 @@ class PostLikeView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'likes'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

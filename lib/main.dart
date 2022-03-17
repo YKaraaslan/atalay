@@ -1,3 +1,5 @@
+import 'package:atalay/view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
+
 import 'view/authorized/pages/users/users_viewmodel.dart';
 import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
 
@@ -61,6 +63,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel()),
         ChangeNotifierProvider(create: (context) => UserDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => UsersViewModel()),
+        ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

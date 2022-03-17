@@ -17,7 +17,7 @@ class FileImageViewer extends StatelessWidget {
       heroAttribute: heroAttribute,
       child: Image.file(
         imagePath,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitWidth,
       ),
     );
   }

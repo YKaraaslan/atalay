@@ -29,6 +29,7 @@ class _UsersOnHoldViewState extends State<UsersOnHoldView> {
       appBar: BaseAppBar(
         title: 'users_onhold'.tr(),
         zoomDrawerController: widget.zoomDrawerController,
+        actions: const [],
       ),
       onPageBuilder: (context, value) => FirestoreQueryBuilder(
         query: _viewmodel.usersOnHoldCollection,

@@ -17,6 +17,7 @@ class ReferencesView extends StatelessWidget {
       appBar: BaseAppBar(
         title: 'references'.tr(),
         zoomDrawerController: zoomDrawerController,
+        actions: const [],
       ),
       onPageBuilder: (context, value) => ListView.builder(
         itemBuilder: (context, index) => InkWell(

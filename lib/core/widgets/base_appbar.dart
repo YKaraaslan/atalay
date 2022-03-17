@@ -6,14 +6,13 @@ import '../constant/assets.dart';
 import '../constant/routes.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BaseAppBar(
-      {Key? key, this.zoomDrawerController, required this.title, this.bottom, this.color})
-      : super(key: key);
+  const BaseAppBar({Key? key, this.zoomDrawerController, required this.title, this.bottom, this.color, required this.actions}) : super(key: key);
 
   final ZoomDrawerController? zoomDrawerController;
   final String title;
   final PreferredSizeWidget? bottom;
   final Color? color;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +35,14 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
                 }
               },
             ),
-      actions: [
-        zoomDrawerController != null ? IconButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.notifications),
-          icon: SvgPicture.asset(Assets.notification),
-        ) : Container(),
-      ],
+      actions: actions.isEmpty
+          ? [
+              IconButton(
+                onPressed: () => Navigator.pushNamed(context, Routes.notifications),
+                icon: SvgPicture.asset(Assets.notification),
+              )
+            ]
+          : actions,
       bottom: bottom,
     );
   }

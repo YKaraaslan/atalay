@@ -22,6 +22,7 @@ class UserDetailsView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'users_onhold_single'.tr(),
+        actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
     );

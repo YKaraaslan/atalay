@@ -9,7 +9,9 @@ class ServicePath {
   static final CollectionReference usersOnHoldCollectionReference = FirebaseFirestore.instance.collection('UsersOnHold');
   static final CollectionReference appCollectionReference = FirebaseFirestore.instance.collection('App');
   static final CollectionReference authorizationCollectionReference = FirebaseFirestore.instance.collection('Authorization');
+  static final CollectionReference postsCollectionReference = FirebaseFirestore.instance.collection('Posts');
 
   static final FirebaseStorage storage = FirebaseStorage.instance;
   static final profilePhotoReference = storage.ref('ProfilePhotos/');
+  static final postsPhotoReference = storage.ref('Posts/');
 }
