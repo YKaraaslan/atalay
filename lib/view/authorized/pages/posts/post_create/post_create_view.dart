@@ -270,6 +270,7 @@ class _BodyState extends State<_Body> {
               ),
             ),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );

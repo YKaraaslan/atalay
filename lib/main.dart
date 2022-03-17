@@ -1,4 +1,5 @@
 import 'package:atalay/view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
+import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
 import 'package:atalay/view/authorized/pages/posts/posts_viewmodel.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -70,6 +71,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => UsersViewModel()),
         ChangeNotifierProvider(create: (context) => PostsViewModel()),
         ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

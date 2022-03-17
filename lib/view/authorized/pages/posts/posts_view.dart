@@ -74,7 +74,12 @@ class _BodyState extends State<_Body> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const _ShimmerEffect();
                       }
-                      return BasePost(model: snapshot.data);
+                      return BasePost(
+                        model: snapshot.data,
+                        onLikePressed: () {
+                          _viewModel.like(snapshot.data);
+                        },
+                      );
                     }
                     return const _ShimmerEffect();
                   },

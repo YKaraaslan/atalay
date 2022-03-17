@@ -1,5 +1,6 @@
 import 'package:atalay/core/classes/time_ago.dart';
 import 'package:atalay/view/authorized/pages/posts/post_details/post_details_view.dart';
+import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_view.dart';
 import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import '../constant/routes.dart';
 import 'base_bottom_sheet.dart';
 
 class BasePost extends StatelessWidget {
-  const BasePost({Key? key, required this.model}) : super(key: key);
+  const BasePost({Key? key, required this.model, this.onLikePressed}) : super(key: key);
   final PostUiModel model;
+  final void Function()? onLikePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,6 @@ class BasePost extends StatelessWidget {
                   left: 10,
                   right: 10,
                   top: 10,
-                  bottom: 5,
                 ),
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -93,18 +94,28 @@ class BasePost extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: onLikePressed,
                 icon: SizedBox(
                   width: 20,
-                  child: Image.asset(
-                    Assets.likeEmpty,
-                    color: Colors.black,
-                  ),
+                  child: model.isLikedByMe
+                      ? Image.asset(
+                          Assets.likeFilled,
+                          color: Colors.red,
+                        )
+                      : Image.asset(
+                          Assets.likeEmpty,
+                          color: Colors.black,
+                        ),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed(Routes.postLikes);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PostLikeView(model: model),
+                    ),
+                  );
                 },
                 child: Text(model.likes.toString()),
               ),

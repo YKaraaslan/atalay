@@ -14,6 +14,7 @@ class PostUiModel {
   Timestamp updatedAt;
   int likes;
   int comments;
+  bool isLikedByMe;
 
   PostUiModel({
     required this.authorID,
@@ -29,5 +30,6 @@ class PostUiModel {
     required this.updatedAt,
     required this.likes,
     required this.comments,
+    required this.isLikedByMe,
   });
 }

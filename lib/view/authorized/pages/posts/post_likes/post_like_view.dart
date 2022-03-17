@@ -1,13 +1,24 @@
+import 'package:animated_shimmer/animated_shimmer.dart';
+import 'package:atalay/core/classes/time_ago.dart';
+import 'package:atalay/core/service/service_path.dart';
+import 'package:atalay/core/widgets/no_data.dart';
+import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_model.dart';
+import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
+import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
 import '../../../../../core/widgets/base_appbar.dart';
+import 'post_like_ui_model.dart';
 
 class PostLikeView extends StatelessWidget {
-  const PostLikeView({Key? key}) : super(key: key);
+  const PostLikeView({Key? key, required this.model}) : super(key: key);
+  final PostUiModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -16,38 +27,124 @@ class PostLikeView extends StatelessWidget {
         title: 'likes'.tr(),
         actions: const [],
       ),
-      onPageBuilder: (context, value) => const _Body(),
+      onPageBuilder: (context, value) => _Body(model: model),
     );
   }
 }
 
-class _Body extends StatelessWidget {
-  const _Body({Key? key}) : super(key: key);
+class _Body extends StatefulWidget {
+  const _Body({Key? key, required this.model}) : super(key: key);
+  final PostUiModel model;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late final PostLikeViewModel _viewModel = context.read<PostLikeViewModel>();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.uiModel = widget.model;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 12,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {
-            Navigator.of(context).pushNamed(Routes.profile);
+    try {
+      return SingleChildScrollView(
+        child: FirestoreQueryBuilder(
+          query: ServicePath.postsLikesCollectionReference(widget.model.postID).orderBy('likedAt'),
+          builder: (context, snapshot, _) {
+            if (snapshot.isFetching || snapshot.isFetchingMore) {
+              return const _ShimmerEffect();
+            }
+            if (snapshot.hasError) {
+              return Text('error ${snapshot.error}');
+            }
+            if (snapshot.docs.isNotEmpty && snapshot.hasData) {
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: snapshot.docs.length,
+                itemBuilder: (context, index) {
+                  PostLikeModel post = PostLikeModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(Routes.profile);
+                    },
+                    child: FutureBuilder(
+                      future: _viewModel.getUserInfos(post),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const _ShimmerEffect();
+                        } else if (snapshot.hasData) {
+                        PostLikeUiModel model = snapshot.data as PostLikeUiModel;
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(model.imageURL),
+                            ),
+                            title: Text(model.nameSurname),
+                            subtitle: Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
+                            trailing: IconButton(
+                              onPressed: () => true,
+                              icon: Image.asset(Assets.likeFilled),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
+                  );
+                },
+              );
+            } else {
+              return NoDataView(
+                text: "no_like_yet".tr(),
+                image: Assets.thumbsUp,
+                fun: () {
+                  _viewModel.like();
+                },
+              );
+            }
           },
-          child: ListTile(
-            leading: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://avatars.githubusercontent.com/u/34814190?v=4'),
-            ),
-            title: const Text('Yunus Karaaslan'),
-            subtitle: const Text('2 saat once'),
-            trailing: IconButton(
-              onPressed: () => true,
-              icon: Image.asset(Assets.likeFilled),
-            ),
-          ),
-        );
-      },
+        ),
+      );
+    } catch (e) {
+      return NoDataView(
+        text: "no_like_yet".tr(),
+        image: Assets.thumbsUp,
+        fun: () {
+          _viewModel.like();
+        },
+      );
+    }
+  }
+}
+
+class _ShimmerEffect extends StatelessWidget {
+  const _ShimmerEffect({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: AnimatedShimmer.round(
+        size: 45,
+      ),
+      title: const AnimatedShimmer(
+        height: 10,
+        width: 10,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+      subtitle: const AnimatedShimmer(
+        height: 10,
+        width: 100,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+      trailing: AnimatedShimmer.round(
+        size: 25,
+      ),
     );
   }
 }

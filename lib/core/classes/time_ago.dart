@@ -14,8 +14,10 @@ class TimeAgo {
       return "${diff.inDays} ${diff.inDays == 1 ? "day_ago".tr() : "days_ago".tr()}";
     } else if (diff.inHours > 0) {
       return "${diff.inHours} ${diff.inHours == 1 ? "hour_ago".tr() : "hours_ago".tr()}";
-    } else {
+    } else if (diff.inMinutes > 0) {
       return "${diff.inMinutes} ${diff.inMinutes == 1 ? "minute_ago".tr() : "minutes_ago".tr()}";
+    } else {
+      return "just_now".tr();
     }
   }
 }

@@ -10,6 +10,7 @@ import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
 import '../../../../../core/widgets/base_bottom_sheet.dart';
+import '../post_likes/post_like_view.dart';
 
 class PostDetailsView extends StatefulWidget {
   const PostDetailsView({Key? key, required this.model, required this.index}) : super(key: key);
@@ -121,6 +122,31 @@ class _BodyState extends State<_Body> {
               },
             ),
           ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Visibility(
+              visible: widget.model.labels.isNotEmpty,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: List.generate(
+                    widget.model.labels.length,
+                    (index) => Chip(
+                      label: Text(
+                        widget.model.labels[index],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.black87,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           Column(
             children: [
               Row(
@@ -139,8 +165,11 @@ class _BodyState extends State<_Body> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          Routes.postLikes,
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PostLikeView(model: widget.model),
+                          ),
                         );
                       },
                     ),
@@ -150,8 +179,8 @@ class _BodyState extends State<_Body> {
                       children: [
                         SizedBox(width: 15, child: Image.asset(Assets.groupsComments)),
                         const SizedBox(width: 15),
-                         Text(
-                            "${widget.model.comments.toString()} ${'comments_received'.tr()}",
+                        Text(
+                          "${widget.model.comments.toString()} ${'comments_received'.tr()}",
                           style: const TextStyle(color: Colors.white),
                         ),
                       ],
@@ -181,7 +210,7 @@ class _BodyState extends State<_Body> {
                                 Assets.likeEmpty,
                                 color: Colors.white,
                               )),
-                           Text(
+                          Text(
                             'like'.tr(),
                             style: const TextStyle(color: Colors.white),
                           ),
@@ -205,7 +234,8 @@ class _BodyState extends State<_Body> {
                                 Assets.comment,
                                 color: Colors.white,
                               )),
-                           Text('comment'.tr(),
+                          Text(
+                            'comment'.tr(),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ],

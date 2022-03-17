@@ -7,7 +7,6 @@ import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
-import '../../view/authorized/pages/posts/post_likes/post_like_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
@@ -27,7 +26,6 @@ class Routes {
   static const String notifications = '/notifications';
   static const String groupsDetails = '/groups_details';
   static const String postComments = '/post_comments';
-  static const String postLikes = '/post_likes';
   static const String profile = '/profile';
   static const String userDetails = '/user_details';
   static const String basePhotoViewer = '/base_photo_viewer';
@@ -45,7 +43,6 @@ class Routes {
       notifications: (context) => const NotificationsView(),
       groupsDetails: (context) => const GroupsDetailsView(),
       postComments: (context) => const PostCommentsView(),
-      postLikes: (context) => const PostLikeView(),
       profile: (context) => const ProfileView(),
       userDetails: (context) => const UserDetailsView(),
       basePhotoViewer: (context) => const BasePhotoViewer(),
