@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/paddings.dart';
 import '../../../../../core/widgets/base_appbar.dart';
-import '../../../../../core/widgets/base_posts.dart';
 import '../../../../../core/widgets/post_comment_item.dart';
 
 class PostCommentsView extends StatelessWidget {
@@ -29,7 +28,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int index = ModalRoute.of(context)!.settings.arguments as int;
+    //final int index = ModalRoute.of(context)!.settings.arguments as int;
     return Stack(
       children: [
         SingleChildScrollView(
@@ -37,7 +36,7 @@ class _Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              BasePost(index: index),
+              //BasePost(index: index),
               Padding(
                 padding: AppPaddings.appPadding,
                 child: Text('comments'.tr() + ' (4)'),

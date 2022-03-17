@@ -1,6 +1,10 @@
+import 'package:atalay/view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
+import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_viewer/main.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
@@ -8,7 +12,9 @@ import '../../../../../core/constant/routes.dart';
 import '../../../../../core/widgets/base_bottom_sheet.dart';
 
 class PostDetailsView extends StatefulWidget {
-  const PostDetailsView({Key? key}) : super(key: key);
+  const PostDetailsView({Key? key, required this.model, required this.index}) : super(key: key);
+  final PostUiModel model;
+  final int index;
 
   @override
   State<PostDetailsView> createState() => _PostDetailsViewState();
@@ -23,17 +29,16 @@ class _PostDetailsViewState extends State<PostDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    final int index = ModalRoute.of(context)!.settings.arguments as int;
     return BaseView(
-      onPageBuilder: (context, value) => _Body(index: index),
+      onPageBuilder: (context, value) => _Body(model: widget.model, index: widget.index),
       backgroundColor: Colors.black,
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.index}) : super(key: key);
-
+  const _Body({Key? key, required this.model, required this.index}) : super(key: key);
+  final PostUiModel model;
   final int index;
 
   @override
@@ -41,6 +46,20 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  late final PostDetailsViewModel _viewModel = context.read<PostDetailsViewModel>();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.pageController = PageController(initialPage: widget.index);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _viewModel.pageController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,17 +72,16 @@ class _BodyState extends State<_Body> {
               );
             },
             child: ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://avatars.githubusercontent.com/u/34814190?v=4'),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(widget.model.authorImageURL),
               ),
-              title: const Text(
-                'Yunus Karaaslan',
-                style: TextStyle(color: Colors.white),
+              title: Text(
+                widget.model.authorNameSurname,
+                style: const TextStyle(color: Colors.white),
               ),
-              subtitle: const Text(
-                'Yazilim Muhendisi',
-                style: TextStyle(color: Colors.grey),
+              subtitle: Text(
+                widget.model.authorPosition,
+                style: const TextStyle(color: Colors.grey),
               ),
               trailing: IconButton(
                 icon: SizedBox(
@@ -84,19 +102,25 @@ class _BodyState extends State<_Body> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            child: SelectableText(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-              style: TextStyle(color: Colors.white),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+              child: SelectableText(
+                widget.model.text,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ),
           Expanded(
-              child: NetworkImageViewer(
-            heroAttribute: 'image${widget.index}',
-            imageURL:
-                'https://cdn.pixabay.com/photo/2017/02/08/17/24/fantasy-2049567__480.jpg',
-          )),
+            child: PageView.builder(
+              controller: _viewModel.pageController,
+              itemCount: widget.model.images.length,
+              itemBuilder: (context, index) {
+                return NetworkImageViewer(heroAttribute: widget.model.images[index], imageURL: widget.model.images[index]);
+              },
+            ),
+          ),
           Column(
             children: [
               Row(
@@ -106,12 +130,11 @@ class _BodyState extends State<_Body> {
                     child: TextButton(
                       child: Row(
                         children: [
-                          SizedBox(
-                              width: 15, child: Image.asset(Assets.likeFilled)),
+                          SizedBox(width: 15, child: Image.asset(Assets.likeFilled)),
                           const SizedBox(width: 15),
-                          const Text(
-                            'Yunus Karaaslan ve 15 kisi',
-                            style: TextStyle(color: Colors.white),
+                          Text(
+                            "${widget.model.likes.toString()} ${'likes_received'.tr()}",
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ],
                       ),
@@ -125,13 +148,11 @@ class _BodyState extends State<_Body> {
                   TextButton(
                     child: Row(
                       children: [
-                        SizedBox(
-                            width: 15,
-                            child: Image.asset(Assets.groupsComments)),
+                        SizedBox(width: 15, child: Image.asset(Assets.groupsComments)),
                         const SizedBox(width: 15),
-                        const Text(
-                          '4 Yorum',
-                          style: TextStyle(color: Colors.white),
+                         Text(
+                            "${widget.model.comments.toString()} ${'comments_received'.tr()}",
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
@@ -160,9 +181,9 @@ class _BodyState extends State<_Body> {
                                 Assets.likeEmpty,
                                 color: Colors.white,
                               )),
-                          const Text(
-                            'Begen',
-                            style: TextStyle(color: Colors.white),
+                           Text(
+                            'like'.tr(),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ],
                       ),
@@ -184,9 +205,8 @@ class _BodyState extends State<_Body> {
                                 Assets.comment,
                                 color: Colors.white,
                               )),
-                          const Text(
-                            'Yorum Yap',
-                            style: TextStyle(color: Colors.white),
+                           Text('comment'.tr(),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ],
                       ),

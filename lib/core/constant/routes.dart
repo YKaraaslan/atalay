@@ -7,7 +7,6 @@ import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
-import '../../view/authorized/pages/posts/post_details/post_details_view.dart';
 import '../../view/authorized/pages/posts/post_likes/post_like_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
@@ -27,7 +26,6 @@ class Routes {
   static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
   static const String groupsDetails = '/groups_details';
-  static const String postDetails = '/post_details';
   static const String postComments = '/post_comments';
   static const String postLikes = '/post_likes';
   static const String profile = '/profile';
@@ -46,7 +44,6 @@ class Routes {
       projectTeam: (context) => const ProjectTeamView(),
       notifications: (context) => const NotificationsView(),
       groupsDetails: (context) => const GroupsDetailsView(),
-      postDetails: (context) => const PostDetailsView(),
       postComments: (context) => const PostCommentsView(),
       postLikes: (context) => const PostLikeView(),
       profile: (context) => const ProfileView(),

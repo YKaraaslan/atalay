@@ -1,9 +1,15 @@
+import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:atalay/core/constant/routes.dart';
+import 'package:atalay/core/models/post_model.dart';
+import 'package:atalay/view/authorized/pages/posts/posts_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:flutterfire_ui/firestore.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/base_posts.dart';
 
@@ -32,22 +38,113 @@ class PostsView extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({Key? key}) : super(key: key);
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late final PostsViewModel _viewModel = context.watch<PostsViewModel>();
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return BasePost(index: index);
-            },
+    return SingleChildScrollView(
+      child: FirestoreQueryBuilder(
+        query: ServicePath.postsCollectionReference.orderBy('publishedAt', descending: true),
+        builder: (context, snapshot, _) {
+          if (snapshot.isFetching || snapshot.isFetchingMore) {
+            return const _ShimmerEffect();
+          }
+          if (snapshot.hasError) {
+            return Text('error ${snapshot.error}');
+          }
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.docs.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                PostModel post = PostModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                return FutureBuilder(
+                  future: _viewModel.getUserInfos(post),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const _ShimmerEffect();
+                      }
+                      return BasePost(model: snapshot.data);
+                    }
+                    return const _ShimmerEffect();
+                  },
+                );
+              },
+            );
+          } else {
+            return const Text('-');
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _ShimmerEffect extends StatelessWidget {
+  const _ShimmerEffect({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            leading: AnimatedShimmer.round(
+              size: 45,
+            ),
+            title: const AnimatedShimmer(
+              height: 10,
+              width: 10,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            subtitle: const AnimatedShimmer(
+              height: 10,
+              width: 100,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+            child: Column(
+              children: const [
+                AnimatedShimmer(
+                  height: 10,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                SizedBox(height: 5),
+                AnimatedShimmer(
+                  height: 10,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                SizedBox(height: 5),
+                AnimatedShimmer(
+                  height: 10,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 10,
+            color: Colors.grey.shade100,
+          ),
+        ],
+      ),
     );
   }
 }

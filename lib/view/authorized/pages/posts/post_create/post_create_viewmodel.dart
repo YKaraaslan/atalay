@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 
 import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
 
@@ -16,6 +15,7 @@ class PostCreateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
   late GlobalKey<FormState> formKeyForDialog;
   late TextEditingController labelTextController;
+  late TextEditingController postController;
   late List<String> labels;
   late List<File> images;
   final int maxAllowedImage = 6;
@@ -27,12 +27,14 @@ class PostCreateViewModel extends ChangeNotifier {
     baseDialog.showLoadingDialog(context);
 
     PostModel model = PostModel(
-      author: FirebaseAuth.instance.currentUser!.uid,
+      postID: "",
+      authorID: FirebaseAuth.instance.currentUser!.uid,
       labels: labels,
-      text: labelTextController.text.trim(),
-      publishedAt: Timestamp.fromDate(DateTime.now()),
-      updatedAt: [],
+      text: postController.text.trim(),
+      publishedAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
       images: [],
+      isUpdated: false,
     );
 
     if (await savePostToDatabase(model, images)) {
@@ -149,15 +151,5 @@ class PostCreateViewModel extends ChangeNotifier {
         action: SnackBarAction(label: 'OK', onPressed: () => true),
       ),
     );
-  }
-
-  void imageGalleryView(BuildContext context, int index) {
-    List<Image> imageList = [];
-    List<ImageGalleryHeroProperties> imageHero = [];
-    for (var item in images) {
-      imageList.add(Image.file(item));
-      imageHero.add(ImageGalleryHeroProperties(tag: index.toString()));
-    }
-    SwipeImageGallery(context: context, images: imageList, initialIndex: index, heroProperties: imageHero).show();
   }
 }

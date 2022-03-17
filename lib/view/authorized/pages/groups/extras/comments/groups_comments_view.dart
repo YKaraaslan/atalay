@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/widgets/base_posts.dart';
-
 class GroupsCommentsView extends StatelessWidget {
   const GroupsCommentsView({Key? key}) : super(key: key);
 
@@ -12,8 +10,8 @@ class GroupsCommentsView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BasePost(index: index),
+          children: const [
+            //BasePost(index: index),
           ],
         );
       },

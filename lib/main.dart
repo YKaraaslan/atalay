@@ -1,4 +1,6 @@
 import 'package:atalay/view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
+import 'package:atalay/view/authorized/pages/posts/posts_viewmodel.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 import 'view/authorized/pages/users/users_viewmodel.dart';
 import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
@@ -42,6 +44,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -63,6 +68,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel()),
         ChangeNotifierProvider(create: (context) => UserDetailsViewModel()),
         ChangeNotifierProvider(create: (context) => UsersViewModel()),
+        ChangeNotifierProvider(create: (context) => PostsViewModel()),
         ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
       ],
       child: EasyLocalization(
@@ -84,12 +90,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Widget child;
+  final appCheck = FirebaseAppCheck.instance;
+
   @override
   void initState() {
     super.initState();
-    ServicePath.auth.currentUser == null
-        ? child = const LoginView()
-        : child = const HomeView();
+    appCheck.onTokenChange.listen((event) { });
+    appCheck.setTokenAutoRefreshEnabled(true);
+    ServicePath.auth.currentUser == null ? child = const LoginView() : child = const HomeView();
 
     ServicePath.auth.authStateChanges().listen(
       (User? user) {

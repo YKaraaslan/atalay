@@ -11,6 +11,14 @@ class ServicePath {
   static final CollectionReference authorizationCollectionReference = FirebaseFirestore.instance.collection('Authorization');
   static final CollectionReference postsCollectionReference = FirebaseFirestore.instance.collection('Posts');
 
+  static CollectionReference postsLikesCollectionReference(String postID) {
+    return FirebaseFirestore.instance.collection('Posts').doc(postID).collection('Likes');
+  }
+
+  static CollectionReference postsCommentsCollectionReference(String postID) {
+    return FirebaseFirestore.instance.collection('Posts').doc(postID).collection('Comments');
+  }
+
   static final FirebaseStorage storage = FirebaseStorage.instance;
   static final profilePhotoReference = storage.ref('ProfilePhotos/');
   static final postsPhotoReference = storage.ref('Posts/');

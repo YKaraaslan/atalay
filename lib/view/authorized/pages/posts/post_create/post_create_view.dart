@@ -1,6 +1,7 @@
 import 'package:atalay/core/base/view/base_view.dart';
 import 'package:atalay/core/constant/paddings.dart';
 import 'package:atalay/core/constant/sizes.dart';
+import 'package:atalay/core/widgets/file_gallery_view.dart';
 import 'package:atalay/view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class _BodyState extends State<_Body> {
     _viewModel.formKey = GlobalKey<FormState>();
     _viewModel.formKeyForDialog = GlobalKey<FormState>();
     _viewModel.labelTextController = TextEditingController();
+    _viewModel.postController = TextEditingController();
     _viewModel.labels = [];
     _viewModel.images = [];
   }
@@ -55,6 +57,7 @@ class _BodyState extends State<_Body> {
       _viewModel.formKeyForDialog.currentState!.dispose();
     }
     _viewModel.labelTextController.dispose();
+    _viewModel.postController.dispose();
   }
 
   @override
@@ -68,6 +71,7 @@ class _BodyState extends State<_Body> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextFormField(
+                controller: _viewModel.postController,
                 decoration: InputDecoration(border: InputBorder.none, hintText: "post_create_hint_text".tr()),
                 maxLines: 15,
                 maxLength: 500,
@@ -203,7 +207,15 @@ class _BodyState extends State<_Body> {
                     }
                     return GestureDetector(
                       onTap: () {
-                        _viewModel.imageGalleryView(context, index);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FileGalleryViewer(
+                                imageList: _viewModel.images,
+                                index: index,
+                              ),
+                            ),
+                          );
                       },
                       child: Stack(
                         fit: StackFit.expand,
