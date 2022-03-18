@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:atalay/core/models/post_model.dart';
-import 'package:atalay/view/authorized/pages/posts/post_create/post_create_service.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,7 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../core/models/post_model.dart';
 import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
+import 'post_create_service.dart';
 
 class PostCreateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;

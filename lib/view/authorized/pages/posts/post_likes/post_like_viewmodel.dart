@@ -1,9 +1,9 @@
-import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_model.dart';
-import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_ui_model.dart';
+import '../../../../../core/models/post_like_model.dart';
+import 'post_like_ui_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
-import '../posts_model.dart';
+import '../posts_ui_model.dart';
 import 'post_like_service.dart';
 
 class PostLikeViewModel extends ChangeNotifier {

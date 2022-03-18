@@ -1,10 +1,10 @@
-import '../../../../../core/service/service_path.dart';
-import '../../../../../firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../../../../../core/models/user_model.dart';
 import '../../../../../core/models/users_onhold_model.dart';
+import '../../../../../core/service/service_path.dart';
+import '../../../../../firebase_options.dart';
 
 Future acceptUserService(UserModel model) async {
   await ServicePath.usersCollectionReference.doc(model.id).set(model.toMap());

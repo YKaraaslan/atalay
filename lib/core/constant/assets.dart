@@ -32,7 +32,9 @@ class Assets {
   static final String likeEmpty = _path('ic_like_empty', 'png');
   static final String likeFilled = _path('ic_like_filled', 'png');
   static final String comment = _path('ic_comment', 'png');
+  static final String commentFilled = _path('ic_comment_filled', 'png');
   static final String savePosts = _path('ic_save_post', 'png');
+  static final String savePostsFilled = _path('ic_save_post_filled', 'png');
 
   static final String noConnection = _path('no_connection', 'png');
   static final String noConnectionBackground = _path('no_connection_background', 'jpg');

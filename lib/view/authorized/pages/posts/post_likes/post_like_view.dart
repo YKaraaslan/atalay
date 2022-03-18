@@ -1,23 +1,23 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import 'package:atalay/core/classes/time_ago.dart';
-import 'package:atalay/core/service/service_path.dart';
-import 'package:atalay/core/widgets/no_data.dart';
-import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_model.dart';
-import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
+import '../../../../../core/classes/time_ago.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
+import '../../../../../core/models/post_like_model.dart';
+import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_appbar.dart';
+import '../../../../../core/widgets/no_data.dart';
+import '../posts_ui_model.dart';
 import 'post_like_ui_model.dart';
+import 'post_like_viewmodel.dart';
 
 class PostLikeView extends StatelessWidget {
-  const PostLikeView({Key? key, required this.model}) : super(key: key);
+  const PostLikeView({Key? key, required this.model, like}) : super(key: key);
   final PostUiModel model;
 
   @override

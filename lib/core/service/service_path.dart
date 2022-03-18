@@ -11,6 +11,10 @@ class ServicePath {
   static final CollectionReference authorizationCollectionReference = FirebaseFirestore.instance.collection('Authorization');
   static final CollectionReference postsCollectionReference = FirebaseFirestore.instance.collection('Posts');
 
+  static CollectionReference userSavedPostsCollectionReference(String userID) {
+    return FirebaseFirestore.instance.collection('Users').doc(userID).collection('SavedPosts');
+  }
+
   static CollectionReference postsLikesCollectionReference(String postID) {
     return FirebaseFirestore.instance.collection('Posts').doc(postID).collection('Likes');
   }

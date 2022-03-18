@@ -1,5 +1,6 @@
-import 'package:atalay/core/base/view/base_view.dart';
 import 'package:flutter/material.dart';
+
+import '../base/view/base_view.dart';
 
 class NoDataView extends StatelessWidget {
   const NoDataView({Key? key, required this.text, required this.image, this.fun}) : super(key: key);

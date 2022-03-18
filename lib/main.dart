@@ -1,41 +1,37 @@
-import 'package:atalay/view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_viewmodel.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
-
-import 'view/authorized/pages/users/users_viewmodel.dart';
-import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
-
-import 'core/service/service_path.dart';
-import 'firebase_options.dart';
-import 'view/authorized/home/home_view.dart';
-import 'view/authorized/pages/users_onhold/users_onhold_viewmodel.dart';
-import 'view/unauthorized/login/login_view.dart';
-
-import 'core/base/view/base_viewmodel.dart';
-import 'view/authorized/pages/settings/settings_viewmodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-import 'view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
-
-import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/base/view/base_viewmodel.dart';
 import 'core/constant/routes.dart';
+import 'core/service/service_path.dart';
 import 'core/theme/light_theme.dart';
+import 'firebase_options.dart';
+import 'view/authorized/home/home_view.dart';
 import 'view/authorized/home/home_viewmodel.dart';
 import 'view/authorized/pages/dashboard/dashboard_viewmodel.dart';
 import 'view/authorized/pages/finance/finance_viewmodel.dart';
+import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_viewmodel.dart';
 import 'view/authorized/pages/meetups/meetups_viewmodel.dart';
+import 'view/authorized/pages/posts/post_comments/post_comments_viewmodel.dart';
+import 'view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
+import 'view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
+import 'view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
+import 'view/authorized/pages/posts/posts_viewmodel.dart';
 import 'view/authorized/pages/profile/profile_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_viewmodel.dart';
 import 'view/authorized/pages/references/references_viewmodel.dart';
+import 'view/authorized/pages/settings/settings_viewmodel.dart';
+import 'view/authorized/pages/users/users_viewmodel.dart';
+import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
+import 'view/authorized/pages/users_onhold/users_onhold_viewmodel.dart';
 import 'view/unauthorized/forgot_password/forgot_password_viewmodel.dart';
+import 'view/unauthorized/login/login_view.dart';
 import 'view/unauthorized/login/login_viewmodel.dart';
 import 'view/unauthorized/signup/signup_viewmodel.dart';
 
@@ -72,6 +68,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostsViewModel()),
         ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
         ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
+        ChangeNotifierProvider(create: (context) => PostCommentsViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

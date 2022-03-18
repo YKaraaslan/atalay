@@ -1,4 +1,3 @@
-import '../pages/users_onhold/users_onhold_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -19,6 +18,7 @@ import '../pages/projects/projects_view.dart';
 import '../pages/references/references_view.dart';
 import '../pages/settings/settings_view.dart';
 import '../pages/users/users_view.dart';
+import '../pages/users_onhold/users_onhold_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatefulWidget {

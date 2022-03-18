@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:atalay/core/service/service_path.dart';
-
 import '../../../../../core/models/post_model.dart';
+import '../../../../../core/service/service_path.dart';
 
 Future<bool> savePostToDatabase(PostModel model, List<File> images) async {
   List<String> imageURLs = [];

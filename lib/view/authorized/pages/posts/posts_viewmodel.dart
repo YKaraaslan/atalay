@@ -1,17 +1,14 @@
-import 'package:atalay/core/models/post_model.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
+import '../../../../core/models/post_model.dart';
+import 'posts_ui_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'post_likes/post_like_model.dart';
+import '../../../../core/models/post_like_model.dart';
 import 'posts_service.dart';
 
 class PostsViewModel extends ChangeNotifier {
   Future<PostUiModel> getUserInfos(PostModel post) async {
     Future<DocumentSnapshot<Object?>> authorInfo = getAuthorInfo(post.authorID);
-    int likes = await getLikes(post.postID);
-    int comments = await getComments(post.postID);
-    bool isLikedByMe = await getLikedOrNot(post.postID);
 
     String authorNameSurname = await authorInfo.then((value) => value.get('fullName'));
     String authorPosition = await authorInfo.then((value) => value.get('position'));
@@ -29,9 +26,6 @@ class PostsViewModel extends ChangeNotifier {
       isUpdated: post.isUpdated,
       updatedAt: post.updatedAt,
       postID: post.postID,
-      likes: likes,
-      comments: comments,
-      isLikedByMe: isLikedByMe,
     );
   }
 
@@ -48,5 +42,9 @@ class PostsViewModel extends ChangeNotifier {
   Future like(PostUiModel uiModel) async {
     PostLikeModel model = PostLikeModel(userID: uiModel.authorID, likedAt: Timestamp.now());
     await likeAddToDatabase(model, uiModel.postID);
+  }
+
+  Future save(PostUiModel uiModel) async {
+    await saveAddToDatabase(uiModel.postID);
   }
 }

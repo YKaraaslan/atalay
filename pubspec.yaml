@@ -27,6 +27,7 @@ dependencies:
   shared_preferences: ^2.0.13
   url_launcher: ^6.0.20
   animated_shimmer: ^1.0.0
+  modal_bottom_sheet: ^2.0.1
   image_viewer:
     path: 'packages/image_viewer/'
   base_dialog:

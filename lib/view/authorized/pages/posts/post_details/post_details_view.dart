@@ -1,21 +1,28 @@
-import 'package:atalay/view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_viewer/main.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
+import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_bottom_sheet.dart';
+import '../post_comments/post_comments_view.dart';
 import '../post_likes/post_like_view.dart';
+import '../posts_ui_model.dart';
+import 'post_details_viewmodel.dart';
 
 class PostDetailsView extends StatefulWidget {
-  const PostDetailsView({Key? key, required this.model, required this.index}) : super(key: key);
+  const PostDetailsView({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed}) : super(key: key);
   final PostUiModel model;
   final int index;
+  final void Function() onLikePressed;
+  final void Function() onCommentPressed;
 
   @override
   State<PostDetailsView> createState() => _PostDetailsViewState();
@@ -31,16 +38,19 @@ class _PostDetailsViewState extends State<PostDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onPageBuilder: (context, value) => _Body(model: widget.model, index: widget.index),
+      onPageBuilder: (context, value) => 
+      _Body(model: widget.model, index: widget.index, onCommentPressed: widget.onCommentPressed, onLikePressed: widget.onLikePressed),
       backgroundColor: Colors.black,
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.model, required this.index}) : super(key: key);
+  const _Body({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed }) : super(key: key);
   final PostUiModel model;
   final int index;
+  final void Function() onLikePressed;
+  final void Function() onCommentPressed;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -122,6 +132,7 @@ class _BodyState extends State<_Body> {
               },
             ),
           ),
+          const SizedBox(height: 10),
           Align(
             alignment: Alignment.bottomLeft,
             child: Visibility(
@@ -138,7 +149,7 @@ class _BodyState extends State<_Body> {
                         widget.model.labels[index],
                         style: const TextStyle(color: Colors.white),
                       ),
-                      backgroundColor: Colors.black87,
+                      backgroundColor: const Color.fromARGB(255, 42, 36, 49),
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                     ),
@@ -154,16 +165,34 @@ class _BodyState extends State<_Body> {
                 children: [
                   Expanded(
                     child: TextButton(
-                      child: Row(
-                        children: [
-                          SizedBox(width: 15, child: Image.asset(Assets.likeFilled)),
-                          const SizedBox(width: 15),
-                          Text(
-                            "${widget.model.likes.toString()} ${'likes_received'.tr()}",
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: ServicePath.postsLikesCollectionReference(widget.model.postID).snapshots(),
+                          builder: (context, snapshot) {
+                            String likes = "0";
+
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container();
+                            }
+                            if (snapshot.hasData) {
+                              likes = snapshot.data!.docs.length.toString();
+                            }
+
+                            return Row(
+                              children: [
+                                SizedBox(
+                                    width: 15,
+                                    child: Image.asset(
+                                      Assets.likeFilled,
+                                      color: Colors.blue,
+                                    )),
+                                const SizedBox(width: 15),
+                                Text(
+                                  "$likes ${'likes_received'.tr()}",
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            );
+                          }),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -175,20 +204,32 @@ class _BodyState extends State<_Body> {
                     ),
                   ),
                   TextButton(
-                    child: Row(
-                      children: [
-                        SizedBox(width: 15, child: Image.asset(Assets.groupsComments)),
-                        const SizedBox(width: 15),
-                        Text(
-                          "${widget.model.comments.toString()} ${'comments_received'.tr()}",
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: ServicePath.postsCommentsCollectionReference(widget.model.postID).snapshots(),
+                        builder: (context, snapshot) {
+                          String comments = "0";
+
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Container();
+                          }
+                          if (snapshot.hasData) {
+                            comments = snapshot.data!.docs.length.toString();
+                          }
+                          return Row(
+                            children: [
+                              SizedBox(width: 15, child: Image.asset(Assets.groupsComments)),
+                              const SizedBox(width: 15),
+                              Text(
+                                "$comments ${'comments_received'.tr()}",
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          );
+                        }),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        Routes.postComments,
-                        arguments: 1,
+                      showBarModalBottomSheet(
+                        context: context,
+                        builder: (context) => PostCommentsView(postID: widget.model.postID),
                       );
                     },
                   ),
@@ -201,31 +242,52 @@ class _BodyState extends State<_Body> {
                 children: [
                   Expanded(
                     child: TextButton(
-                      onPressed: () => true,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              width: 15,
-                              child: Image.asset(
-                                Assets.likeEmpty,
-                                color: Colors.white,
-                              )),
-                          Text(
-                            'like'.tr(),
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
+                      onPressed: widget.onLikePressed,
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: ServicePath.postsLikesCollectionReference(widget.model.postID).snapshots(),
+                          builder: (context, snapshot) {
+                            bool isLikedByMe = false;
+
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container();
+                            }
+                            if (snapshot.hasData) {
+                              isLikedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                            }
+
+                            return Column(
+                              children: [
+                                isLikedByMe
+                                    ? SizedBox(
+                                        width: 15,
+                                        child: Image.asset(
+                                          Assets.likeFilled,
+                                        ),
+                                      )
+                                    : SizedBox(
+                                        width: 15,
+                                        child: Image.asset(
+                                          Assets.likeEmpty,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                isLikedByMe
+                                    ? Text(
+                                        'liked'.tr(),
+                                        style: const TextStyle(color: Colors.red),
+                                      )
+                                    : Text(
+                                        'like'.tr(),
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                              ],
+                            );
+                          }),
                     ),
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          Routes.postComments,
-                          arguments: 1,
-                        );
-                      },
+                      onPressed: widget.onCommentPressed,
                       child: Column(
                         children: [
                           SizedBox(

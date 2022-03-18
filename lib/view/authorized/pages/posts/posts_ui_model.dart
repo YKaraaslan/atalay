@@ -12,9 +12,6 @@ class PostUiModel {
   Timestamp publishedAt;
   bool isUpdated;
   Timestamp updatedAt;
-  int likes;
-  int comments;
-  bool isLikedByMe;
 
   PostUiModel({
     required this.authorID,
@@ -28,8 +25,5 @@ class PostUiModel {
     required this.publishedAt,
     required this.isUpdated,
     required this.updatedAt,
-    required this.likes,
-    required this.comments,
-    required this.isLikedByMe,
   });
 }

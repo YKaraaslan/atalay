@@ -1,4 +1,3 @@
-import 'login_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import '../../../core/constant/routes.dart';
 import '../../../core/widgets/base_button.dart';
 import '../../../core/widgets/base_textformfield.dart';
 import '../../unauthorized/unauthorized_baseview.dart';
+import 'login_viewmodel.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);

@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'login_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../core/service/service_path.dart';
+import 'login_model.dart';
 
 Future<dynamic> loginService(LoginModel model) async {
   try {

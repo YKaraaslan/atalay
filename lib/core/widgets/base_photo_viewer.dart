@@ -1,6 +1,7 @@
-import '../base/view/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_viewer/main.dart';
+
+import '../base/view/base_view.dart';
 
 class BasePhotoViewer extends StatelessWidget {
   const BasePhotoViewer({Key? key}) : super(key: key);

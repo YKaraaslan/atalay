@@ -1,17 +1,19 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import 'package:atalay/core/constant/routes.dart';
-import 'package:atalay/core/models/post_model.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/constant/routes.dart';
+import '../../../../core/models/post_model.dart';
 import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/base_posts.dart';
+import 'post_comments/post_comments_view.dart';
+import 'posts_viewmodel.dart';
 
 class PostsView extends StatelessWidget {
   const PostsView({Key? key, required this.zoomDrawerController}) : super(key: key);
@@ -54,9 +56,6 @@ class _BodyState extends State<_Body> {
       child: FirestoreQueryBuilder(
         query: ServicePath.postsCollectionReference.orderBy('publishedAt', descending: true),
         builder: (context, snapshot, _) {
-          if (snapshot.isFetching || snapshot.isFetchingMore) {
-            return const _ShimmerEffect();
-          }
           if (snapshot.hasError) {
             return Text('error ${snapshot.error}');
           }
@@ -78,6 +77,15 @@ class _BodyState extends State<_Body> {
                         model: snapshot.data,
                         onLikePressed: () {
                           _viewModel.like(snapshot.data);
+                        },
+                        onCommentPressed: () {
+                          showBarModalBottomSheet(
+                            context: context,
+                            builder: (context) => PostCommentsView(postID: post.postID),
+                          );
+                        },
+                        onSavePressed: () {
+                          _viewModel.save(snapshot.data);
                         },
                       );
                     }

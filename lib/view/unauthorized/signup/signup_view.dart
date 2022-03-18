@@ -1,13 +1,13 @@
-import '../../../core/constant/assets.dart';
-import 'signup_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constant/assets.dart';
 import '../../../core/widgets/base_button.dart';
 import '../../../core/widgets/base_textformfield.dart';
 import '../unauthorized_baseview.dart';
+import 'signup_viewmodel.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);

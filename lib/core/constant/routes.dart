@@ -1,19 +1,18 @@
-import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
-import '../widgets/base_photo_viewer.dart';
-import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
-import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
+import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
+import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
 import '../../view/unauthorized/login/login_view.dart';
 import '../../view/unauthorized/signup/signup_view.dart';
 import '../../view/unauthorized/signup/widgets/show_photo.dart';
+import '../widgets/base_photo_viewer.dart';
 
 class Routes {
   static const String login = '/login';
@@ -25,7 +24,6 @@ class Routes {
   static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
   static const String groupsDetails = '/groups_details';
-  static const String postComments = '/post_comments';
   static const String profile = '/profile';
   static const String userDetails = '/user_details';
   static const String basePhotoViewer = '/base_photo_viewer';
@@ -42,7 +40,6 @@ class Routes {
       projectTeam: (context) => const ProjectTeamView(),
       notifications: (context) => const NotificationsView(),
       groupsDetails: (context) => const GroupsDetailsView(),
-      postComments: (context) => const PostCommentsView(),
       profile: (context) => const ProfileView(),
       userDetails: (context) => const UserDetailsView(),
       basePhotoViewer: (context) => const BasePhotoViewer(),

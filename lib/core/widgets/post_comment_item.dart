@@ -1,10 +1,14 @@
+import '../classes/time_ago.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../view/authorized/pages/posts/post_comments/post_comment_ui_model.dart';
 import '../constant/routes.dart';
 import '../constant/styles.dart';
 
 class PostCommentItem extends StatelessWidget {
-  const PostCommentItem({Key? key}) : super(key: key);
+  const PostCommentItem({Key? key, required this.model}) : super(key: key);
+  final PostCommentUiModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +26,9 @@ class PostCommentItem extends StatelessWidget {
                   Routes.profile,
                 );
               },
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 radius: 17,
-                backgroundImage: NetworkImage(
-                    'https://avatars.githubusercontent.com/u/34814190?v=4'),
+                backgroundImage: NetworkImage(model.authorImageURL),
               ),
             ),
             const SizedBox(width: 10),
@@ -37,8 +40,7 @@ class PostCommentItem extends StatelessWidget {
                     Radius.circular(10),
                   ),
                 ),
-                padding: const EdgeInsets.only(
-                    top: 5, left: 10, right: 5, bottom: 5),
+                padding: const EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,18 +52,20 @@ class PostCommentItem extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'Yunus Karaaslan',
+                        model.authorNameSurname,
                         style: commentTitleStyle(),
                       ),
                     ),
                     Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
+                      model.comment,
                       style: commentSubTitleStyle(),
                     ),
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        '23 dk.',
+                        model.isUpdated
+                            ? "updated".tr() + " • " + TimeAgo.timeAgoSinceDate(model.commentedAt)
+                            : TimeAgo.timeAgoSinceDate(model.commentedAt),
                         style: commentTimeStyle(),
                       ),
                     ),
