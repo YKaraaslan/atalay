@@ -1,4 +1,4 @@
-import '../../../../../core/models/post_comment_model.dart';
+import '../../../../../../core/models/post_comment_model.dart';
 import 'post_comment_service.dart';
 import 'post_comment_ui_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../../../core/service/service_path.dart';
+import '../../../../../../core/service/service_path.dart';
 
 Future<bool> updatePostService(Map<String, dynamic> model, List<File> images, List<String> imageLinks, String postID) async {
   try {

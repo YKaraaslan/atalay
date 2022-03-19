@@ -43,6 +43,8 @@ class Assets {
   static final String thumbsUp = _path('thumbs_up', 'png');
   static final String edit = _path('ic_edit', 'png');
   static final String delete = _path('ic_delete', 'png');
+  static final String socialPosts = _path('ic_social_posts', 'png');
+  static final String socialMessages = _path('ic_social_messages', 'png');
 }
 
 String _path(String name, String type) {

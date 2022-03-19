@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../../core/models/post_comment_model.dart';
-import '../../../../../core/service/service_path.dart';
+import '../../../../../../core/models/post_comment_model.dart';
+import '../../../../../../core/service/service_path.dart';
 
 Future<bool> saveCommentToDatabase(PostCommentModel model, String postID) async {
   try {

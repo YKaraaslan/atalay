@@ -1,13 +1,13 @@
+import 'package:atalay/view/authorized/pages/social/social_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import '../pages/posts/posts_view.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final ZoomDrawerController zoomDrawerController = ZoomDrawerController();
   late final String version = '1.0.0';
-  late Widget selectedWiget = PostsView(zoomDrawerController: zoomDrawerController);
+  late Widget selectedWiget = SocialView(zoomDrawerController: zoomDrawerController);
 
   void setPage(Widget child) {
     selectedWiget = child;

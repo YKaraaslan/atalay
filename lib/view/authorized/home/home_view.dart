@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/social/social_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -12,7 +13,6 @@ import '../pages/dashboard/dashboard_view.dart';
 import '../pages/finance/finance_view.dart';
 import '../pages/groups/groups_view.dart';
 import '../pages/meetups/meetups_view.dart';
-import '../pages/posts/posts_view.dart';
 import '../pages/profile/profile_view.dart';
 import '../pages/projects/projects_view.dart';
 import '../pages/references/references_view.dart';
@@ -118,11 +118,18 @@ class _MenuItems extends StatelessWidget {
             children: [
               _Item(
                 viewModel: viewModel,
+                assetName: Assets.dashboard,
+                title: 'social'.tr(),
+                widget: SocialView(
+                    zoomDrawerController: viewModel.zoomDrawerController),
+              ),
+              /*_Item(
+                viewModel: viewModel,
                 assetName: Assets.posts,
                 title: 'posts'.tr(),
                 widget: PostsView(
                     zoomDrawerController: viewModel.zoomDrawerController),
-              ),
+              ),*/
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.dashboard,

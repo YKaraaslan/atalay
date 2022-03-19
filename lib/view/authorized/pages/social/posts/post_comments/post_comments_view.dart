@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/base/view/base_view.dart';
-import '../../../../../core/constant/paddings.dart';
-import '../../../../../core/models/post_comment_model.dart';
-import '../../../../../core/service/service_path.dart';
-import '../../../../../core/widgets/base_appbar.dart';
-import '../../../../../core/widgets/post_comment_item.dart';
+import '../../../../../../core/base/view/base_view.dart';
+import '../../../../../../core/constant/paddings.dart';
+import '../../../../../../core/models/post_comment_model.dart';
+import '../../../../../../core/service/service_path.dart';
+import '../../../../../../core/widgets/base_appbar.dart';
+import '../../../../../../core/widgets/post_comment_item.dart';
 import 'post_comment_ui_model.dart';
 import 'post_comments_viewmodel.dart';
 

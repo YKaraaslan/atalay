@@ -7,10 +7,10 @@ import 'package:image_viewer/main.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/base/view/base_view.dart';
-import '../../../../../core/constant/assets.dart';
-import '../../../../../core/constant/routes.dart';
-import '../../../../../core/service/service_path.dart';
+import '../../../../../../core/base/view/base_view.dart';
+import '../../../../../../core/constant/assets.dart';
+import '../../../../../../core/constant/routes.dart';
+import '../../../../../../core/service/service_path.dart';
 import '../post_comments/post_comments_view.dart';
 import '../post_likes/post_like_view.dart';
 import '../posts_ui_model.dart';

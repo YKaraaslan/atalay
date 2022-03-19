@@ -1,15 +1,15 @@
-import 'package:atalay/view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_ui_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/base/view/base_view.dart';
-import '../../../../../core/constant/paddings.dart';
-import '../../../../../core/constant/sizes.dart';
-import '../../../../../core/widgets/base_appbar.dart';
-import '../../../../../core/widgets/base_button.dart';
-import '../../../../../core/widgets/file_gallery_view.dart';
+import '../../../../../../core/base/view/base_view.dart';
+import '../../../../../../core/constant/paddings.dart';
+import '../../../../../../core/constant/sizes.dart';
+import '../../../../../../core/widgets/base_appbar.dart';
+import '../../../../../../core/widgets/base_button.dart';
+import '../../../../../../core/widgets/file_gallery_view.dart';
+import '../posts_ui_model.dart';
+import 'post_update_viewmodel.dart';
 
 class PostUpdateView extends StatelessWidget {
   const PostUpdateView({Key? key, required this.model}) : super(key: key);

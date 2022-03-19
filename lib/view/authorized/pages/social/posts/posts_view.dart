@@ -6,12 +6,12 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/base/view/base_view.dart';
-import '../../../../core/constant/routes.dart';
-import '../../../../core/models/post_model.dart';
-import '../../../../core/service/service_path.dart';
-import '../../../../core/widgets/base_appbar.dart';
-import '../../../../core/widgets/base_posts.dart';
+import '../../../../../core/base/view/base_view.dart';
+import '../../../../../core/constant/routes.dart';
+import '../../../../../core/models/post_model.dart';
+import '../../../../../core/service/service_path.dart';
+import '../../../../../core/widgets/base_appbar.dart';
+import '../../../../../core/widgets/base_posts.dart';
 import 'post_comments/post_comments_view.dart';
 import 'posts_viewmodel.dart';
 

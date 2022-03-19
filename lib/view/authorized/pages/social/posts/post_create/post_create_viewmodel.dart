@@ -1,46 +1,52 @@
 import 'dart:io';
 
-import 'package:atalay/view/authorized/pages/posts/post_update/post_update_service.dart';
-import 'package:atalay/view/authorized/pages/posts/posts_ui_model.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
+import '../../../../../../core/models/post_model.dart';
+import '../../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
+import 'post_create_service.dart';
 
-class PostUpdateViewModel extends ChangeNotifier {
-  late GlobalKey<FormState> formKey;
+class PostCreateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKeyForDialog;
   late TextEditingController labelTextController;
   late TextEditingController postController;
   late List<String> labels;
   late List<File> images;
-  late List<String> imagesLink;
   final int maxAllowedImage = 6;
   late BuildContext buildContext;
   BaseDialog baseDialog = BaseDialog();
-  late PostUiModel model;
 
-  Future updatePost(BuildContext context) async {
-    baseDialog.text = "updating_post".tr();
+  Future createPost(BuildContext context) async {
+    if (postController.text.trim().isEmpty && images.isEmpty) {
+      return showSnackbar(context, 'post_create_validator'.tr());
+    }
+    baseDialog.text = "creating_post".tr();
     baseDialog.showLoadingDialog(context);
 
-    Map<String, dynamic> map = {
-      "labels": labels,
-      "text": postController.text.trim(),
-      "updatedAt": Timestamp.now(),
-      "isUpdated": true,
-      };
+    PostModel model = PostModel(
+      postID: "",
+      authorID: FirebaseAuth.instance.currentUser!.uid,
+      labels: labels,
+      text: postController.text.trim(),
+      publishedAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+      images: [],
+      isUpdated: false,
+      isVisible: true,
+    );
 
-    if (await updatePostService(map, images, imagesLink, model.postID)) {
+    if (await savePostToDatabase(model, images)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "post_update_successfull".tr());
+      showSnackbar(context, "post_create_successfull".tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "post_update_failed".tr());
+      showSnackbar(context, "post_create_failed".tr());
     }
   }
 
@@ -109,7 +115,7 @@ class PostUpdateViewModel extends ChangeNotifier {
     final ImagePicker _picker = ImagePicker();
     final XFile? imagePicked = await _picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
-    if (images.length + imagesLink.length >= maxAllowedImage) {
+    if (images.length >= maxAllowedImage) {
       return showSnackbar(buildContext, "images_max_amount_reached".tr());
     }
     images.add(File(imagePicked.path));
@@ -122,7 +128,7 @@ class PostUpdateViewModel extends ChangeNotifier {
     if (imagesPicked == null) return;
 
     for (var image in imagesPicked) {
-      if (images.length + imagesLink.length >= maxAllowedImage) {
+      if (images.length >= maxAllowedImage) {
         return showSnackbar(buildContext, "images_max_amount_reached".tr());
       }
       images.add(File(image.path));
@@ -131,11 +137,7 @@ class PostUpdateViewModel extends ChangeNotifier {
   }
 
   void deleteImage(int index) {
-    if (index >= imagesLink.length) {
-      images.removeAt(index - imagesLink.length);
-    } else {
-      imagesLink.removeAt(index);
-    }
+    images.removeAt(index);
     notifyListeners();
   }
 
@@ -152,12 +154,5 @@ class PostUpdateViewModel extends ChangeNotifier {
         action: SnackBarAction(label: 'OK', onPressed: () => true),
       ),
     );
-  }
-
-  void setData() {
-    postController.text = model.text;
-    labels = List<String>.from(model.labels);
-    imagesLink = List<String>.from(model.images);
-    notifyListeners();
   }
 }

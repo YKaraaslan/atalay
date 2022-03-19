@@ -3,11 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
-import '../../view/authorized/pages/posts/post_details/post_details_view.dart';
-import '../../view/authorized/pages/posts/post_likes/post_like_view.dart';
-import '../../view/authorized/pages/posts/posts_ui_model.dart';
+import '../../view/authorized/pages/social/posts/post_comments/post_comments_view.dart';
+import '../../view/authorized/pages/social/posts/post_details/post_details_view.dart';
+import '../../view/authorized/pages/social/posts/post_likes/post_like_view.dart';
+import '../../view/authorized/pages/social/posts/posts_ui_model.dart';
 import '../classes/time_ago.dart';
 import '../constant/assets.dart';
 import '../constant/routes.dart';
