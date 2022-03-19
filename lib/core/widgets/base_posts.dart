@@ -15,12 +15,19 @@ import '../service/service_path.dart';
 import 'base_bottom_sheet.dart';
 
 class BasePost extends StatelessWidget {
-  const BasePost({Key? key, required this.model, required this.onLikePressed, required this.onCommentPressed, required this.onSavePressed}) : super(key: key);
+  const BasePost(
+      {Key? key,
+      required this.model,
+      required this.onLikePressed,
+      required this.onCommentPressed,
+      required this.onSavePressed,
+      required this.onDelete})
+      : super(key: key);
   final PostUiModel model;
   final void Function() onLikePressed;
   final void Function() onCommentPressed;
   final void Function() onSavePressed;
-  
+  final void Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -45,33 +52,44 @@ class BasePost extends StatelessWidget {
               ),
               title: Text(model.authorNameSurname),
               subtitle: Text(model.authorPosition),
-              trailing: IconButton(
-                icon: SizedBox(
-                  width: 15,
-                  child: Image.asset(
-                    Assets.postMenu,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return const BaseBottomSheet();
-                    },
-                  );
-                },
-              ),
+              trailing: model.authorID == FirebaseAuth.instance.currentUser!.uid
+                  ? IconButton(
+                      icon: SizedBox(
+                        width: 15,
+                        child: Image.asset(
+                          Assets.postMenu,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return BaseBottomSheet(
+                              model: model,
+                              onDelete: () {
+                                onDelete();
+                              },
+                            );
+                          },
+                        );
+                      },
+                    )
+                  : const SizedBox(),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            child: SelectableText(model.text),
+          Visibility(
+            visible: model.text.isNotEmpty,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+              child: SelectableText(model.text),
+            ),
           ),
           _ImagesLayout(
             model: model,
             onLikePressed: onLikePressed,
             onCommentPressed: onCommentPressed,
+            onDelete: onDelete,
           ),
           Visibility(
             visible: model.labels.isNotEmpty,
@@ -109,91 +127,109 @@ class BasePost extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              StreamBuilder<QuerySnapshot>(
-                stream: ServicePath.postsLikesCollectionReference(model.postID).snapshots(),
-                builder: (context, snapshot) {
-                  String likes = "0";
-                  bool isLikedByMe = false;
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (model.postID.isNotEmpty) {
+                    return StreamBuilder<QuerySnapshot>(
+                      stream: ServicePath.postsLikesCollectionReference(model.postID).snapshots(),
+                      builder: (context, snapshot) {
+                        String likes = "0";
+                        bool isLikedByMe = false;
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container();
-                  }
-                  if (snapshot.hasData) {
-                    likes = snapshot.data!.docs.length.toString();
-                    isLikedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
-                  }
-                  return Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      InkWell(
-                        onTap: onLikePressed,
-                        child: SizedBox(
-                          width: 20,
-                          child: isLikedByMe
-                              ? Image.asset(
-                                  Assets.likeFilled,
-                                  color: Colors.red,
-                                )
-                              : Image.asset(
-                                  Assets.likeEmpty,
-                                  color: Colors.black,
-                                ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PostLikeView(model: model),
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container();
+                        }
+                        if (snapshot.hasData) {
+                          likes = snapshot.data!.docs.length.toString();
+                          isLikedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                        }
+                        return Row(
+                          children: [
+                            const SizedBox(width: 20),
+                            InkWell(
+                              onTap: onLikePressed,
+                              child: SizedBox(
+                                width: 20,
+                                child: isLikedByMe
+                                    ? Image.asset(
+                                        Assets.likeFilled,
+                                        color: Colors.red,
+                                      )
+                                    : Image.asset(
+                                        Assets.likeEmpty,
+                                        color: Colors.black,
+                                      ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(likes),
-                      ),
-                    ],
-                  );
+                            const SizedBox(width: 10),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PostLikeView(model: model),
+                                  ),
+                                );
+                              },
+                              child: Text(likes),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+
+                  return Container();
                 },
               ),
               const SizedBox(width: 30),
-              StreamBuilder<QuerySnapshot>(
-                stream: ServicePath.postsCommentsCollectionReference(model.postID).snapshots(),
-                builder: (context, snapshot) {
-                  String comments = "0";
-                  bool isCommentedByMe = false;
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (model.postID.isNotEmpty) {
+                    return StreamBuilder<QuerySnapshot>(
+                      stream: ServicePath.postsCommentsCollectionReference(model.postID).snapshots(),
+                      builder: (context, snapshot) {
+                        String comments = "0";
+                        bool isCommentedByMe = false;
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container();
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container();
+                        }
+
+                        if (snapshot.hasData) {
+                          comments = snapshot.data!.docs.length.toString();
+                          isCommentedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                        }
+
+                        return InkWell(
+                          onTap: () {
+                            showBarModalBottomSheet(
+                              context: context,
+                              builder: (context) => PostCommentsView(postID: model.postID),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 20,
+                                child: isCommentedByMe
+                                    ? Image.asset(
+                                        Assets.commentFilled,
+                                        color: Colors.blue,
+                                      )
+                                    : Image.asset(
+                                        Assets.comment,
+                                      ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(comments),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   }
-
-                  if (snapshot.hasData) {
-                    comments = snapshot.data!.docs.length.toString();
-                    isCommentedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
-                  }
-
-                  return InkWell(
-                    onTap: () {
-                      showBarModalBottomSheet(
-                        context: context,
-                        builder: (context) => PostCommentsView(postID: model.postID),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                          child: isCommentedByMe
-                              ? Image.asset(Assets.commentFilled, color: Colors.blue,)
-                              : Image.asset(
-                                  Assets.comment,
-                                ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(comments),
-                      ],
-                    ),
-                  );
+                  return Container();
                 },
               ),
               Expanded(
@@ -207,7 +243,9 @@ class BasePost extends StatelessWidget {
                       style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                     ),
                     StreamBuilder<QuerySnapshot>(
-                        stream: ServicePath.userSavedPostsCollectionReference(FirebaseAuth.instance.currentUser!.uid).where('postID', isEqualTo: model.postID).snapshots(),
+                        stream: ServicePath.userSavedPostsCollectionReference(FirebaseAuth.instance.currentUser!.uid)
+                            .where('postID', isEqualTo: model.postID)
+                            .snapshots(),
                         builder: (context, snapshot) {
                           bool isSaved = false;
 
@@ -248,10 +286,12 @@ class BasePost extends StatelessWidget {
 }
 
 class _ImagesLayout extends StatelessWidget {
-  const _ImagesLayout({Key? key, required this.model, required this.onLikePressed, required this.onCommentPressed}) : super(key: key);
+  const _ImagesLayout({Key? key, required this.model, required this.onLikePressed, required this.onCommentPressed, required this.onDelete})
+      : super(key: key);
   final PostUiModel model;
   final void Function() onLikePressed;
   final void Function() onCommentPressed;
+  final void Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -268,54 +308,77 @@ class _ImagesLayout extends StatelessWidget {
           children: List.generate(
             model.images.length < 3 ? model.images.length : 3,
             (index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PostDetailsView(
-                        model: model,
-                        index: index,
-                        onLikePressed: onLikePressed,
-                        onCommentPressed: onCommentPressed,
-                      ),
-                    ),
-                  );
-                },
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Hero(
-                        tag: model.images[index].toString(),
-                        child: Image.network(
-                          model.images[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: index == 2 && model.images.length > 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: Colors.black.withOpacity(0.6),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "+" + (model.images.length - 3).toString(),
-                            style: const TextStyle(color: Colors.white, fontSize: 25),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+              return _ImagePlaceHolder(
+                model: model,
+                onLikePressed: onLikePressed,
+                onCommentPressed: onCommentPressed,
+                onDelete: onDelete,
+                index: index,
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ImagePlaceHolder extends StatelessWidget {
+  const _ImagePlaceHolder(
+      {Key? key, required this.model, required this.onLikePressed, required this.onCommentPressed, required this.onDelete, required this.index})
+      : super(key: key);
+  final PostUiModel model;
+  final void Function() onLikePressed;
+  final void Function() onCommentPressed;
+  final void Function() onDelete;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PostDetailsView(
+              model: model,
+              index: index,
+              onLikePressed: onLikePressed,
+              onCommentPressed: onCommentPressed,
+              onDelete: onDelete,
+            ),
+          ),
+        );
+      },
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Hero(
+              tag: model.images[index].toString(),
+              child: Image.network(
+                model.images[index],
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Visibility(
+            visible: index == 2 && model.images.length > 3,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                color: Colors.black.withOpacity(0.6),
+              ),
+              child: Center(
+                child: Text(
+                  "+" + (model.images.length - 3).toString(),
+                  style: const TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -5,6 +5,7 @@ class PostModel {
   String authorID;
   Timestamp publishedAt;
   bool isUpdated;
+  bool isVisible;
   Timestamp updatedAt;
   String text;
   List<dynamic> labels;
@@ -15,6 +16,7 @@ class PostModel {
     required this.authorID,
     required this.publishedAt,
     required this.isUpdated,
+    required this.isVisible,
     required this.updatedAt,
     required this.text,
     required this.labels,
@@ -27,6 +29,7 @@ class PostModel {
       'authorID': authorID,
       'publishedAt': publishedAt,
       'isUpdated': isUpdated,
+      'isVisible': isVisible,
       'updatedAt': updatedAt,
       'text': text,
       'labels': labels,
@@ -40,6 +43,7 @@ class PostModel {
           authorID: json['authorID']! as String,
           publishedAt: json['publishedAt']! as Timestamp,
           isUpdated: json['isUpdated']! as bool,
+          isVisible: json['isVisible']! as bool,
           updatedAt: json['updatedAt']! as Timestamp,
           text: json['text']! as String,
           labels: json['labels']! as List<dynamic>,

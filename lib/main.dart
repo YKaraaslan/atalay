@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -69,6 +70,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
         ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
         ChangeNotifierProvider(create: (context) => PostCommentsViewModel()),
+        ChangeNotifierProvider(create: (context) => PostUpdateViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

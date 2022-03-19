@@ -14,7 +14,7 @@ class PostCommentsViewModel extends ChangeNotifier {
       return showSnackbar(context, "comment_length_exceeded".tr() + commentController.text.length.toString());
     }
     String comment = commentController.text.trim();
-    commentController.text = "";
+    commentController.clear();
     PostCommentModel model =
         PostCommentModel(userID: FirebaseAuth.instance.currentUser!.uid, comment: comment, commentedAt: Timestamp.now(), isUpdated: false);
 

@@ -1,15 +1,18 @@
+import 'package:atalay/core/constant/assets.dart';
+import 'package:atalay/view/authorized/pages/posts/post_update/post_update_view.dart';
+import 'package:atalay/view/authorized/pages/posts/posts_ui_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BaseBottomSheet extends StatelessWidget {
-  const BaseBottomSheet({
-    Key? key,
-  }) : super(key: key);
+  const BaseBottomSheet({Key? key, required this.model, required this.onDelete}) : super(key: key);
+  final PostUiModel model;
+  final void Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 150,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.only(
@@ -26,19 +29,34 @@ class BaseBottomSheet extends StatelessWidget {
               size: 25,
             ),
           ),
-          Column(
-            children: [
-              ListTile(
-                leading: Icon(
-                  Icons.report_problem_outlined,
-                  color: Colors.orange[300],
+          ListTile(
+            leading: Image.asset(
+              Assets.edit,
+              width: 25,
+            ),
+            title: Text('edit'.tr()),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PostUpdateView(model: model),
                 ),
-                title: Text('report'.tr()),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+              );
+            },
+          ),
+          ListTile(
+            leading: Image.asset(
+              Assets.delete,
+              width: 25,
+            ),
+            title: Text('delete'.tr()),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.pop(context);
+              onDelete();
+            },
           ),
         ],
       ),

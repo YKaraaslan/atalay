@@ -11,18 +11,18 @@ import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
 import '../../../../../core/service/service_path.dart';
-import '../../../../../core/widgets/base_bottom_sheet.dart';
 import '../post_comments/post_comments_view.dart';
 import '../post_likes/post_like_view.dart';
 import '../posts_ui_model.dart';
 import 'post_details_viewmodel.dart';
 
 class PostDetailsView extends StatefulWidget {
-  const PostDetailsView({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed}) : super(key: key);
+  const PostDetailsView({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
   final void Function() onCommentPressed;
+  final void Function() onDelete;
 
   @override
   State<PostDetailsView> createState() => _PostDetailsViewState();
@@ -39,18 +39,19 @@ class _PostDetailsViewState extends State<PostDetailsView> {
   Widget build(BuildContext context) {
     return BaseView(
       onPageBuilder: (context, value) => 
-      _Body(model: widget.model, index: widget.index, onCommentPressed: widget.onCommentPressed, onLikePressed: widget.onLikePressed),
+      _Body(model: widget.model, index: widget.index, onCommentPressed: widget.onCommentPressed, onLikePressed: widget.onLikePressed, onDelete: widget.onDelete,),
       backgroundColor: Colors.black,
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed }) : super(key: key);
+  const _Body({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
   final void Function() onCommentPressed;
+  final void Function() onDelete;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -95,20 +96,12 @@ class _BodyState extends State<_Body> {
                 style: const TextStyle(color: Colors.grey),
               ),
               trailing: IconButton(
-                icon: SizedBox(
+                icon: const SizedBox(
                   width: 15,
-                  child: Image.asset(
-                    Assets.postMenu,
-                    color: Colors.grey.shade600,
-                  ),
+                  child: Icon(Icons.chevron_right, color: Colors.grey,),
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return const BaseBottomSheet();
-                    },
-                  );
+                  // Navigate to profile
                 },
               ),
             ),

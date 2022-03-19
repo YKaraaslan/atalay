@@ -41,6 +41,8 @@ class Assets {
   static final String usersOnHold = _path('users_onhold', 'png');
   static final String noData = _path('no_data', 'png');
   static final String thumbsUp = _path('thumbs_up', 'png');
+  static final String edit = _path('ic_edit', 'png');
+  static final String delete = _path('ic_delete', 'png');
 }
 
 String _path(String name, String type) {

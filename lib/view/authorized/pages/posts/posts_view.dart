@@ -54,7 +54,7 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: FirestoreQueryBuilder(
-        query: ServicePath.postsCollectionReference.orderBy('publishedAt', descending: true),
+        query: ServicePath.postsCollectionReference.where("isVisible", isEqualTo: true).orderBy('publishedAt', descending: true),
         builder: (context, snapshot, _) {
           if (snapshot.hasError) {
             return Text('error ${snapshot.error}');
@@ -86,6 +86,9 @@ class _BodyState extends State<_Body> {
                         },
                         onSavePressed: () {
                           _viewModel.save(snapshot.data);
+                        },
+                        onDelete: (){
+                          _viewModel.delete(context, snapshot.data);
                         },
                       );
                     }

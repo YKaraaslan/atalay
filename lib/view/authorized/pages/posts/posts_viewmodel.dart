@@ -47,4 +47,8 @@ class PostsViewModel extends ChangeNotifier {
   Future save(PostUiModel uiModel) async {
     await saveAddToDatabase(uiModel.postID);
   }
+
+  Future delete(BuildContext context, PostUiModel uiModel) async {
+    await deleteFromDatabase(uiModel.postID);
+  }
 }

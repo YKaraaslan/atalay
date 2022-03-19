@@ -52,64 +52,62 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     try {
-      return SingleChildScrollView(
-        child: FirestoreQueryBuilder(
-          query: ServicePath.postsLikesCollectionReference(widget.model.postID).orderBy('likedAt'),
-          builder: (context, snapshot, _) {
-            if (snapshot.isFetching || snapshot.isFetchingMore) {
-              return const _ShimmerEffect();
-            }
-            if (snapshot.hasError) {
-              return Text('error ${snapshot.error}');
-            }
-            if (snapshot.docs.isNotEmpty && snapshot.hasData) {
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: snapshot.docs.length,
-                itemBuilder: (context, index) {
-                  PostLikeModel post = PostLikeModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(Routes.profile);
+      return FirestoreQueryBuilder(
+        query: ServicePath.postsLikesCollectionReference(widget.model.postID).orderBy('likedAt'),
+        builder: (context, snapshot, _) {
+          if (snapshot.isFetching || snapshot.isFetchingMore) {
+            return const _ShimmerEffect();
+          }
+          if (snapshot.hasError) {
+            return Text('error ${snapshot.error}');
+          }
+          if (snapshot.docs.isNotEmpty && snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: snapshot.docs.length,
+              itemBuilder: (context, index) {
+                PostLikeModel post = PostLikeModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Routes.profile);
+                  },
+                  child: FutureBuilder(
+                    future: _viewModel.getUserInfos(post),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const _ShimmerEffect();
+                      } else if (snapshot.hasData) {
+                      PostLikeUiModel model = snapshot.data as PostLikeUiModel;
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(model.imageURL),
+                          ),
+                          title: Text(model.nameSurname),
+                          subtitle: Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
+                          trailing: IconButton(
+                            onPressed: () => true,
+                            icon: Image.asset(Assets.likeFilled),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
-                    child: FutureBuilder(
-                      future: _viewModel.getUserInfos(post),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const _ShimmerEffect();
-                        } else if (snapshot.hasData) {
-                        PostLikeUiModel model = snapshot.data as PostLikeUiModel;
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(model.imageURL),
-                            ),
-                            title: Text(model.nameSurname),
-                            subtitle: Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
-                            trailing: IconButton(
-                              onPressed: () => true,
-                              icon: Image.asset(Assets.likeFilled),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
-                  );
-                },
-              );
-            } else {
-              return NoDataView(
-                text: "no_like_yet".tr(),
-                image: Assets.thumbsUp,
-                fun: () {
-                  _viewModel.like();
-                },
-              );
-            }
-          },
-        ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return NoDataView(
+              text: "no_like_yet".tr(),
+              image: Assets.thumbsUp,
+              fun: () {
+                _viewModel.like();
+              },
+            );
+          }
+        },
       );
     } catch (e) {
       return NoDataView(
