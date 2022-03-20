@@ -1,10 +1,3 @@
-import 'package:atalay/view/authorized/pages/social/posts/post_comments/post_comments_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/posts/post_create/post_create_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/posts/post_details/post_details_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/posts/post_likes/post_like_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/posts/post_update/post_update_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/posts/posts_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/social/social_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -25,6 +18,12 @@ import 'view/authorized/pages/finance/finance_viewmodel.dart';
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_viewmodel.dart';
 import 'view/authorized/pages/meetups/meetups_viewmodel.dart';
+import 'view/authorized/pages/posts/post_comments/post_comments_viewmodel.dart';
+import 'view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
+import 'view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
+import 'view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
+import 'view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
+import 'view/authorized/pages/posts/posts_viewmodel.dart';
 import 'view/authorized/pages/profile/profile_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_viewmodel.dart';
 import 'view/authorized/pages/references/references_viewmodel.dart';
@@ -72,7 +71,6 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
         ChangeNotifierProvider(create: (context) => PostCommentsViewModel()),
         ChangeNotifierProvider(create: (context) => PostUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => SocialViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

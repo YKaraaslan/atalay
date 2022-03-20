@@ -1,4 +1,5 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
+import 'post_comments/post_comments_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -12,7 +13,6 @@ import '../../../../../core/models/post_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_posts.dart';
-import 'post_comments/post_comments_view.dart';
 import 'posts_viewmodel.dart';
 
 class PostsView extends StatelessWidget {
@@ -81,7 +81,7 @@ class _BodyState extends State<_Body> {
                         onCommentPressed: () {
                           showBarModalBottomSheet(
                             context: context,
-                            builder: (context) => PostCommentsView(postID: post.postID),
+                            builder: (context) => PostCommentsView(model: snapshot.data),
                           );
                         },
                         onSavePressed: () {

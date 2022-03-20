@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../core/models/post_model.dart';
-import '../../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
+import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
 import 'post_create_service.dart';
 
 class PostCreateViewModel extends ChangeNotifier {

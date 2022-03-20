@@ -1,37 +1,35 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/paddings.dart';
 import '../../../../../../core/models/post_comment_model.dart';
 import '../../../../../../core/service/service_path.dart';
-import '../../../../../../core/widgets/base_appbar.dart';
 import '../../../../../../core/widgets/post_comment_item.dart';
+import '../post_likes/post_like_view.dart';
+import '../posts_ui_model.dart';
 import 'post_comment_ui_model.dart';
 import 'post_comments_viewmodel.dart';
 
 class PostCommentsView extends StatelessWidget {
-  const PostCommentsView({Key? key, required this.postID}) : super(key: key);
-  final String postID;
+  const PostCommentsView({Key? key, required this.model}) : super(key: key);
+  final PostUiModel model;
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBar: const BaseAppBar(
-        title: '',
-        color: Colors.white,
-        actions: [SizedBox()],
-      ),
-      onPageBuilder: (context, value) => _Body(postID: postID),
+      onPageBuilder: (context, value) => _Body(model: model),
       backgroundColor: Colors.white,
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.postID}) : super(key: key);
-  final String postID;
+  const _Body({Key? key, required this.model}) : super(key: key);
+  final PostUiModel model;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -56,9 +54,45 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Row(
+            children: [
+              const BackButton(),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    showBarModalBottomSheet(
+                      context: context,
+                      builder: (context) => PostLikesView(model: widget.model),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FutureBuilder(
+                        future: _viewModel.getLikes(widget.model.postID),
+                        builder: (context, snapshot) {
+                          int counter = 0;
+                          if (snapshot.hasData) {
+                            counter = snapshot.data as int;
+                          }
+                          return Text("${counter.toString()} ${'likes_received'.tr()}");
+                        },
+                      ),
+                      const SizedBox(width: 25),
+                      const Icon(Icons.chevron_right),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(height: 5),
         Expanded(
           child: FirestoreQueryBuilder(
-            query: ServicePath.postsCommentsCollectionReference(widget.postID).orderBy('commentedAt'),
+            query: ServicePath.postsCommentsCollectionReference(widget.model.postID).orderBy('commentedAt'),
             builder: (context, snapshot, _) {
               if (snapshot.hasError) {
                 return Text('error ${snapshot.error}');
@@ -87,7 +121,7 @@ class _BodyState extends State<_Body> {
             },
           ),
         ),
-        _BottomPart(postID: widget.postID),
+        _BottomPart(postID: widget.model.postID),
       ],
     );
   }

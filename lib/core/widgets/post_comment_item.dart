@@ -1,7 +1,7 @@
-import 'package:atalay/core/constant/sizes.dart';
+import '../constant/sizes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../view/authorized/pages/social/posts/post_comments/post_comment_ui_model.dart';
+import '../../view/authorized/pages/posts/post_comments/post_comment_ui_model.dart';
 import '../classes/time_ago.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class _MyComments extends StatelessWidget {
                     ],
                   ),
                   Positioned(
-                    left: 0,
+                    right: 0,
                     bottom: 0,
                     child: Text(
                       model.isUpdated

@@ -190,7 +190,7 @@ class _BodyState extends State<_Body> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PostLikeView(model: widget.model),
+                            builder: (context) => PostLikesView(model: widget.model),
                           ),
                         );
                       },
@@ -222,7 +222,7 @@ class _BodyState extends State<_Body> {
                     onPressed: () {
                       showBarModalBottomSheet(
                         context: context,
-                        builder: (context) => PostCommentsView(postID: widget.model.postID),
+                        builder: (context) => PostCommentsView(model: widget.model),
                       );
                     },
                   ),

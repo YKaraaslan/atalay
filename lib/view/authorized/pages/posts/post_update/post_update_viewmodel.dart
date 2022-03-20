@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:atalay/view/authorized/pages/social/posts/post_update/post_update_service.dart';
+import 'post_update_service.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
+import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
 import '../posts_ui_model.dart';
 
 class PostUpdateViewModel extends ChangeNotifier {

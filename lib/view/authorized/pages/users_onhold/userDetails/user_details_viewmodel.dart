@@ -1,11 +1,11 @@
-import '../../../../../core/models/user_model.dart';
-import '../../../../../core/models/users_onhold_model.dart';
-import '../../../../../core/service/service_path.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/models/user_model.dart';
+import '../../../../../core/models/users_onhold_model.dart';
+import '../../../../../core/service/service_path.dart';
 import 'user_details_service.dart';
 
 class UserDetailsViewModel extends ChangeNotifier {

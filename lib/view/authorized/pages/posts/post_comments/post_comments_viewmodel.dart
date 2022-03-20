@@ -1,4 +1,5 @@
 import '../../../../../../core/models/post_comment_model.dart';
+import '../../../../../../core/service/service_path.dart';
 import 'post_comment_service.dart';
 import 'post_comment_ui_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,5 +48,9 @@ class PostCommentsViewModel extends ChangeNotifier {
       commentedAt: comment.commentedAt,
       isUpdated: comment.isUpdated,
     );
+  }
+
+  Future getLikes(String postID) async {
+    return await ServicePath.postsLikesCollectionReference(postID).get().then((value) => value.docs.length);
   }
 }

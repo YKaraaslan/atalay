@@ -1,9 +1,9 @@
-import 'package:atalay/core/constant/assets.dart';
-import 'package:atalay/view/authorized/pages/social/posts/post_update/post_update_view.dart';
+import '../constant/assets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../view/authorized/pages/social/posts/posts_ui_model.dart';
+import '../../view/authorized/pages/posts/post_update/post_update_view.dart';
+import '../../view/authorized/pages/posts/posts_ui_model.dart';
 
 class BaseBottomSheet extends StatelessWidget {
   const BaseBottomSheet({Key? key, required this.model, required this.onDelete}) : super(key: key);
