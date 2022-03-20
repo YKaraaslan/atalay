@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'post_update_service.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../unauthorized/signup/widgets/signup_bottom_sheet_with_photo.dart';
 import '../posts_ui_model.dart';
+import 'post_update_service.dart';
 
 class PostUpdateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;

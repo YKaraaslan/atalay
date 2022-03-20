@@ -54,8 +54,8 @@ class _HomeViewState extends State<HomeView> {
           clipMainScreen: true,
           mainScreen: GestureDetector(
             onTap: viewModel.menuTap,
-            child: viewModel.selectedWiget,
-            //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
+            //child: viewModel.selectedWiget,
+            child: GroupsView(zoomDrawerController: viewModel.zoomDrawerController),
           ),
           menuScreen: const _Menu(),
         ),
@@ -233,7 +233,7 @@ class _Item extends StatelessWidget {
       },
       child: Row(
         children: [
-          CircleAvatar(radius: 10, child: Image.asset(assetName)),
+          CircleAvatar(radius: 10, backgroundColor: Colors.transparent, child: Image.asset(assetName)),
           const SizedBox(
             width: 20,
           ),

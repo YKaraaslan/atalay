@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
-import '../../view/authorized/pages/groups/extras/details/groups_details_view.dart';
+import '../../view/authorized/pages/groups/groups_create/groups_create_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
 import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
 import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
+import '../../view/authorized/pages/projects/projects_create/projects_create_view.dart';
 import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
 import '../../view/unauthorized/login/login_view.dart';
@@ -23,11 +24,12 @@ class Routes {
   static const String projectDetails = '/project_details';
   static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
-  static const String groupsDetails = '/groups_details';
   static const String profile = '/profile';
   static const String userDetails = '/user_details';
   static const String basePhotoViewer = '/base_photo_viewer';
   static const String postCreate = '/post_create';
+  static const String projectsCreate = '/projects_create';
+  static const String groupsCreate = '/groups_create';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -39,11 +41,12 @@ class Routes {
       projectDetails: (context) => const ProjectDetailsView(),
       projectTeam: (context) => const ProjectTeamView(),
       notifications: (context) => const NotificationsView(),
-      groupsDetails: (context) => const GroupsDetailsView(),
       profile: (context) => const ProfileView(),
       userDetails: (context) => const UserDetailsView(),
       basePhotoViewer: (context) => const BasePhotoViewer(),
       postCreate: (context) => const PostCreateView(),
+      projectsCreate: (context) => const ProjectsCreateView(),
+      groupsCreate: (context) => const GroupsCreateView(),
     };
   }
 }

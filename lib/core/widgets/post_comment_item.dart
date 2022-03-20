@@ -1,12 +1,11 @@
-import '../constant/sizes.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import '../../view/authorized/pages/posts/post_comments/post_comment_ui_model.dart';
 import '../classes/time_ago.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-
 import '../constant/routes.dart';
+import '../constant/sizes.dart';
 import '../constant/styles.dart';
 
 class PostCommentItem extends StatelessWidget {

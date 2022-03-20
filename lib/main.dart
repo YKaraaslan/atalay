@@ -16,6 +16,8 @@ import 'view/authorized/home/home_viewmodel.dart';
 import 'view/authorized/pages/dashboard/dashboard_viewmodel.dart';
 import 'view/authorized/pages/finance/finance_viewmodel.dart';
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
+import 'view/authorized/pages/groups/groups_create/add_to_team/add_to_team_viewmodel.dart';
+import 'view/authorized/pages/groups/groups_create/groups_create_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_viewmodel.dart';
 import 'view/authorized/pages/meetups/meetups_viewmodel.dart';
 import 'view/authorized/pages/posts/post_comments/post_comments_viewmodel.dart';
@@ -25,6 +27,7 @@ import 'view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
 import 'view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
 import 'view/authorized/pages/posts/posts_viewmodel.dart';
 import 'view/authorized/pages/profile/profile_viewmodel.dart';
+import 'view/authorized/pages/projects/projects_create/projects_create_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_viewmodel.dart';
 import 'view/authorized/pages/references/references_viewmodel.dart';
 import 'view/authorized/pages/settings/settings_viewmodel.dart';
@@ -71,6 +74,9 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
         ChangeNotifierProvider(create: (context) => PostCommentsViewModel()),
         ChangeNotifierProvider(create: (context) => PostUpdateViewModel()),
+        ChangeNotifierProvider(create: (context) => ProjectsCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => GroupsCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => AddToTeamViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

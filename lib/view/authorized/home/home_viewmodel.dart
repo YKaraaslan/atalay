@@ -1,7 +1,8 @@
-import '../pages/posts/posts_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
+import '../pages/posts/posts_view.dart';
 
 
 class HomeViewModel extends ChangeNotifier {
