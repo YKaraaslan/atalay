@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GroupsModel {
+  String groupID;
   String title;
   String explanation;
   String userInCharge;
@@ -10,6 +11,7 @@ class GroupsModel {
   String createdBy;
 
   GroupsModel({
+    required this.groupID,
     required this.title,
     required this.explanation,
     required this.userInCharge,
@@ -21,6 +23,7 @@ class GroupsModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'groupID': groupID,
       'title': title,
       'explanation': explanation,
       'userInCharge': userInCharge,
@@ -33,6 +36,7 @@ class GroupsModel {
 
   GroupsModel.fromJson(Map<String, Object?> json)
       : this(
+          groupID: json['groupID']! as String,
           title: json['title']! as String,
           explanation: json['explanation']! as String,
           userInCharge: json['userInCharge']! as String,

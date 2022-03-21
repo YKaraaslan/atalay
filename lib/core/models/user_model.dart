@@ -105,4 +105,26 @@ class UserModel {
       'onlineTime': onlineTime,
     };
   }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      surname: map['surname'] ?? '',
+      fullName: map['fullName'] ?? '',
+      phone: map['phone'] ?? '',
+      birthday: map['birthday'] as Timestamp,
+      mail: map['mail'] ?? '',
+      password: map['password'] ?? '',
+      imageURL: map['imageURL'] ?? '',
+      signUpTime: map['signUpTime'] as Timestamp,
+      token: map['token'] ?? '',
+      signUpAcceptedTime: map['signUpAcceptedTime'] as Timestamp,
+      signUpAcceptedBy: map['signUpAcceptedBy'] ?? '',
+      authorization: map['authorization'] ?? '',
+      position: map['position'] ?? '',
+      online: map['online'] ?? false,
+      onlineTime: map['onlineTime'] as Timestamp,
+    );
+  }
 }

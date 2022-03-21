@@ -1,3 +1,4 @@
+import '../../groups_update/groups_update_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,17 @@ class GroupsDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView(
       onPageBuilder: (context, value) => _Body(model: model),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.create),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GroupsUpdateView(model: model),
+            ),
+          );
+        },
+      ),
     );
   }
 }

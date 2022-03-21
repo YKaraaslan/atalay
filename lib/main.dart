@@ -18,6 +18,7 @@ import 'view/authorized/pages/finance/finance_viewmodel.dart';
 import 'view/authorized/pages/groups/extras/details/groups_details_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_create/add_to_team/add_to_team_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_create/groups_create_viewmodel.dart';
+import 'view/authorized/pages/groups/groups_update/groups_update_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_viewmodel.dart';
 import 'view/authorized/pages/meetups/meetups_viewmodel.dart';
 import 'view/authorized/pages/posts/post_comments/post_comments_viewmodel.dart';
@@ -76,6 +77,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectsCreateViewModel()),
         ChangeNotifierProvider(create: (context) => GroupsCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => GroupsUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => AddToTeamViewModel()),
       ],
       child: EasyLocalization(
@@ -96,13 +98,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Widget child;
   final appCheck = FirebaseAppCheck.instance;
+  late Widget child;
 
   @override
   void initState() {
     super.initState();
-    appCheck.onTokenChange.listen((event) { });
+    appCheck.onTokenChange.listen((event) {});
     appCheck.setTokenAutoRefreshEnabled(true);
     ServicePath.auth.currentUser == null ? child = const LoginView() : child = const HomeView();
 

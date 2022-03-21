@@ -1,3 +1,5 @@
+import '../../../../../core/models/groups_model.dart';
+import 'groups_update_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,11 +10,11 @@ import '../../../../../core/constant/routes.dart';
 import '../../../../../core/constant/sizes.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_button.dart';
-import 'groups_create_viewmodel.dart';
-import 'selected/groups_selected_view.dart';
+import '../groups_create/selected/groups_selected_view.dart';
 
-class GroupsCreateView extends StatelessWidget {
-  const GroupsCreateView({Key? key}) : super(key: key);
+class GroupsUpdateView extends StatelessWidget {
+  const GroupsUpdateView({Key? key, required this.model}) : super(key: key);
+  final GroupsModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +23,21 @@ class GroupsCreateView extends StatelessWidget {
         title: 'groups_create'.tr(),
         actions: const [SizedBox()],
       ),
-      onPageBuilder: (context, value) => const _Body(),
+      onPageBuilder: (context, value) => _Body(model: model),
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key}) : super(key: key);
+  const _Body({Key? key, required this.model}) : super(key: key);
+  final GroupsModel model;
 
   @override
   State<_Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<_Body> {
-  late final GroupsCreateViewModel _viewModel = context.read<GroupsCreateViewModel>();
+  late final GroupsUpdateViewModel _viewModel = context.read<GroupsUpdateViewModel>();
 
   @override
   void initState() {
@@ -43,7 +46,9 @@ class _BodyState extends State<_Body> {
     _viewModel.nameController = TextEditingController();
     _viewModel.explanationController = TextEditingController();
     _viewModel.usersSelectedForTeam = [];
-    _viewModel.personInCharge = null;
+    _viewModel.image = null;
+
+    Future.delayed(const Duration(microseconds: 0), () => _viewModel.getData(widget.model));
   }
 
   @override
@@ -72,7 +77,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 10),
               Consumer(
-                builder: (context, GroupsCreateViewModel _viewModel, child) => Center(
+                builder: (context, GroupsUpdateViewModel _viewModel, child) => Center(
                   child: InkWell(
                     onTap: () {
                       _viewModel.getFromGallery();
@@ -82,7 +87,10 @@ class _BodyState extends State<_Body> {
                       height: 150,
                       child: Card(
                         child: _viewModel.image == null
-                            ? Image.asset(Assets.groupCreatePhoto, width: 100, height: 100, fit: BoxFit.contain)
+                            ? Hero(
+                                tag: "photo",
+                                child: Image.network(widget.model.imageURL, width: 100, height: 100, fit: BoxFit.cover),
+                              )
                             : Hero(
                                 tag: "photo",
                                 child: Image.file(_viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
@@ -126,7 +134,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 10),
               Consumer(
-                builder: (context, GroupsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, GroupsUpdateViewModel _viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: InkWell(
                     onTap: (() {
@@ -188,7 +196,7 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, GroupsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, GroupsUpdateViewModel _viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: InkWell(
                     onTap: (() {
@@ -233,10 +241,10 @@ class _BodyState extends State<_Body> {
                 child: SizedBox(
                   width: Sizes.width_65percent(context),
                   child: BaseButton(
-                    text: 'group_create'.tr(),
+                    text: 'group_update'.tr(),
                     fun: () {
                       if (_viewModel.formKey.currentState!.validate()) {
-                        _viewModel.createGroup(context);
+                        _viewModel.updateGroup(context, widget.model);
                       }
                     },
                   ),

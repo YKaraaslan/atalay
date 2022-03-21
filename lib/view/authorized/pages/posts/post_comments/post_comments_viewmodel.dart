@@ -1,11 +1,12 @@
-import '../../../../../../core/models/post_comment_model.dart';
-import '../../../../../../core/service/service_path.dart';
-import 'post_comment_service.dart';
-import 'post_comment_ui_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/models/post_comment_model.dart';
+import '../../../../../../core/service/service_path.dart';
+import 'post_comment_service.dart';
+import 'post_comment_ui_model.dart';
 
 class PostCommentsViewModel extends ChangeNotifier {
   late TextEditingController commentController;

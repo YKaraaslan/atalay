@@ -29,11 +29,8 @@ class AddToTeamViewModel extends ChangeNotifier {
             online: item.get('online'),
             onlineTime: item.get('onlineTime'));
         userModels.add(userModel);
-
-        // users.add(item.get('fullName'));
-        // imageLinks[item.get('fullName')] = item.get('imageURL');
-        // userIDs[item.get('fullName')] = item.get('id');
       }
+      userModels.sort((a, b) => a.fullName.toString().compareTo(b.fullName.toString()));
       notifyListeners();
     });
   }

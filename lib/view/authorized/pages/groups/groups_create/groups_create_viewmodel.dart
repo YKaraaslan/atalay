@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/models/groups_model.dart';
 import '../../../../../core/models/user_model.dart';
-import '../../../../../core/service/service_path.dart';
 import 'add_to_team/add_to_team_view.dart';
 import 'groups_create_service.dart';
 
@@ -17,35 +16,10 @@ class GroupsCreateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
   late TextEditingController nameController;
   late TextEditingController explanationController;
-
-  late List<String> users;
-  late Map<String, String> imageLinks;
-  late Map<String, String> userIDs;
-
   late List<UserModel> usersSelectedForTeam;
   BaseDialog baseDialog = BaseDialog();
-
   File? image;
-  late String personInCharge;
-
-  void onDropDownChanged(String? value) {
-    if (value != null) {
-      personInCharge = userIDs[value].toString();
-      notifyListeners();
-    }
-  }
-
-  Future getUsers() async {
-    await ServicePath.usersCollectionReference.get().then((value) {
-      for (var item in value.docs) {
-        users.add(item.get('fullName'));
-        imageLinks[item.get('fullName')] = item.get('imageURL');
-        userIDs[item.get('fullName')] = item.get('id');
-      }
-      personInCharge = userIDs[users[0]]!;
-      notifyListeners();
-    });
-  }
+  UserModel? personInCharge;
 
   Future getFromGallery() async {
     final ImagePicker _picker = ImagePicker();
@@ -69,17 +43,38 @@ class GroupsCreateViewModel extends ChangeNotifier {
     });
   }
 
+  void navigateAndDisplaySelectionForPersonInCharge(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddToTeam(
+          userReceivedList: usersSelectedForTeam,
+          multiSelection: false,
+        ),
+      ),
+    ).then((value) {
+      if (value != null) {
+        personInCharge = (value as List<UserModel>).first;
+      }
+      notifyListeners();
+    });
+  }
+
   Future createGroup(BuildContext context) async {
     if (image == null) {
       return showSnackbar(context, "image_cannot_be_blank".tr());
+    }
+    if (personInCharge == null) {
+      return showSnackbar(context, "person_incharge_cannot_be_blank".tr());
     }
     baseDialog.text = "creating_group".tr();
     baseDialog.showLoadingDialog(context);
 
     GroupsModel model = GroupsModel(
+        groupID: "",
         title: nameController.text.trim(),
         explanation: explanationController.text.trim(),
-        userInCharge: personInCharge,
+        userInCharge: personInCharge!.id,
         people: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
         imageURL: "",
         createdAt: Timestamp.now(),

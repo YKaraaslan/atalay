@@ -9,8 +9,9 @@ import '../../../../../../core/widgets/base_appbar.dart';
 import 'add_to_team_viewmodel.dart';
 
 class AddToTeam extends StatelessWidget {
-  const AddToTeam({Key? key, required this.userReceivedList}) : super(key: key);
+  const AddToTeam({Key? key, required this.userReceivedList, this.multiSelection = true}) : super(key: key);
   final List<UserModel> userReceivedList;
+  final bool multiSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +20,15 @@ class AddToTeam extends StatelessWidget {
         title: 'choose_for_team'.tr(),
         actions: const [SizedBox()],
       ),
-      onPageBuilder: (context, value) => _Body(userReceivedList: userReceivedList),
+      onPageBuilder: (context, value) => _Body(userReceivedList: userReceivedList, multiSelection: multiSelection),
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.userReceivedList}) : super(key: key);
+  const _Body({Key? key, required this.userReceivedList, required this.multiSelection}) : super(key: key);
   final List<UserModel> userReceivedList;
+  final bool multiSelection;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -40,6 +42,9 @@ class _BodyState extends State<_Body> {
     super.initState();
     _viewModel.userModels = [];
     _viewModel.selectedUsers = widget.userReceivedList;
+    if (!widget.multiSelection) {
+      _viewModel.selectedUsers = [];
+    }
     _viewModel.getUsers();
   }
 
@@ -65,7 +70,13 @@ class _BodyState extends State<_Body> {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    _viewModel.selectUser(index);
+                    if (widget.multiSelection) {
+                      return _viewModel.selectUser(index);
+                    } else {
+                      _viewModel.selectedUsers = [];
+                      _viewModel.selectUser(index);
+                      return Navigator.pop(context, _viewModel.selectedUsers);
+                    }
                   },
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(_viewModel.userModels[index].imageURL),
@@ -91,16 +102,19 @@ class _BodyState extends State<_Body> {
                 );
               },
             ),
-            Positioned(
-              bottom: 10,
-              left: 100,
-              right: 100,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context, _viewModel.selectedUsers);
-                },
-                child: Text(
-                  _viewModel.selectedUsers.length.toString() + " kisi sec",
+            Visibility(
+              visible: widget.multiSelection,
+              child: Positioned(
+                bottom: 10,
+                left: 100,
+                right: 100,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, _viewModel.selectedUsers);
+                  },
+                  child: Text(
+                    _viewModel.selectedUsers.length.toString() + " kisi sec",
+                  ),
                 ),
               ),
             ),

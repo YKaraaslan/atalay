@@ -67,7 +67,7 @@ class _BodyState extends State<_Body> {
                       ),
                     );
                   },
-                  leading: Image.network(group.imageURL),
+                  leading: Image.network(group.imageURL, width: 75),
                   title: Text(group.title),
                   subtitle: Text(group.explanation),
                   trailing: const Icon(Icons.chevron_right),

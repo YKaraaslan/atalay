@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +42,6 @@ class ForgotPasswordViewModel extends ChangeNotifier {
         return false;
       }
     } catch (error) {
-      log(error.toString());
       return null;
     }
   }
