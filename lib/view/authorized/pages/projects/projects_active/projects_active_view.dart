@@ -1,59 +1,133 @@
+import 'package:animated_shimmer/animated_shimmer.dart';
+import '../../../../../core/models/project_model.dart';
+import '../projects_viewmodel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/constant/paddings.dart';
+import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/project_card.dart';
 
-class ProjectsActiveView extends StatelessWidget {
+class ProjectsActiveView extends StatefulWidget {
   const ProjectsActiveView({Key? key}) : super(key: key);
 
   @override
+  State<ProjectsActiveView> createState() => _ProjectsActiveViewState();
+}
+
+class _ProjectsActiveViewState extends State<ProjectsActiveView> {
+  late final ProjectsViewModel _viewModel = context.watch<ProjectsViewModel>();
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) => Padding(
-        padding: AppPaddings.appPadding,
-        child: ProjectsCard(
-            title: 'App Animation',
-            subTitle: 'Today, created by Yunus Karaaslan',
-            percentage: (10 * index).toInt(),
-            photos: const [
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
-              ),
-              SizedBox(width: 5),
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D'),
-              ),
-              SizedBox(width: 5),
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://www.incimages.com/uploaded_files/image/1920x1080/getty_481292845_77896.jpg'),
-              ),
-              SizedBox(width: 5),
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80'),
-              ),
-              SizedBox(width: 5),
-              CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.orange,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
+    return FirestoreQueryBuilder(
+      query: ServicePath.projectsCollectionReference.where('status', isEqualTo: 'active').orderBy('createdAt', descending: true),
+      builder: (context, snapshot, _) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.docs.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
+                snapshot.fetchMore();
+              }
+              ProjectModel project = ProjectModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+
+              return Padding(
+                padding: AppPaddings.appPadding,
+                child: FutureBuilder(
+                    future: _viewModel.getPercentage(snapshot.docs[index].id),
+                    builder: (context, snapshotFuture) {
+                      if (snapshotFuture.hasData) {
+                        Map<String, dynamic> snapshotData = snapshotFuture.data as Map<String, dynamic>;
+                        return ProjectsCard(
+                          model: project,
+                          id: snapshot.docs[index].id,
+                          percentage: snapshotData['percentage'],
+                          photos: List.generate(
+                            project.team.length <= 7 ? project.team.length : 7,
+                            (index) {
+                              return FutureBuilder<DocumentSnapshot>(
+                                future: ServicePath.usersCollectionReference.doc(project.team[index]).get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: CircleAvatar(
+                                        radius: 15,
+                                        backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                },
+                              );
+                            },
+                          ),
+                          taskAmount: snapshotData['total'],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
+              );
+            },
+          );
+        }
+        return const _ShimmerEffect();
+      },
+      pageSize: 20,
+    );
+  }
+}
+
+
+class _ShimmerEffect extends StatelessWidget {
+  const _ShimmerEffect({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            leading: AnimatedShimmer.round(
+              size: 45,
+            ),
+            title: const AnimatedShimmer(
+              height: 10,
+              width: 10,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            subtitle: const AnimatedShimmer(
+              height: 10,
+              width: 100,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+            child: Column(
+              children: const [
+                AnimatedShimmer(
+                  height: 10,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
-              ),
-            ],
-            dateStart: '20 Ocak 2022',
-            dateEnd: ' 13 Mart 2022'),
+              ],
+            ),
+          ),
+          Container(
+            height: 10,
+            color: Colors.grey.shade100,
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'view/authorized/pages/projects/projects_create/add_group/add_group_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -29,6 +30,7 @@ import 'view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
 import 'view/authorized/pages/posts/posts_viewmodel.dart';
 import 'view/authorized/pages/profile/profile_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_create/projects_create_viewmodel.dart';
+import 'view/authorized/pages/projects/projects_update/projects_update_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_viewmodel.dart';
 import 'view/authorized/pages/references/references_viewmodel.dart';
 import 'view/authorized/pages/settings/settings_viewmodel.dart';
@@ -79,6 +81,8 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => GroupsCreateViewModel()),
         ChangeNotifierProvider(create: (context) => GroupsUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => AddToTeamViewModel()),
+        ChangeNotifierProvider(create: (context) => AddGroupViewModel()),
+        ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

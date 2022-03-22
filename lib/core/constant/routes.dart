@@ -5,8 +5,6 @@ import '../../view/authorized/pages/groups/groups_create/groups_create_view.dart
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../../view/authorized/pages/profile/profile_view.dart';
-import '../../view/authorized/pages/projects/extras/details/project_details_view.dart';
-import '../../view/authorized/pages/projects/extras/team/project_team_view.dart';
 import '../../view/authorized/pages/projects/projects_create/projects_create_view.dart';
 import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
@@ -21,8 +19,6 @@ class Routes {
   static const String signupShowPhoto = '/signup_show_photo';
   static const String forgotPassword = '/forgot_password';
   static const String home = '/home';
-  static const String projectDetails = '/project_details';
-  static const String projectTeam = '/project_team';
   static const String notifications = '/notifications';
   static const String profile = '/profile';
   static const String userDetails = '/user_details';
@@ -38,8 +34,6 @@ class Routes {
       signupShowPhoto: (context) => const SignUpShowPhoto(),
       forgotPassword: (context) => const ForgotPasswordView(),
       home: (context) => const HomeView(),
-      projectDetails: (context) => const ProjectDetailsView(),
-      projectTeam: (context) => const ProjectTeamView(),
       notifications: (context) => const NotificationsView(),
       profile: (context) => const ProfileView(),
       userDetails: (context) => const UserDetailsView(),

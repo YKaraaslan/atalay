@@ -1,3 +1,4 @@
+import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -74,9 +75,56 @@ class _BodyState extends State<_Body> {
                 );
               });
         } else {
-          return Container();
+          return const _ShimmerEffect();
         }
       },
+    );
+  }
+}
+
+class _ShimmerEffect extends StatelessWidget {
+  const _ShimmerEffect({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            leading: AnimatedShimmer.round(
+              size: 45,
+            ),
+            title: const AnimatedShimmer(
+              height: 10,
+              width: 10,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            subtitle: const AnimatedShimmer(
+              height: 10,
+              width: 100,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
+            child: Column(
+              children: const [
+                AnimatedShimmer(
+                  height: 10,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 10,
+            color: Colors.grey.shade100,
+          ),
+        ],
+      ),
     );
   }
 }

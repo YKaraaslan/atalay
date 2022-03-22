@@ -1,31 +1,58 @@
+import '../../../../../../core/models/project_model.dart';
+import '../../../../../../core/service/service_path.dart';
+import '../team/project_team_view.dart';
+import '../../projects_update/projects_update_view.dart';
+import '../../projects_viewmodel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/paddings.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/constant/sizes.dart';
+import '../../../../../../core/models/project_todo_model.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
 
 class ProjectDetailsView extends StatelessWidget {
-  const ProjectDetailsView({Key? key}) : super(key: key);
+  const ProjectDetailsView({Key? key, required this.model}) : super(key: key);
+  final ProjectModel model;
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      appBar: const BaseAppBar(
-        title: 'App Animation',
-        actions: [],
+      appBar: BaseAppBar(
+        title: model.title,
+        actions: const [],
       ),
-      onPageBuilder: (context, value) => const _Body(),
+      onPageBuilder: (context, value) => _Body(model: model),
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.create),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProjectsUpdateView(model: model),
+            ),
+          );
+        },
+      ),
     );
   }
 }
 
-class _Body extends StatelessWidget {
-  const _Body({Key? key}) : super(key: key);
+class _Body extends StatefulWidget {
+  const _Body({Key? key, required this.model}) : super(key: key);
+  final ProjectModel model;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late final ProjectsViewModel _viewModel = context.watch<ProjectsViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +63,64 @@ class _Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(
-                  text: 'Today, Created by ',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  children: const [
-                    TextSpan(
-                      text: 'Yunus Karaaslan',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ]),
+            FutureBuilder<DocumentSnapshot>(
+              future: ServicePath.usersCollectionReference.doc(widget.model.createdBy).get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RichText(
+                    text: TextSpan(
+                        text: DateFormat('dd MMMM')
+                            .format(DateTime.fromMillisecondsSinceEpoch(widget.model.createdAt.millisecondsSinceEpoch))
+                            .toString(),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        children: [
+                          TextSpan(
+                            text: ', ' + 'created_by'.tr() + ' ',
+                          ),
+                          TextSpan(
+                            text: snapshot.data!.get('fullName'),
+                            style: const TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ]),
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
             const SizedBox(height: 35),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircularStepProgressIndicator(
-                  width: Sizes.width_30percent(context),
-                  height: Sizes.width_30percent(context),
-                  totalSteps: 100,
-                  currentStep: 75,
-                  stepSize: 7,
-                  selectedColor: Colors.greenAccent,
-                  unselectedColor: Colors.grey[200],
-                  padding: 0,
-                  selectedStepSize: 10,
-                  roundedCap: (_, __) => true,
-                  child: Center(
-                    child: Text(
-                      '%75',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: 33),
-                    ),
-                  ),
+                FutureBuilder(
+                  future: _viewModel.getPercentage(widget.model.projectID),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      Map<String, dynamic> snapshotData = snapshot.data as Map<String, dynamic>;
+                      return CircularStepProgressIndicator(
+                        width: Sizes.width_30percent(context),
+                        height: Sizes.width_30percent(context),
+                        totalSteps: 100,
+                        currentStep: snapshotData['percentage'],
+                        stepSize: 7,
+                        selectedColor: Colors.greenAccent,
+                        unselectedColor: Colors.grey[200],
+                        padding: 0,
+                        selectedStepSize: 10,
+                        roundedCap: (_, __) => true,
+                        child: Center(
+                          child: Text(
+                            "%${snapshotData['percentage']}",
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold, fontSize: 33),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
                 const SizedBox(width: 30),
                 Column(
@@ -80,54 +128,54 @@ class _Body extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.projectTeam);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProjectTeamView(users: widget.model.team),
+                          ),
+                        );
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('team'.tr(),
-                              style: Theme.of(context).textTheme.bodyMedium),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: const [
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundImage: NetworkImage(
-                                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
-                              ),
-                              SizedBox(width: 5),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundImage: NetworkImage(
-                                    'https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D'),
-                              ),
-                              SizedBox(width: 5),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundImage: NetworkImage(
-                                    'https://www.incimages.com/uploaded_files/image/1920x1080/getty_481292845_77896.jpg'),
-                              ),
-                              SizedBox(width: 5),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundImage: NetworkImage(
-                                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80'),
-                              ),
-                              SizedBox(width: 5),
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: Colors.orange,
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
+                          Text('team'.tr(), style: Theme.of(context).textTheme.bodyMedium),
+                          SizedBox(
+                            height: 40,
+                            child: ListView.builder(
+                              itemCount: widget.model.team.length <= 7 ? widget.model.team.length : 7,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return FutureBuilder<DocumentSnapshot>(
+                                  future: ServicePath.usersCollectionReference.doc(widget.model.team[index]).get(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: CircleAvatar(
+                                          radius: 15,
+                                          backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                        ),
+                                      );
+                                    } else {
+                                      return const CircleAvatar(
+                                        radius: 15,
+                                        backgroundColor: Colors.orange,
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                );
+                              },
+                            ),
                           ),
-                          const SizedBox(height: 25),
                         ],
                       ),
                     ),
+                    const SizedBox(height: 10),
                     const Text('Deadline'),
                     const SizedBox(height: 5),
                     Row(
@@ -136,11 +184,9 @@ class _Body extends StatelessWidget {
                           Icons.calendar_month_outlined,
                           color: Colors.grey,
                         ),
-                        Text('20 Ocak 2022 - 13 Mart 2022',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(fontSize: 13)),
+                        Text(
+                            '${DateFormat('dd MMMM').format(DateTime.fromMillisecondsSinceEpoch(widget.model.createdAt.millisecondsSinceEpoch)).toString()} - ${DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(widget.model.deadline.millisecondsSinceEpoch)).toString()}',
+                            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 13)),
                       ],
                     )
                   ],
@@ -154,9 +200,8 @@ class _Body extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-              style:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 13),
+              widget.model.explanation,
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 13),
             ),
             const SizedBox(height: 35),
             const Text(
@@ -164,38 +209,30 @@ class _Body extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            CheckboxListTile(
-              value: true,
-              onChanged: (value) => false,
-              title: const Text(
-                'Kullanici arayuzu olusturulacak',
-                style: TextStyle(decoration: TextDecoration.lineThrough),
-              ),
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            CheckboxListTile(
-              value: true,
-              onChanged: (value) => false,
-              title: const Text(
-                'Tanitim yapilacak',
-                style: TextStyle(decoration: TextDecoration.lineThrough),
-              ),
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            CheckboxListTile(
-              value: true,
-              onChanged: (value) => false,
-              title: const Text(
-                'Dagitim yapilacak',
-                style: TextStyle(decoration: TextDecoration.lineThrough),
-              ),
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            CheckboxListTile(
-              value: false,
-              onChanged: (value) => false,
-              title: const Text('Geri bildirimler incelenecek'),
-              controlAffinity: ListTileControlAffinity.leading,
+            FutureBuilder<QuerySnapshot>(
+              future: ServicePath.projectsToDoCollectionReference(widget.model.projectID).orderBy('index').get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      ProjectToDoModel project = ProjectToDoModel.fromJson(snapshot.data!.docs[index].data() as Map<String, Object?>);
+                      return CheckboxListTile(
+                        value: project.status == 'finished',
+                        onChanged: (value) => false,
+                        title: Text(
+                          project.text,
+                          style: project.status == 'finished' ? const TextStyle(decoration: TextDecoration.lineThrough) : const TextStyle(),
+                        ),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      );
+                    },
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
           ],
         ),

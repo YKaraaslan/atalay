@@ -199,11 +199,7 @@ class _BodyState extends State<_Body> {
                     child: Card(
                       child: ListTile(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
-                            ),
-                          );
+                          _viewModel.navigateAndDisplaySelection(context);
                         },
                         leading: Image.asset(
                           Assets.groupsTeam,
@@ -220,10 +216,14 @@ class _BodyState extends State<_Body> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   child: Text(
-                    'choose_for_team'.tr(),
+                    'see_team'.tr(),
                   ),
                   onPressed: () {
-                    _viewModel.navigateAndDisplaySelection(context);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                      ),
+                    );
                   },
                 ),
               ),

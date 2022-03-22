@@ -6,36 +6,39 @@ import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/paddings.dart';
 import '../../../../../core/constant/sizes.dart';
+import '../../../../../core/models/project_model.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_button.dart';
 import '../../../../../core/widgets/base_textformfield.dart';
 import '../../groups/groups_create/selected/groups_selected_view.dart';
-import 'projects_create_viewmodel.dart';
+import 'projects_update_viewmodel.dart';
 
-class ProjectsCreateView extends StatelessWidget {
-  const ProjectsCreateView({Key? key}) : super(key: key);
+class ProjectsUpdateView extends StatelessWidget {
+  const ProjectsUpdateView({Key? key, required this.model}) : super(key: key);
+  final ProjectModel model;
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
       appBar: BaseAppBar(
-        title: 'projects_create'.tr(),
+        title: 'projects_update'.tr(),
         actions: const [SizedBox()],
       ),
-      onPageBuilder: (context, value) => const _Body(),
+      onPageBuilder: (context, value) => _Body(model: model),
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key}) : super(key: key);
+  const _Body({Key? key, required this.model}) : super(key: key);
+  final ProjectModel model;
 
   @override
   State<_Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<_Body> {
-  late final ProjectsCreateViewModel _viewModel = context.read<ProjectsCreateViewModel>();
+  late final ProjectsUpdateViewModel _viewModel = context.read<ProjectsUpdateViewModel>();
 
   @override
   void initState() {
@@ -49,6 +52,9 @@ class _BodyState extends State<_Body> {
     _viewModel.usersSelectedForTeam = [];
     _viewModel.groupsSelectedForTeam = [];
     _viewModel.toDo = [];
+    _viewModel.toDoId = [];
+
+    Future.delayed(const Duration(microseconds: 0), () => _viewModel.setPage(widget.model));
   }
 
   @override
@@ -124,7 +130,7 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsUpdateViewModel _viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
@@ -164,7 +170,7 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsUpdateViewModel _viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
@@ -181,7 +187,7 @@ class _BodyState extends State<_Body> {
                   ),
                 ),
               ),
-              const Divider(height: 10),
+              /*const Divider(height: 10),
               Align(
                 alignment: Alignment.center,
                 child: OutlinedButton(
@@ -194,7 +200,7 @@ class _BodyState extends State<_Body> {
                 ),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => ListView.separated(
+                builder: (context, ProjectsUpdateViewModel _viewModel, child) => ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => const Divider(height: 1),
                   itemCount: _viewModel.toDo.length,
@@ -222,7 +228,7 @@ class _BodyState extends State<_Body> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
               const Divider(height: 10),
               const SizedBox(height: 10),
               Align(
@@ -230,10 +236,10 @@ class _BodyState extends State<_Body> {
                 child: SizedBox(
                   width: Sizes.width_65percent(context),
                   child: BaseButton(
-                    text: 'projects_create'.tr(),
+                    text: 'projects_update'.tr(),
                     fun: () {
                       if (_viewModel.formKey.currentState!.validate()) {
-                        _viewModel.createProject(context);
+                        _viewModel.updateProject(context, widget.model);
                       }
                     },
                   ),

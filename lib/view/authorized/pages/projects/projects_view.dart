@@ -1,3 +1,6 @@
+import 'projects_active/projects_active_view.dart';
+import 'projects_all/projects_all_view.dart';
+import 'projects_finished/projects_finished_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +13,7 @@ import '../../../../core/widgets/base_appbar.dart';
 import 'projects_viewmodel.dart';
 
 class ProjectsView extends StatelessWidget {
-  const ProjectsView({Key? key, required this.zoomDrawerController})
-      : super(key: key);
+  const ProjectsView({Key? key, required this.zoomDrawerController}) : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -58,7 +60,14 @@ class _Body extends StatelessWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: viewModel.child
+              child: IndexedStack(
+                index: viewModel.segmentedControlGroupValue,
+                children: const [
+                  ProjectsActiveView(),
+                  ProjectsFinishedView(),
+                  ProjectsAllView(),
+                ],
+              ),
             ),
           ),
         ],

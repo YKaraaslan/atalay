@@ -1,6 +1,6 @@
 import '../../../../../core/models/groups_model.dart';
 import '../../../../../core/service/service_path.dart';
-import 'add_group/add_group_view.dart';
+import '../projects_create/add_group/add_group_view.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,9 +10,9 @@ import '../../../../../core/models/project_model.dart';
 import '../../../../../core/models/project_todo_model.dart';
 import '../../../../../core/models/user_model.dart';
 import '../../groups/groups_create/add_to_team/add_to_team_view.dart';
-import 'projects_create_service.dart';
+import 'projects_update_service.dart';
 
-class ProjectsCreateViewModel extends ChangeNotifier {
+class ProjectsUpdateViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKey;
   late GlobalKey<FormState> formKeyForDialog;
   late TextEditingController titleController;
@@ -24,9 +24,11 @@ class ProjectsCreateViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
 
   late List<String> toDo;
+  late List<String> toDoId;
 
   void onDeletedMethod(int index) {
     toDo.removeAt(index);
+    toDoId.removeAt(index);
     notifyListeners();
   }
 
@@ -102,21 +104,17 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future createProject(BuildContext context) async {
-    baseDialog.text = "creating_project".tr();
+  Future updateProject(BuildContext context, ProjectModel model) async {
+    baseDialog.text = "updating_project".tr();
     baseDialog.showLoadingDialog(context);
 
-    ProjectModel model = ProjectModel(
-      projectID: "",
-      groupIDs: List.generate(groupsSelectedForTeam.length, (index) => groupsSelectedForTeam[index].groupID),
-      createdBy: ServicePath.auth.currentUser!.uid,
-      createdAt: Timestamp.now(),
-      status: 'active',
-      team: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
-      title: titleController.text.trim(),
-      explanation: explanationController.text.trim(),
-      deadline: Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(deadlineController.text.trim())),
-    );
+    Map<String, dynamic> newModel = {
+      'groupIDs': List.generate(groupsSelectedForTeam.length, (index) => groupsSelectedForTeam[index].groupID),
+      'team': List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
+      'title': titleController.text.trim(),
+      'explanation': explanationController.text.trim(),
+      'deadline': Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(deadlineController.text.trim())),
+    };
 
     List<ProjectToDoModel> projectToDoModels = [];
 
@@ -132,15 +130,15 @@ class ProjectsCreateViewModel extends ChangeNotifier {
             index: i),
       );
     }
-    
-    bool result = await createProjectService(model, projectToDoModels);
+
+    bool result = await updateProjectService(newModel, model.projectID);
     if (result) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "project_created_successfully".tr());
+      showSnackbar(context, "project_update_successfully".tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "project_create_failed".tr());
+      showSnackbar(context, "project_update_failed".tr());
     }
   }
 
@@ -158,15 +156,100 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     final newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now() ,
+      firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 5),
     );
 
-    deadlineController.text = DateFormat('dd MMMM yyyy').format(newDate!);
+    if (newDate != null) {
+      deadlineController.text = DateFormat('dd MMMM yyyy').format(newDate);
+    }
   }
 
   void dismissDialog(BuildContext context, text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }
+
+  Future setPage(ProjectModel model) async {
+    titleController.text = model.title;
+    explanationController.text = model.explanation;
+    deadlineController.text =
+        DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.deadline.millisecondsSinceEpoch)).toString();
+    await getTeamInfo(model.team);
+    await getGroupInfo(model.groupIDs);
+    /*await getToDos(model.projectID);*/
+    notifyListeners();
+  }
+
+  Future getTeamInfo(List<dynamic> people) async {
+    for (var item in people) {
+      await ServicePath.usersCollectionReference.doc(item).get().then(
+        (value) {
+          UserModel newModel = UserModel(
+            id: value.get('id'),
+            name: value.get('name'),
+            surname: value.get('imageURL'),
+            fullName: value.get('fullName'),
+            phone: value.get('phone'),
+            birthday: value.get('birthday'),
+            mail: value.get('mail'),
+            password: value.get('password'),
+            imageURL: value.get('imageURL'),
+            signUpTime: value.get('signUpTime'),
+            token: value.get('token'),
+            signUpAcceptedTime: value.get('signUpAcceptedTime'),
+            signUpAcceptedBy: value.get('signUpAcceptedBy'),
+            authorization: value.get('authorization'),
+            position: value.get('position'),
+            online: value.get('online'),
+            onlineTime: value.get('onlineTime'),
+          );
+          usersSelectedForTeam.add(newModel);
+        },
+      );
+    }
+  }
+
+  Future getGroupInfo(List<dynamic> groups) async {
+    for (var item in groups) {
+      await ServicePath.groupsCollectionReference.doc(item).get().then(
+        (value) {
+          GroupsModel newModel = GroupsModel(
+            groupID: value.get('groupID'),
+            title: value.get('title'),
+            explanation: value.get('explanation'),
+            userInCharge: value.get('userInCharge'),
+            people: value.get('people'),
+            imageURL: value.get('imageURL'),
+            createdAt: value.get('createdAt'),
+            createdBy: value.get('createdBy'),
+          );
+          groupsSelectedForTeam.add(newModel);
+        },
+      );
+    }
+  }
+
+  /*Future getToDos(String projectID) async {
+    print(projectID);
+    await ServicePath.projectsToDoCollectionReference(projectID).orderBy('index').get().then(
+      (value) {
+        print(value.size);
+        for (var item in value.docs) {
+          ProjectToDoModel newModel = ProjectToDoModel(
+            toDoID: item.get('toDoID'),
+            text: item.get('text'),
+            createdBy: item.get('createdBy'),
+            createdAt: item.get('createdAt'),
+            status: item.get('status'),
+            urgency: item.get('urgency'),
+            index: item.get('index'),
+          );
+          toDo.add(newModel.text);
+          toDoId.add(newModel.toDoID);
+        }
+        notifyListeners();
+      },
+    );
+  }*/
 }

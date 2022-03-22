@@ -55,7 +55,7 @@ class _HomeViewState extends State<HomeView> {
           mainScreen: GestureDetector(
             onTap: viewModel.menuTap,
             child: viewModel.selectedWiget,
-            //child: GroupsView(zoomDrawerController: viewModel.zoomDrawerController),
+            //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
           ),
           menuScreen: const _Menu(),
         ),

@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 
-import 'projects_active/projects_active_view.dart';
-import 'projects_all/projects_all_view.dart';
-import 'projects_finished/projects_finished_view.dart';
+import '../../../../core/service/service_path.dart';
 
 class ProjectsViewModel extends ChangeNotifier {
-  int _segmentedControlGroupValue = 0;
-  int get segmentedControlGroupValue => _segmentedControlGroupValue;
+  int segmentedControlGroupValue = 0;
 
   final Map<int, Widget> tabs = <int, Widget>{
     0: Text("active_projects".tr()),
@@ -15,14 +12,32 @@ class ProjectsViewModel extends ChangeNotifier {
     2: Text("all_projects".tr())
   };
 
-  final children = const [ProjectsActiveView(), ProjectsFinishedView(), ProjectsAllView()];
-
-  late Widget _child = children[0];
-  Widget get child => _child;
-
   void setSegmentedValue(int value) {
-    _segmentedControlGroupValue = value;
-    _child = children[value];
+    segmentedControlGroupValue = value;
     notifyListeners();
+  }
+  
+  Future<Map<String, dynamic>> getPercentage(String id) async {
+    int percentage = 0;
+    int total = 0;
+    int counter = 0;
+
+    await ServicePath.projectsToDoCollectionReference(id).get().then(
+      (value) {
+        total = value.docs.length;
+
+        for (var item in value.docs) {
+          if (item.get('status') == 'finished') {
+            counter++;
+          }
+        }
+      },
+    );
+
+    if (total != 0) {
+      percentage = 100 * counter ~/ total;
+    }
+    
+    return {'total': total, 'percentage': percentage};
   }
 }

@@ -1,4 +1,3 @@
-import '../../groups_update/groups_update_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/constant/styles.dart';
 import '../../../../../../core/models/groups_model.dart';
 import '../../../../../../core/service/service_path.dart';
+import '../../groups_update/groups_update_view.dart';
 import 'groups_details_viewmodel.dart';
 
 class GroupsDetailsView extends StatelessWidget {
