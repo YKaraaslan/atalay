@@ -68,6 +68,8 @@ class _BodyState extends State<_Body> {
     }
     _viewModel.titleController.dispose();
     _viewModel.explanationController.dispose();
+    _viewModel.deadlineController.dispose();
+    _viewModel.toDoTextController.dispose();
   }
 
   @override

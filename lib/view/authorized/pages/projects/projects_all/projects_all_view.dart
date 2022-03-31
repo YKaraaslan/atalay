@@ -1,14 +1,14 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import '../../../../../core/models/project_model.dart';
-import '../projects_viewmodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/constant/paddings.dart';
+import '../../../../../core/models/project_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/project_card.dart';
+import '../projects_viewmodel.dart';
 
 class ProjectsAllView extends StatefulWidget {
   const ProjectsAllView({Key? key}) : super(key: key);
@@ -54,9 +54,12 @@ class _ProjectsAllViewState extends State<ProjectsAllView> {
                                 future: ServicePath.usersCollectionReference.doc(project.team[index]).get(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
-                                    return CircleAvatar(
-                                      radius: 15,
-                                      backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: CircleAvatar(
+                                        radius: 15,
+                                        backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                      ),
                                     );
                                   } else {
                                     return Container();

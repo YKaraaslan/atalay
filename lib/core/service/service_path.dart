@@ -7,7 +7,7 @@ class ServicePath {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final CollectionReference usersCollectionReference = FirebaseFirestore.instance.collection('Users');
   static final CollectionReference usersOnHoldCollectionReference = FirebaseFirestore.instance.collection('UsersOnHold');
-  static final CollectionReference appCollectionReference = FirebaseFirestore.instance.collection('App');
+  static final CollectionReference announcementCollectionReference = FirebaseFirestore.instance.collection('Announcements');
   static final CollectionReference authorizationCollectionReference = FirebaseFirestore.instance.collection('Authorization');
   static final CollectionReference postsCollectionReference = FirebaseFirestore.instance.collection('Posts');
   static final CollectionReference groupsCollectionReference = FirebaseFirestore.instance.collection('Groups');

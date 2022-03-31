@@ -1,6 +1,6 @@
-import '../../../../../../core/models/groups_model.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../../../../core/models/groups_model.dart';
 import '../../../../../../core/service/service_path.dart';
 
 class AddGroupViewModel extends ChangeNotifier {
