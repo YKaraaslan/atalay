@@ -1,15 +1,16 @@
+import 'package:atalay/view/authorized/pages/finance/finance_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
-import '../../../../core/constant/paddings.dart';
+import '../../../../core/constant/routes.dart';
 import '../../../../core/constant/styles.dart';
 import '../../../../core/widgets/base_appbar.dart';
 
 class FinanceView extends StatelessWidget {
-  const FinanceView({Key? key, required this.zoomDrawerController})
-      : super(key: key);
+  const FinanceView({Key? key, required this.zoomDrawerController}) : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -22,12 +23,25 @@ class FinanceView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.create),
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.financeCreate);
+        },
+      ),
     );
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({Key? key}) : super(key: key);
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late final FinanceViewModel _viewModel = context.watch<FinanceViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,49 +58,6 @@ class _Body extends StatelessWidget {
           const Text(
             '2,123.45 ₺',
             style: financeTitleStyle,
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () => true,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Colors.green.shade200,
-                      ),
-                      padding: AppPaddings.appPadding,
-                      child: const Icon(Icons.add_shopping_cart),
-                    ),
-                  ),
-                  const SizedBox(height: 7),
-                  const Text('Para Ekle')
-                ],
-              ),
-              const SizedBox(width: 100),
-              Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: Colors.red.shade200,
-                    ),
-                    padding: AppPaddings.appPadding,
-                    child: const Icon(Icons.exposure_minus_1),
-                  ),
-                  const SizedBox(height: 7),
-                  const Text('Para Cikar')
-                ],
-              ),
-            ],
           ),
           const SizedBox(height: 20),
           Container(
@@ -122,8 +93,7 @@ class _Body extends StatelessWidget {
                         color: Colors.white,
                       )),
                   title: Text('+ 453.21 ₺'),
-                  subtitle: Text(
-                      'ABC Referansindan sponsorluk alindi\n10.03.2022 12:21'),
+                  subtitle: Text('ABC Referansindan sponsorluk alindi\n10.03.2022 12:21'),
                   isThreeLine: true,
                 );
               }

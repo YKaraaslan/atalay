@@ -1,3 +1,5 @@
+import 'package:atalay/view/authorized/pages/finance/finance_transaction/finance_transaction_viewmodel.dart';
+
 import 'view/authorized/pages/projects/projects_create/add_group/add_group_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -83,6 +85,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AddToTeamViewModel()),
         ChangeNotifierProvider(create: (context) => AddGroupViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel()),
+        ChangeNotifierProvider(create: (context) => FinanceTransactionViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

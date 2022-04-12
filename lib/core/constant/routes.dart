@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/finance/finance_transaction/finance_transaction_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String postCreate = '/post_create';
   static const String projectsCreate = '/projects_create';
   static const String groupsCreate = '/groups_create';
+  static const String financeCreate = '/finance_create';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -41,6 +43,7 @@ class Routes {
       postCreate: (context) => const PostCreateView(),
       projectsCreate: (context) => const ProjectsCreateView(),
       groupsCreate: (context) => const GroupsCreateView(),
+      financeCreate: (context) => const FinanceTransactionView(),
     };
   }
 }
