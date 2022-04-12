@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class ServicePath {
   ServicePath._();
   static final FirebaseAuth auth = FirebaseAuth.instance;
+  static final CollectionReference applicationCollectionReference = FirebaseFirestore.instance.collection('Application');
   static final CollectionReference usersCollectionReference = FirebaseFirestore.instance.collection('Users');
   static final CollectionReference usersOnHoldCollectionReference = FirebaseFirestore.instance.collection('UsersOnHold');
   static final CollectionReference announcementCollectionReference = FirebaseFirestore.instance.collection('Announcements');
@@ -12,6 +13,7 @@ class ServicePath {
   static final CollectionReference postsCollectionReference = FirebaseFirestore.instance.collection('Posts');
   static final CollectionReference groupsCollectionReference = FirebaseFirestore.instance.collection('Groups');
   static final CollectionReference projectsCollectionReference = FirebaseFirestore.instance.collection('Projects');
+  static final CollectionReference financesCollectionReference = FirebaseFirestore.instance.collection('Finances');
 
   static CollectionReference userSavedPostsCollectionReference(String userID) {
     return usersCollectionReference.doc(userID).collection('SavedPosts');
@@ -28,6 +30,8 @@ class ServicePath {
   static CollectionReference projectsToDoCollectionReference(String projectID) {
     return projectsCollectionReference.doc(projectID).collection('ToDo');
   }
+  
+  static final DocumentReference applicationFinancesCollectionReference = FirebaseFirestore.instance.collection('Application').doc('Finances');
 
 
   static final FirebaseStorage storage = FirebaseStorage.instance;

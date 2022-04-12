@@ -1,4 +1,6 @@
 import 'package:atalay/core/constant/paddings.dart';
+import 'package:atalay/core/service/service_path.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +28,9 @@ class _FinanceTransactionViewState extends State<FinanceTransactionView> {
     _viewModel.formKeyForDialog = GlobalKey<FormState>();
     _viewModel.titleTextController = TextEditingController();
     _viewModel.moneyController = TextEditingController();
+    _viewModel.transactedAt = DateTime.now();
 
     _viewModel.isAdd = true;
-    _viewModel.money = 1000;
     _viewModel.moneyLast = _viewModel.money;
   }
 
@@ -69,21 +71,30 @@ class _Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => RichText(
-                    text: TextSpan(
-                      text: 'Bakiye: ',
-                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(text: _viewModel.money.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
-                        const TextSpan(text: ' ₺'),
-                      ],
-                    ),
-                  ),
+                  builder: (context, FinanceTransactionViewModel _viewModel, child) => StreamBuilder<DocumentSnapshot>(
+                      stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          _viewModel.money = double.parse(snapshot.data!.get('balance').toString());
+                          return RichText(
+                            text: TextSpan(
+                              text: 'balance'.tr() + ": ",
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                TextSpan(text: _viewModel.money.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                                const TextSpan(text: ' ₺'),
+                              ],
+                            ),
+                          );
+                        }
+                        return Container();
+                      }),
                 ),
                 Consumer(
                   builder: (context, FinanceTransactionViewModel _viewModel, child) => TextFormField(
+                    controller: _viewModel.titleTextController,
                     decoration: InputDecoration(
-                      labelText: "project_title".tr(),
+                      labelText: "finance_create_explanation".tr(),
                       icon: const Icon(Icons.title),
                     ),
                     maxLength: 50,
@@ -102,7 +113,7 @@ class _Body extends StatelessWidget {
                         child: TextFormField(
                           controller: _viewModel.moneyController,
                           decoration: InputDecoration(
-                            labelText: "project_title".tr(),
+                            labelText: "finance_create_amount".tr(),
                             icon: const Icon(Icons.attach_money),
                           ),
                           maxLength: 10,
@@ -112,7 +123,7 @@ class _Body extends StatelessWidget {
                               return 'cannot_be_blank'.tr();
                             }
                             if (double.tryParse(value) == null) {
-                              return 'Gecerli bir sayi giriniz';
+                              return 'provide_valid_number'.tr();
                             }
                             return null;
                           },
@@ -161,7 +172,7 @@ class _Body extends StatelessWidget {
                 Consumer(
                   builder: (context, FinanceTransactionViewModel _viewModel, child) => RichText(
                     text: TextSpan(
-                      text: 'Bakiye Durumu: ',
+                      text: 'balance_status'.tr() + ": ",
                       style: DefaultTextStyle.of(context).style,
                       children: <TextSpan>[
                         TextSpan(text: _viewModel.moneyLast.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
@@ -170,13 +181,18 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 250,
-                  child: CupertinoDatePicker(
-                    initialDateTime: DateTime.now(),
-                    onDateTimeChanged: (value) {},
-                    mode: CupertinoDatePickerMode.dateAndTime,
-                    use24hFormat: true,
+                Consumer(
+                  builder: (context, FinanceTransactionViewModel _viewModel, child) => SizedBox(
+                    height: 250,
+                    child: CupertinoDatePicker(
+                      initialDateTime: DateTime.now(),
+                      onDateTimeChanged: (value) {
+                        _viewModel.changeTransactedAt(value);
+                      },
+                      mode: CupertinoDatePickerMode.dateAndTime,
+                      use24hFormat: true,
+                      maximumDate: DateTime.now(),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -186,7 +202,7 @@ class _Body extends StatelessWidget {
                     width: Sizes.width_65percent(context),
                     child: Consumer(
                       builder: (context, FinanceTransactionViewModel _viewModel, child) => BaseButton(
-                        text: 'post_create'.tr(),
+                        text: 'finance_transaction_create'.tr(),
                         fun: () {
                           if (_viewModel.formKeyForDialog.currentState!.validate()) {
                             _viewModel.createFinanceTransaction(context);
