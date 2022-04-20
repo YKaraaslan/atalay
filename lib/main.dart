@@ -1,3 +1,4 @@
+import 'package:atalay/view/authorized/pages/calendar/calendar_viewmodel.dart';
 import 'package:atalay/view/authorized/pages/finance/finance_transaction/finance_transaction_viewmodel.dart';
 
 import 'view/authorized/pages/projects/projects_create/add_group/add_group_viewmodel.dart';
@@ -44,7 +45,8 @@ import 'view/unauthorized/login/login_view.dart';
 import 'view/unauthorized/login/login_viewmodel.dart';
 import 'view/unauthorized/signup/signup_viewmodel.dart';
 
-Future<void> main() async {
+
+Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
@@ -86,6 +88,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AddGroupViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => FinanceTransactionViewModel()),
+        ChangeNotifierProvider(create: (context) => CalendarViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

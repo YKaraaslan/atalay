@@ -43,6 +43,8 @@
     "duty": "Görev",
     "email_already_in_use": "Bu mail adresine kayitli bir hesap zaten bulunmaktadir.",
     "edit": "Duzenle",
+    "event_create_failed": "Olusturma basarisiz oldu",
+    "event_created_successfully": "Basariyla olusturuldu",
     "finance_transaction": "Finansal Islemler",
     "finance_transaction_create": "Finansman Olustur",
     "finance_create_explanation": "Finansman Aciklamasi",
