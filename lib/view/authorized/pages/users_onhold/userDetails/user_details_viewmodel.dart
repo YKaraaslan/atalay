@@ -24,23 +24,26 @@ class UserDetailsViewModel extends ChangeNotifier {
     auth ??= dropDownItems!.first.value;
 
     UserModel newModel = UserModel(
-        id: model.id,
-        name: model.name,
-        surname: model.surname,
-        fullName: model.fullName,
-        phone: model.phone,
-        birthday: model.birthday,
-        mail: model.mail,
-        password: model.password,
-        imageURL: model.imageURL,
-        signUpTime: model.signUpTime,
-        token: model.token,
-        signUpAcceptedTime: Timestamp.fromDate(DateTime.now()),
-        signUpAcceptedBy: ServicePath.auth.currentUser!.uid,
-        authorization: auth!,
-        position: roleController.text.trim(),
-        online: false,
-        onlineTime: Timestamp.fromDate(DateTime.now()));
+      id: model.id,
+      name: model.name,
+      surname: model.surname,
+      fullName: model.fullName,
+      phone: model.phone,
+      birthday: model.birthday,
+      mail: model.mail,
+      password: model.password,
+      imageURL: model.imageURL,
+      signUpTime: model.signUpTime,
+      token: model.token,
+      signUpAcceptedTime: Timestamp.fromDate(DateTime.now()),
+      signUpAcceptedBy: ServicePath.auth.currentUser!.uid,
+      authorization: auth!,
+      position: roleController.text.trim(),
+      online: false,
+      onlineTime: Timestamp.fromDate(DateTime.now()),
+      aboutMe: '',
+      interests: [],
+    );
 
     await acceptUserService(newModel);
     closePage(context);

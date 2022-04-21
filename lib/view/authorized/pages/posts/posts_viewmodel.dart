@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/models/post_like_model.dart';
 import '../../../../../core/models/post_model.dart';
+import '../../../../core/service/service_path.dart';
 import 'posts_service.dart';
 import 'posts_ui_model.dart';
 
@@ -40,7 +41,7 @@ class PostsViewModel extends ChangeNotifier {
   }
 
   Future like(PostUiModel uiModel) async {
-    PostLikeModel model = PostLikeModel(userID: uiModel.authorID, likedAt: Timestamp.now());
+    PostLikeModel model = PostLikeModel(userID: ServicePath.auth.currentUser!.uid, likedAt: Timestamp.now());
     await likeAddToDatabase(model, uiModel.postID);
   }
 

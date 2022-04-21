@@ -8,6 +8,7 @@ import '../../../../core/base/view/base_view.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/sizes.dart';
 import '../../../core/constant/styles.dart';
+import '../../../core/service/service_path.dart';
 import '../pages/calendar/calendar_view.dart';
 import '../pages/dashboard/dashboard_view.dart';
 import '../pages/finance/finance_view.dart';
@@ -179,7 +180,7 @@ class _MenuItems extends StatelessWidget {
                 viewModel: viewModel,
                 assetName: Assets.profile,
                 title: 'profile'.tr(),
-                widget: ProfileView(zoomDrawerController: viewModel.zoomDrawerController),
+                widget: ProfileView(zoomDrawerController: viewModel.zoomDrawerController, userID: ServicePath.auth.currentUser!.uid),
               ),
               _Item(
                 viewModel: viewModel,

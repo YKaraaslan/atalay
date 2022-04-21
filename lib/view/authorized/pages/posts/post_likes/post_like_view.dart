@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/classes/time_ago.dart';
 import '../../../../../../core/constant/assets.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/models/post_like_model.dart';
 import '../../../../../../core/service/service_path.dart';
 import '../../../../../../core/widgets/no_data.dart';
+import '../../profile/profile_view.dart';
 import '../posts_ui_model.dart';
 import 'post_like_ui_model.dart';
 import 'post_like_viewmodel.dart';
@@ -70,7 +70,13 @@ class _BodyState extends State<_Body> {
                       PostLikeModel post = PostLikeModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed(Routes.profile);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProfileView(
+                                userID: post.userID,
+                              ),
+                            ),
+                          );
                         },
                         child: FutureBuilder(
                           future: _viewModel.getUserInfos(post),
@@ -78,17 +84,14 @@ class _BodyState extends State<_Body> {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return const _ShimmerEffect();
                             } else if (snapshot.hasData) {
-                            PostLikeUiModel model = snapshot.data as PostLikeUiModel;
+                              PostLikeUiModel model = snapshot.data as PostLikeUiModel;
                               return ListTile(
                                 leading: CircleAvatar(
                                   backgroundImage: NetworkImage(model.imageURL),
                                 ),
                                 title: Text(model.nameSurname),
                                 subtitle: Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
-                                trailing: IconButton(
-                                  onPressed: () => true,
-                                  icon: Image.asset(Assets.likeFilled),
-                                ),
+                                trailing: CircleAvatar(radius: 15, backgroundColor: Colors.transparent, child: Image.asset(Assets.likeFilled)),
                               );
                             } else {
                               return Container();

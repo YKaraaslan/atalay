@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/pages/posts/post_comments/post_comment_ui_model.dart';
+import '../../view/authorized/pages/profile/profile_view.dart';
 import '../classes/time_ago.dart';
-import '../constant/routes.dart';
 import '../constant/sizes.dart';
 import '../constant/styles.dart';
 
@@ -78,8 +78,10 @@ class _MyComments extends StatelessWidget {
             const SizedBox(width: 10),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(
-                  Routes.profile,
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileView(userID: model.userID),
+                  ),
                 );
               },
               child: CircleAvatar(
@@ -110,8 +112,10 @@ class _TheirComments extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(
-                  Routes.profile,
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileView(userID: model.userID),
+                  ),
                 );
               },
               child: CircleAvatar(
@@ -137,8 +141,10 @@ class _TheirComments extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed(
-                            Routes.profile,
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProfileView(userID: model.userID),
+                            ),
                           );
                         },
                         child: Text(

@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/paddings.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/constant/styles.dart';
 import '../../../../../../core/models/groups_model.dart';
 import '../../../../../../core/service/service_path.dart';
+import '../../../profile/profile_view.dart';
 import '../../groups_update/groups_update_view.dart';
 import 'groups_details_viewmodel.dart';
 
@@ -126,7 +126,11 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                                     ),
                                     ListTile(
                                       onTap: () {
-                                        Navigator.pushNamed(context, Routes.profile);
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => ProfileView(userID: snapshot.data!.get('id')),
+                                          ),
+                                        );
                                       },
                                       contentPadding: EdgeInsets.zero,
                                       leading: CircleAvatar(

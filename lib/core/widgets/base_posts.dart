@@ -8,9 +8,9 @@ import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart'
 import '../../view/authorized/pages/posts/post_details/post_details_view.dart';
 import '../../view/authorized/pages/posts/post_likes/post_like_view.dart';
 import '../../view/authorized/pages/posts/posts_ui_model.dart';
+import '../../view/authorized/pages/profile/profile_view.dart';
 import '../classes/time_ago.dart';
 import '../constant/assets.dart';
-import '../constant/routes.dart';
 import '../service/service_path.dart';
 import 'base_bottom_sheet.dart';
 
@@ -38,8 +38,10 @@ class BasePost extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                Routes.profile,
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfileView(userID: model.authorID),
+                ),
               );
             },
             child: ListTile(

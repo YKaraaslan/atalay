@@ -9,15 +9,17 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/assets.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/service/service_path.dart';
+import '../../profile/profile_view.dart';
 import '../post_comments/post_comments_view.dart';
 import '../post_likes/post_like_view.dart';
 import '../posts_ui_model.dart';
 import 'post_details_viewmodel.dart';
 
 class PostDetailsView extends StatefulWidget {
-  const PostDetailsView({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
+  const PostDetailsView(
+      {Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete})
+      : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
@@ -38,15 +40,22 @@ class _PostDetailsViewState extends State<PostDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onPageBuilder: (context, value) => 
-      _Body(model: widget.model, index: widget.index, onCommentPressed: widget.onCommentPressed, onLikePressed: widget.onLikePressed, onDelete: widget.onDelete,),
+      onPageBuilder: (context, value) => _Body(
+        model: widget.model,
+        index: widget.index,
+        onCommentPressed: widget.onCommentPressed,
+        onLikePressed: widget.onLikePressed,
+        onDelete: widget.onDelete,
+      ),
       backgroundColor: Colors.black,
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
+  const _Body(
+      {Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete})
+      : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
@@ -79,8 +88,12 @@ class _BodyState extends State<_Body> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                Routes.profile,
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfileView(
+                    userID: widget.model.authorID,
+                  ),
+                ),
               );
             },
             child: ListTile(
@@ -98,7 +111,10 @@ class _BodyState extends State<_Body> {
               trailing: IconButton(
                 icon: const SizedBox(
                   width: 15,
-                  child: Icon(Icons.chevron_right, color: Colors.grey,),
+                  child: Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
                 ),
                 onPressed: () {
                   // Navigate to profile

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/models/groups_model.dart';
 import '../../../../../../core/service/service_path.dart';
+import '../../../profile/profile_view.dart';
 
 class GroupsTeamView extends StatelessWidget {
   const GroupsTeamView({Key? key, required this.groupsModel}) : super(key: key);
@@ -21,7 +21,13 @@ class GroupsTeamView extends StatelessWidget {
               if (snapshot.hasData) {
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.profile);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileView(
+                          userID: snapshot.data!.get('id'),
+                        ),
+                      ),
+                    );
                   },
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),

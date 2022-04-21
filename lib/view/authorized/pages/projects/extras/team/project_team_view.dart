@@ -4,9 +4,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
-import '../../../../../../core/constant/routes.dart';
 import '../../../../../../core/service/service_path.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
+import '../../../profile/profile_view.dart';
 
 class ProjectTeamView extends StatelessWidget {
   const ProjectTeamView({Key? key, required this.users}) : super(key: key);
@@ -27,7 +27,13 @@ class ProjectTeamView extends StatelessWidget {
               if (snapshot.hasData) {
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.profile);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileView(
+                          userID: snapshot.data!.get('id'),
+                        ),
+                      ),
+                    );
                   },
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),

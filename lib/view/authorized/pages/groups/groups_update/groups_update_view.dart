@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
-import '../../../../../core/constant/routes.dart';
 import '../../../../../core/constant/sizes.dart';
 import '../../../../../core/models/groups_model.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_button.dart';
+import '../../profile/profile_view.dart';
 import '../groups_create/selected/groups_selected_view.dart';
 import 'groups_update_viewmodel.dart';
 
@@ -187,7 +187,13 @@ class _BodyState extends State<_Body> {
                     'see_profile'.tr(),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.profile);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileView(
+                          userID: _viewModel.personInCharge!.id,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

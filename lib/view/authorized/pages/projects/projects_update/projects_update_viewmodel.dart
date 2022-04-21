@@ -1,15 +1,15 @@
-import '../../../../../core/models/groups_model.dart';
-import '../../../../../core/service/service_path.dart';
-import '../projects_create/add_group/add_group_view.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/models/groups_model.dart';
 import '../../../../../core/models/project_model.dart';
 import '../../../../../core/models/project_todo_model.dart';
 import '../../../../../core/models/user_model.dart';
+import '../../../../../core/service/service_path.dart';
 import '../../groups/groups_create/add_to_team/add_to_team_view.dart';
+import '../projects_create/add_group/add_group_view.dart';
 import 'projects_update_service.dart';
 
 class ProjectsUpdateViewModel extends ChangeNotifier {
@@ -203,6 +203,8 @@ class ProjectsUpdateViewModel extends ChangeNotifier {
             position: value.get('position'),
             online: value.get('online'),
             onlineTime: value.get('onlineTime'),
+            aboutMe: value.get('aboutMe'),
+            interests: value.get('interests'),
           );
           usersSelectedForTeam.add(newModel);
         },

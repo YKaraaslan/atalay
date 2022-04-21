@@ -31,12 +31,15 @@ class ServicePath {
     return projectsCollectionReference.doc(projectID).collection('ToDo');
   }
 
-   static CollectionReference calendarCollectionReference(String userID) {
+  static CollectionReference calendarCollectionReference(String userID) {
     return usersCollectionReference.doc(userID).collection('Calendar');
   }
-  
+
   static final DocumentReference applicationFinancesCollectionReference = FirebaseFirestore.instance.collection('Application').doc('Finances');
 
+  static DocumentReference userDocumentReference(String userID) {
+    return usersCollectionReference.doc(userID);
+  }
 
   static final FirebaseStorage storage = FirebaseStorage.instance;
   static final profilePhotoReference = storage.ref('ProfilePhotos/');

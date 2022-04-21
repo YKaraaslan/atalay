@@ -13,6 +13,6 @@ Future likeAddToDatabase(String postID, PostLikeModel model) async {
   }
 }
 
-Future<DocumentSnapshot<Object?>> getAuthorInfo() async {
-  return ServicePath.usersCollectionReference.doc(FirebaseAuth.instance.currentUser!.uid).get();
+Future<DocumentSnapshot<Object?>> getAuthorInfo(String userID) async {
+  return ServicePath.usersCollectionReference.doc(userID).get();
 }

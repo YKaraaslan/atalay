@@ -4,6 +4,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'core/base/view/base_viewmodel.dart';
@@ -46,9 +47,9 @@ import 'view/unauthorized/login/login_view.dart';
 import 'view/unauthorized/login/login_viewmodel.dart';
 import 'view/unauthorized/signup/signup_viewmodel.dart';
 
-
-Future<void> main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -92,6 +93,7 @@ Future<void> main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => CalendarViewModel()),
         ChangeNotifierProvider(create: (context) => CalendarCreateViewModel()),
         ChangeNotifierProvider(create: (context) => CalendarShowViewModel()),
+        ChangeNotifierProvider(create: (context) => ProfileViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],
@@ -126,10 +128,12 @@ class _MyAppState extends State<MyApp> {
         if (user == null) {
           setState(() {
             child = const LoginView();
+            FlutterNativeSplash.remove();
           });
         } else {
           setState(() {
             child = const HomeView();
+            FlutterNativeSplash.remove();
           });
         }
       },

@@ -18,6 +18,8 @@ class UserModel {
   String position;
   bool online;
   Timestamp onlineTime;
+  String aboutMe;
+  List<dynamic> interests;
 
   UserModel({
     required this.id,
@@ -37,8 +39,9 @@ class UserModel {
     required this.position,
     required this.online,
     required this.onlineTime,
+    required this.aboutMe,
+    required this.interests,
   });
-
 
   Map<String, dynamic> toMap() {
     return {
@@ -59,9 +62,10 @@ class UserModel {
       'position': position,
       'online': online,
       'onlineTime': onlineTime,
+      'aboutMe': aboutMe,
+      'interests': interests,
     };
   }
-  
 
   UserModel.fromJson(Map<String, Object?> json)
       : this(
@@ -82,6 +86,8 @@ class UserModel {
           position: json['position']! as String,
           online: json['online']! as bool,
           onlineTime: json['onlineTime']! as Timestamp,
+          aboutMe: json['aboutMe']! as String,
+          interests: json['interests']! as List<dynamic>,
         );
 
   Map<String, Object?> toJson() {
@@ -103,6 +109,8 @@ class UserModel {
       'position': position,
       'online': online,
       'onlineTime': onlineTime,
+      'aboutMe': aboutMe,
+      'interests': interests,
     };
   }
 
@@ -125,6 +133,8 @@ class UserModel {
       position: map['position'] ?? '',
       online: map['online'] ?? false,
       onlineTime: map['onlineTime'] as Timestamp,
+      aboutMe: map['aboutMe'] ?? '',
+      interests: map['interests'] ?? '',
     );
   }
 }

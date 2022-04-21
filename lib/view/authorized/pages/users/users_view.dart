@@ -5,10 +5,10 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutterfire_ui/firestore.dart';
 
 import '../../../../core/base/view/base_view.dart';
-import '../../../../core/constant/routes.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import '../profile/profile_view.dart';
 
 class UsersView extends StatefulWidget {
   const UsersView({Key? key, required this.zoomDrawerController}) : super(key: key);
@@ -50,7 +50,13 @@ class _UsersViewState extends State<UsersView> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.profile, arguments: users);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileView(
+                          userID: users.id,
+                        ),
+                      ),
+                    );
                   },
                   leading: CircleAvatar(
                     radius: 20,

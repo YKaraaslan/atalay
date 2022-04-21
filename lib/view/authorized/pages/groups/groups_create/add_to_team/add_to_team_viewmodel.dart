@@ -27,7 +27,10 @@ class AddToTeamViewModel extends ChangeNotifier {
             authorization: item.get('authorization'),
             position: item.get('position'),
             online: item.get('online'),
-            onlineTime: item.get('onlineTime'));
+            onlineTime: item.get('onlineTime'),
+            aboutMe: item.get('aboutMe'),
+            interests: item.get('interests'),
+            );
         userModels.add(userModel);
       }
       userModels.sort((a, b) => a.fullName.toString().compareTo(b.fullName.toString()));
