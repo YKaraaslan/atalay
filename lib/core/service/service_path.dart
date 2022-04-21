@@ -14,6 +14,7 @@ class ServicePath {
   static final CollectionReference groupsCollectionReference = FirebaseFirestore.instance.collection('Groups');
   static final CollectionReference projectsCollectionReference = FirebaseFirestore.instance.collection('Projects');
   static final CollectionReference financesCollectionReference = FirebaseFirestore.instance.collection('Finances');
+  static final CollectionReference meetingsCollectionReference = FirebaseFirestore.instance.collection('Meetings');
 
   static CollectionReference userSavedPostsCollectionReference(String userID) {
     return usersCollectionReference.doc(userID).collection('SavedPosts');

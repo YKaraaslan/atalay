@@ -1,8 +1,3 @@
-import '../../../../../../core/models/project_model.dart';
-import '../../../../../../core/service/service_path.dart';
-import '../team/project_team_view.dart';
-import '../../projects_update/projects_update_view.dart';
-import '../../projects_viewmodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +7,13 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/constant/paddings.dart';
 import '../../../../../../core/constant/sizes.dart';
+import '../../../../../../core/models/project_model.dart';
 import '../../../../../../core/models/project_todo_model.dart';
+import '../../../../../../core/service/service_path.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
+import '../../projects_update/projects_update_view.dart';
+import '../../projects_viewmodel.dart';
+import '../team/project_team_view.dart';
 
 class ProjectDetailsView extends StatelessWidget {
   const ProjectDetailsView({Key? key, required this.model}) : super(key: key);

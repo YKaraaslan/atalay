@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../view/authorized/home/home_view.dart';
 import '../../view/authorized/pages/finance/finance_transaction/finance_transaction_view.dart';
 import '../../view/authorized/pages/groups/groups_create/groups_create_view.dart';
+import '../../view/authorized/pages/meetups/meetups_create/meetups_create_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../../view/authorized/pages/projects/projects_create/projects_create_view.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String projectsCreate = '/projects_create';
   static const String groupsCreate = '/groups_create';
   static const String financeCreate = '/finance_create';
+  static const String meetupsCreate = '/meetups_create';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -41,6 +43,7 @@ class Routes {
       projectsCreate: (context) => const ProjectsCreateView(),
       groupsCreate: (context) => const GroupsCreateView(),
       financeCreate: (context) => const FinanceTransactionView(),
+      meetupsCreate: (context) => const MeetupsCreateView(),
     };
   }
 }

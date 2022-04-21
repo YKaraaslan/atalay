@@ -25,6 +25,9 @@ import 'view/authorized/pages/groups/groups_create/add_to_team/add_to_team_viewm
 import 'view/authorized/pages/groups/groups_create/groups_create_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_update/groups_update_viewmodel.dart';
 import 'view/authorized/pages/groups/groups_viewmodel.dart';
+import 'view/authorized/pages/meetups/meetups_create/meetups_create_viewmodel.dart';
+import 'view/authorized/pages/meetups/meetups_show/meetups_show_viewmodel.dart';
+import 'view/authorized/pages/meetups/meetups_update/meetups_update_viewmodel.dart';
 import 'view/authorized/pages/meetups/meetups_viewmodel.dart';
 import 'view/authorized/pages/posts/post_comments/post_comments_viewmodel.dart';
 import 'view/authorized/pages/posts/post_create/post_create_viewmodel.dart';
@@ -94,6 +97,10 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => CalendarCreateViewModel()),
         ChangeNotifierProvider(create: (context) => CalendarShowViewModel()),
         ChangeNotifierProvider(create: (context) => ProfileViewModel()),
+        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => MeetupsShowViewModel()),
+        ChangeNotifierProvider(create: (context) => MeetupsUpdateViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],
