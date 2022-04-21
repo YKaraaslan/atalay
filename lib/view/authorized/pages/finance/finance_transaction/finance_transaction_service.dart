@@ -1,5 +1,5 @@
-import 'package:atalay/core/models/finance_transaction_model.dart';
-import 'package:atalay/core/service/service_path.dart';
+import '../../../../../core/models/finance_transaction_model.dart';
+import '../../../../../core/service/service_path.dart';
 
 Future<bool> setTransaction(FinanceTransactionModel model) async {
   try {

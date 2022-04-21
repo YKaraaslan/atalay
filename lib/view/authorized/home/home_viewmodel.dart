@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 
 import '../pages/posts/posts_view.dart';
 

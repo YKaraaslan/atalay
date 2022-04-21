@@ -1,7 +1,8 @@
-import 'package:atalay/core/service/service_path.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/service/service_path.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKeyForDialog;

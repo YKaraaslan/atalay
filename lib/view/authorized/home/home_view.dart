@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -42,14 +43,15 @@ class _HomeViewState extends State<HomeView> {
         onPageBuilder: (context, value) => ZoomDrawer(
           controller: viewModel.zoomDrawerController,
           borderRadius: 24,
-          style: DrawerStyle.Style1,
+          style: DrawerStyle.defaultStyle,
+          showShadow: true,
+          moveMenuScreen: false,
           openCurve: Curves.fastOutSlowIn,
-          disableGesture: false,
-          mainScreenTapClose: false,
+          disableDragGesture: false,
+          mainScreenTapClose: true,
           slideWidth: Sizes.width_65percent(context),
           duration: const Duration(milliseconds: 500),
-          backgroundColor: Colors.white,
-          showShadow: true,
+          menuBackgroundColor: Colors.white,
           angle: 0.0,
           clipMainScreen: true,
           mainScreen: GestureDetector(
@@ -58,6 +60,8 @@ class _HomeViewState extends State<HomeView> {
             //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
           ),
           menuScreen: const _Menu(),
+          menuScreenWidth: double.infinity,
+          menuScreenTapClose: true,
         ),
       ),
     );
@@ -71,6 +75,7 @@ class _Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        fit: StackFit.expand,
         children: [
           Image(
             image: AssetImage(Assets.drawerMenuBackground),
@@ -120,78 +125,67 @@ class _MenuItems extends StatelessWidget {
                 viewModel: viewModel,
                 assetName: Assets.posts,
                 title: 'posts'.tr(),
-                widget: PostsView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: PostsView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.dashboard,
                 title: 'dashboard'.tr(),
-                widget: DashboardView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: DashboardView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.projects,
                 title: 'projects'.tr(),
-                widget: ProjectsView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.onlineUsers,
                 title: 'users'.tr(),
-                widget: UsersView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: UsersView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.groups,
                 title: 'groups'.tr(),
-                widget: GroupsView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: GroupsView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.references,
                 title: 'references'.tr(),
-                widget: ReferencesView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: ReferencesView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.finance,
                 title: 'finance'.tr(),
-                widget: FinanceView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: FinanceView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.meetups,
                 title: 'meetups'.tr(),
-                widget: MeetupsView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: MeetupsView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.calendar,
                 title: 'calendar'.tr(),
-                widget: CalendarView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: CalendarView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.profile,
                 title: 'profile'.tr(),
-                widget: ProfileView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: ProfileView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               _Item(
                 viewModel: viewModel,
                 assetName: Assets.settings,
                 title: 'settings'.tr(),
-                widget: SettingsView(
-                    zoomDrawerController: viewModel.zoomDrawerController),
+                widget: SettingsView(zoomDrawerController: viewModel.zoomDrawerController),
               ),
               Visibility(
                 visible: true,
@@ -199,8 +193,7 @@ class _MenuItems extends StatelessWidget {
                   viewModel: viewModel,
                   assetName: Assets.usersOnHold,
                   title: 'users_onhold'.tr(),
-                  widget: UsersOnHoldView(
-                      zoomDrawerController: viewModel.zoomDrawerController),
+                  widget: UsersOnHoldView(zoomDrawerController: viewModel.zoomDrawerController),
                 ),
               ),
             ],
@@ -212,13 +205,7 @@ class _MenuItems extends StatelessWidget {
 }
 
 class _Item extends StatelessWidget {
-  const _Item(
-      {Key? key,
-      required this.viewModel,
-      required this.assetName,
-      required this.title,
-      required this.widget})
-      : super(key: key);
+  const _Item({Key? key, required this.viewModel, required this.assetName, required this.title, required this.widget}) : super(key: key);
   final HomeViewModel viewModel;
   final String assetName;
   final String title;

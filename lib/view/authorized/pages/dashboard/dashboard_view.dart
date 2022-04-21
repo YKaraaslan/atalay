@@ -1,11 +1,7 @@
-import 'package:atalay/core/models/announcement_model.dart';
-import 'package:atalay/core/models/user_model.dart';
-import 'package:atalay/core/service/service_path.dart';
-import 'package:atalay/view/authorized/pages/dashboard/dashboard_viewmodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -14,8 +10,12 @@ import '../../../../core/constant/assets.dart';
 import '../../../../core/constant/paddings.dart';
 import '../../../../core/constant/sizes.dart';
 import '../../../../core/constant/styles.dart';
+import '../../../../core/models/announcement_model.dart';
+import '../../../../core/models/user_model.dart';
+import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/weekly_days.dart';
+import 'dashboard_viewmodel.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key, required this.zoomDrawerController}) : super(key: key);

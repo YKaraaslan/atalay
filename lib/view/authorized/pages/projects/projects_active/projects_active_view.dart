@@ -1,14 +1,14 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import '../../../../../core/models/project_model.dart';
-import '../projects_viewmodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/constant/paddings.dart';
+import '../../../../../core/models/project_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/project_card.dart';
+import '../projects_viewmodel.dart';
 
 class ProjectsActiveView extends StatefulWidget {
   const ProjectsActiveView({Key? key}) : super(key: key);

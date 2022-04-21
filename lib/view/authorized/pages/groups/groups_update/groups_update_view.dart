@@ -1,5 +1,3 @@
-import '../../../../../core/models/groups_model.dart';
-import 'groups_update_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +6,11 @@ import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
 import '../../../../../core/constant/sizes.dart';
+import '../../../../../core/models/groups_model.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_button.dart';
 import '../groups_create/selected/groups_selected_view.dart';
+import 'groups_update_viewmodel.dart';
 
 class GroupsUpdateView extends StatelessWidget {
   const GroupsUpdateView({Key? key, required this.model}) : super(key: key);

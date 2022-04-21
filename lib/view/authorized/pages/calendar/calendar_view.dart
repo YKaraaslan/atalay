@@ -1,16 +1,16 @@
-import 'package:atalay/core/models/event_model.dart';
-import 'package:atalay/view/authorized/pages/calendar/calendar_create/calendar_create_view.dart';
-import 'package:atalay/view/authorized/pages/calendar/calendar_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/models/event_model.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import 'calendar_create/calendar_create_view.dart';
 import 'calendar_show/calendar_show_view.dart';
+import 'calendar_viewmodel.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({Key? key, required this.zoomDrawerController}) : super(key: key);

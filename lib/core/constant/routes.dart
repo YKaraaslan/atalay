@@ -1,7 +1,7 @@
-import 'package:atalay/view/authorized/pages/finance/finance_transaction/finance_transaction_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/authorized/home/home_view.dart';
+import '../../view/authorized/pages/finance/finance_transaction/finance_transaction_view.dart';
 import '../../view/authorized/pages/groups/groups_create/groups_create_view.dart';
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_create/post_create_view.dart';

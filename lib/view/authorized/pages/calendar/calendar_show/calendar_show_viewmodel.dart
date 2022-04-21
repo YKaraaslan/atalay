@@ -1,8 +1,9 @@
-import 'package:atalay/view/authorized/pages/calendar/calendar_show/calendar_show_service.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'calendar_show_service.dart';
 
 class CalendarShowViewModel extends ChangeNotifier {
   late TextEditingController titleTextController;

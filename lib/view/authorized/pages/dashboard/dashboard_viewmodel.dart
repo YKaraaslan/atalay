@@ -1,9 +1,9 @@
-import 'package:atalay/core/models/announcement_model.dart';
-import 'package:atalay/core/service/service_path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/models/announcement_model.dart';
+import '../../../../core/service/service_path.dart';
 import 'dashboard_service.dart';
 
 class DashboardViewModel extends ChangeNotifier {

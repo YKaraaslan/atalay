@@ -1,6 +1,7 @@
-import 'package:atalay/core/models/finance_transaction_model.dart';
-import 'package:atalay/core/service/service_path.dart';
 import 'package:flutter/widgets.dart';
+
+import '../../../../core/models/finance_transaction_model.dart';
+import '../../../../core/service/service_path.dart';
 
 class FinanceViewModel extends ChangeNotifier {
   late double balance;
