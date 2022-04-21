@@ -1,5 +1,5 @@
-import '../../../../core/models/event_model.dart';
-import '../../../../core/service/service_path.dart';
+import '../../../../../core/models/event_model.dart';
+import '../../../../../core/service/service_path.dart';
 
 Future<bool> addEvent(EventModel model) async {
   try {

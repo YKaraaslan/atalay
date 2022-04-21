@@ -1,5 +1,8 @@
+import 'package:atalay/core/models/event_model.dart';
+import 'package:atalay/view/authorized/pages/calendar/calendar_create/calendar_create_view.dart';
 import 'package:atalay/view/authorized/pages/calendar/calendar_viewmodel.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -7,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import 'calendar_show/calendar_show_view.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({Key? key, required this.zoomDrawerController}) : super(key: key);
@@ -25,6 +29,7 @@ class _CalendarViewState extends State<CalendarView> {
     super.initState();
     _viewModel.formKeyForDialog = GlobalKey<FormState>();
     _viewModel.dialogTextController = TextEditingController();
+    _viewModel.eventController = EventController();
     _viewModel.getEvents(context);
   }
 
@@ -35,6 +40,7 @@ class _CalendarViewState extends State<CalendarView> {
       _viewModel.formKeyForDialog.currentState!.dispose();
     }
     _viewModel.dialogTextController.dispose();
+    _viewModel.eventController.dispose();
   }
 
   @override
@@ -57,16 +63,32 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, CalendarViewModel _viewModel, child) => WeekView(
-        controller: EventController(),
-        eventTileBuilder: (date, events, boundry, start, end) {
-          // Return your widget to display as event tile.
-          return Container();
-        },
+        controller: _viewModel.eventController,
         heightPerMinute: 1, // height occupied by 1 minute time span.
         eventArranger: const SideEventArranger(), // To define how simultaneous events will be arranged.
-        onEventTap: (events, date) => events,
+        onEventTap: (events, date) {
+          EventModel model = EventModel(
+            title: events[0].title,
+            description: events[0].description,
+            dateStart: Timestamp.fromMillisecondsSinceEpoch(events[0].startTime!.millisecondsSinceEpoch),
+            dateEnd: Timestamp.fromMillisecondsSinceEpoch(events[0].endTime!.millisecondsSinceEpoch),
+            createdAt: Timestamp.now(),
+          );
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CalendarShowView(model: model),
+            ),
+          );
+        },
         onDateLongPress: (date) {
-          _viewModel.showDialogForCalendar(context, date);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CalendarCreateView(dateTime: date),
+            ),
+          );
         },
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         //weekPageHeaderBuilder: (date1, date2) => Text('$date1 - $date2'),

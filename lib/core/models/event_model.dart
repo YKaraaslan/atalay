@@ -1,21 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventModel {
-  String event;
+  String title;
+  String description;
+  Timestamp dateStart;
+  Timestamp dateEnd;
   Timestamp createdAt;
-  Timestamp eventTime;
 
   EventModel({
-    required this.event,
+    required this.title,
+    required this.description,
+    required this.dateStart,
+    required this.dateEnd,
     required this.createdAt,
-    required this.eventTime,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'event': event,
+      'title': title,
+      'description': description,
+      'dateStart': dateStart,
+      'dateEnd': dateEnd,
       'createdAt': createdAt,
-      'eventTime': eventTime,
     };
   }
 }
