@@ -40,6 +40,13 @@ import 'view/authorized/pages/projects/projects_create/add_group/add_group_viewm
 import 'view/authorized/pages/projects/projects_create/projects_create_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_update/projects_update_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_viewmodel.dart';
+import 'view/authorized/pages/references/references_add_to_companies/references_add_to_companies_viewmodel.dart';
+import 'view/authorized/pages/references/references_company_create/references_company_create_viewmodel.dart';
+import 'view/authorized/pages/references/references_company_show/references_company_show_viewmodel.dart';
+import 'view/authorized/pages/references/references_company_update/references_company_update_viewmodel.dart';
+import 'view/authorized/pages/references/references_person_create/references_person_create_viewmodel.dart';
+import 'view/authorized/pages/references/references_person_show/references_person_show_viewmodel.dart';
+import 'view/authorized/pages/references/references_person_update/references_person_update_viewmodel.dart';
 import 'view/authorized/pages/references/references_viewmodel.dart';
 import 'view/authorized/pages/settings/settings_viewmodel.dart';
 import 'view/authorized/pages/users/users_viewmodel.dart';
@@ -101,6 +108,14 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel()),
         ChangeNotifierProvider(create: (context) => MeetupsShowViewModel()),
         ChangeNotifierProvider(create: (context) => MeetupsUpdateViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesAddToCompaniesViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyShowViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel()),        
+        ChangeNotifierProvider(create: (context) => ReferencesPersonCreateViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesPersonShowViewModel()),
+        ChangeNotifierProvider(create: (context) => ReferencesPersonUpdateViewModel()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en', ''), Locale('tr', '')],

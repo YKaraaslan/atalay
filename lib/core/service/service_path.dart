@@ -15,6 +15,8 @@ class ServicePath {
   static final CollectionReference projectsCollectionReference = FirebaseFirestore.instance.collection('Projects');
   static final CollectionReference financesCollectionReference = FirebaseFirestore.instance.collection('Finances');
   static final CollectionReference meetingsCollectionReference = FirebaseFirestore.instance.collection('Meetings');
+  static final CollectionReference companiesCollectionReference = FirebaseFirestore.instance.collection('Companies');
+  static final CollectionReference referencesCollectionReference = FirebaseFirestore.instance.collection('References');
 
   static CollectionReference userSavedPostsCollectionReference(String userID) {
     return usersCollectionReference.doc(userID).collection('SavedPosts');
@@ -43,7 +45,9 @@ class ServicePath {
   }
 
   static final FirebaseStorage storage = FirebaseStorage.instance;
-  static final profilePhotoReference = storage.ref('ProfilePhotos/');
-  static final postsPhotoReference = storage.ref('Posts/');
-  static final groupsPhotoReference = storage.ref('Groups/');
+  static final profilePhotoReference = storage.ref('ProfilePhotos');
+  static final postsPhotoReference = storage.ref('Posts');
+  static final groupsPhotoReference = storage.ref('Groups');
+  static final companiesPhotoReference = storage.ref('Companies');
+  static final referencesPhotoReference = storage.ref('References');
 }

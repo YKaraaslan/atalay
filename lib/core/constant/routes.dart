@@ -7,6 +7,8 @@ import '../../view/authorized/pages/meetups/meetups_create/meetups_create_view.d
 import '../../view/authorized/pages/notifications/notifications_view.dart';
 import '../../view/authorized/pages/posts/post_create/post_create_view.dart';
 import '../../view/authorized/pages/projects/projects_create/projects_create_view.dart';
+import '../../view/authorized/pages/references/references_company_create/references_company_create_view.dart';
+import '../../view/authorized/pages/references/references_person_create/references_person_create_view.dart';
 import '../../view/authorized/pages/users_onhold/userDetails/user_details_view.dart';
 import '../../view/unauthorized/forgot_password/forgot_password_view.dart';
 import '../../view/unauthorized/login/login_view.dart';
@@ -28,6 +30,8 @@ class Routes {
   static const String groupsCreate = '/groups_create';
   static const String financeCreate = '/finance_create';
   static const String meetupsCreate = '/meetups_create';
+  static const String referencesCreate = '/references_create';
+  static const String companyCreate = '/company_create';
 
   static Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -44,6 +48,8 @@ class Routes {
       groupsCreate: (context) => const GroupsCreateView(),
       financeCreate: (context) => const FinanceTransactionView(),
       meetupsCreate: (context) => const MeetupsCreateView(),
+      referencesCreate: (context) => const ReferencesPersonCreateView(),
+      companyCreate: (context) => const ReferencesCompanyCreateView(),
     };
   }
 }
