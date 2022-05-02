@@ -1,4 +1,4 @@
-import 'package:atalay/core/models/company_model.dart';
+import '../../../../../core/models/company_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';

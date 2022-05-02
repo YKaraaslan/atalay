@@ -1,4 +1,3 @@
-import 'package:base_dialog/main.dart';
 import 'package:flutter/material.dart';
 
 import 'core/base/view/base_view.dart';
@@ -24,17 +23,26 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: OutlinedButton(
-        child: const Text("TIKLA"),
-        onPressed: () async {
-          var a = BaseDialog();
-          a.showLoadingDialog(context);
-          await Future.delayed(const Duration(seconds: 2), () {
-            a.dismissDialog();
-          });
-        },
-      ),
+    return Column(
+      children: [
+        const _Header(),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: const [],
+            ),
+          ),
+        ),
+      ],
     );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

@@ -1,11 +1,11 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
-import 'package:atalay/core/constant/assets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
+import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/routes.dart';
 import '../../../../../core/models/company_model.dart';
 import 'references_add_to_companies_viewmodel.dart';

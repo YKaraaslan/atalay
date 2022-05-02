@@ -17,9 +17,7 @@ import '../posts_ui_model.dart';
 import 'post_details_viewmodel.dart';
 
 class PostDetailsView extends StatefulWidget {
-  const PostDetailsView(
-      {Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete})
-      : super(key: key);
+  const PostDetailsView({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
@@ -53,9 +51,7 @@ class _PostDetailsViewState extends State<PostDetailsView> {
 }
 
 class _Body extends StatefulWidget {
-  const _Body(
-      {Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete})
-      : super(key: key);
+  const _Body({Key? key, required this.model, required this.index, required this.onLikePressed, required this.onCommentPressed, required this.onDelete}) : super(key: key);
   final PostUiModel model;
   final int index;
   final void Function() onLikePressed;
@@ -108,18 +104,11 @@ class _BodyState extends State<_Body> {
                 widget.model.authorPosition,
                 style: const TextStyle(color: Colors.grey),
               ),
-              trailing: IconButton(
-                icon: const SizedBox(
-                  width: 15,
-                  child: Icon(
+              trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
+                    size: 20,
                   ),
-                ),
-                onPressed: () {
-                  // Navigate to profile
-                },
-              ),
             ),
           ),
           Align(
@@ -203,11 +192,9 @@ class _BodyState extends State<_Body> {
                             );
                           }),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PostLikesView(model: widget.model),
-                          ),
+                        showBarModalBottomSheet(
+                          context: context,
+                          builder: (context) => PostLikesView(model: widget.model),
                         );
                       },
                     ),

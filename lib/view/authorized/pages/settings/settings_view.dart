@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:provider/provider.dart';
 
@@ -8,8 +9,7 @@ import '../../../../core/widgets/base_appbar.dart';
 import 'settings_viewmodel.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key, required this.zoomDrawerController})
-      : super(key: key);
+  const SettingsView({Key? key, required this.zoomDrawerController}) : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -22,6 +22,7 @@ class SettingsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
+      backgroundColor: Colors.white,
     );
   }
 }
@@ -38,12 +39,89 @@ class _BodyState extends State<_Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: OutlinedButton(
-        child: Text('sign_out'.tr()),
-        onPressed: () {
-          _viewModel.signOut(context);
-        },
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: SettingsList(
+        lightBackgroundColor: Colors.white,
+        shrinkWrap: true,
+        sections: [
+          SettingsSection(
+            title: 'Hesap',
+            tiles: [
+              SettingsTile(
+                title: 'Profil Bilgileri',
+                leading: const Icon(Icons.account_circle_outlined),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+              SettingsTile(
+                title: 'Mail Adresi',
+                leading: const Icon(Icons.mail_outline),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+              SettingsTile(
+                title: 'Telefon Numarasi',
+                leading: const Icon(Icons.phone_outlined),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: 'Uygulama',
+            titlePadding: const EdgeInsets.only(top: 20, left: 15, bottom: 10),
+            tiles: [
+              SettingsTile(
+                title: 'Dil',
+                subtitle: 'Turkce',
+                leading: const Icon(Icons.language_outlined),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+              SettingsTile(
+                title: 'Karsilama Ekrani',
+                subtitle: 'Gonderiler',
+                leading: const Icon(Icons.airplay),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+              SettingsTile.switchTile(
+                title: 'Gece Temasi',
+                leading: const Icon(Icons.color_lens_outlined),
+                trailing: const Icon(Icons.chevron_right),
+                switchValue: false,
+                onToggle: (context) {},
+              ),
+              SettingsTile.switchTile(
+                title: 'Bildirimler',
+                leading: const Icon(Icons.notifications_active_outlined),
+                trailing: const Icon(Icons.chevron_right),
+                switchValue: false,
+                onToggle: (context) {},
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: 'Genel',
+            titlePadding: const EdgeInsets.only(top: 20, left: 15, bottom: 10),
+            tiles: [
+              SettingsTile(
+                title: 'Atalay Mobil Hakkinda',
+                leading: const Icon(Icons.info_outlined),
+                onPressed: (context) {},
+                trailing: const Icon(Icons.chevron_right),
+              ),
+              SettingsTile(
+                title: 'Cikis Yap',
+                leading: const Icon(Icons.exit_to_app),
+                onPressed: (context) {
+                  _viewModel.signOut(context);
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

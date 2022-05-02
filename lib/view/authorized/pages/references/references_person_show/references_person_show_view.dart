@@ -1,5 +1,5 @@
-import 'package:atalay/view/authorized/pages/references/references_person_show/references_person_show_viewmodel.dart';
-import 'package:atalay/view/authorized/pages/references/references_person_update/references_person_update_view.dart';
+import 'references_person_show_viewmodel.dart';
+import '../references_person_update/references_person_update_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_viewer/main.dart';

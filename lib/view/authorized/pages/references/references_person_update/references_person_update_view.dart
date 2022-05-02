@@ -1,5 +1,3 @@
-import 'package:atalay/core/models/reference_model.dart';
-import 'package:atalay/view/authorized/pages/references/references_person_update/references_person_update_viewmodel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +7,10 @@ import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';
 import '../../../../../core/constant/paddings.dart';
 import '../../../../../core/constant/sizes.dart';
+import '../../../../../core/models/reference_model.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_button.dart';
+import 'references_person_update_viewmodel.dart';
 
 class ReferencesPersonUpdateView extends StatelessWidget {
   const ReferencesPersonUpdateView({Key? key, required this.model}) : super(key: key);

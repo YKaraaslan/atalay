@@ -2,7 +2,7 @@ import 'package:base_dialog/main.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'login_model.dart';
 import 'login_service.dart';
@@ -68,24 +68,24 @@ class LoginViewModel extends ChangeNotifier {
   Future<void> instagram() async {
     const nativeUrl = "instagram://user?username=atalayroket";
     const webUrl = "https://www.instagram.com/atalayroket/";
-    if (await canLaunch(nativeUrl)) {
-      await launch(nativeUrl);
-    } else if (await canLaunch(webUrl)) {
-      await launch(webUrl);
+    if (await canLaunchUrlString(nativeUrl)) {
+      await launchUrlString(nativeUrl);
+    } else if (await canLaunchUrlString(webUrl)) {
+      await launchUrlString(webUrl);
     }
   }
 
   Future<void> linkedin() async {
     const webUrl = "https://www.linkedin.com/company/atalay-roket-takimi/";
-    if (await canLaunch(webUrl)) {
-      await launch(webUrl);
+    if (await canLaunchUrlString(webUrl)) {
+      await launchUrlString(webUrl);
     }
   }
 
   Future<void> twitter() async {
     const webUrl = "https://twitter.com/atalayroket";
-    if (await canLaunch(webUrl)) {
-      await launch(webUrl);
+    if (await canLaunchUrlString(webUrl)) {
+      await launchUrlString(webUrl);
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:atalay/view/authorized/pages/references/references_company_update/references_company_update_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
@@ -13,6 +12,7 @@ import '../../../../../core/models/company_model.dart';
 import '../../../../../core/models/reference_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_appbar.dart';
+import '../references_company_update/references_company_update_view.dart';
 import '../references_person_show/references_person_show_view.dart';
 import 'references_company_show_viewmodel.dart';
 

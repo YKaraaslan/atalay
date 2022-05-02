@@ -2,7 +2,7 @@ name: atalay
 description: Atalay Mobile Application
 project_author: Yunus Karaaslan
 project_author_email: karaaslan.21@hotmail.com
-project_author_phone: '+905319823347'
+project_author_phone: +905319823347
 
 publish_to: 'none'
 
@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   provider: ^6.0.2
   flutter_native_splash: ^2.1.6
-  google_fonts: ^2.3.1
+  google_fonts: ^2.3.2
   flutter_svg: ^1.0.3
   easy_localization: ^3.0.0
   flutter_zoom_drawer: ^3.0.1
@@ -25,27 +25,28 @@ dependencies:
   calendar_view: ^0.0.4
   connectivity_plus: ^2.3.0
   shared_preferences: ^2.0.13
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.0
   animated_shimmer: ^1.0.0
   modal_bottom_sheet: ^2.0.1
+  email_validator: ^2.0.1
+  image_picker: ^0.8.5
+  flutter_settings_ui: ^2.0.1
   image_viewer:
     path: 'packages/image_viewer/'
   base_dialog:
     path: 'packages/base_dialog/'
-  firebase_core: ^1.14.1
-  firebase_app_installations: ^0.1.0+10
-  flutterfire_ui: ^0.4.0+2
-  firebase_auth: ^3.3.14
-  firebase_performance: ^0.8.0+9
-  firebase_crashlytics: ^2.6.2
-  firebase_analytics: ^9.1.5
-  firebase_in_app_messaging: ^0.6.0+11
-  firebase_messaging: ^11.2.13
-  email_validator: ^2.0.1
-  image_picker: ^0.8.5
-  cloud_firestore: ^3.1.12
-  firebase_storage: ^10.2.12
-  firebase_app_check: ^0.0.6+9
+  firebase_core: ^1.15.0
+  firebase_app_installations: ^0.1.0+11
+  flutterfire_ui: ^0.4.0+4
+  firebase_auth: ^3.3.16
+  firebase_performance: ^0.8.0+10
+  firebase_crashlytics: ^2.7.1
+  firebase_analytics: ^9.1.6
+  firebase_in_app_messaging: ^0.6.0+12
+  firebase_messaging: ^11.2.15
+  cloud_firestore: ^3.1.13
+  firebase_storage: ^10.2.14
+  firebase_app_check: ^0.0.6+10
 
 dev_dependencies:
   flutter_test:

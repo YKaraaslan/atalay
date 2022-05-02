@@ -64,9 +64,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate(
+  /*await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-  );
+  );*/
   runApp(
     MultiProvider(
       providers: [
@@ -174,8 +174,8 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: Routes.getRoutes(context),
-        //home: TrainingView(),
         home: child,
+        // home: const TrainingView(),
       ),
     );
   }
