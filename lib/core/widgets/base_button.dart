@@ -22,6 +22,7 @@ class BaseButton extends StatelessWidget {
             ),
           ),
         ),
+        onPressed: fun,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
@@ -29,7 +30,6 @@ class BaseButton extends StatelessWidget {
             style: buttonTextStyle(),
           ),
         ),
-        onPressed: fun,
       ),
     );
   }

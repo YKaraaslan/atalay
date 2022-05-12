@@ -93,7 +93,7 @@ class _Menu extends StatelessWidget {
               alignment: Alignment.center,
               child: Consumer(
                 builder: (context, HomeViewModel viewModel, child) => Text(
-                  'v' + viewModel.version,
+                  'v${viewModel.version}',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),

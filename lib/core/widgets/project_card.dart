@@ -118,7 +118,7 @@ class ProjectsCard extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text('$taskAmount ' + 'duty'.tr(), style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 13)),
+                        Text('$taskAmount ${'duty'.tr()}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 13)),
                       ],
                     ),
                   ),

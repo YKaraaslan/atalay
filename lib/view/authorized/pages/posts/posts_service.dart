@@ -36,12 +36,12 @@ Future<int> getLikes(String postID) async {
 
 Future likeAddToDatabase(PostLikeModel model, String postID) async {
   if (await ServicePath.postsLikesCollectionReference(postID)
-      .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .get()
       .then((value) => value.docs.isEmpty)) {
     await ServicePath.postsLikesCollectionReference(postID).add(model.toMap());
   } else {
-    await ServicePath.postsLikesCollectionReference(postID).where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) {
+    await ServicePath.postsLikesCollectionReference(postID).where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) {
       for (var item in value.docs) {
         ServicePath.postsLikesCollectionReference(postID).doc(item.id).delete();
       }
@@ -52,10 +52,10 @@ Future likeAddToDatabase(PostLikeModel model, String postID) async {
 Future saveAddToDatabase(String postID) async {
   PostSavedModel model = PostSavedModel(postID: postID, savedAt: Timestamp.now());
   CollectionReference ref = ServicePath.userSavedPostsCollectionReference(FirebaseAuth.instance.currentUser!.uid);
-  if (await ref.where("postID", isEqualTo: postID).get().then((value) => value.docs.isEmpty)) {
+  if (await ref.where('postID', isEqualTo: postID).get().then((value) => value.docs.isEmpty)) {
     await ref.add(model.toMap());
   } else {
-    await ref.where("postID", isEqualTo: postID).get().then((value) {
+    await ref.where('postID', isEqualTo: postID).get().then((value) {
       for (var item in value.docs) {
         ref.doc(item.id).delete();
       }

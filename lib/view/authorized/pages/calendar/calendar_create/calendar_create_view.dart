@@ -67,13 +67,13 @@ class _Body extends StatelessWidget {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, CalendarCreateViewModel _viewModel, child) => Form(
-            key: _viewModel.formKey,
+          builder: (context, CalendarCreateViewModel viewModel, child) => Form(
+            key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
-                  controller: _viewModel.titleTextController,
+                  controller: viewModel.titleTextController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'title'.tr(),
@@ -91,14 +91,14 @@ class _Body extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.startTimeTextController,
+                        controller: viewModel.startTimeTextController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'start_time'.tr(),
                         ),
                         readOnly: true,
                         onTap: () {
-                          _viewModel.showTimePicker(context, 'start_time'.tr());
+                          viewModel.showTimePicker(context, 'start_time'.tr());
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -111,14 +111,14 @@ class _Body extends StatelessWidget {
                     const SizedBox(width: 20),
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.endTimeTextController,
+                        controller: viewModel.endTimeTextController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'end_time'.tr(),
                         ),
                         readOnly: true,
                         onTap: () {
-                          _viewModel.showTimePicker(context, 'end_time'.tr());
+                          viewModel.showTimePicker(context, 'end_time'.tr());
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -132,7 +132,7 @@ class _Body extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.descriptionTextController,
+                  controller: viewModel.descriptionTextController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'description'.tr(),
@@ -153,8 +153,8 @@ class _Body extends StatelessWidget {
                     child: BaseButton(
                       text: 'create_event'.tr(),
                       fun: () async {
-                        if (_viewModel.formKey.currentState!.validate()) {
-                          await _viewModel.createEvent(context);
+                        if (viewModel.formKey.currentState!.validate()) {
+                          await viewModel.createEvent(context);
                         }
                       },
                     ),

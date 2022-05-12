@@ -37,6 +37,13 @@
             {
               "client_id": "217184487124-ba4pkj43797112610ids8p4r7j5s682o.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "217184487124-bc4u358pdj2vobpg5l8s3i9vajje66b3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atalay"
+              }
             }
           ]
         }

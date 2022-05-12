@@ -75,7 +75,7 @@ class _BodyState extends State<_Body> {
                         style: Theme.of(context).textTheme.bodyMedium,
                         children: [
                           TextSpan(
-                            text: ', ' + 'created_by'.tr() + ' ',
+                            text: ', ${'created_by'.tr()} ',
                           ),
                           TextSpan(
                             text: snapshot.data!.get('fullName'),

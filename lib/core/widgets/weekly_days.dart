@@ -98,10 +98,10 @@ class _WeeklyDaysBaseView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(DateFormat("MMM", 'tr').format(date).toUpperCase(),
+                Text(DateFormat('MMM', 'tr').format(date).toUpperCase(),
                     style: defaultMonthTextStyle),
                 Text(date.day.toString(), style: defaultDateTextStyle),
-                Text(DateFormat("E", 'tr').format(date).toUpperCase(),
+                Text(DateFormat('E', 'tr').format(date).toUpperCase(),
                     style: defaultDayTextStyle)
               ],
             ),

@@ -135,7 +135,7 @@ class BasePost extends StatelessWidget {
                     return StreamBuilder<QuerySnapshot>(
                       stream: ServicePath.postsLikesCollectionReference(model.postID).snapshots(),
                       builder: (context, snapshot) {
-                        String likes = "0";
+                        String likes = '0';
                         bool isLikedByMe = false;
 
                         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -143,7 +143,7 @@ class BasePost extends StatelessWidget {
                         }
                         if (snapshot.hasData) {
                           likes = snapshot.data!.docs.length.toString();
-                          isLikedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                          isLikedByMe = snapshot.data!.docs.any((element) => element.get('userID') == FirebaseAuth.instance.currentUser!.uid);
                         }
                         return Row(
                           children: [
@@ -189,7 +189,7 @@ class BasePost extends StatelessWidget {
                     return StreamBuilder<QuerySnapshot>(
                       stream: ServicePath.postsCommentsCollectionReference(model.postID).snapshots(),
                       builder: (context, snapshot) {
-                        String comments = "0";
+                        String comments = '0';
                         bool isCommentedByMe = false;
 
                         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -198,7 +198,7 @@ class BasePost extends StatelessWidget {
 
                         if (snapshot.hasData) {
                           comments = snapshot.data!.docs.length.toString();
-                          isCommentedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                          isCommentedByMe = snapshot.data!.docs.any((element) => element.get('userID') == FirebaseAuth.instance.currentUser!.uid);
                         }
 
                         return InkWell(
@@ -238,7 +238,7 @@ class BasePost extends StatelessWidget {
                   children: [
                     Text(
                       model.isUpdated
-                          ? "updated".tr() + " • " + TimeAgo.timeAgoSinceDate(model.publishedAt)
+                          ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.publishedAt)}"
                           : TimeAgo.timeAgoSinceDate(model.publishedAt),
                       style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                     ),
@@ -372,7 +372,7 @@ class _ImagePlaceHolder extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  "+" + (model.images.length - 3).toString(),
+                  '+${model.images.length - 3}',
                   style: const TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),

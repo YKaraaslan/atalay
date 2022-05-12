@@ -7,9 +7,9 @@ class ProjectsViewModel extends ChangeNotifier {
   int segmentedControlGroupValue = 0;
 
   final Map<int, Widget> tabs = <int, Widget>{
-    0: Text("active_projects".tr()),
-    1: Text("finished_projects".tr()),
-    2: Text("all_projects".tr())
+    0: Text('active_projects'.tr()),
+    1: Text('finished_projects'.tr()),
+    2: Text('all_projects'.tr())
   };
 
   void setSegmentedValue(int value) {

@@ -48,15 +48,15 @@ class _BodyState extends State<_Body> {
     _viewModel.getUsers();
   }
 
-  bool isSelected(AddGroupViewModel _viewModel, int index) {
-    return _viewModel.selectedUsers.any((element) => element.groupID == _viewModel.userModels[index].groupID);
+  bool isSelected(AddGroupViewModel viewModel, int index) {
+    return viewModel.selectedUsers.any((element) => element.groupID == viewModel.userModels[index].groupID);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, AddGroupViewModel _viewModel, child) {
-        if (_viewModel.userModels.isEmpty) {
+      builder: (context, AddGroupViewModel viewModel, child) {
+        if (viewModel.userModels.isEmpty) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 20,
@@ -66,34 +66,34 @@ class _BodyState extends State<_Body> {
         return Stack(
           children: [
             ListView.builder(
-              itemCount: _viewModel.userModels.length,
+              itemCount: viewModel.userModels.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
                     if (widget.multiSelection) {
-                      return _viewModel.selectUser(index);
+                      return viewModel.selectUser(index);
                     } else {
-                      _viewModel.selectedUsers = [];
-                      _viewModel.selectUser(index);
-                      return Navigator.pop(context, _viewModel.selectedUsers);
+                      viewModel.selectedUsers = [];
+                      viewModel.selectUser(index);
+                      return Navigator.pop(context, viewModel.selectedUsers);
                     }
                   },
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(_viewModel.userModels[index].imageURL),
+                    backgroundImage: NetworkImage(viewModel.userModels[index].imageURL),
                   ),
-                  title: isSelected(_viewModel, index)
+                  title: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.userModels[index].title,
+                          viewModel.userModels[index].title,
                           style: const TextStyle(color: Colors.blue),
                         )
-                      : Text(_viewModel.userModels[index].title),
-                  subtitle: isSelected(_viewModel, index)
+                      : Text(viewModel.userModels[index].title),
+                  subtitle: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.userModels[index].explanation,
+                          viewModel.userModels[index].explanation,
                           style: TextStyle(color: Colors.blue[300]),
                         )
-                      : Text(_viewModel.userModels[index].explanation),
-                  trailing: isSelected(_viewModel, index)
+                      : Text(viewModel.userModels[index].explanation),
+                  trailing: isSelected(viewModel, index)
                       ? const Icon(
                           Icons.check,
                           color: Colors.blue,
@@ -110,10 +110,10 @@ class _BodyState extends State<_Body> {
                 right: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context, _viewModel.selectedUsers);
+                    Navigator.pop(context, viewModel.selectedUsers);
                   },
                   child: Text(
-                    _viewModel.selectedUsers.length.toString() + " kisi sec",
+                    '${viewModel.selectedUsers.length} kisi sec',
                   ),
                 ),
               ),

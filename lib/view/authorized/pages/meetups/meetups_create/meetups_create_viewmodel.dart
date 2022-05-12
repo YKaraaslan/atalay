@@ -81,7 +81,7 @@ class MeetupsCreateViewModel extends ChangeNotifier {
       return showSnackbar(context, 'endtime_cannot_be_before_starttime'.tr());
     }
 
-    baseDialog.text = "creating_event".tr();
+    baseDialog.text = 'creating_event'.tr();
     baseDialog.showLoadingDialog(context);
 
     MeetingModel model = MeetingModel(
@@ -101,10 +101,10 @@ class MeetupsCreateViewModel extends ChangeNotifier {
     if (await saveMeetingToDatabase(model)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Toplanti Basariyla Olusturuldu".tr());
+      showSnackbar(context, 'Toplanti Basariyla Olusturuldu'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Toplanti Olusturulamadi".tr());
+      showSnackbar(context, 'Toplanti Olusturulamadi'.tr());
     }
   }
 

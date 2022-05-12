@@ -79,7 +79,7 @@ class _BodyState extends State<_Body> {
               TextFormField(
                 controller: _viewModel.titleController,
                 decoration: InputDecoration(
-                  labelText: "project_title".tr(),
+                  labelText: 'project_title'.tr(),
                   icon: const Icon(Icons.title),
                 ),
                 maxLength: 50,
@@ -92,7 +92,7 @@ class _BodyState extends State<_Body> {
               ),
               TextFormField(
                 controller: _viewModel.explanationController,
-                decoration: InputDecoration(labelText: "project_explanation".tr(), icon: const Icon(Icons.text_fields)),
+                decoration: InputDecoration(labelText: 'project_explanation'.tr(), icon: const Icon(Icons.text_fields)),
                 maxLength: 200,
                 maxLines: 3,
                 validator: (value) {
@@ -126,18 +126,18 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsCreateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
                       onTap: () {
-                        _viewModel.navigateAndDisplaySelectionForTeam(context);
+                        viewModel.navigateAndDisplaySelectionForTeam(context);
                       },
                       leading: Image.asset(
                         Assets.groupsTeam,
                         height: 30,
                       ),
-                      title: Text("${_viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+                      title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
                       trailing: const Icon(Icons.chevron_right),
                     ),
                   ),
@@ -166,18 +166,18 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsCreateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
                       onTap: () {
-                        _viewModel.navigateAndDisplaySelectionForGroups(context);
+                        viewModel.navigateAndDisplaySelectionForGroups(context);
                       },
                       leading: Image.asset(
                         Assets.groupsTeam,
                         height: 30,
                       ),
-                      title: Text("${_viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
+                      title: Text("${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
                       trailing: const Icon(Icons.chevron_right),
                     ),
                   ),
@@ -196,21 +196,21 @@ class _BodyState extends State<_Body> {
                 ),
               ),
               Consumer(
-                builder: (context, ProjectsCreateViewModel _viewModel, child) => ListView.separated(
+                builder: (context, ProjectsCreateViewModel viewModel, child) => ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => const Divider(height: 1),
-                  itemCount: _viewModel.toDo.length,
+                  itemCount: viewModel.toDo.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) => Align(
                     alignment: Alignment.topLeft,
                     child: ListTile(
                       title: SelectableText(
-                        _viewModel.toDo[index],
+                        viewModel.toDo[index],
                         style: const TextStyle(fontSize: 13),
                       ),
                       trailing: InkWell(
                         onTap: () {
-                          _viewModel.onDeletedMethod(index);
+                          viewModel.onDeletedMethod(index);
                         },
                         child: const CircleAvatar(
                           radius: 10,

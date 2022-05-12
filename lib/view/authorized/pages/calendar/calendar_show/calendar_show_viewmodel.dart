@@ -14,16 +14,16 @@ class CalendarShowViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
 
   Future delete(BuildContext context) async {
-    baseDialog.text = "event_deleting".tr();
+    baseDialog.text = 'event_deleting'.tr();
     baseDialog.showLoadingDialog(context);
 
     if (await deleteEvent(time)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "event_deleted_successfully".tr());
+      showSnackbar(context, 'event_deleted_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "event_delete_failed".tr());
+      showSnackbar(context, 'event_delete_failed'.tr());
     }
   }
 

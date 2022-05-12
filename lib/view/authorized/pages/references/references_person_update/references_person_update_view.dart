@@ -74,8 +74,8 @@ class _BodyState extends State<_Body> {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, ReferencesPersonUpdateViewModel _viewModel, child) => Form(
-            key: _viewModel.formKey,
+          builder: (context, ReferencesPersonUpdateViewModel viewModel, child) => Form(
+            key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,7 +85,7 @@ class _BodyState extends State<_Body> {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.nameTextController,
+                        controller: viewModel.nameTextController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Isim',
@@ -103,7 +103,7 @@ class _BodyState extends State<_Body> {
                     const SizedBox(width: 20),
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.surnameTimeTextController,
+                        controller: viewModel.surnameTimeTextController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Soyisim',
@@ -122,7 +122,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.descriptionTextController,
+                  controller: viewModel.descriptionTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Aciklama',
@@ -137,7 +137,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.mailTextController,
+                  controller: viewModel.mailTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Mail',
@@ -157,7 +157,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.phoneTextController,
+                  controller: viewModel.phoneTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Telefon',
@@ -179,28 +179,28 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 Consumer(
-                  builder: (context, ReferencesPersonUpdateViewModel _viewModel, child) => SizedBox(
+                  builder: (context, ReferencesPersonUpdateViewModel viewModel, child) => SizedBox(
                     width: double.infinity,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
-                        if (_viewModel.companySelected != null) {
+                        if (viewModel.companySelected != null) {
                           return Card(
                             child: ListTile(
                               onTap: () {
-                                _viewModel.navigateAndDisplaySelection(context);
+                                viewModel.navigateAndDisplaySelection(context);
                               },
-                              leading: _viewModel.companySelected!.imageURL == '' ? CircleAvatar(
+                              leading: viewModel.companySelected!.imageURL == '' ? CircleAvatar(
                                 backgroundImage: AssetImage(
                                   Assets.groupsTeam,
                                 ),
                                 backgroundColor: Colors.transparent,
                               ) : CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                  _viewModel.companySelected!.imageURL,
+                                  viewModel.companySelected!.imageURL,
                                 ),
                               ),
-                              title: Text(_viewModel.companySelected!.companyName),
-                              subtitle: Text(_viewModel.companySelected!.description),
+                              title: Text(viewModel.companySelected!.companyName),
+                              subtitle: Text(viewModel.companySelected!.description),
                               trailing: const Icon(Icons.chevron_right),
                             ),
                           );
@@ -208,7 +208,7 @@ class _BodyState extends State<_Body> {
                           return Card(
                             child: ListTile(
                               onTap: () {
-                                _viewModel.navigateAndDisplaySelection(context);
+                                viewModel.navigateAndDisplaySelection(context);
                               },
                               leading: Image.asset(
                                 Assets.meetups,
@@ -231,8 +231,8 @@ class _BodyState extends State<_Body> {
                     child: BaseButton(
                       text: 'Referansi Guncelle',
                       fun: () async {
-                        if (_viewModel.formKey.currentState!.validate()) {
-                          _viewModel.updateReference(context);
+                        if (viewModel.formKey.currentState!.validate()) {
+                          viewModel.updateReference(context);
                         }
                       },
                     ),
@@ -254,22 +254,22 @@ class _Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ReferencesPersonUpdateViewModel _viewModel, child) => Center(
+      builder: (context, ReferencesPersonUpdateViewModel viewModel, child) => Center(
         child: InkWell(
           onTap: () {
-            _viewModel.openGallery(context);
+            viewModel.openGallery(context);
           },
           child: ClipOval(
-            child: _viewModel.image == null
-                ? (_viewModel.model.imageURL == ''
+            child: viewModel.image == null
+                ? (viewModel.model.imageURL == ''
                     ? Image.asset(Assets.profile, width: 100, height: 100, fit: BoxFit.cover)
                     : Hero(
-                        tag: "photo",
-                        child: Image.network(_viewModel.model.imageURL, width: 100, height: 100, fit: BoxFit.cover),
+                        tag: 'photo',
+                        child: Image.network(viewModel.model.imageURL, width: 100, height: 100, fit: BoxFit.cover),
                       ))
                 : Hero(
-                    tag: "photo",
-                    child: Image.file(_viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
+                    tag: 'photo',
+                    child: Image.file(viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
                   ),
           ),
         ),

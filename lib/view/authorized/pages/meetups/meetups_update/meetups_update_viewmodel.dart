@@ -129,7 +129,7 @@ class MeetupsUpdateViewModel extends ChangeNotifier {
       return showSnackbar(context, 'endtime_cannot_be_before_starttime'.tr());
     }
 
-    baseDialog.text = "Toplanti Guncelleniyor, Lutfen Bekleyiniz";
+    baseDialog.text = 'Toplanti Guncelleniyor, Lutfen Bekleyiniz';
     baseDialog.showLoadingDialog(context);
 
     MeetingModel model = MeetingModel(
@@ -150,10 +150,10 @@ class MeetupsUpdateViewModel extends ChangeNotifier {
     if (result) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Toplanti guncellendi");
+      showSnackbar(context, 'Toplanti guncellendi');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Toplanti guncelleme basarisiz");
+      showSnackbar(context, 'Toplanti guncelleme basarisiz');
     }
   }
 }

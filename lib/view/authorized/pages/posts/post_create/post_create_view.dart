@@ -67,7 +67,7 @@ class _BodyState extends State<_Body> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
               controller: _viewModel.postController,
-              decoration: InputDecoration(border: InputBorder.none, hintText: "post_create_hint_text".tr()),
+              decoration: InputDecoration(border: InputBorder.none, hintText: 'post_create_hint_text'.tr()),
               maxLines: 15,
               maxLength: 500,
             ),
@@ -133,13 +133,13 @@ class _BodyState extends State<_Body> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Consumer(
-                  builder: (context, PostCreateViewModel _viewModel, child) => Wrap(
+                  builder: (context, PostCreateViewModel viewModel, child) => Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: List.generate(
-                      _viewModel.labels.length,
+                      viewModel.labels.length,
                       (index) => Chip(
-                        label: Text(_viewModel.labels[index]),
+                        label: Text(viewModel.labels[index]),
                         backgroundColor: Colors.blue.shade100,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         deleteIcon: const CircleAvatar(
@@ -151,7 +151,7 @@ class _BodyState extends State<_Body> {
                           ),
                         ),
                         onDeleted: () {
-                          _viewModel.onDeletedMethod(index);
+                          viewModel.onDeletedMethod(index);
                         },
                         elevation: 2,
                       ),
@@ -162,18 +162,18 @@ class _BodyState extends State<_Body> {
             ),
           ),
           Consumer(
-            builder: (context, PostCreateViewModel _viewModel, child) => Padding(
+            builder: (context, PostCreateViewModel viewModel, child) => Padding(
               padding: AppPaddings.appPadding,
               child: Visibility(
-                visible: _viewModel.images.isNotEmpty,
+                visible: viewModel.images.isNotEmpty,
                 child: GridView.extent(
                   maxCrossAxisExtent: 150,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: List.generate(_viewModel.images.length, (index) {
-                    if (_viewModel.images.isEmpty || index == _viewModel.maxAllowedImage) {
+                  children: List.generate(viewModel.images.length, (index) {
+                    if (viewModel.images.isEmpty || index == viewModel.maxAllowedImage) {
                       return Container();
                     }
                     return GestureDetector(
@@ -182,7 +182,7 @@ class _BodyState extends State<_Body> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => FileGalleryViewer(
-                              imageList: _viewModel.images,
+                              imageList: viewModel.images,
                               index: index,
                             ),
                           ),
@@ -196,7 +196,7 @@ class _BodyState extends State<_Body> {
                             child: Hero(
                               tag: index.toString(),
                               child: Image.file(
-                                _viewModel.images[index],
+                                viewModel.images[index],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -206,7 +206,7 @@ class _BodyState extends State<_Body> {
                             top: 5,
                             child: InkWell(
                               onTap: () {
-                                _viewModel.deleteImage(index);
+                                viewModel.deleteImage(index);
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(2),

@@ -14,7 +14,7 @@ Future<bool> updateGroupsOnDatabase(GroupsModel model, File? image) async {
       return false;
     }
   } else {
-    String imageURL = "";
+    String imageURL = '';
     try {
       await ServicePath.groupsCollectionReference.doc(model.groupID).update(model.toMap()).then((value) async {
         await FirebaseStorage.instance.refFromURL(model.imageURL).delete();

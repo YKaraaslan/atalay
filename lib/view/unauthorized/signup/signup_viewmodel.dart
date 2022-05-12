@@ -22,21 +22,21 @@ class SignUpViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
 
   Future signUp(BuildContext context) async {
-    baseDialog.text = "signing_up".tr();
+    baseDialog.text = 'signing_up'.tr();
     baseDialog.showLoadingDialog(context);
 
     String? userID = await signUpService(mailController.text.trim(), passwordController.text);
     if (userID == null) {
-      return dismissDialog(context, "signing_up_failed".tr());
+      return dismissDialog(context, 'signing_up_failed'.tr());
     } else if (userID == 'weak-password') {
-      return dismissDialog(context, "weak_password".tr());
+      return dismissDialog(context, 'weak_password'.tr());
     } else if (userID == 'email-already-in-use'.tr()) {
-      return dismissDialog(context, "email_already_in_use".tr());
+      return dismissDialog(context, 'email_already_in_use'.tr());
     }
 
     bool photoResult = await signUpPhotoService(image!, userID);
     if (!photoResult) {
-      return dismissDialog(context, "signing_up_photo_failed".tr());
+      return dismissDialog(context, 'signing_up_photo_failed'.tr());
     }
 
     String photoURL = await signUpPhotoURL(userID);
@@ -46,7 +46,7 @@ class SignUpViewModel extends ChangeNotifier {
       id: userID,
       name: nameController.text.trim(),
       surname: surnameController.text.trim(),
-      fullName: nameController.text.trim() + " " + surnameController.text.trim(),
+      fullName: '${nameController.text.trim()} ${surnameController.text.trim()}',
       phone: phoneController.text.trim(),
       birthday: Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
       mail: mailController.text.trim(),
@@ -58,9 +58,9 @@ class SignUpViewModel extends ChangeNotifier {
 
     bool signUp = await signUpRegisterService(model);
     if (!signUp) {
-      return dismissDialog(context, "signing_up_failed".tr());
+      return dismissDialog(context, 'signing_up_failed'.tr());
     }
-    dismissDialog(context, "signing_up_succesful".tr());
+    dismissDialog(context, 'signing_up_succesful'.tr());
     return Navigator.pop(context);
   }
 
@@ -89,16 +89,16 @@ class SignUpViewModel extends ChangeNotifier {
   }
 
   Future getFromCamera() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.camera);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
   }
 
   Future getFromGallery() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();

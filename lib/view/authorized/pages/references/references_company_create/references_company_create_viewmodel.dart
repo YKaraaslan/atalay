@@ -20,8 +20,8 @@ class ReferencesCompanyCreateViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -46,10 +46,10 @@ class ReferencesCompanyCreateViewModel extends ChangeNotifier {
     if (await createCompanyService(model, image)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Sirket Basariyla Olusturuldu");
+      showSnackbar(context, 'Sirket Basariyla Olusturuldu');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Sirket olusturma basarisiz oldu");
+      showSnackbar(context, 'Sirket olusturma basarisiz oldu');
     }
   }
 

@@ -51,18 +51,18 @@ class _BodyState extends State<_Body> {
     _viewModel.getCompanies();
   }
 
-  bool isSelected(ReferencesAddToCompaniesViewModel _viewModel, int index) {
-    if (_viewModel.selectedCompany == null) {
+  bool isSelected(ReferencesAddToCompaniesViewModel viewModel, int index) {
+    if (viewModel.selectedCompany == null) {
       return false;
     }
-    return _viewModel.selectedCompany!.id == _viewModel.companyModels[index].id;
+    return viewModel.selectedCompany!.id == viewModel.companyModels[index].id;
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ReferencesAddToCompaniesViewModel _viewModel, child) {
-        if (_viewModel.companyModels.isEmpty) {
+      builder: (context, ReferencesAddToCompaniesViewModel viewModel, child) {
+        if (viewModel.companyModels.isEmpty) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 20,
@@ -72,34 +72,34 @@ class _BodyState extends State<_Body> {
         return Stack(
           children: [
             ListView.builder(
-              itemCount: _viewModel.companyModels.length,
+              itemCount: viewModel.companyModels.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    _viewModel.selectUser(index);
-                    return Navigator.pop(context, _viewModel.selectedCompany);
+                    viewModel.selectUser(index);
+                    return Navigator.pop(context, viewModel.selectedCompany);
                   },
-                  leading: _viewModel.companyModels[index].imageURL == ''
+                  leading: viewModel.companyModels[index].imageURL == ''
                       ? CircleAvatar(
                           backgroundImage: AssetImage(Assets.groups),
                           backgroundColor: Colors.transparent,
                         )
                       : CircleAvatar(
-                          backgroundImage: NetworkImage(_viewModel.companyModels[index].imageURL),
+                          backgroundImage: NetworkImage(viewModel.companyModels[index].imageURL),
                         ),
-                  title: isSelected(_viewModel, index)
+                  title: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.companyModels[index].companyName,
+                          viewModel.companyModels[index].companyName,
                           style: const TextStyle(color: Colors.blue),
                         )
-                      : Text(_viewModel.companyModels[index].companyName),
-                  subtitle: isSelected(_viewModel, index)
+                      : Text(viewModel.companyModels[index].companyName),
+                  subtitle: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.companyModels[index].description,
+                          viewModel.companyModels[index].description,
                           style: TextStyle(color: Colors.blue[300]),
                         )
-                      : Text(_viewModel.companyModels[index].description),
-                  trailing: isSelected(_viewModel, index)
+                      : Text(viewModel.companyModels[index].description),
+                  trailing: isSelected(viewModel, index)
                       ? const Icon(
                           Icons.check,
                           color: Colors.blue,

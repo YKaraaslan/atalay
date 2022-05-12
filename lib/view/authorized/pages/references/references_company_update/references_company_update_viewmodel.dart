@@ -19,8 +19,8 @@ class ReferencesCompanyUpdateViewModel extends ChangeNotifier {
   late CompanyModel model;
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -45,10 +45,10 @@ class ReferencesCompanyUpdateViewModel extends ChangeNotifier {
     if (await updateCompanyService(modelToUpdate, image)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Sirket Basariyla Guncellendi");
+      showSnackbar(context, 'Sirket Basariyla Guncellendi');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Sirket guncellemesi basarisiz oldu");
+      showSnackbar(context, 'Sirket guncellemesi basarisiz oldu');
     }
   }
 

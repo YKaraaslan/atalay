@@ -71,13 +71,13 @@ class _BodyState extends State<_Body> {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, ReferencesCompanyShowViewModel _viewModel, child) => Column(
+          builder: (context, ReferencesCompanyShowViewModel viewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _Photo(model: widget.model),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.nameTextController,
+                controller: viewModel.nameTextController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Sirket Ismi',
@@ -86,7 +86,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.descriptionTextController,
+                controller: viewModel.descriptionTextController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Aciklama',
@@ -95,7 +95,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.mailTextController,
+                controller: viewModel.mailTextController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Mail',
@@ -104,7 +104,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.phoneTextController,
+                controller: viewModel.phoneTextController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Telefon',
@@ -113,7 +113,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.locationTextController,
+                controller: viewModel.locationTextController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Lokasyon',
@@ -173,7 +173,7 @@ class _BodyState extends State<_Body> {
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
-                      _viewModel.delete(context, widget.model);
+                      viewModel.delete(context, widget.model);
                     },
                   ),
                 ),
@@ -214,7 +214,7 @@ class _Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ReferencesCompanyShowViewModel _viewModel, child) => Center(
+      builder: (context, ReferencesCompanyShowViewModel viewModel, child) => Center(
         child: Visibility(
           visible: model.imageURL != '',
           child: GestureDetector(

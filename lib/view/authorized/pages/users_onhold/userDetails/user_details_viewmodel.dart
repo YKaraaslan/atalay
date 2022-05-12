@@ -18,7 +18,7 @@ class UserDetailsViewModel extends ChangeNotifier {
   late List<DropdownMenuItem<String>>? dropDownItems = [];
 
   Future acceptUser(BuildContext context) async {
-    baseDialog.text = "accepting_user".tr();
+    baseDialog.text = 'accepting_user'.tr();
     baseDialog.showLoadingDialog(context);
 
     auth ??= dropDownItems!.first.value;
@@ -50,7 +50,7 @@ class UserDetailsViewModel extends ChangeNotifier {
   }
 
   Future declineUser(BuildContext context) async {
-    baseDialog.text = "declining_user".tr();
+    baseDialog.text = 'declining_user'.tr();
     baseDialog.showLoadingDialog(context);
     await declineUserService(model);
     closePage(context);
@@ -59,7 +59,7 @@ class UserDetailsViewModel extends ChangeNotifier {
   void closePage(BuildContext context) {
     baseDialog.dismissDialog();
     Navigator.pop(context);
-    showSnackbar(context, "process_finished_successfully".tr());
+    showSnackbar(context, 'process_finished_successfully'.tr());
   }
 
   void showSnackbar(BuildContext context, String text) {

@@ -27,8 +27,8 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future getFromCamera() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.camera);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     showSheetToAccept();
@@ -36,8 +36,8 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future getFromGallery() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     showSheetToAccept();

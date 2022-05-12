@@ -59,13 +59,13 @@ class _BodyState extends State<_Body> {
           ),
           const SizedBox(height: 10),
           Consumer(
-            builder: (context, FinanceViewModel _viewModel, child) => StreamBuilder<DocumentSnapshot>(
+            builder: (context, FinanceViewModel viewModel, child) => StreamBuilder<DocumentSnapshot>(
               stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  _viewModel.balance = double.parse(snapshot.data!.get('balance').toString());
+                  viewModel.balance = double.parse(snapshot.data!.get('balance').toString());
                   return Text(
-                    _viewModel.balance.toString() + ' ₺',
+                    '${viewModel.balance} ₺',
                     style: financeTitleStyle,
                   );
                 }
@@ -99,7 +99,7 @@ class _BodyState extends State<_Body> {
 
                     FinanceTransactionModel model = FinanceTransactionModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
 
-                    if (model.type == "addition") {
+                    if (model.type == 'addition') {
                       return ListTile(
                         onLongPress: () {
                           showModalBottomSheet(
@@ -116,12 +116,9 @@ class _BodyState extends State<_Body> {
                             color: Colors.white,
                           ),
                         ),
-                        title: Text('+ ' + model.money.toString() + " ₺"),
-                        subtitle: Text(model.title +
-                            '\n' +
-                            DateFormat('dd MMMM yyyy hh:mm')
-                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))
-                                .toString()),
+                        title: Text('+ ${model.money.toString()} ₺'),
+                        subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm')
+                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
                         isThreeLine: true,
                       );
                     } else {
@@ -141,12 +138,9 @@ class _BodyState extends State<_Body> {
                             color: Colors.white,
                           ),
                         ),
-                        title: Text('- ' + model.money.toString() + " ₺"),
-                        subtitle: Text(model.title +
-                            '\n' +
-                            DateFormat('dd MMMM yyyy hh:mm')
-                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))
-                                .toString()),
+                        title: Text('+ ${model.money.toString()} ₺'),
+                        subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm')
+                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
                         isThreeLine: true,
                       );
                     }
@@ -189,7 +183,7 @@ class _BottomSheet extends StatelessWidget {
             ),
           ),
           Consumer(
-            builder: (context, FinanceViewModel _viewModel, child) => ListTile(
+            builder: (context, FinanceViewModel viewModel, child) => ListTile(
               leading: Image.asset(
                 Assets.delete,
                 width: 25,
@@ -198,7 +192,7 @@ class _BottomSheet extends StatelessWidget {
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.pop(context);
-                _viewModel.delete(id, model);
+                viewModel.delete(id, model);
               },
             ),
           ),

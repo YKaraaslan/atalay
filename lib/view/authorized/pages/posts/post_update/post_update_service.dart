@@ -21,7 +21,7 @@ Future<bool> updatePostService(Map<String, dynamic> model, List<File> images, Li
       }
     }
 
-    model["images"] = imageLinks;
+    model['images'] = imageLinks;
 
     await ServicePath.postsCollectionReference.doc(postID).update(model);
     return true;

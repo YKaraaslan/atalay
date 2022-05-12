@@ -25,17 +25,17 @@ class _Body extends StatelessWidget {
     String heroAttribute = arguments[1];
     String imageType = arguments[2];
 
-    if (imageType == "network") {
+    if (imageType == 'network') {
       return NetworkImageViewer(
         heroAttribute: heroAttribute,
         imageURL: imageAttribute,
       );
-    } else if (imageType == "asset") {
+    } else if (imageType == 'asset') {
       return AssetImageViewer(
         heroAttribute: heroAttribute,
         imagePath: imageAttribute,
       );
-    } else if (imageType == "file") {
+    } else if (imageType == 'file') {
       return FileImageViewer(
         heroAttribute: heroAttribute,
         imagePath: imageAttribute,

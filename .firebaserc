@@ -1,23 +1,5 @@
 {
   "projects": {
     "default": "atalay-d5eaf"
-  },
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-  "headers": [ {
-      "source": "*",
-      "headers": [ {
-        "key": "Access-Control-Allow-Origin",
-        "value": "*"
-      } ]
-    }
-   ],
-  "cleanUrls": true,
-  "trailingSlash": false
-}
+  }
 }

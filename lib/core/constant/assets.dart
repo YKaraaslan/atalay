@@ -48,5 +48,5 @@ class Assets {
 }
 
 String _path(String name, String type) {
-  return 'assets/images/' + name + '.' + type;
+  return 'assets/images/$name.$type';
 }

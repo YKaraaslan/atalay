@@ -71,13 +71,13 @@ class _BodyState extends State<_Body> {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, MeetupsCreateViewModel _viewModel, child) => Form(
-            key: _viewModel.formKey,
+          builder: (context, MeetupsCreateViewModel viewModel, child) => Form(
+            key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
-                  controller: _viewModel.titleTextController,
+                  controller: viewModel.titleTextController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'title'.tr(),
@@ -92,7 +92,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.descriptionTextController,
+                  controller: viewModel.descriptionTextController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'description'.tr(),
@@ -107,7 +107,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.locationTextController,
+                  controller: viewModel.locationTextController,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'location'.tr(),
@@ -125,14 +125,14 @@ class _BodyState extends State<_Body> {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.startTimeTextController,
+                        controller: viewModel.startTimeTextController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'start_time'.tr(),
                         ),
                         readOnly: true,
                         onTap: () {
-                          _viewModel.showTimePicker(context, 'start_time'.tr());
+                          viewModel.showTimePicker(context, 'start_time'.tr());
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -145,14 +145,14 @@ class _BodyState extends State<_Body> {
                     const SizedBox(width: 20),
                     Expanded(
                       child: TextFormField(
-                        controller: _viewModel.endTimeTextController,
+                        controller: viewModel.endTimeTextController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'end_time'.tr(),
                         ),
                         readOnly: true,
                         onTap: () {
-                          _viewModel.showTimePicker(context, 'end_time'.tr());
+                          viewModel.showTimePicker(context, 'end_time'.tr());
                         },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -166,24 +166,24 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 Consumer(
-                  builder: (context, MeetupsCreateViewModel _viewModel, child) => SizedBox(
+                  builder: (context, MeetupsCreateViewModel viewModel, child) => SizedBox(
                     width: double.infinity,
                     child: InkWell(
                       onTap: (() {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
                         ));
                       }),
                       child: Card(
                         child: ListTile(
                           onTap: () {
-                            _viewModel.navigateAndDisplaySelection(context);
+                            viewModel.navigateAndDisplaySelection(context);
                           },
                           leading: Image.asset(
                             Assets.groupsTeam,
                             height: 30,
                           ),
-                          title: Text("${_viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+                          title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
                           trailing: const Icon(Icons.chevron_right),
                         ),
                       ),
@@ -199,7 +199,7 @@ class _BodyState extends State<_Body> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
                         ),
                       );
                     },
@@ -213,8 +213,8 @@ class _BodyState extends State<_Body> {
                     child: BaseButton(
                       text: 'create_event'.tr(),
                       fun: () async {
-                        if (_viewModel.formKey.currentState!.validate()) {
-                          _viewModel.createMeetup(context);
+                        if (viewModel.formKey.currentState!.validate()) {
+                          viewModel.createMeetup(context);
                         }
                       },
                     ),

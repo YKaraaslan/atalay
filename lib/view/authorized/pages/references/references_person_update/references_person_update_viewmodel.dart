@@ -39,8 +39,8 @@ class ReferencesPersonUpdateViewModel extends ChangeNotifier {
   }
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -55,7 +55,7 @@ class ReferencesPersonUpdateViewModel extends ChangeNotifier {
       companyID: companySelected!.id,
       name: nameTextController.text.trim(),
       surname: surnameTimeTextController.text.trim(),
-      fullName: nameTextController.text.trim() + " " + surnameTimeTextController.text.trim(),
+      fullName: '${nameTextController.text.trim()} ${surnameTimeTextController.text.trim()}',
       createdAt: model.createdAt,
       createdBy: model.createdBy,
       imageURL: model.imageURL,
@@ -67,10 +67,10 @@ class ReferencesPersonUpdateViewModel extends ChangeNotifier {
     if (await updateReferenceService(modelToUpdate, image)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Referans Basariyla Guncellendi");
+      showSnackbar(context, 'Referans Basariyla Guncellendi');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Referans duncelleme basarisiz oldu");
+      showSnackbar(context, 'Referans duncelleme basarisiz oldu');
     }
   }
 

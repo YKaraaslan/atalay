@@ -67,7 +67,7 @@ class _MyComments extends StatelessWidget {
                     bottom: 0,
                     child: Text(
                       model.isUpdated
-                          ? "updated".tr() + " • " + TimeAgo.timeAgoSinceDate(model.commentedAt)
+                          ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}"
                           : TimeAgo.timeAgoSinceDate(model.commentedAt),
                       style: commentTimeStyle(),
                     ),
@@ -165,7 +165,7 @@ class _TheirComments extends StatelessWidget {
                     bottom: 0,
                     child: Text(
                       model.isUpdated
-                          ? "updated".tr() + " • " + TimeAgo.timeAgoSinceDate(model.commentedAt)
+                          ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}"
                           : TimeAgo.timeAgoSinceDate(model.commentedAt),
                       style: commentTimeStyle(),
                     ),

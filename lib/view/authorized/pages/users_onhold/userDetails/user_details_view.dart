@@ -124,7 +124,7 @@ class _NameSurnameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseTextField(
-      hint: 'name'.tr() + " " + 'surname'.tr(),
+      hint: "${'name'.tr()} ${'surname'.tr()}",
       text: fullName,
       prefixIcon: const Icon(Icons.all_inclusive),
     );
@@ -185,7 +185,7 @@ class _AuthField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, UserDetailsViewModel _viewModel, child) => FirestoreQueryBuilder(
+      builder: (context, UserDetailsViewModel viewModel, child) => FirestoreQueryBuilder(
         query: ServicePath.authorizationCollectionReference.orderBy('index'),
         builder: (context, snapshot, child) {
           if (snapshot.isFetching) {
@@ -201,19 +201,19 @@ class _AuthField extends StatelessWidget {
           for (var doc in snapshot.docs) {
             try {
               AuthorizationModel model = AuthorizationModel.fromJson(doc.data() as Map<String, Object?>);
-              if (_viewModel.dropDownItems!.any((element) => element.value == doc.id)) {
+              if (viewModel.dropDownItems!.any((element) => element.value == doc.id)) {
                 continue;
               }
-              _viewModel.dropDownItems!.add(DropdownMenuItem(child: Text(model.name), value: doc.id));
+              viewModel.dropDownItems!.add(DropdownMenuItem(value: doc.id, child: Text(model.name)));
             } on Exception {
               continue;
             }
           }
           return DropdownButtonFormField(
-            items: _viewModel.dropDownItems,
-            value: _viewModel.dropDownItems!.first.value,
+            items: viewModel.dropDownItems,
+            value: viewModel.dropDownItems!.first.value,
             onChanged: (value) {
-              _viewModel.auth = value as String;
+              viewModel.auth = value as String;
             },
           );
         },
@@ -228,13 +228,13 @@ class _RoleField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: (context, UserDetailsViewModel _viewModel, child) => Form(
-              key: _viewModel.formKey,
+        builder: (context, UserDetailsViewModel viewModel, child) => Form(
+              key: viewModel.formKey,
               child: TextFormField(
                 maxLength: 50,
                 decoration: InputDecoration(
-                  labelText: "role".tr(),
-                  hintText: "software_developer".tr(),
+                  labelText: 'role'.tr(),
+                  hintText: 'software_developer'.tr(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -255,10 +255,10 @@ class _AcceptButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, UserDetailsViewModel _viewmodel, child) => OutlinedButton(
+      builder: (context, UserDetailsViewModel viewmodel, child) => OutlinedButton(
         onPressed: () {
-          if (_viewmodel.formKey.currentState!.validate()) {
-            _viewmodel.acceptUser(context);
+          if (viewmodel.formKey.currentState!.validate()) {
+            viewmodel.acceptUser(context);
           }
         },
         style: OutlinedButton.styleFrom(
@@ -268,7 +268,7 @@ class _AcceptButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Text("confirm_user".tr(), style: const TextStyle(fontSize: 13, color: Colors.green)),
+          child: Text('confirm_user'.tr(), style: const TextStyle(fontSize: 13, color: Colors.green)),
         ),
       ),
     );
@@ -283,10 +283,10 @@ class _DeclineButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, UserDetailsViewModel _viewmodel, child) => OutlinedButton(
+      builder: (context, UserDetailsViewModel viewmodel, child) => OutlinedButton(
         onPressed: () {
-          if (_viewmodel.formKey.currentState!.validate()) {
-            _viewmodel.declineUser(context);
+          if (viewmodel.formKey.currentState!.validate()) {
+            viewmodel.declineUser(context);
           }
         },
         style: OutlinedButton.styleFrom(
@@ -296,7 +296,7 @@ class _DeclineButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Text("decline_user".tr(), style: const TextStyle(fontSize: 13, color: Colors.orange)),
+          child: Text('decline_user'.tr(), style: const TextStyle(fontSize: 13, color: Colors.orange)),
         ),
       ),
     );

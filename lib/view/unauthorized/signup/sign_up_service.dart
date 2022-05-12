@@ -70,9 +70,9 @@ Future deleteUserDatabase(String id) async {
 }
 
 Future getToken() async {
-  String token = "";
+  String token = '';
   await FirebaseMessaging.instance.getToken().then((value) {
-    token = value ?? "";
+    token = value ?? '';
     return token;
   });
   

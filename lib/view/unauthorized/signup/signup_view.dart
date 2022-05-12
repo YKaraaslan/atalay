@@ -83,18 +83,18 @@ class _Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) => Center(
+      builder: (context, SignUpViewModel viewModel, child) => Center(
         child: InkWell(
           onTap: () {
-            _viewModel.getSelection(context);
+            viewModel.getSelection(context);
           },
           child: ClipOval(
-            child: _viewModel.image == null
+            child: viewModel.image == null
                 ? Image.asset(Assets.profile,
                     width: 100, height: 100, fit: BoxFit.cover)
                 : Hero(
-                    tag: "photo",
-                    child: Image.file(_viewModel.image!,
+                    tag: 'photo',
+                    child: Image.file(viewModel.image!,
                         width: 100, height: 100, fit: BoxFit.cover),
                   ),
           ),
@@ -112,10 +112,10 @@ class _NameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'name'.tr(),
-        controller: _viewModel.nameController,
+        controller: viewModel.nameController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.name,
         prefixIcon: const Icon(Icons.all_inclusive),
@@ -138,10 +138,10 @@ class _SurnameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'surname'.tr(),
-        controller: _viewModel.surnameController,
+        controller: viewModel.surnameController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.name,
         prefixIcon: const Icon(Icons.tune_sharp),
@@ -162,10 +162,10 @@ class _Birthday extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'birthday'.tr(),
-        controller: _viewModel.birthdayController,
+        controller: viewModel.birthdayController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.datetime,
         prefixIcon: const Icon(Icons.date_range_outlined),
@@ -177,7 +177,7 @@ class _Birthday extends StatelessWidget {
           return null;
         },
         onTap: () {
-          _viewModel.showDateTimePicker(context);
+          viewModel.showDateTimePicker(context);
         },
       ),
     );
@@ -192,10 +192,10 @@ class _PhoneField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'phone'.tr(),
-        controller: _viewModel.phoneController,
+        controller: viewModel.phoneController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.phone,
         prefixIcon: const Icon(Icons.phone_android),
@@ -220,10 +220,10 @@ class _MailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'mail'.tr(),
-        controller: _viewModel.mailController,
+        controller: viewModel.mailController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.emailAddress,
         prefixIcon: const Icon(Icons.mail_outline),
@@ -249,10 +249,10 @@ class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'password'.tr(),
-        controller: _viewModel.passwordController,
+        controller: viewModel.passwordController,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.streetAddress,
         prefixIcon: const Icon(Icons.password),
@@ -278,7 +278,7 @@ class _PasswordRepeatField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) =>
+      builder: (context, SignUpViewModel viewModel, child) =>
           BaseTextFormField(
         hint: 'password_repeat'.tr(),
         textInputAction: TextInputAction.done,
@@ -288,7 +288,7 @@ class _PasswordRepeatField extends StatelessWidget {
           if (value == null || value.trim().isEmpty) {
             return 'password_validator'.tr();
           }
-          if (value != _viewModel.passwordController.text) {
+          if (value != viewModel.passwordController.text) {
             return 'password_not_match'.tr();
           }
           return null;
@@ -307,14 +307,14 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel _viewModel, child) => BaseButton(
+      builder: (context, SignUpViewModel viewModel, child) => BaseButton(
         text: 'sign_up'.tr(),
         fun: () {
-          if (_viewModel.formKey.currentState!.validate()) {
-            if (_viewModel.image == null) {
-              return _viewModel.showSnackbar(context, 'photo_validator'.tr());
+          if (viewModel.formKey.currentState!.validate()) {
+            if (viewModel.image == null) {
+              return viewModel.showSnackbar(context, 'photo_validator'.tr());
             }
-            _viewModel.signUp(context);
+            viewModel.signUp(context);
           }
         },
       ),

@@ -21,8 +21,8 @@ class GroupsUpdateViewModel extends ChangeNotifier {
   UserModel? personInCharge;
 
   Future getFromGallery() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -61,9 +61,9 @@ class GroupsUpdateViewModel extends ChangeNotifier {
 
   Future updateGroup(BuildContext context, GroupsModel modelReceived) async {
     if (personInCharge == null) {
-      return showSnackbar(context, "person_incharge_cannot_be_blank".tr());
+      return showSnackbar(context, 'person_incharge_cannot_be_blank'.tr());
     }
-    baseDialog.text = "updating_group".tr();
+    baseDialog.text = 'updating_group'.tr();
     baseDialog.showLoadingDialog(context);
 
     GroupsModel model = GroupsModel(
@@ -80,10 +80,10 @@ class GroupsUpdateViewModel extends ChangeNotifier {
     if (result) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "group_updated_successfully".tr());
+      showSnackbar(context, 'group_updated_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "group_update_failed".tr());
+      showSnackbar(context, 'group_update_failed'.tr());
     }
   }
 

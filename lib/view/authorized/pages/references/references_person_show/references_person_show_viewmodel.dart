@@ -29,10 +29,10 @@ class ReferencesPersonShowViewModel extends ChangeNotifier {
     if (await deleteReferencePersonService(model)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Referans Basariyla Silindi");
+      showSnackbar(context, 'Referans Basariyla Silindi');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Referans silme islemi basarisiz oldu");
+      showSnackbar(context, 'Referans silme islemi basarisiz oldu');
     }
   }
 

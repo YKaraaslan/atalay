@@ -68,11 +68,11 @@ class _Body extends StatelessWidget {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, CalendarShowViewModel _viewModel, child) => Column(
+          builder: (context, CalendarShowViewModel viewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                controller: _viewModel.titleTextController,
+                controller: viewModel.titleTextController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'title'.tr(),
@@ -84,7 +84,7 @@ class _Body extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _viewModel.startTimeTextController,
+                      controller: viewModel.startTimeTextController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'start_time'.tr(),
@@ -95,7 +95,7 @@ class _Body extends StatelessWidget {
                   const SizedBox(width: 20),
                   Expanded(
                     child: TextFormField(
-                      controller: _viewModel.endTimeTextController,
+                      controller: viewModel.endTimeTextController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'end_time'.tr(),
@@ -107,7 +107,7 @@ class _Body extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.descriptionTextController,
+                controller: viewModel.descriptionTextController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'description'.tr(),
@@ -125,7 +125,7 @@ class _Body extends StatelessWidget {
                     ),
                     child: const Text('Sil'),
                     onPressed: () {
-                      _viewModel.delete(context);
+                      viewModel.delete(context);
                     },
                   ),
                 ),

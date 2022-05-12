@@ -68,7 +68,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, GroupDetailsViewModel _viewModel, child) => NestedScrollView(
+      builder: (context, GroupDetailsViewModel viewModel, child) => NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             pinned: true,
@@ -143,7 +143,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                                   ],
                                 );
                               } else {
-                                return const Text("-");
+                                return const Text('-');
                               }
                             },
                           ),
@@ -165,14 +165,14 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
             bottom: TabBar(
               indicatorColor: Colors.black,
               labelColor: Colors.black,
-              tabs: _viewModel.tabs,
-              controller: _viewModel.controller,
+              tabs: viewModel.tabs,
+              controller: viewModel.controller,
             ),
           )
         ],
         body: TabBarView(
-          controller: _viewModel.controller,
-          children: _viewModel.pages,
+          controller: viewModel.controller,
+          children: viewModel.pages,
         ),
       ),
     );

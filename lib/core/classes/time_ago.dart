@@ -17,7 +17,7 @@ class TimeAgo {
     } else if (diff.inMinutes > 0) {
       return "${diff.inMinutes} ${diff.inMinutes == 1 ? "minute_ago".tr() : "minutes_ago".tr()}";
     } else {
-      return "just_now".tr();
+      return 'just_now'.tr();
     }
   }
 }

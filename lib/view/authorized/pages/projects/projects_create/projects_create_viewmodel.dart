@@ -31,7 +31,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
   }
 
   Future<void> addLabel(BuildContext context) async {
-    toDoTextController.text = "";
+    toDoTextController.text = '';
     return showDialog(
       context: context,
       builder: (context) {
@@ -44,7 +44,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
               maxLength: 100,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "cannot_be_blank".tr();
+                  return 'cannot_be_blank'.tr();
                 }
                 return null;
               },
@@ -103,11 +103,11 @@ class ProjectsCreateViewModel extends ChangeNotifier {
   }
 
   Future createProject(BuildContext context) async {
-    baseDialog.text = "creating_project".tr();
+    baseDialog.text = 'creating_project'.tr();
     baseDialog.showLoadingDialog(context);
 
     ProjectModel model = ProjectModel(
-      projectID: "",
+      projectID: '',
       groupIDs: List.generate(groupsSelectedForTeam.length, (index) => groupsSelectedForTeam[index].groupID),
       createdBy: ServicePath.auth.currentUser!.uid,
       createdAt: Timestamp.now(),
@@ -123,11 +123,11 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     for (int i = 0; i < projectToDoModels.length; i++) {
       projectToDoModels.add(
         ProjectToDoModel(
-            toDoID: "",
+            toDoID: '',
             text: toDo[i],
             createdBy: ServicePath.auth.currentUser!.uid,
             createdAt: Timestamp.now(),
-            status: "active",
+            status: 'active',
             urgency: 0,
             index: i),
       );
@@ -137,10 +137,10 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     if (result) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "project_created_successfully".tr());
+      showSnackbar(context, 'project_created_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "project_create_failed".tr());
+      showSnackbar(context, 'project_create_failed'.tr());
     }
   }
 

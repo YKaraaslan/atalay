@@ -9,14 +9,14 @@ Future<dynamic> loginService(LoginModel model) async {
   try {
     await ServicePath.auth.signInWithEmailAndPassword(
         email: model.mail, password: model.password);
-    return "true";
+    return 'true';
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       return 'user-not-found';
     } else if (e.code == 'wrong-password') {
       return 'wrong-password';
     } else {
-      return "false";
+      return 'false';
     }
   }
 }
@@ -38,14 +38,14 @@ Future<bool> updatePasswordandToken(LoginModel model) async {
 }
 
 Future<String> checkIfUser(LoginModel model) async {
-  String result = "not_found";
+  String result = 'not_found';
   try {
     await ServicePath.usersOnHoldCollectionReference
         .where('mail', isEqualTo: model.mail)
         .get()
         .then((value) {
       if (value.docs.first.exists) {
-        result = "exists";
+        result = 'exists';
       }
     });
   } catch (e) {
@@ -56,9 +56,9 @@ Future<String> checkIfUser(LoginModel model) async {
 }
 
 Future getToken() async {
-  String token = "";
+  String token = '';
   await FirebaseMessaging.instance.getToken().then((value) {
-    token = value ?? "";
+    token = value ?? '';
     return token;
   });
   

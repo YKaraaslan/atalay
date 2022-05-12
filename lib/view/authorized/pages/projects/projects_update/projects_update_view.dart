@@ -85,7 +85,7 @@ class _BodyState extends State<_Body> {
               TextFormField(
                 controller: _viewModel.titleController,
                 decoration: InputDecoration(
-                  labelText: "project_title".tr(),
+                  labelText: 'project_title'.tr(),
                   icon: const Icon(Icons.title),
                 ),
                 maxLength: 50,
@@ -98,7 +98,7 @@ class _BodyState extends State<_Body> {
               ),
               TextFormField(
                 controller: _viewModel.explanationController,
-                decoration: InputDecoration(labelText: "project_explanation".tr(), icon: const Icon(Icons.text_fields)),
+                decoration: InputDecoration(labelText: 'project_explanation'.tr(), icon: const Icon(Icons.text_fields)),
                 maxLength: 200,
                 maxLines: 3,
                 validator: (value) {
@@ -132,18 +132,18 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsUpdateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
                       onTap: () {
-                        _viewModel.navigateAndDisplaySelectionForTeam(context);
+                        viewModel.navigateAndDisplaySelectionForTeam(context);
                       },
                       leading: Image.asset(
                         Assets.groupsTeam,
                         height: 30,
                       ),
-                      title: Text("${_viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+                      title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
                       trailing: const Icon(Icons.chevron_right),
                     ),
                   ),
@@ -172,18 +172,18 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, ProjectsUpdateViewModel _viewModel, child) => SizedBox(
+                builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: Card(
                     child: ListTile(
                       onTap: () {
-                        _viewModel.navigateAndDisplaySelectionForGroups(context);
+                        viewModel.navigateAndDisplaySelectionForGroups(context);
                       },
                       leading: Image.asset(
                         Assets.groupsTeam,
                         height: 30,
                       ),
-                      title: Text("${_viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
+                      title: Text("${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
                       trailing: const Icon(Icons.chevron_right),
                     ),
                   ),

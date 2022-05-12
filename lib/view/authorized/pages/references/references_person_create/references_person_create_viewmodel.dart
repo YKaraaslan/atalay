@@ -39,8 +39,8 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
   }
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -61,7 +61,7 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
       companyID: companyID,
       name: nameTextController.text.trim(),
       surname: surnameTimeTextController.text.trim(),
-      fullName: nameTextController.text.trim() + " " + surnameTimeTextController.text.trim(),
+      fullName: '${nameTextController.text.trim()} ${surnameTimeTextController.text.trim()}',
       createdAt: Timestamp.now(),
       createdBy: ServicePath.auth.currentUser!.uid,
       imageURL: '',
@@ -73,10 +73,10 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
     if (await createReferenceService(model, image)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Referans Basariyla Olusturuldu");
+      showSnackbar(context, 'Referans Basariyla Olusturuldu');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Referans olusturma basarisiz oldu");
+      showSnackbar(context, 'Referans olusturma basarisiz oldu');
     }
   }
 

@@ -65,23 +65,23 @@ class _Body extends StatelessWidget {
       child: Padding(
         padding: AppPaddings.appPadding,
         child: Consumer(
-          builder: (context, FinanceTransactionViewModel _viewModel, child) => Form(
-            key: _viewModel.formKeyForDialog,
+          builder: (context, FinanceTransactionViewModel viewModel, child) => Form(
+            key: viewModel.formKeyForDialog,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => StreamBuilder<DocumentSnapshot>(
+                  builder: (context, FinanceTransactionViewModel viewModel, child) => StreamBuilder<DocumentSnapshot>(
                       stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          _viewModel.money = double.parse(snapshot.data!.get('balance').toString());
+                          viewModel.money = double.parse(snapshot.data!.get('balance').toString());
                           return RichText(
                             text: TextSpan(
-                              text: 'balance'.tr() + ": ",
+                              text: "${'balance'.tr()}: ",
                               style: DefaultTextStyle.of(context).style,
                               children: <TextSpan>[
-                                TextSpan(text: _viewModel.money.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                                TextSpan(text: viewModel.money.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
                                 const TextSpan(text: ' ₺'),
                               ],
                             ),
@@ -91,10 +91,10 @@ class _Body extends StatelessWidget {
                       }),
                 ),
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => TextFormField(
-                    controller: _viewModel.titleTextController,
+                  builder: (context, FinanceTransactionViewModel viewModel, child) => TextFormField(
+                    controller: viewModel.titleTextController,
                     decoration: InputDecoration(
-                      labelText: "finance_create_explanation".tr(),
+                      labelText: 'finance_create_explanation'.tr(),
                       icon: const Icon(Icons.title),
                     ),
                     maxLength: 50,
@@ -107,13 +107,13 @@ class _Body extends StatelessWidget {
                   ),
                 ),
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => Row(
+                  builder: (context, FinanceTransactionViewModel viewModel, child) => Row(
                     children: [
                       Expanded(
                         child: TextFormField(
-                          controller: _viewModel.moneyController,
+                          controller: viewModel.moneyController,
                           decoration: InputDecoration(
-                            labelText: "finance_create_amount".tr(),
+                            labelText: 'finance_create_amount'.tr(),
                             icon: const Icon(Icons.attach_money),
                           ),
                           maxLength: 10,
@@ -131,38 +131,38 @@ class _Body extends StatelessWidget {
                             if (value.isEmpty) {
                               value = '0';
                             }
-                            _viewModel.changeMoneyLast(double.tryParse(value));
+                            viewModel.changeMoneyLast(double.tryParse(value));
                           },
                         ),
                       ),
                       const SizedBox(width: 10),
-                      _viewModel.isAdd
+                      viewModel.isAdd
                           ? OutlinedButton(
                               onPressed: () {
-                                _viewModel.changeIsAdd(false);
+                                viewModel.changeIsAdd(false);
                               },
-                              child: const Text(
-                                '+',
-                                style: TextStyle(color: Colors.white, fontSize: 20),
-                              ),
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.green.withOpacity(0.5),
                                 ),
                               ),
+                              child: const Text(
+                                '+',
+                                style: TextStyle(color: Colors.white, fontSize: 20),
+                              ),
                             )
                           : OutlinedButton(
                               onPressed: () {
-                                _viewModel.changeIsAdd(true);
+                                viewModel.changeIsAdd(true);
                               },
-                              child: const Text(
-                                '-',
-                                style: TextStyle(color: Colors.white, fontSize: 25),
-                              ),
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.red.withOpacity(0.5),
                                 ),
+                              ),
+                              child: const Text(
+                                '-',
+                                style: TextStyle(color: Colors.white, fontSize: 25),
                               ),
                             ),
                     ],
@@ -170,24 +170,24 @@ class _Body extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => RichText(
+                  builder: (context, FinanceTransactionViewModel viewModel, child) => RichText(
                     text: TextSpan(
-                      text: 'balance_status'.tr() + ": ",
+                      text: "${'balance_status'.tr()}: ",
                       style: DefaultTextStyle.of(context).style,
                       children: <TextSpan>[
-                        TextSpan(text: _viewModel.moneyLast.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                        TextSpan(text: viewModel.moneyLast.toString(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
                         const TextSpan(text: ' ₺'),
                       ],
                     ),
                   ),
                 ),
                 Consumer(
-                  builder: (context, FinanceTransactionViewModel _viewModel, child) => SizedBox(
+                  builder: (context, FinanceTransactionViewModel viewModel, child) => SizedBox(
                     height: 250,
                     child: CupertinoDatePicker(
                       initialDateTime: DateTime.now(),
                       onDateTimeChanged: (value) {
-                        _viewModel.changeTransactedAt(value);
+                        viewModel.changeTransactedAt(value);
                       },
                       mode: CupertinoDatePickerMode.dateAndTime,
                       use24hFormat: true,
@@ -201,11 +201,11 @@ class _Body extends StatelessWidget {
                   child: SizedBox(
                     width: Sizes.width_65percent(context),
                     child: Consumer(
-                      builder: (context, FinanceTransactionViewModel _viewModel, child) => BaseButton(
+                      builder: (context, FinanceTransactionViewModel viewModel, child) => BaseButton(
                         text: 'finance_transaction_create'.tr(),
                         fun: () {
-                          if (_viewModel.formKeyForDialog.currentState!.validate()) {
-                            _viewModel.createFinanceTransaction(context);
+                          if (viewModel.formKeyForDialog.currentState!.validate()) {
+                            viewModel.createFinanceTransaction(context);
                           }
                         },
                       ),

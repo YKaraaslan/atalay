@@ -166,7 +166,7 @@ class _BodyState extends State<_Body> {
                       child: StreamBuilder<QuerySnapshot>(
                           stream: ServicePath.postsLikesCollectionReference(widget.model.postID).snapshots(),
                           builder: (context, snapshot) {
-                            String likes = "0";
+                            String likes = '0';
 
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Container();
@@ -203,7 +203,7 @@ class _BodyState extends State<_Body> {
                     child: StreamBuilder<QuerySnapshot>(
                         stream: ServicePath.postsCommentsCollectionReference(widget.model.postID).snapshots(),
                         builder: (context, snapshot) {
-                          String comments = "0";
+                          String comments = '0';
 
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return Container();
@@ -248,7 +248,7 @@ class _BodyState extends State<_Body> {
                               return Container();
                             }
                             if (snapshot.hasData) {
-                              isLikedByMe = snapshot.data!.docs.any((element) => element.get("userID") == FirebaseAuth.instance.currentUser!.uid);
+                              isLikedByMe = snapshot.data!.docs.any((element) => element.get('userID') == FirebaseAuth.instance.currentUser!.uid);
                             }
 
                             return Column(

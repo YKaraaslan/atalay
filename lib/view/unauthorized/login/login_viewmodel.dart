@@ -16,29 +16,29 @@ class LoginViewModel extends ChangeNotifier {
 
   Future setFieldsforInit() async {
     final prefs = await SharedPreferences.getInstance();
-    mailController.text = prefs.getString('loginMail') ?? "";
-    passwordController.text = prefs.getString('loginPassword') ?? "";
+    mailController.text = prefs.getString('loginMail') ?? '';
+    passwordController.text = prefs.getString('loginPassword') ?? '';
   }
 
   Future login(BuildContext context) async {
-    baseDialog.text = "logging_in".tr();
+    baseDialog.text = 'logging_in'.tr();
     baseDialog.showLoadingDialog(context);
 
     LoginModel model = LoginModel(mail: mailController.text.trim(), password: passwordController.text);
 
-    if (await checkIfUser(model) == "exists") {
+    if (await checkIfUser(model) == 'exists') {
       setFieldsForLogin();
       return dismissDialog(context, 'login_user_not_accepted_yet'.tr());
     }
 
     String signInResult = await loginService(model);
-    if (signInResult == "true") {
+    if (signInResult == 'true') {
       baseDialog.dismissDialog();
       updatePasswordandToken(LoginModel(mail: mailController.text.trim(), password: passwordController.text));
       return setFieldsForLogin();
-    } else if (signInResult == "user-not-found") {
+    } else if (signInResult == 'user-not-found') {
       return dismissDialog(context, 'login_user_not_found'.tr());
-    } else if (signInResult == "wrong-password") {
+    } else if (signInResult == 'wrong-password') {
       return dismissDialog(context, 'login_wrong_password'.tr());
     } else {
       return dismissDialog(context, 'login_failed'.tr());
@@ -66,8 +66,8 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> instagram() async {
-    const nativeUrl = "instagram://user?username=atalayroket";
-    const webUrl = "https://www.instagram.com/atalayroket/";
+    const nativeUrl = 'instagram://user?username=atalayroket';
+    const webUrl = 'https://www.instagram.com/atalayroket/';
     if (await canLaunchUrlString(nativeUrl)) {
       await launchUrlString(nativeUrl);
     } else if (await canLaunchUrlString(webUrl)) {
@@ -76,14 +76,14 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> linkedin() async {
-    const webUrl = "https://www.linkedin.com/company/atalay-roket-takimi/";
+    const webUrl = 'https://www.linkedin.com/company/atalay-roket-takimi/';
     if (await canLaunchUrlString(webUrl)) {
       await launchUrlString(webUrl);
     }
   }
 
   Future<void> twitter() async {
-    const webUrl = "https://twitter.com/atalayroket";
+    const webUrl = 'https://twitter.com/atalayroket';
     if (await canLaunchUrlString(webUrl)) {
       await launchUrlString(webUrl);
     }

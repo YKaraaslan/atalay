@@ -77,23 +77,23 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 10),
               Consumer(
-                builder: (context, GroupsUpdateViewModel _viewModel, child) => Center(
+                builder: (context, GroupsUpdateViewModel viewModel, child) => Center(
                   child: InkWell(
                     onTap: () {
-                      _viewModel.getFromGallery();
+                      viewModel.getFromGallery();
                     },
                     child: SizedBox(
                       width: double.infinity,
                       height: 150,
                       child: Card(
-                        child: _viewModel.image == null
+                        child: viewModel.image == null
                             ? Hero(
-                                tag: "photo",
+                                tag: 'photo',
                                 child: Image.network(widget.model.imageURL, width: 100, height: 100, fit: BoxFit.cover),
                               )
                             : Hero(
-                                tag: "photo",
-                                child: Image.file(_viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
+                                tag: 'photo',
+                                child: Image.file(viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
                               ),
                       ),
                     ),
@@ -104,7 +104,7 @@ class _BodyState extends State<_Body> {
               TextFormField(
                 controller: _viewModel.nameController,
                 decoration: InputDecoration(
-                  labelText: "group_name".tr(),
+                  labelText: 'group_name'.tr(),
                   icon: const Icon(Icons.title),
                 ),
                 maxLength: 50,
@@ -117,7 +117,7 @@ class _BodyState extends State<_Body> {
               ),
               TextFormField(
                 controller: _viewModel.explanationController,
-                decoration: InputDecoration(labelText: "group_explanation".tr(), icon: const Icon(Icons.text_fields)),
+                decoration: InputDecoration(labelText: 'group_explanation'.tr(), icon: const Icon(Icons.text_fields)),
                 maxLength: 200,
                 maxLines: 3,
                 validator: (value) {
@@ -134,29 +134,29 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 10),
               Consumer(
-                builder: (context, GroupsUpdateViewModel _viewModel, child) => SizedBox(
+                builder: (context, GroupsUpdateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: InkWell(
                     onTap: (() {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
                       ));
                     }),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
-                        if (_viewModel.personInCharge != null) {
+                        if (viewModel.personInCharge != null) {
                           return Card(
                             child: ListTile(
                               onTap: () {
-                                _viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
+                                viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
                               },
                               leading: CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                  _viewModel.personInCharge!.imageURL,
+                                  viewModel.personInCharge!.imageURL,
                                 ),
                               ),
-                              title: Text(_viewModel.personInCharge!.fullName),
-                              subtitle: Text(_viewModel.personInCharge!.position),
+                              title: Text(viewModel.personInCharge!.fullName),
+                              subtitle: Text(viewModel.personInCharge!.position),
                               trailing: const Icon(Icons.chevron_right),
                             ),
                           );
@@ -164,13 +164,13 @@ class _BodyState extends State<_Body> {
                           return Card(
                             child: ListTile(
                               onTap: () {
-                                _viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
+                                viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
                               },
                               leading: Image.asset(
                                 Assets.profile,
                                 height: 30,
                               ),
-                              title: Text("person_incharge".tr()),
+                              title: Text('person_incharge'.tr()),
                               trailing: const Icon(Icons.chevron_right),
                             ),
                           );
@@ -202,12 +202,12 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(color: Colors.grey[600]),
               ),
               Consumer(
-                builder: (context, GroupsUpdateViewModel _viewModel, child) => SizedBox(
+                builder: (context, GroupsUpdateViewModel viewModel, child) => SizedBox(
                   width: double.infinity,
                   child: InkWell(
                     onTap: (() {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
                       ));
                     }),
                     child: Card(
@@ -215,7 +215,7 @@ class _BodyState extends State<_Body> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+                              builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
                             ),
                           );
                         },
@@ -223,7 +223,7 @@ class _BodyState extends State<_Body> {
                           Assets.groupsTeam,
                           height: 30,
                         ),
-                        title: Text("${_viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+                        title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
                         trailing: const Icon(Icons.chevron_right),
                       ),
                     ),

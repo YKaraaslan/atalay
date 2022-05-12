@@ -13,7 +13,7 @@ class PostCommentsViewModel extends ChangeNotifier {
 
   Future comment(BuildContext context, String postID) async {
     if (commentController.text.length > 200) {
-      return showSnackbar(context, "comment_length_exceeded".tr() + commentController.text.length.toString());
+      return showSnackbar(context, 'comment_length_exceeded'.tr() + commentController.text.length.toString());
     }
     String comment = commentController.text.trim();
     commentController.clear();
@@ -21,7 +21,7 @@ class PostCommentsViewModel extends ChangeNotifier {
         PostCommentModel(userID: FirebaseAuth.instance.currentUser!.uid, comment: comment, commentedAt: Timestamp.now(), isUpdated: false);
 
     if (!await saveCommentToDatabase(model, postID)) {
-      showSnackbar(context, "comment_unsuccessful".tr());
+      showSnackbar(context, 'comment_unsuccessful'.tr());
     }
   }
 

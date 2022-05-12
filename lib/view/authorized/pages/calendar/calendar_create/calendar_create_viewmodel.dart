@@ -22,7 +22,7 @@ class CalendarCreateViewModel extends ChangeNotifier {
       return showSnackbar(context, 'endtime_cannot_be_before_starttime'.tr());
     }
 
-    baseDialog.text = "creating_event".tr();
+    baseDialog.text = 'creating_event'.tr();
     baseDialog.showLoadingDialog(context);
 
     EventModel model = EventModel(
@@ -36,10 +36,10 @@ class CalendarCreateViewModel extends ChangeNotifier {
     if (await addEvent(model)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "event_created_successfully".tr());
+      showSnackbar(context, 'event_created_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "event_create_failed".tr());
+      showSnackbar(context, 'event_create_failed'.tr());
     }
   }
 

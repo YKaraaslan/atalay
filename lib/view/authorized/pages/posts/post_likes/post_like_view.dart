@@ -103,7 +103,7 @@ class _BodyState extends State<_Body> {
                   );
                 } else {
                   return NoDataView(
-                    text: "no_like_yet".tr(),
+                    text: 'no_like_yet'.tr(),
                     image: Assets.thumbsUp,
                     fun: () {
                       _viewModel.like();
@@ -117,7 +117,7 @@ class _BodyState extends State<_Body> {
       );
     } catch (e) {
       return NoDataView(
-        text: "no_like_yet".tr(),
+        text: 'no_like_yet'.tr(),
         image: Assets.thumbsUp,
         fun: () {
           _viewModel.like();

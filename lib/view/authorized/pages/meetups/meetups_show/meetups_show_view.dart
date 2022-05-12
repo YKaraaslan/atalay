@@ -72,11 +72,11 @@ class _BodyState extends State<_Body> {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, MeetupsShowViewModel _viewModel, child) => Column(
+          builder: (context, MeetupsShowViewModel viewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _viewModel.titleTextController,
+                controller: viewModel.titleTextController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'title'.tr(),
@@ -85,7 +85,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.descriptionTextController,
+                controller: viewModel.descriptionTextController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'description'.tr(),
@@ -94,7 +94,7 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _viewModel.locationTextController,
+                controller: viewModel.locationTextController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'location'.tr(),
@@ -106,7 +106,7 @@ class _BodyState extends State<_Body> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _viewModel.startTimeTextController,
+                      controller: viewModel.startTimeTextController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'start_time'.tr(),
@@ -117,7 +117,7 @@ class _BodyState extends State<_Body> {
                   const SizedBox(width: 20),
                   Expanded(
                     child: TextFormField(
-                      controller: _viewModel.endTimeTextController,
+                      controller: viewModel.endTimeTextController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'end_time'.tr(),
@@ -129,14 +129,14 @@ class _BodyState extends State<_Body> {
               ),
               const SizedBox(height: 20),
               Text(
-                _viewModel.listTiles.isNotEmpty ? 'Katilimcilar' : '',
+                viewModel.listTiles.isNotEmpty ? 'Katilimcilar' : '',
                 style: buttonTextStyle().copyWith(color: Colors.blue.shade800),
               ),
               const SizedBox(height: 10),
               ListView.builder(
-                itemCount: _viewModel.listTiles.length,
+                itemCount: viewModel.listTiles.length,
                 shrinkWrap: true,
-                itemBuilder: (context, index) => _viewModel.listTiles[index],
+                itemBuilder: (context, index) => viewModel.listTiles[index],
               ),
               const SizedBox(height: 30),
               Align(
@@ -149,7 +149,7 @@ class _BodyState extends State<_Body> {
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
-                      _viewModel.delete(context);
+                      viewModel.delete(context);
                     },
                   ),
                 ),

@@ -11,7 +11,7 @@ class DashboardViewModel extends ChangeNotifier {
   late GlobalKey<FormState> formKeyForDialog;
 
   Future addAnnouncement(BuildContext context) async {
-    announcementController.text = "";
+    announcementController.text = '';
     return showDialog(
       context: context,
       builder: (context) {
@@ -25,7 +25,7 @@ class DashboardViewModel extends ChangeNotifier {
               maxLines: 5,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "cannot_be_blank".tr();
+                  return 'cannot_be_blank'.tr();
                 }
                 return null;
               },
@@ -42,15 +42,14 @@ class DashboardViewModel extends ChangeNotifier {
                 child: Text('add'.tr().toUpperCase()),
                 onPressed: () async {
                   if (formKeyForDialog.currentState!.validate()) {
-                    AnnouncementModel model = AnnouncementModel(
-                        text: announcementController.text.trim(), createdBy: ServicePath.auth.currentUser!.uid, createdAt: Timestamp.now());
-
+                    AnnouncementModel model = AnnouncementModel(text: announcementController.text.trim(), createdBy: ServicePath.auth.currentUser!.uid, createdAt: Timestamp.now());
                     if (await addAnnouncementService(model)) {
-                      showSnackbar(context, "announcement_created_successfully".tr());
+                      showSnackbar(context, 'announcement_created_successfully'.tr());
+                      Navigator.pop(context);
                     } else {
-                      showSnackbar(context, "announcement_create_failed".tr());
+                      showSnackbar(context, 'announcement_create_failed'.tr());
+                      Navigator.pop(context);
                     }
-                    Navigator.pop(context);
                   }
                 },
               ),

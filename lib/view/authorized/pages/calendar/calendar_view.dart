@@ -62,8 +62,8 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, CalendarViewModel _viewModel, child) => WeekView(
-        controller: _viewModel.eventController,
+      builder: (context, CalendarViewModel viewModel, child) => WeekView(
+        controller: viewModel.eventController,
         heightPerMinute: 1, // height occupied by 1 minute time span.
         eventArranger: const SideEventArranger(), // To define how simultaneous events will be arranged.
         onEventTap: (events, date) {

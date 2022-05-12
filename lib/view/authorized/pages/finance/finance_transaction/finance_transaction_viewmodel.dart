@@ -43,10 +43,10 @@ class FinanceTransactionViewModel extends ChangeNotifier {
 
   Future createFinanceTransaction(BuildContext context) async {
     if (!isAdd && money - double.parse(moneyController.text) < 0) {
-      return showSnackbar(context, "finance_create_balance_cannot_be_lower_than_zero".tr());
+      return showSnackbar(context, 'finance_create_balance_cannot_be_lower_than_zero'.tr());
     }
 
-    baseDialog.text = "creating_finance".tr();
+    baseDialog.text = 'creating_finance'.tr();
     baseDialog.showLoadingDialog(context);
 
     FinanceTransactionModel model = FinanceTransactionModel(
@@ -63,10 +63,10 @@ class FinanceTransactionViewModel extends ChangeNotifier {
     if (await setTransaction(model)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "finance_created_successfully".tr());
+      showSnackbar(context, 'finance_created_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "finance_create_failed".tr());
+      showSnackbar(context, 'finance_create_failed'.tr());
     }
   }
 

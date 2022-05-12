@@ -82,7 +82,7 @@ class _BodyState extends State<_Body> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextFormField(
                 controller: _viewModel.postController,
-                decoration: InputDecoration(border: InputBorder.none, hintText: "post_create_hint_text".tr()),
+                decoration: InputDecoration(border: InputBorder.none, hintText: 'post_create_hint_text'.tr()),
                 maxLines: 15,
                 maxLength: 500,
                 validator: (value) {
@@ -155,13 +155,13 @@ class _BodyState extends State<_Body> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Consumer(
-                  builder: (context, PostUpdateViewModel _viewModel, child) => Wrap(
+                  builder: (context, PostUpdateViewModel viewModel, child) => Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: List.generate(
-                      _viewModel.labels.length,
+                      viewModel.labels.length,
                       (index) => Chip(
-                        label: Text(_viewModel.labels[index]),
+                        label: Text(viewModel.labels[index]),
                         backgroundColor: Colors.blue.shade100,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         deleteIcon: const CircleAvatar(
@@ -173,7 +173,7 @@ class _BodyState extends State<_Body> {
                           ),
                         ),
                         onDeleted: () {
-                          _viewModel.onDeletedMethod(index);
+                          viewModel.onDeletedMethod(index);
                         },
                         elevation: 2,
                       ),
@@ -184,10 +184,10 @@ class _BodyState extends State<_Body> {
             ),
           ),
           Consumer(
-            builder: (context, PostUpdateViewModel _viewModel, child) => Padding(
+            builder: (context, PostUpdateViewModel viewModel, child) => Padding(
               padding: AppPaddings.appPadding,
               child: Visibility(
-                visible: _viewModel.images.isNotEmpty || _viewModel.imagesLink.isNotEmpty,
+                visible: viewModel.images.isNotEmpty || viewModel.imagesLink.isNotEmpty,
                 child: GridView.extent(
                   maxCrossAxisExtent: 150,
                   crossAxisSpacing: 10,
@@ -195,9 +195,9 @@ class _BodyState extends State<_Body> {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: List.generate(
-                    _viewModel.images.length + _viewModel.imagesLink.length,
+                    viewModel.images.length + viewModel.imagesLink.length,
                     (index) {
-                      if ((_viewModel.images.isEmpty && _viewModel.imagesLink.isEmpty) || index == _viewModel.maxAllowedImage) {
+                      if ((viewModel.images.isEmpty && viewModel.imagesLink.isEmpty) || index == viewModel.maxAllowedImage) {
                         return Container();
                       }
                       return GestureDetector(
@@ -206,7 +206,7 @@ class _BodyState extends State<_Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => FileGalleryViewer(
-                                imageList: _viewModel.images,
+                                imageList: viewModel.images,
                                 index: index,
                               ),
                             ),
@@ -219,13 +219,13 @@ class _BodyState extends State<_Body> {
                               borderRadius: BorderRadius.circular(10),
                               child: Hero(
                                 tag: index.toString(),
-                                child: index >= _viewModel.imagesLink.length
+                                child: index >= viewModel.imagesLink.length
                                     ? Image.file(
-                                        _viewModel.images[index - _viewModel.imagesLink.length],
+                                        viewModel.images[index - viewModel.imagesLink.length],
                                         fit: BoxFit.cover,
                                       )
                                     : Image.network(
-                                        _viewModel.imagesLink[index],
+                                        viewModel.imagesLink[index],
                                         fit: BoxFit.cover,
                                       ),
                               ),
@@ -235,7 +235,7 @@ class _BodyState extends State<_Body> {
                               top: 5,
                               child: InkWell(
                                 onTap: () {
-                                  _viewModel.deleteImage(index);
+                                  viewModel.deleteImage(index);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(2),

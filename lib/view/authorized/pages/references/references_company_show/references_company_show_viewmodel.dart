@@ -27,10 +27,10 @@ class ReferencesCompanyShowViewModel extends ChangeNotifier {
     if (await deleteReferenceCompanyService(model)) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "Sirket Basariyla Silindi");
+      showSnackbar(context, 'Sirket Basariyla Silindi');
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "Sirket silme islemi basarisiz oldu");
+      showSnackbar(context, 'Sirket silme islemi basarisiz oldu');
     }
   }
 

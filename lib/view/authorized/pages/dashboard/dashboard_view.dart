@@ -206,10 +206,10 @@ class _Announcement extends StatelessWidget {
                 ),
               ),
               Consumer(
-                builder: (context, DashboardViewModel _viewmodel, child) => Align(
+                builder: (context, DashboardViewModel viewmodel, child) => Align(
                   alignment: Alignment.topRight,
                   child: OutlinedButton(
-                    onPressed: () => _viewmodel.addAnnouncement(context),
+                    onPressed: () => viewmodel.addAnnouncement(context),
                     child: const Text('Duyuru Ekle'),
                   ),
                 ),

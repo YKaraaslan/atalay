@@ -67,15 +67,15 @@ class _BodyState extends State<_Body> {
       child: Padding(
         padding: AppPaddings.contentPadding,
         child: Consumer(
-          builder: (context, ReferencesCompanyCreateViewModel _viewModel, child) => Form(
-            key: _viewModel.formKey,
+          builder: (context, ReferencesCompanyCreateViewModel viewModel, child) => Form(
+            key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const _Photo(),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _viewModel.nameTextController,
+                  controller: viewModel.nameTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Sirket Ismi',
@@ -92,7 +92,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _viewModel.descriptionTextController,
+                  controller: viewModel.descriptionTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Aciklama',
@@ -108,7 +108,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _viewModel.mailTextController,
+                  controller: viewModel.mailTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Mail',
@@ -128,7 +128,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _viewModel.phoneTextController,
+                  controller: viewModel.phoneTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Telefon',
@@ -145,7 +145,7 @@ class _BodyState extends State<_Body> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _viewModel.locationTextController,
+                  controller: viewModel.locationTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Lokasyon',
@@ -166,8 +166,8 @@ class _BodyState extends State<_Body> {
                     child: BaseButton(
                       text: 'create_event'.tr(),
                       fun: () async {
-                        if (_viewModel.formKey.currentState!.validate()) {
-                          _viewModel.createCompany(context);
+                        if (viewModel.formKey.currentState!.validate()) {
+                          viewModel.createCompany(context);
                         }
                       },
                     ),
@@ -189,17 +189,17 @@ class _Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ReferencesCompanyCreateViewModel _viewModel, child) => Center(
+      builder: (context, ReferencesCompanyCreateViewModel viewModel, child) => Center(
         child: InkWell(
           onTap: () {
-            _viewModel.openGallery(context);
+            viewModel.openGallery(context);
           },
           child: ClipOval(
-            child: _viewModel.image == null
+            child: viewModel.image == null
                 ? Image.asset(Assets.profile, width: 100, height: 100, fit: BoxFit.cover)
                 : Hero(
-                    tag: "photo",
-                    child: Image.file(_viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
+                    tag: 'photo',
+                    child: Image.file(viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
                   ),
           ),
         ),

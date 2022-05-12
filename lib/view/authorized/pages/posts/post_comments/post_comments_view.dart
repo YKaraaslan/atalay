@@ -139,7 +139,7 @@ class _BottomPart extends StatelessWidget {
         color: Colors.grey.shade100,
         padding: AppPaddings.appPadding,
         child: Consumer(
-          builder: (context, PostCommentsViewModel _viewModel, child) => Row(
+          builder: (context, PostCommentsViewModel viewModel, child) => Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
@@ -151,7 +151,7 @@ class _BottomPart extends StatelessWidget {
                     ),
                   ),
                   child: TextFormField(
-                    controller: _viewModel.commentController,
+                    controller: viewModel.commentController,
                     decoration: const InputDecoration(
                       hintText: 'Yorum yaz...',
                       border: InputBorder.none,
@@ -166,8 +166,8 @@ class _BottomPart extends StatelessWidget {
               const SizedBox(width: 10),
               InkWell(
                 onTap: () {
-                  if (_viewModel.commentController.text.isNotEmpty) {
-                    _viewModel.comment(context, postID);
+                  if (viewModel.commentController.text.isNotEmpty) {
+                    viewModel.comment(context, postID);
                   }
                 },
                 child: CircleAvatar(

@@ -22,8 +22,8 @@ class GroupsCreateViewModel extends ChangeNotifier {
   UserModel? personInCharge;
 
   Future getFromGallery() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -62,21 +62,21 @@ class GroupsCreateViewModel extends ChangeNotifier {
 
   Future createGroup(BuildContext context) async {
     if (image == null) {
-      return showSnackbar(context, "image_cannot_be_blank".tr());
+      return showSnackbar(context, 'image_cannot_be_blank'.tr());
     }
     if (personInCharge == null) {
-      return showSnackbar(context, "person_incharge_cannot_be_blank".tr());
+      return showSnackbar(context, 'person_incharge_cannot_be_blank'.tr());
     }
-    baseDialog.text = "creating_group".tr();
+    baseDialog.text = 'creating_group'.tr();
     baseDialog.showLoadingDialog(context);
 
     GroupsModel model = GroupsModel(
-        groupID: "",
+        groupID: '',
         title: nameController.text.trim(),
         explanation: explanationController.text.trim(),
         userInCharge: personInCharge!.id,
         people: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
-        imageURL: "",
+        imageURL: '',
         createdAt: Timestamp.now(),
         createdBy: FirebaseAuth.instance.currentUser!.uid);
 
@@ -84,10 +84,10 @@ class GroupsCreateViewModel extends ChangeNotifier {
     if (result) {
       baseDialog.dismissDialog();
       Navigator.pop(context);
-      showSnackbar(context, "group_added_successfully".tr());
+      showSnackbar(context, 'group_added_successfully'.tr());
     } else {
       baseDialog.dismissDialog();
-      showSnackbar(context, "group_add_failed".tr());
+      showSnackbar(context, 'group_add_failed'.tr());
     }
   }
 

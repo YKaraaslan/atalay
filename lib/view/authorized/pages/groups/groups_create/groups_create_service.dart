@@ -4,7 +4,7 @@ import '../../../../../../core/service/service_path.dart';
 import '../../../../../core/models/groups_model.dart';
 
 Future<bool> saveGroupsToDatabase(GroupsModel model, File image) async {
-  String imageURL = "";
+  String imageURL = '';
   try {
     await ServicePath.groupsCollectionReference.add(model.toMap()).then((value) async {
       await ServicePath.groupsPhotoReference.child(value.id).child(image.path.split('/').last).putFile(image);

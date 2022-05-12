@@ -66,8 +66,8 @@ class _FormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, LoginViewModel _viewModel, child) => Form(
-        key: _viewModel.formKey,
+      builder: (context, LoginViewModel viewModel, child) => Form(
+        key: viewModel.formKey,
         child: Column(
           children: [
             BaseTextFormField(
@@ -75,7 +75,7 @@ class _FormField extends StatelessWidget {
               textInputAction: TextInputAction.next,
               textInputType: TextInputType.emailAddress,
               prefixIcon: const Icon(Icons.mail_outline),
-              controller: _viewModel.mailController,
+              controller: viewModel.mailController,
               fun: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return 'mail_validator'.tr();
@@ -94,7 +94,7 @@ class _FormField extends StatelessWidget {
               textInputType: TextInputType.text,
               prefixIcon: const Icon(Icons.password_outlined),
               isPassword: true,
-              controller: _viewModel.passwordController,
+              controller: viewModel.passwordController,
               fun: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return 'password_validator'.tr();
@@ -115,14 +115,14 @@ class _FormField extends StatelessWidget {
                       child: Row(
                         children: [
                           Checkbox(
-                              value: _viewModel.checked,
+                              value: viewModel.checked,
                               onChanged: (value) {
                                 if (value != null) {
-                                  _viewModel.checkClicked(value);
+                                  viewModel.checkClicked(value);
                                 }
                               }),
                           GestureDetector(
-                              onTap: () => _viewModel.checkClickedReverse(),
+                              onTap: () => viewModel.checkClickedReverse(),
                               child: const Text('remember_me').tr())
                         ],
                       ),
@@ -142,8 +142,8 @@ class _FormField extends StatelessWidget {
             BaseButton(
               text: 'login'.tr(),
               fun: () {
-                if (_viewModel.formKey.currentState!.validate()) {
-                  _viewModel.login(context);
+                if (viewModel.formKey.currentState!.validate()) {
+                  viewModel.login(context);
                 }
               },
             ),
@@ -186,11 +186,11 @@ class _SocialField extends StatelessWidget {
           height: 15,
         ),
         Consumer(
-          builder: (context, LoginViewModel _viewModel, child) => Row(
+          builder: (context, LoginViewModel viewModel, child) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                  onPressed: () => _viewModel.instagram(),
+                  onPressed: () => viewModel.instagram(),
                   icon: Image.asset(
                     Assets.instagram,
                     width: 75,
@@ -200,7 +200,7 @@ class _SocialField extends StatelessWidget {
                 width: 25,
               ),
               IconButton(
-                  onPressed: () => _viewModel.linkedin(),
+                  onPressed: () => viewModel.linkedin(),
                   icon: Image.asset(
                     Assets.linkedin,
                     width: 75,
@@ -210,7 +210,7 @@ class _SocialField extends StatelessWidget {
                 width: 25,
               ),
               IconButton(
-                  onPressed: () => _viewModel.twitter(),
+                  onPressed: () => viewModel.twitter(),
                   icon: Image.asset(
                     Assets.twitter,
                     width: 75,

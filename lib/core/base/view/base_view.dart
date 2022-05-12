@@ -29,7 +29,7 @@ class BaseView<T> extends StatefulWidget {
   final FloatingActionButton? floatingActionButton;
 
   @override
-  _BaseViewState createState() => _BaseViewState();
+  State<BaseView> createState() => _BaseViewState();
 }
 
 class _BaseViewState extends State<BaseView> {
@@ -52,14 +52,14 @@ class _BaseViewState extends State<BaseView> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, BaseViewModel _viewModel, child) => Scaffold(
+      builder: (context, BaseViewModel viewModel, child) => Scaffold(
         appBar: widget.appBar,
         bottomNavigationBar: widget.bottomNavigationBar,
         drawer: widget.drawer,
         floatingActionButton: widget.floatingActionButton,
         backgroundColor:
             widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-        body: _viewModel.connected == true
+        body: viewModel.connected == true
             ? widget.onPageBuilder(context, widget.viewModel)
             : const NoConnectionView(),
       ),

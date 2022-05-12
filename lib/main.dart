@@ -4,6 +4,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
@@ -64,9 +65,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  /*await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-  );*/
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   runApp(
     MultiProvider(
       providers: [
@@ -112,7 +111,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => ReferencesAddToCompaniesViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesCompanyCreateViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesCompanyShowViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel()),        
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesPersonCreateViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesPersonShowViewModel()),
         ChangeNotifierProvider(create: (context) => ReferencesPersonUpdateViewModel()),

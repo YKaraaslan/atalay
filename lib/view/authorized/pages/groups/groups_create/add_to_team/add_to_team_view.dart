@@ -48,15 +48,15 @@ class _BodyState extends State<_Body> {
     _viewModel.getUsers();
   }
 
-  bool isSelected(AddToTeamViewModel _viewModel, int index) {
-    return _viewModel.selectedUsers.any((element) => element.id == _viewModel.userModels[index].id);
+  bool isSelected(AddToTeamViewModel viewModel, int index) {
+    return viewModel.selectedUsers.any((element) => element.id == viewModel.userModels[index].id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, AddToTeamViewModel _viewModel, child) {
-        if (_viewModel.userModels.isEmpty) {
+      builder: (context, AddToTeamViewModel viewModel, child) {
+        if (viewModel.userModels.isEmpty) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 20,
@@ -66,34 +66,34 @@ class _BodyState extends State<_Body> {
         return Stack(
           children: [
             ListView.builder(
-              itemCount: _viewModel.userModels.length,
+              itemCount: viewModel.userModels.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
                     if (widget.multiSelection) {
-                      return _viewModel.selectUser(index);
+                      return viewModel.selectUser(index);
                     } else {
-                      _viewModel.selectedUsers = [];
-                      _viewModel.selectUser(index);
-                      return Navigator.pop(context, _viewModel.selectedUsers);
+                      viewModel.selectedUsers = [];
+                      viewModel.selectUser(index);
+                      return Navigator.pop(context, viewModel.selectedUsers);
                     }
                   },
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(_viewModel.userModels[index].imageURL),
+                    backgroundImage: NetworkImage(viewModel.userModels[index].imageURL),
                   ),
-                  title: isSelected(_viewModel, index)
+                  title: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.userModels[index].fullName,
+                          viewModel.userModels[index].fullName,
                           style: const TextStyle(color: Colors.blue),
                         )
-                      : Text(_viewModel.userModels[index].fullName),
-                  subtitle: isSelected(_viewModel, index)
+                      : Text(viewModel.userModels[index].fullName),
+                  subtitle: isSelected(viewModel, index)
                       ? Text(
-                          _viewModel.userModels[index].position,
+                          viewModel.userModels[index].position,
                           style: TextStyle(color: Colors.blue[300]),
                         )
-                      : Text(_viewModel.userModels[index].position),
-                  trailing: isSelected(_viewModel, index)
+                      : Text(viewModel.userModels[index].position),
+                  trailing: isSelected(viewModel, index)
                       ? const Icon(
                           Icons.check,
                           color: Colors.blue,
@@ -110,10 +110,10 @@ class _BodyState extends State<_Body> {
                 right: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context, _viewModel.selectedUsers);
+                    Navigator.pop(context, viewModel.selectedUsers);
                   },
                   child: Text(
-                    _viewModel.selectedUsers.length.toString() + " kisi sec",
+                    '${viewModel.selectedUsers.length} kisi sec',
                   ),
                 ),
               ),

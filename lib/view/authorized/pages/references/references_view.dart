@@ -75,7 +75,7 @@ class _BodyState extends State<_Body> {
                         'Bagimsiz',
                         style: TextStyle(color: Colors.blue),
                       ),
-                      subtitle: Text(snapshot.data!.docs.length.toString() + " Referans bulunmaktadir"),
+                      subtitle: Text('${snapshot.data!.docs.length} Referans bulunmaktadir'),
                       trailing: const Icon(Icons.chevron_right),
                     ),
                   );
@@ -115,7 +115,7 @@ class _BodyState extends State<_Body> {
                         future: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: company.id).get(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            return Text(snapshot.data!.docs.length.toString() + " Referans bulunmaktadir");
+                            return Text('${snapshot.data!.docs.length} Referans bulunmaktadir');
                           }
                           return const Text('Referans bulunmamaktadir');
                         },
