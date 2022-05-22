@@ -31,11 +31,13 @@ class _Body extends StatelessWidget {
           delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) => Container(
                     width: double.infinity,
-                    color: Colors.blue.shade100,
-                    child: const Center(
+                    color: Colors.blue.shade200.withOpacity(0.5),
+                    child: Center(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('2 yeni bildiriminiz mevcut'),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('2 yeni bildiriminiz mevcut', style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                        ),),
                       ),
                     ),
                   ),

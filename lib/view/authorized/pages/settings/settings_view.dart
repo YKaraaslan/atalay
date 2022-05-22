@@ -5,6 +5,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/theme/dark_theme_provider.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import 'settings_viewmodel.dart';
 
@@ -22,7 +23,6 @@ class SettingsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      backgroundColor: Colors.white,
     );
   }
 }
@@ -42,7 +42,8 @@ class _BodyState extends State<_Body> {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: SettingsList(
-        lightBackgroundColor: Colors.white,
+        lightBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        darkBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
         shrinkWrap: true,
         sections: [
           SettingsSection(
@@ -90,8 +91,10 @@ class _BodyState extends State<_Body> {
                 title: 'Gece Temasi',
                 leading: const Icon(Icons.color_lens_outlined),
                 trailing: const Icon(Icons.chevron_right),
-                switchValue: false,
-                onToggle: (context) {},
+                switchValue: context.watch<DarkThemeProvider>().darkTheme,
+                onToggle: (value) {
+                  context.read<DarkThemeProvider>().darkTheme = value;
+                },
               ),
               SettingsTile.switchTile(
                 title: 'Bildirimler',

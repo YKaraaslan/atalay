@@ -79,9 +79,9 @@ class _Body extends StatelessWidget {
                         ),
                       ),
                       child: Container(
-                        color: Colors.white,
-                        margin: const EdgeInsets.only(left: 10),
-                        padding: const EdgeInsets.only(left: 10),
+                        color: Theme.of(context).cardColor,
+                        margin: const EdgeInsets.only(left: 5),
+                        padding: const EdgeInsets.only(left: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

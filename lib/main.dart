@@ -1,3 +1,5 @@
+import 'core/theme/dark_theme.dart';
+import 'core/theme/dark_theme_provider.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -70,6 +72,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BaseViewModel()),
+        ChangeNotifierProvider(create: (context) => DarkThemeProvider()),
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
         ChangeNotifierProvider(create: (context) => SignUpViewModel()),
         ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
@@ -136,6 +139,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final appCheck = FirebaseAppCheck.instance;
   late Widget child;
+  late final themeChangeProvider = context.read<DarkThemeProvider>();
 
   @override
   void initState() {
@@ -143,6 +147,8 @@ class _MyAppState extends State<MyApp> {
     appCheck.onTokenChange.listen((event) {});
     appCheck.setTokenAutoRefreshEnabled(true);
     ServicePath.auth.currentUser == null ? child = const LoginView() : child = const HomeView();
+
+    getCurrentAppTheme();
 
     ServicePath.auth.authStateChanges().listen(
       (User? user) {
@@ -161,13 +167,18 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  void getCurrentAppTheme() async {
+    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CalendarControllerProvider(
       controller: EventController(),
       child: MaterialApp(
-        themeMode: ThemeMode.light,
+        themeMode: context.watch<DarkThemeProvider>().darkTheme ? ThemeMode.dark : ThemeMode.light,
         theme: appLightTheme(context),
+        darkTheme: appDarkTheme(context),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

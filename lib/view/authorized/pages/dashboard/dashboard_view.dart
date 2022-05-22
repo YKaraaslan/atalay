@@ -13,6 +13,7 @@ import '../../../../core/constant/styles.dart';
 import '../../../../core/models/announcement_model.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/service/service_path.dart';
+import '../../../../core/theme/dark_theme_provider.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import '../../../../core/widgets/weekly_days.dart';
 import 'dashboard_viewmodel.dart';
@@ -116,14 +117,14 @@ class _MyDuties extends StatelessWidget {
               const SizedBox(width: 20),
               const CircleAvatar(
                 radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
+                backgroundImage:
+                    NetworkImage('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80'),
               ),
               const SizedBox(width: 5),
               const CircleAvatar(
                 radius: 15,
-                backgroundImage: NetworkImage(
-                    'https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D'),
+                backgroundImage:
+                    NetworkImage('https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D'),
               ),
               const SizedBox(width: 5),
               const CircleAvatar(
@@ -155,7 +156,8 @@ class _Announcement extends StatelessWidget {
               Container(
                 width: double.infinity,
                 padding: AppPaddings.appPadding,
-                decoration: const BoxDecoration(color: Color.fromARGB(255, 213, 231, 247), borderRadius: BorderRadius.all(Radius.circular(10))),
+                decoration: BoxDecoration(
+                    color: context.read<DarkThemeProvider>().darkTheme ? Theme.of(context).cardColor : const Color.fromARGB(255, 213, 231, 247), borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +258,7 @@ class _ProjectsStatus extends StatelessWidget {
                       children: [
                         Text(
                           '$total',
-                          style: defaultDateTextStyle,
+                          style: defaultDateTextStyle(context),
                         ),
                         const Text('Toplam Proje'),
                       ],
@@ -310,7 +312,7 @@ class _ProjectsStatus extends StatelessWidget {
                           children: [
                             Text(
                               '$total',
-                              style: defaultDateTextStyle,
+                              style: defaultDateTextStyle(context),
                             ),
                             Text(
                               'Toplam Proje',
@@ -339,7 +341,7 @@ class _ProjectsStatus extends StatelessWidget {
                           children: [
                             Text(
                               '$active',
-                              style: defaultDateTextStyle,
+                              style: defaultDateTextStyle(context),
                             ),
                             Text(
                               'Aktif Proje',
@@ -368,7 +370,7 @@ class _ProjectsStatus extends StatelessWidget {
                           children: [
                             Text(
                               '$finished',
-                              style: defaultDateTextStyle,
+                              style: defaultDateTextStyle(context),
                             ),
                             Text(
                               'Biten Proje',

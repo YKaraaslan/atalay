@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/models/meeting_model.dart';
 import '../../../../../core/models/user_model.dart';
 import '../../../../../core/service/service_path.dart';
+import '../../../../../core/theme/dark_theme_provider.dart';
 import '../../groups/groups_create/add_to_team/add_to_team_view.dart';
 import 'meetups_create_service.dart';
 
@@ -40,20 +42,29 @@ class MeetupsCreateViewModel extends ChangeNotifier {
               ),
             ),
             Expanded(
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.dateAndTime,
-                minimumDate: DateTime.now(),
-                use24hFormat: true,
-                onDateTimeChanged: (value) {
-                  if (text == 'start_time'.tr()) {
-                    startTime = DateTime(startTime.year, startTime.month, startTime.day, value.hour, value.minute);
-                    startTimeTextController.text = DateFormat('dd MMM yyyy, hh:mm').format(startTime).toString();
-                  } else {
-                    endTime = DateTime(endTime.year, endTime.month, endTime.day, value.hour, value.minute);
-                    endTimeTextController.text = DateFormat('dd MMM yyyy, hh:mm').format(endTime).toString();
-                  }
-                  notifyListeners();
-                },
+              child: CupertinoTheme(
+                data: CupertinoThemeData(
+                  textTheme: CupertinoTextThemeData(
+                    dateTimePickerTextStyle: TextStyle(
+                      color: context.read<DarkThemeProvider>().darkTheme ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.dateAndTime,
+                  minimumDate: DateTime.now(),
+                  use24hFormat: true,
+                  onDateTimeChanged: (value) {
+                    if (text == 'start_time'.tr()) {
+                      startTime = DateTime(startTime.year, startTime.month, startTime.day, value.hour, value.minute);
+                      startTimeTextController.text = DateFormat('dd MMM yyyy, hh:mm').format(startTime).toString();
+                    } else {
+                      endTime = DateTime(endTime.year, endTime.month, endTime.day, value.hour, value.minute);
+                      endTimeTextController.text = DateFormat('dd MMM yyyy, hh:mm').format(endTime).toString();
+                    }
+                    notifyListeners();
+                  },
+                ),
               ),
             ),
           ],
@@ -85,18 +96,17 @@ class MeetupsCreateViewModel extends ChangeNotifier {
     baseDialog.showLoadingDialog(context);
 
     MeetingModel model = MeetingModel(
-      createdBy: ServicePath.auth.currentUser!.uid,
-      createdAt: Timestamp.now(),
-      title: titleTextController.text.trim(),
-      description: descriptionTextController.text.trim(),
-      location: locationTextController.text.trim(),
-      startsAt: Timestamp.fromMillisecondsSinceEpoch(startTime.millisecondsSinceEpoch),
-      endsAt: Timestamp.fromMillisecondsSinceEpoch(endTime.millisecondsSinceEpoch),
-      participants: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
-      isUpdated: false,
-      updatedBy: '',
-      updatedAt: Timestamp.now()
-    );
+        createdBy: ServicePath.auth.currentUser!.uid,
+        createdAt: Timestamp.now(),
+        title: titleTextController.text.trim(),
+        description: descriptionTextController.text.trim(),
+        location: locationTextController.text.trim(),
+        startsAt: Timestamp.fromMillisecondsSinceEpoch(startTime.millisecondsSinceEpoch),
+        endsAt: Timestamp.fromMillisecondsSinceEpoch(endTime.millisecondsSinceEpoch),
+        participants: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
+        isUpdated: false,
+        updatedBy: '',
+        updatedAt: Timestamp.now());
 
     if (await saveMeetingToDatabase(model)) {
       baseDialog.dismissDialog();

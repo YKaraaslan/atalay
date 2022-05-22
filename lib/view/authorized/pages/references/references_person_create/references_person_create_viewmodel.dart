@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import '../../../../../core/models/company_model.dart';
-import '../../../../../core/models/reference_model.dart';
-import '../../../../../core/service/service_path.dart';
 import 'package:base_dialog/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../core/models/company_model.dart';
+import '../../../../../core/models/reference_model.dart';
+import '../../../../../core/service/service_path.dart';
 import '../references_add_to_companies/references_add_to_companies_view.dart';
 import 'references_person_create_service.dart';
 

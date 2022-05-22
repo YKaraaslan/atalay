@@ -22,7 +22,6 @@ class PostCommentsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView(
       onPageBuilder: (context, value) => _Body(model: model),
-      backgroundColor: Colors.white,
     );
   }
 }
@@ -136,7 +135,7 @@ class _BottomPart extends StatelessWidget {
     return Material(
       elevation: 4,
       child: Container(
-        color: Colors.grey.shade100,
+        color: Theme.of(context).cardColor,
         padding: AppPaddings.appPadding,
         child: Consumer(
           builder: (context, PostCommentsViewModel viewModel, child) => Row(

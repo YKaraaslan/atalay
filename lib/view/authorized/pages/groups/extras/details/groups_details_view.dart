@@ -75,7 +75,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
             floating: false,
             leading: CircleAvatar(
                 backgroundColor: Colors.white.withOpacity(0.2), child: BackButton(color: Colors.black, onPressed: () => Navigator.pop(context))),
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: Column(
@@ -163,8 +163,6 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
             ),
             expandedHeight: 470.0,
             bottom: TabBar(
-              indicatorColor: Colors.black,
-              labelColor: Colors.black,
               tabs: viewModel.tabs,
               controller: viewModel.controller,
             ),

@@ -18,11 +18,9 @@ class PostCreateView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'post_create'.tr(),
-        color: Colors.white,
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      backgroundColor: Colors.white,
     );
   }
 }

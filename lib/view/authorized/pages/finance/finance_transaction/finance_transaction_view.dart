@@ -1,3 +1,4 @@
+import '../../../../../core/theme/dark_theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -184,14 +185,23 @@ class _Body extends StatelessWidget {
                 Consumer(
                   builder: (context, FinanceTransactionViewModel viewModel, child) => SizedBox(
                     height: 250,
-                    child: CupertinoDatePicker(
-                      initialDateTime: DateTime.now(),
-                      onDateTimeChanged: (value) {
-                        viewModel.changeTransactedAt(value);
-                      },
-                      mode: CupertinoDatePickerMode.dateAndTime,
-                      use24hFormat: true,
-                      maximumDate: DateTime.now(),
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(
+                        textTheme: CupertinoTextThemeData(
+                          dateTimePickerTextStyle: TextStyle(
+                            color: context.read<DarkThemeProvider>().darkTheme ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                      child: CupertinoDatePicker(
+                        initialDateTime: DateTime.now(),
+                        onDateTimeChanged: (value) {
+                          viewModel.changeTransactedAt(value);
+                        },
+                        mode: CupertinoDatePickerMode.dateAndTime,
+                        use24hFormat: true,
+                        maximumDate: DateTime.now(),
+                      ),
                     ),
                   ),
                 ),

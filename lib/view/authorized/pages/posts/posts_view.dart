@@ -26,12 +26,11 @@ class PostsView extends StatelessWidget {
       appBar: BaseAppBar(
         zoomDrawerController: zoomDrawerController,
         title: 'posts'.tr(),
-        color: Colors.white,
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.create),
+        child: Icon(Icons.create, color: Theme.of(context).iconTheme.color,),
         onPressed: () {
           Navigator.pushNamed(context, Routes.postCreate);
         },
@@ -112,7 +111,7 @@ class _ShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -157,7 +156,7 @@ class _ShimmerEffect extends StatelessWidget {
           ),
           Container(
             height: 10,
-            color: Colors.grey.shade100,
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
         ],
       ),

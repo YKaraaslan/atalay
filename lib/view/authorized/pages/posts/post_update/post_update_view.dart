@@ -20,11 +20,9 @@ class PostUpdateView extends StatelessWidget {
     return BaseView(
       appBar: BaseAppBar(
         title: 'post_update'.tr(),
-        color: Colors.white,
         actions: const [],
       ),
       onPageBuilder: (context, value) => _Body(model: model),
-      backgroundColor: Colors.white,
     );
   }
 }

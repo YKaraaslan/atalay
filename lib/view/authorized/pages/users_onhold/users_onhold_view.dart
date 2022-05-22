@@ -51,7 +51,6 @@ class _UsersOnHoldViewState extends State<UsersOnHoldView> {
               UsersOnHoldModel usersOnHold = snapshot.docs[index].data() as UsersOnHoldModel;
 
               return Container(
-                color: Colors.white,
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: ListTile(
@@ -89,7 +88,6 @@ class _ShimmerEffect extends StatelessWidget {
       itemCount: 10,
       shrinkWrap: true,
       itemBuilder: (context, index) => Container(
-        color: Colors.white,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: ListTile(

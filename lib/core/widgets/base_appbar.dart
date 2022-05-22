@@ -6,12 +6,11 @@ import '../constant/assets.dart';
 import '../constant/routes.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BaseAppBar({Key? key, this.zoomDrawerController, required this.title, this.bottom, this.color, required this.actions}) : super(key: key);
+  const BaseAppBar({Key? key, this.zoomDrawerController, required this.title, this.bottom, required this.actions}) : super(key: key);
 
   final ZoomDrawerController? zoomDrawerController;
   final String title;
   final PreferredSizeWidget? bottom;
-  final Color? color;
   final List<Widget> actions;
 
   @override
@@ -19,14 +18,13 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(color: Colors.black),
+        style: TextStyle(color: Theme.of(context).iconTheme.color),
       ),
-      elevation: 0,
-      backgroundColor: color ?? Colors.transparent,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: zoomDrawerController == null
-          ? const BackButton(color: Colors.black)
+          ? BackButton(color: Theme.of(context).iconTheme.color,)
           : IconButton(
-              icon: SvgPicture.asset(Assets.menu),
+              icon: SvgPicture.asset(Assets.menu, color: Theme.of(context).iconTheme.color),
               onPressed: () {
                 if (zoomDrawerController != null) {
                   zoomDrawerController!.toggle!();
@@ -39,7 +37,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               IconButton(
                 onPressed: () => Navigator.pushNamed(context, Routes.notifications),
-                icon: SvgPicture.asset(Assets.notification),
+                icon: SvgPicture.asset(Assets.notification, color: Theme.of(context).iconTheme.color,),
               )
             ]
           : actions,

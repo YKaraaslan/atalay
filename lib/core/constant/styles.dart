@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
 import 'dimens.dart';
 
 // const pointerValueStyle = TextStyle(
@@ -58,20 +57,20 @@ const TextStyle financeTitleStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const TextStyle defaultMonthTextStyle = TextStyle(
-  color: AppColors.defaultMonthColor,
+ TextStyle defaultMonthTextStyle(context) => TextStyle(
+  color: Theme.of(context).textTheme.bodyLarge!.color,
   fontSize: Dimen.monthTextSize,
   fontWeight: FontWeight.w500,
 );
 
-const TextStyle defaultDateTextStyle = TextStyle(
-  color: AppColors.defaultDateColor,
+ TextStyle defaultDateTextStyle(context) => TextStyle(
+  color: Theme.of(context).textTheme.bodyLarge!.color,
   fontSize: Dimen.dateTextSize,
   fontWeight: FontWeight.w500,
 );
 
-const TextStyle defaultDayTextStyle = TextStyle(
-  color: AppColors.defaultDayColor,
+ TextStyle defaultDayTextStyle(context) => TextStyle(
+  color: Theme.of(context).textTheme.bodyLarge!.color,
   fontSize: Dimen.dayTextSize,
   fontWeight: FontWeight.w500,
 );

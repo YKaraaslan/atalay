@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
           mainScreenTapClose: true,
           slideWidth: Sizes.width_65percent(context),
           duration: const Duration(milliseconds: 500),
-          menuBackgroundColor: Colors.white,
+          menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
           angle: 0.0,
           clipMainScreen: true,
           mainScreen: GestureDetector(
@@ -63,6 +63,7 @@ class _HomeViewState extends State<HomeView> {
           menuScreen: const _Menu(),
           menuScreenWidth: double.infinity,
           menuScreenTapClose: true,
+        drawerShadowsBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
     );

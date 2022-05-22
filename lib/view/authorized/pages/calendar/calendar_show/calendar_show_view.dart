@@ -78,6 +78,7 @@ class _Body extends StatelessWidget {
                   labelText: 'title'.tr(),
                 ),
                 maxLength: 30,
+                readOnly: true,
               ),
               const SizedBox(height: 20),
               Row(
@@ -113,6 +114,7 @@ class _Body extends StatelessWidget {
                   labelText: 'description'.tr(),
                 ),
                 maxLength: 100,
+                readOnly: true,
               ),
               const SizedBox(height: 10),
               Align(

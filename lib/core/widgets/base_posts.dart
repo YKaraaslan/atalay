@@ -32,7 +32,7 @@ class BasePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,7 +60,7 @@ class BasePost extends StatelessWidget {
                         width: 15,
                         child: Image.asset(
                           Assets.postMenu,
-                          color: Colors.grey.shade600,
+                                        color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       onPressed: () {
@@ -115,7 +115,7 @@ class BasePost extends StatelessWidget {
                           model.labels[index],
                           style: const TextStyle(color: Colors.blue, fontSize: 12),
                         ),
-                        backgroundColor: const Color.fromARGB(255, 241, 248, 253),
+                        backgroundColor: Theme.of(context).chipTheme.backgroundColor,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                       ),
@@ -159,7 +159,7 @@ class BasePost extends StatelessWidget {
                                       )
                                     : Image.asset(
                                         Assets.likeEmpty,
-                                        color: Colors.black,
+                                        color: Theme.of(context).iconTheme.color,
                                       ),
                               ),
                             ),
@@ -219,6 +219,7 @@ class BasePost extends StatelessWidget {
                                       )
                                     : Image.asset(
                                         Assets.comment,
+                                        color: Theme.of(context).iconTheme.color,
                                       ),
                               ),
                               const SizedBox(width: 10),
@@ -240,7 +241,7 @@ class BasePost extends StatelessWidget {
                       model.isUpdated
                           ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.publishedAt)}"
                           : TimeAgo.timeAgoSinceDate(model.publishedAt),
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                      style: TextStyle(color: Theme.of(context).textTheme.displaySmall!.color, fontSize: 12),
                     ),
                     StreamBuilder<QuerySnapshot>(
                         stream: ServicePath.userSavedPostsCollectionReference(FirebaseAuth.instance.currentUser!.uid)
@@ -266,6 +267,7 @@ class BasePost extends StatelessWidget {
                                     )
                                   : Image.asset(
                                       Assets.savePosts,
+                                        color: Theme.of(context).iconTheme.color,
                                     ),
                             ),
                           );
@@ -277,7 +279,7 @@ class BasePost extends StatelessWidget {
           ),
           Container(
             height: 10,
-            color: Colors.grey.shade100,
+            color: Theme.of(context).dividerColor,
           ),
         ],
       ),

@@ -109,7 +109,7 @@ class _BodyState extends State<_Body> {
                   RichText(
                     text: TextSpan(
                         text: snapshot.data!.get('fullName'),
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                         children: [
                           const TextSpan(
                             text: '   |   ',
@@ -117,51 +117,54 @@ class _BodyState extends State<_Body> {
                           ),
                           TextSpan(
                             text: snapshot.data!.get('position'),
-                            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+                            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ]),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '15',
-                            style: cardTitleStyle(),
-                          ),
-                          const Text('Gonderi'),
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      const VerticalDivider(),
-                      const SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '10',
-                            style: cardTitleStyle(),
-                          ),
-                          const Text('Toplanti'),
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      const VerticalDivider(),
-                      const SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '7',
-                            style: cardTitleStyle(),
-                          ),
-                          const Text('Gorev'),
-                        ],
-                      ),
-                    ],
+                  Visibility(
+                    visible: false,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '15',
+                              style: cardTitleStyle(),
+                            ),
+                            const Text('Gonderi'),
+                          ],
+                        ),
+                        const SizedBox(width: 20),
+                        const VerticalDivider(),
+                        const SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '10',
+                              style: cardTitleStyle(),
+                            ),
+                            const Text('Toplanti'),
+                          ],
+                        ),
+                        const SizedBox(width: 20),
+                        const VerticalDivider(),
+                        const SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '7',
+                              style: cardTitleStyle(),
+                            ),
+                            const Text('Gorev'),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10),
                   const Divider(),
@@ -178,7 +181,7 @@ class _BodyState extends State<_Body> {
                         const SizedBox(height: 10),
                         Text(
                           snapshot.data!.get('aboutMe'),
-                          style: TextStyle(color: Colors.grey.shade800),
+                          style: TextStyle(color: Theme.of(context).textTheme.bodySmall!.color),
                         ),
                         const SizedBox(height: 30),
                         Text(

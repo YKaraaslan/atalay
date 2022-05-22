@@ -76,7 +76,7 @@ class _BodyState extends State<_Body> {
           const SizedBox(height: 20),
           Container(
             height: 10,
-            color: Colors.grey.shade300,
+            color: Theme.of(context).dividerColor,
           ),
           FirestoreQueryBuilder(
             query: ServicePath.financesCollectionReference.orderBy('transactedAt', descending: true),

@@ -27,7 +27,6 @@ class ProjectDetailsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => _Body(model: model),
-      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.create),
         onPressed: () {
