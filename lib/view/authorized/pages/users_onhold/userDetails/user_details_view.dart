@@ -68,10 +68,7 @@ class _BodyState extends State<_Body> {
           const SizedBox(height: 15),
           _PhoneField(phone: _viewModel.model.phone),
           const SizedBox(height: 15),
-          _Birthday(
-              birthday: DateFormat('dd MMMM yyyy')
-                  .format(DateTime.fromMillisecondsSinceEpoch(_viewModel.model.birthday.millisecondsSinceEpoch))
-                  .toString()),
+          _Birthday(birthday: DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(_viewModel.model.birthday.millisecondsSinceEpoch)).toString()),
           const SizedBox(height: 15),
           _MailField(mail: _viewModel.model.mail),
           const SizedBox(height: 15),
@@ -200,7 +197,7 @@ class _AuthField extends StatelessWidget {
           }
           for (var doc in snapshot.docs) {
             try {
-              AuthorizationModel model = AuthorizationModel.fromJson(doc.data() as Map<String, Object?>);
+              AuthorizationModel model = AuthorizationModel.fromMap(doc.data() as Map<String, Object?>);
               if (viewModel.dropDownItems!.any((element) => element.value == doc.id)) {
                 continue;
               }

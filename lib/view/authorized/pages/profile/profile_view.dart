@@ -107,19 +107,16 @@ class _BodyState extends State<_Body> {
                   ),
                   const SizedBox(height: 20),
                   RichText(
-                    text: TextSpan(
-                        text: snapshot.data!.get('fullName'),
+                    text: TextSpan(text: snapshot.data!.get('fullName'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold), children: [
+                      const TextSpan(
+                        text: '   |   ',
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+                      ),
+                      TextSpan(
+                        text: snapshot.data!.get('position'),
                         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                        children: [
-                          const TextSpan(
-                            text: '   |   ',
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
-                          ),
-                          TextSpan(
-                            text: snapshot.data!.get('position'),
-                            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ]),
+                      ),
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   Visibility(
@@ -222,154 +219,151 @@ class _ShimmerEffect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedShimmer.round(
-                size: 50,
-              ),
-              const SizedBox(width: 25),
-              AnimatedShimmer.round(
-                size: 75,
-              ),
-              const SizedBox(width: 25),
-              AnimatedShimmer.round(
-                size: 50,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const AnimatedShimmer(
-            height: 10,
-            width: 300,
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
-          const SizedBox(height: 10),
-          const AnimatedShimmer(
-            height: 10,
-            width: 300,
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
-          const SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 25,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  SizedBox(height: 5),
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 50,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 40),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 25,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  SizedBox(height: 5),
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 50,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 40),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 25,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  SizedBox(height: 5),
-                  AnimatedShimmer(
-                    height: 10,
-                    width: 50,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 40),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedShimmer.round(
+              size: 50,
+            ),
+            const SizedBox(width: 25),
+            AnimatedShimmer.round(
+              size: 75,
+            ),
+            const SizedBox(width: 25),
+            AnimatedShimmer.round(
+              size: 50,
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        const AnimatedShimmer(
+          height: 10,
+          width: 300,
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
+        const SizedBox(height: 10),
+        const AnimatedShimmer(
+          height: 10,
+          width: 300,
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
+        const SizedBox(height: 40),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 AnimatedShimmer(
                   height: 10,
-                  width: 50,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 10),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
+                  width: 25,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
                 SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 30),
                 AnimatedShimmer(
                   height: 10,
                   width: 50,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 10),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: double.infinity,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
               ],
             ),
+            const SizedBox(width: 40),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                AnimatedShimmer(
+                  height: 10,
+                  width: 25,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                SizedBox(height: 5),
+                AnimatedShimmer(
+                  height: 10,
+                  width: 50,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+              ],
+            ),
+            const SizedBox(width: 40),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                AnimatedShimmer(
+                  height: 10,
+                  width: 25,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                SizedBox(height: 5),
+                AnimatedShimmer(
+                  height: 10,
+                  width: 50,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 40),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              AnimatedShimmer(
+                height: 10,
+                width: 50,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 10),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 5),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 5),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 30),
+              AnimatedShimmer(
+                height: 10,
+                width: 50,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 10),
+              SizedBox(height: 5),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 5),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              SizedBox(height: 5),
+              AnimatedShimmer(
+                height: 10,
+                width: double.infinity,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

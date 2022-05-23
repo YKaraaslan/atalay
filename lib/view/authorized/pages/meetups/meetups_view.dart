@@ -3,8 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/classes/auth_provider.dart';
 import '../../../../core/constant/routes.dart';
 import '../../../../core/constant/styles.dart';
 import '../../../../core/models/meeting_model.dart';
@@ -26,12 +28,12 @@ class MeetupsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: context.read<AuthProvider>().meetingsCreate ? FloatingActionButton(
         child: const Icon(Icons.create),
         onPressed: () {
           Navigator.pushNamed(context, Routes.meetupsCreate);
         },
-      ),
+      ) : null,
     );
   }
 }

@@ -12,6 +12,7 @@ import '../../../../../core/models/post_model.dart';
 import '../../../../../core/service/service_path.dart';
 import '../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/widgets/base_posts.dart';
+import '../../../../core/classes/auth_provider.dart';
 import 'post_comments/post_comments_view.dart';
 import 'posts_viewmodel.dart';
 
@@ -29,12 +30,12 @@ class PostsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:  context.read<AuthProvider>().postsCreate ?  FloatingActionButton(
         child: Icon(Icons.create, color: Theme.of(context).iconTheme.color,),
         onPressed: () {
           Navigator.pushNamed(context, Routes.postCreate);
         },
-      ),
+      ) : null,
     );
   }
 }

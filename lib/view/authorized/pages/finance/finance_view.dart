@@ -6,6 +6,7 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/classes/auth_provider.dart';
 import '../../../../core/constant/assets.dart';
 import '../../../../core/constant/routes.dart';
 import '../../../../core/constant/styles.dart';
@@ -28,12 +29,13 @@ class FinanceView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: 
+                context.read<AuthProvider>().financesCreate ? FloatingActionButton(
         child: const Icon(Icons.create),
         onPressed: () {
           Navigator.pushNamed(context, Routes.financeCreate);
         },
-      ),
+      ) : null,
     );
   }
 }

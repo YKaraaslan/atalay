@@ -5,6 +5,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/classes/auth_provider.dart';
 import '../../../../core/constant/routes.dart';
 import '../../../../core/widgets/base_appbar.dart';
 import 'projects_active/projects_active_view.dart';
@@ -27,12 +28,12 @@ class ProjectsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: context.read<AuthProvider>().projectsCreate ? FloatingActionButton(
         child: const Icon(Icons.create),
         onPressed: () {
           Navigator.pushNamed(context, Routes.projectsCreate);
         },
-      ),
+      ) : null,
     );
   }
 }

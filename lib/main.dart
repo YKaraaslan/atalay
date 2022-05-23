@@ -1,3 +1,5 @@
+import 'package:atalay/core/classes/auth_provider.dart';
+
 import 'core/theme/dark_theme.dart';
 import 'core/theme/dark_theme_provider.dart';
 import 'package:calendar_view/calendar_view.dart';
@@ -73,6 +75,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => BaseViewModel()),
         ChangeNotifierProvider(create: (context) => DarkThemeProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
         ChangeNotifierProvider(create: (context) => SignUpViewModel()),
         ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
@@ -160,6 +163,7 @@ class _MyAppState extends State<MyApp> {
         } else {
           setState(() {
             child = const HomeView();
+            getAuth();
             FlutterNativeSplash.remove();
           });
         }
@@ -167,8 +171,36 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void getCurrentAppTheme() async {
+  Future getCurrentAppTheme() async {
     themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+  }
+
+  Future getAuth() async {
+    await ServicePath.usersCollectionReference.doc(ServicePath.auth.currentUser!.uid).get().then((value) async {
+      await ServicePath.authorizationCollectionReference.doc(value.get('authorization')).get().then((document) {
+        if (document.exists) {
+          context.read<AuthProvider>().index = document.get('index');
+          context.read<AuthProvider>().name = document.get('name');
+          context.read<AuthProvider>().postsCreate = document.get('postsCreate');
+          context.read<AuthProvider>().announcementsCreate = document.get('announcementsCreate');
+          context.read<AuthProvider>().projectsCreate = document.get('projectsCreate');
+          context.read<AuthProvider>().groupsCreate = document.get('groupsCreate');
+          context.read<AuthProvider>().referencesCreate = document.get('referencesCreate');
+          context.read<AuthProvider>().financesCreate = document.get('financesCreate');
+          context.read<AuthProvider>().meetingsCreate = document.get('meetingsCreate');
+          context.read<AuthProvider>().tabPosts = document.get('tabPosts');
+          context.read<AuthProvider>().tabDashboard = document.get('tabDashboard');
+          context.read<AuthProvider>().tabProjects = document.get('tabProjects');
+          context.read<AuthProvider>().tabUsers = document.get('tabUsers');
+          context.read<AuthProvider>().tabGroups = document.get('tabGroups');
+          context.read<AuthProvider>().tabReferences = document.get('tabReferences');
+          context.read<AuthProvider>().tabFinances = document.get('tabFinances');
+          context.read<AuthProvider>().tabMeetings = document.get('tabMeetings');
+          context.read<AuthProvider>().tabUsersOnHold = document.get('tabUsersOnHold');
+          context.read<AuthProvider>().notify();
+        }
+      });
+    });
   }
 
   @override

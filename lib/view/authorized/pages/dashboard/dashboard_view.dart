@@ -1,3 +1,4 @@
+import 'package:atalay/core/classes/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -207,12 +208,15 @@ class _Announcement extends StatelessWidget {
                   ],
                 ),
               ),
-              Consumer(
-                builder: (context, DashboardViewModel viewmodel, child) => Align(
-                  alignment: Alignment.topRight,
-                  child: OutlinedButton(
-                    onPressed: () => viewmodel.addAnnouncement(context),
-                    child: const Text('Duyuru Ekle'),
+              Visibility(
+                visible: context.read<AuthProvider>().announcementsCreate,
+                child: Consumer(
+                  builder: (context, DashboardViewModel viewmodel, child) => Align(
+                    alignment: Alignment.topRight,
+                    child: OutlinedButton(
+                      onPressed: () => viewmodel.addAnnouncement(context),
+                      child: const Text('Duyuru Ekle'),
+                    ),
                   ),
                 ),
               ),
