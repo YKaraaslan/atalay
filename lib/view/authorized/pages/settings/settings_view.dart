@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/theme/dark_theme_provider.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import '../profile/profile_update/profile_update_view.dart';
+import 'mail_changer.dart/confirm_credentials.dart';
 import 'settings_viewmodel.dart';
 
 class SettingsView extends StatelessWidget {
@@ -36,6 +38,7 @@ class _Body extends StatefulWidget {
 
 class _BodyState extends State<_Body> {
   late final SettingsViewModel _viewModel = context.read<SettingsViewModel>();
+  late String language = context.locale == const Locale('tr', 'TR') ? 'Türkçe' : 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +86,11 @@ class _BodyState extends State<_Body> {
       tiles: [
         SettingsTile(
           title: 'Dil',
-          subtitle: 'Turkce',
+          subtitle: language,
           leading: const Icon(Icons.language_outlined),
-          onPressed: (context) {},
-          trailing: const Icon(Icons.chevron_right),
-        ),
-        SettingsTile(
-          title: 'Karsilama Ekrani',
-          subtitle: 'Gonderiler',
-          leading: const Icon(Icons.airplay),
-          onPressed: (context) {},
+          onPressed: (context) {
+            _viewModel.languageDialog(context);
+          },
           trailing: const Icon(Icons.chevron_right),
         ),
         SettingsTile.switchTile(
@@ -108,8 +106,10 @@ class _BodyState extends State<_Body> {
           title: 'Bildirimler',
           leading: const Icon(Icons.notifications_active_outlined),
           trailing: const Icon(Icons.chevron_right),
-          switchValue: false,
-          onToggle: (context) {},
+          switchValue: context.watch<SettingsViewModel>().isNotificationAllowed,
+          onToggle: (value) {
+            _viewModel.setNotificationStatus(value);
+          },
         ),
       ],
     );
@@ -122,18 +122,32 @@ class _BodyState extends State<_Body> {
         SettingsTile(
           title: 'Profil Bilgileri',
           leading: const Icon(Icons.account_circle_outlined),
-          onPressed: (context) {},
+          onPressed: (context) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfileUpdateView(),
+              ),
+            );
+          },
           trailing: const Icon(Icons.chevron_right),
         ),
         SettingsTile(
           title: 'Mail Adresi',
           leading: const Icon(Icons.mail_outline),
-          onPressed: (context) {},
+          onPressed: (context) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ConfirmCredentials(),
+              ),
+            );
+          },
           trailing: const Icon(Icons.chevron_right),
         ),
         SettingsTile(
-          title: 'Telefon Numarasi',
-          leading: const Icon(Icons.phone_outlined),
+          title: 'Şifre',
+          leading: const Icon(Icons.password),
           onPressed: (context) {},
           trailing: const Icon(Icons.chevron_right),
         ),

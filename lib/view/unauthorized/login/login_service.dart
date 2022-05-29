@@ -24,8 +24,7 @@ Future<bool> updatePasswordandToken(LoginModel model) async {
   try {
     await ServicePath.usersCollectionReference.where('mail', isEqualTo: model.mail).get().then((value) async {
       DocumentReference<Object?> docRef = ServicePath.usersCollectionReference.doc(value.docs.first.id);
-      await docRef.update({'password': model.password});
-      await docRef.update({'token': await getToken()});
+      await docRef.update({'mail': model.mail, 'password': model.password, 'token': await getToken()});
     });
     return true;
   } catch (e) {

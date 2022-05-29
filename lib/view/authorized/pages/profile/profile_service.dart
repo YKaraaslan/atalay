@@ -15,3 +15,12 @@ Future<bool> changePhoto(File image) async {
 Future<String> getPhotoURL() async {
   return await ServicePath.profilePhotoReference.child(ServicePath.auth.currentUser!.uid).getDownloadURL();
 }
+
+Future<bool> updateProfileInfoService(Map<String, Object> userInfo) async {
+  try {
+    await ServicePath.usersCollectionReference.doc(ServicePath.auth.currentUser!.uid).update(userInfo);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}

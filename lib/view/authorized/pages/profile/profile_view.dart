@@ -11,6 +11,7 @@ import '../../../../core/constant/paddings.dart';
 import '../../../../core/constant/styles.dart';
 import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
+import 'profile_update/profile_update_view.dart';
 import 'profile_viewmodel.dart';
 
 class ProfileView extends StatelessWidget {
@@ -57,10 +58,6 @@ class _BodyState extends State<_Body> {
         child: StreamBuilder<DocumentSnapshot>(
           stream: ServicePath.userDocumentReference(widget.userID).snapshots(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const _ShimmerEffect();
-            }
-
             if (snapshot.hasData) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -199,9 +196,19 @@ class _ProfileImage extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 25),
-        const CircleAvatar(
-          radius: 25,
-          child: Icon(Icons.settings),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfileUpdateView(),
+              ),
+            );
+          },
+          child: const CircleAvatar(
+            radius: 25,
+            child: Icon(Icons.settings),
+          ),
         ),
       ],
     );
@@ -243,62 +250,6 @@ class _ShimmerEffect extends StatelessWidget {
           height: 10,
           width: 300,
           borderRadius: BorderRadius.all(Radius.circular(16)),
-        ),
-        const SizedBox(height: 40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                AnimatedShimmer(
-                  height: 10,
-                  width: 25,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: 50,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-              ],
-            ),
-            const SizedBox(width: 40),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                AnimatedShimmer(
-                  height: 10,
-                  width: 25,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: 50,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-              ],
-            ),
-            const SizedBox(width: 40),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                AnimatedShimmer(
-                  height: 10,
-                  width: 25,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                SizedBox(height: 5),
-                AnimatedShimmer(
-                  height: 10,
-                  width: 50,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-              ],
-            ),
-          ],
         ),
         const SizedBox(height: 40),
         Align(

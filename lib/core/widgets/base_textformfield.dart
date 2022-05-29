@@ -12,6 +12,7 @@ class BaseTextFormField extends StatelessWidget {
     this.onTap,
     this.isPassword = false,
     this.isReadOnly = false,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final String hint;
@@ -22,6 +23,7 @@ class BaseTextFormField extends StatelessWidget {
   final String? Function(String?)? fun;
   final bool isPassword;
   final bool isReadOnly;
+  final int maxLines;
   final void Function()? onTap;
 
   @override
@@ -45,6 +47,8 @@ class BaseTextFormField extends StatelessWidget {
       obscureText: isPassword,
       readOnly: isReadOnly,
       onTap: onTap,
+      maxLines: maxLines,
+      minLines: 1,
     );
   }
 }

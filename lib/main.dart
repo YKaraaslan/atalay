@@ -39,6 +39,7 @@ import 'view/authorized/pages/posts/post_details/post_details_viewmodel.dart';
 import 'view/authorized/pages/posts/post_likes/post_like_viewmodel.dart';
 import 'view/authorized/pages/posts/post_update/post_update_viewmodel.dart';
 import 'view/authorized/pages/posts/posts_viewmodel.dart';
+import 'view/authorized/pages/profile/profile_update/profile_update_viewmodel.dart';
 import 'view/authorized/pages/profile/profile_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_create/add_group/add_group_viewmodel.dart';
 import 'view/authorized/pages/projects/projects_create/projects_create_viewmodel.dart';
@@ -73,58 +74,59 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BaseViewModel()),
-        ChangeNotifierProvider(create: (context) => DarkThemeProvider()),
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(create: (context) => UpdatesViewModel()),
-        ChangeNotifierProvider(create: (context) => LoginViewModel()),
-        ChangeNotifierProvider(create: (context) => SignUpViewModel()),
-        ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
-        ChangeNotifierProvider(create: (context) => HomeViewModel()),
-        ChangeNotifierProvider(create: (context) => DashboardViewModel()),
-        ChangeNotifierProvider(create: (context) => FinanceViewModel()),
-        ChangeNotifierProvider(create: (context) => GroupsViewModel()),
-        ChangeNotifierProvider(create: (context) => MeetupsViewModel()),
-        ChangeNotifierProvider(create: (context) => ProfileViewModel()),
-        ChangeNotifierProvider(create: (context) => ProjectsViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesViewModel()),
-        ChangeNotifierProvider(create: (context) => GroupDetailsViewModel()),
-        ChangeNotifierProvider(create: (context) => PostDetailsViewModel()),
-        ChangeNotifierProvider(create: (context) => SettingsViewModel()),
-        ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel()),
-        ChangeNotifierProvider(create: (context) => UserDetailsViewModel()),
-        ChangeNotifierProvider(create: (context) => UsersViewModel()),
-        ChangeNotifierProvider(create: (context) => PostsViewModel()),
-        ChangeNotifierProvider(create: (context) => PostCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => PostLikeViewModel()),
-        ChangeNotifierProvider(create: (context) => PostCommentsViewModel()),
-        ChangeNotifierProvider(create: (context) => PostUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => ProjectsCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => GroupsCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => GroupsUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => AddToTeamViewModel()),
-        ChangeNotifierProvider(create: (context) => AddGroupViewModel()),
-        ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => FinanceTransactionViewModel()),
-        ChangeNotifierProvider(create: (context) => CalendarViewModel()),
-        ChangeNotifierProvider(create: (context) => CalendarCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => CalendarShowViewModel()),
-        ChangeNotifierProvider(create: (context) => ProfileViewModel()),
-        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => MeetupsShowViewModel()),
-        ChangeNotifierProvider(create: (context) => MeetupsUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesAddToCompaniesViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyShowViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonCreateViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonShowViewModel()),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonUpdateViewModel()),
+        ChangeNotifierProvider(create: (context) => BaseViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => DarkThemeProvider(), lazy: true),
+        ChangeNotifierProvider(create: (context) => AuthProvider(), lazy: true),
+        ChangeNotifierProvider(create: (context) => UpdatesViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => LoginViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => SignUpViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => HomeViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => DashboardViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => FinanceViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => GroupsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => MeetupsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProfileViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProjectsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => GroupDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => SettingsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => UserDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => UsersViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostLikeViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostCommentsViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => PostUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProjectsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => GroupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => GroupsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => AddToTeamViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => AddGroupViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => FinanceTransactionViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => CalendarViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => CalendarCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => CalendarShowViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProfileViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ProfileUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => MeetupsShowViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => MeetupsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesAddToCompaniesViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyShowViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesPersonCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesPersonShowViewModel(), lazy: true),
+        ChangeNotifierProvider(create: (context) => ReferencesPersonUpdateViewModel(), lazy: true),
       ],
       child: EasyLocalization(
-        supportedLocales: const [Locale('en', ''), Locale('tr', '')],
+        supportedLocales: const [Locale('tr', 'TR'), Locale('en', 'US')],
         path: 'assets/translations',
         fallbackLocale: const Locale('tr', 'TR'),
         child: const MyApp(),
@@ -136,14 +138,25 @@ Future<void> main() async {
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_MyAppState>()?.restartApp();
+  }
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
   final appCheck = FirebaseAppCheck.instance;
   late Widget child;
   late final themeChangeProvider = context.read<DarkThemeProvider>();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
 
   @override
   void initState() {
@@ -212,19 +225,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: EventController(),
-      child: MaterialApp(
-        themeMode: context.watch<DarkThemeProvider>().darkTheme ? ThemeMode.dark : ThemeMode.light,
-        theme: appLightTheme(context),
-        darkTheme: appDarkTheme(context),
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        routes: Routes.getRoutes(context),
-        home: child,
-        // home: const UpdatesView(),
+    return KeyedSubtree(
+      key: key,
+      child: CalendarControllerProvider(
+        controller: EventController(),
+        child: MaterialApp(
+          themeMode: context.watch<DarkThemeProvider>().darkTheme ? ThemeMode.dark : ThemeMode.light,
+          theme: appLightTheme(context),
+          darkTheme: appDarkTheme(context),
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routes: Routes.getRoutes(context),
+          home: child,
+          // home: const UpdatesView(),
+        ),
       ),
     );
   }
