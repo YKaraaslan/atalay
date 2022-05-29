@@ -8,7 +8,7 @@ Future<bool> deleteEvent(Timestamp time) async {
       await ServicePath.calendarCollectionReference(ServicePath.auth.currentUser!.uid).doc(value.docs.first.id).delete();
     });
     return true;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 }

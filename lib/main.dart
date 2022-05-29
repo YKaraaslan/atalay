@@ -1,7 +1,3 @@
-import 'package:atalay/core/classes/auth_provider.dart';
-
-import 'core/theme/dark_theme.dart';
-import 'core/theme/dark_theme_provider.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -13,8 +9,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'core/base/view/base_viewmodel.dart';
+import 'core/classes/auth_provider.dart';
 import 'core/constant/routes.dart';
 import 'core/service/service_path.dart';
+import 'core/theme/dark_theme.dart';
+import 'core/theme/dark_theme_provider.dart';
 import 'core/theme/light_theme.dart';
 import 'firebase_options.dart';
 import 'view/authorized/home/home_view.dart';
@@ -57,6 +56,7 @@ import 'view/authorized/pages/settings/settings_viewmodel.dart';
 import 'view/authorized/pages/users/users_viewmodel.dart';
 import 'view/authorized/pages/users_onhold/userDetails/user_details_viewmodel.dart';
 import 'view/authorized/pages/users_onhold/users_onhold_viewmodel.dart';
+import 'view/authorized/updates/updates_viewmodel.dart';
 import 'view/unauthorized/forgot_password/forgot_password_viewmodel.dart';
 import 'view/unauthorized/login/login_view.dart';
 import 'view/unauthorized/login/login_viewmodel.dart';
@@ -76,6 +76,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => BaseViewModel()),
         ChangeNotifierProvider(create: (context) => DarkThemeProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => UpdatesViewModel()),
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
         ChangeNotifierProvider(create: (context) => SignUpViewModel()),
         ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
@@ -217,7 +218,7 @@ class _MyAppState extends State<MyApp> {
         locale: context.locale,
         routes: Routes.getRoutes(context),
         home: child,
-        // home: const TrainingView(),
+        // home: const UpdatesView(),
       ),
     );
   }

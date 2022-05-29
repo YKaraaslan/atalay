@@ -1,4 +1,3 @@
-import '../../../../../core/models/company_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import '../../../../../../core/constant/paddings.dart';
 import '../../../../../../core/constant/sizes.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
 import '../../../../../../core/widgets/base_button.dart';
+import '../../../../../core/models/company_model.dart';
 import 'references_company_update_viewmodel.dart';
 
 class ReferencesCompanyUpdateView extends StatelessWidget {
@@ -76,114 +76,178 @@ class _BodyState extends State<_Body> {
             key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _Photo(),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.nameTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Sirket Ismi',
-                  ),
-                  onTap: () {},
-                  maxLength: 30,
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.descriptionTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Aciklama',
-                  ),
-                  maxLength: 100,
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.mailTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mail',
-                  ),
-                  maxLength: 30,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'mail_validator'.tr();
-                    }
-                    if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
-                      return 'mail_invalid_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.phoneTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Telefon',
-                  ),
-                  maxLength: 15,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'phone_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.locationTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Lokasyon',
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: Sizes.width_65percent(context),
-                    child: BaseButton(
-                      text: 'Sirketi Guncelle',
-                      fun: () async {
-                        if (viewModel.formKey.currentState!.validate()) {
-                          viewModel.updateCompany(context);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
+              children: const [
+                _Photo(),
+                SizedBox(height: 20),
+                _CompanyName(),
+                SizedBox(height: 10),
+                _Description(),
+                SizedBox(height: 10),
+                _Mail(),
+                SizedBox(height: 10),
+                _Phone(),
+                SizedBox(height: 10),
+                _Location(),
+                SizedBox(height: 20),
+                _UpdateButton(),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _UpdateButton extends StatelessWidget {
+  const _UpdateButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'Sirketi Guncelle',
+          fun: () async {
+            if (context.read<ReferencesCompanyUpdateViewModel>().formKey.currentState!.validate()) {
+              context.read<ReferencesCompanyUpdateViewModel>().updateCompany(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Location extends StatelessWidget {
+  const _Location({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyUpdateViewModel>().locationTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Lokasyon',
+      ),
+      maxLength: 100,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Phone extends StatelessWidget {
+  const _Phone({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyUpdateViewModel>().phoneTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Telefon',
+      ),
+      maxLength: 15,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.phone,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'phone_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Mail extends StatelessWidget {
+  const _Mail({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyUpdateViewModel>().mailTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Mail',
+      ),
+      maxLength: 30,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'mail_validator'.tr();
+        }
+        if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
+          return 'mail_invalid_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyUpdateViewModel>().descriptionTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Aciklama',
+      ),
+      maxLength: 100,
+      textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _CompanyName extends StatelessWidget {
+  const _CompanyName({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyUpdateViewModel>().nameTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Sirket Ismi',
+      ),
+      onTap: () {},
+      maxLength: 30,
+      textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
     );
   }
 }

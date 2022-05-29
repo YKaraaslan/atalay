@@ -66,106 +66,150 @@ class _Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: AppPaddings.contentPadding,
-        child: Consumer(
-          builder: (context, CalendarCreateViewModel viewModel, child) => Form(
+        child: Consumer<CalendarCreateViewModel>(
+          builder: (context, viewModel, child) => Form(
             key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: viewModel.titleTextController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: 'title'.tr(),
-                  ),
-                  maxLength: 30,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.startTimeTextController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'start_time'.tr(),
-                        ),
-                        readOnly: true,
-                        onTap: () {
-                          viewModel.showTimePicker(context, 'start_time'.tr());
-                        },
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.endTimeTextController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'end_time'.tr(),
-                        ),
-                        readOnly: true,
-                        onTap: () {
-                          viewModel.showTimePicker(context, 'end_time'.tr());
-                        },
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.descriptionTextController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: 'description'.tr(),
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: Sizes.width_65percent(context),
-                    child: BaseButton(
-                      text: 'create_event'.tr(),
-                      fun: () async {
-                        if (viewModel.formKey.currentState!.validate()) {
-                          await viewModel.createEvent(context);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
+              children: const [
+                _Title(),
+                SizedBox(height: 20),
+                _Time(),
+                SizedBox(height: 20),
+                _Description(),
+                SizedBox(height: 10),
+                _Button(),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'create_event'.tr(),
+          fun: () async {
+            if (context.read<CalendarCreateViewModel>().formKey.currentState!.validate()) {
+              await context.read<CalendarCreateViewModel>().createEvent(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<CalendarCreateViewModel>().descriptionTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'description'.tr(),
+      ),
+      maxLength: 100,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Time extends StatelessWidget {
+  const _Time({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: context.read<CalendarCreateViewModel>().startTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'start_time'.tr(),
+            ),
+            readOnly: true,
+            onTap: () {
+              context.read<CalendarCreateViewModel>().showTimePicker(context, 'start_time'.tr());
+            },
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'cannot_be_blank'.tr();
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: TextFormField(
+            controller: context.read<CalendarCreateViewModel>().endTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'end_time'.tr(),
+            ),
+            readOnly: true,
+            onTap: () {
+              context.read<CalendarCreateViewModel>().showTimePicker(context, 'end_time'.tr());
+            },
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'cannot_be_blank'.tr();
+              }
+              return null;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<CalendarCreateViewModel>().titleTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'title'.tr(),
+      ),
+      maxLength: 30,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
     );
   }
 }

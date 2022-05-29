@@ -35,10 +35,7 @@ Future<int> getLikes(String postID) async {
 }
 
 Future likeAddToDatabase(PostLikeModel model, String postID) async {
-  if (await ServicePath.postsLikesCollectionReference(postID)
-      .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-      .get()
-      .then((value) => value.docs.isEmpty)) {
+  if (await ServicePath.postsLikesCollectionReference(postID).where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) => value.docs.isEmpty)) {
     await ServicePath.postsLikesCollectionReference(postID).add(model.toMap());
   } else {
     await ServicePath.postsLikesCollectionReference(postID).where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) {

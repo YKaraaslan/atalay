@@ -225,22 +225,23 @@ class _RoleField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: (context, UserDetailsViewModel viewModel, child) => Form(
-              key: viewModel.formKey,
-              child: TextFormField(
-                maxLength: 50,
-                decoration: InputDecoration(
-                  labelText: 'role'.tr(),
-                  hintText: 'software_developer'.tr(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'role_validator'.tr();
-                  }
-                  return null;
-                },
-              ),
-            ));
+      builder: (context, UserDetailsViewModel viewModel, child) => Form(
+        key: viewModel.formKey,
+        child: TextFormField(
+          maxLength: 50,
+          decoration: InputDecoration(
+            labelText: 'role'.tr(),
+            hintText: 'software_developer'.tr(),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'role_validator'.tr();
+            }
+            return null;
+          },
+        ),
+      ),
+    );
   }
 }
 

@@ -1,5 +1,3 @@
 import 'package:flutter/widgets.dart';
 
-class UsersViewModel extends ChangeNotifier {
-
-}
+class UsersViewModel extends ChangeNotifier {}

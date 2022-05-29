@@ -16,30 +16,31 @@ class GroupsTeamView extends StatelessWidget {
       onPageBuilder: (context, value) => ListView.builder(
         itemCount: groupsModel.people.length,
         itemBuilder: (context, index) => FutureBuilder<DocumentSnapshot>(
-            future: ServicePath.usersCollectionReference.doc(groupsModel.people[index]).get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ProfileView(
-                          userID: snapshot.data!.get('id'),
-                        ),
+          future: ServicePath.usersCollectionReference.doc(groupsModel.people[index]).get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProfileView(
+                        userID: snapshot.data!.get('id'),
                       ),
-                    );
-                  },
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
-                  ),
-                  title: Text(snapshot.data!.get('fullName')),
-                  subtitle: Text(snapshot.data!.get('position')),
-                  trailing: const Icon(Icons.chevron_right),
-                );
-              } else {
-                return Container();
-              }
-            }),
+                    ),
+                  );
+                },
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                ),
+                title: Text(snapshot.data!.get('fullName')),
+                subtitle: Text(snapshot.data!.get('position')),
+                trailing: const Icon(Icons.chevron_right),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }

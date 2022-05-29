@@ -11,26 +11,26 @@ class AddToTeamViewModel extends ChangeNotifier {
     await ServicePath.usersCollectionReference.get().then((value) {
       for (var item in value.docs) {
         UserModel userModel = UserModel(
-            id: item.get('id'),
-            name: item.get('name'),
-            surname: item.get('imageURL'),
-            fullName: item.get('fullName'),
-            phone: item.get('phone'),
-            birthday: item.get('birthday'),
-            mail: item.get('mail'),
-            password: item.get('password'),
-            imageURL: item.get('imageURL'),
-            signUpTime: item.get('signUpTime'),
-            token: item.get('token'),
-            signUpAcceptedTime: item.get('signUpAcceptedTime'),
-            signUpAcceptedBy: item.get('signUpAcceptedBy'),
-            authorization: item.get('authorization'),
-            position: item.get('position'),
-            online: item.get('online'),
-            onlineTime: item.get('onlineTime'),
-            aboutMe: item.get('aboutMe'),
-            interests: item.get('interests'),
-            );
+          id: item.get('id'),
+          name: item.get('name'),
+          surname: item.get('imageURL'),
+          fullName: item.get('fullName'),
+          phone: item.get('phone'),
+          birthday: item.get('birthday'),
+          mail: item.get('mail'),
+          password: item.get('password'),
+          imageURL: item.get('imageURL'),
+          signUpTime: item.get('signUpTime'),
+          token: item.get('token'),
+          signUpAcceptedTime: item.get('signUpAcceptedTime'),
+          signUpAcceptedBy: item.get('signUpAcceptedBy'),
+          authorization: item.get('authorization'),
+          position: item.get('position'),
+          online: item.get('online'),
+          onlineTime: item.get('onlineTime'),
+          aboutMe: item.get('aboutMe'),
+          interests: item.get('interests'),
+        );
         userModels.add(userModel);
       }
       userModels.sort((a, b) => a.fullName.toString().compareTo(b.fullName.toString()));

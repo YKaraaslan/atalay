@@ -28,12 +28,14 @@ class ProjectsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: context.read<AuthProvider>().projectsCreate ? FloatingActionButton(
-        child: const Icon(Icons.create),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.projectsCreate);
-        },
-      ) : null,
+      floatingActionButton: context.read<AuthProvider>().projectsCreate
+          ? FloatingActionButton(
+              child: const Icon(Icons.create),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.projectsCreate);
+              },
+            )
+          : null,
     );
   }
 }

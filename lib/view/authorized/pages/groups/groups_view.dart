@@ -27,12 +27,14 @@ class GroupsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: context.read<AuthProvider>().groupsCreate ? FloatingActionButton(
-        child: const Icon(Icons.create),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.groupsCreate);
-        },
-      ) : null,
+      floatingActionButton: context.read<AuthProvider>().groupsCreate
+          ? FloatingActionButton(
+              child: const Icon(Icons.create),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.groupsCreate);
+              },
+            )
+          : null,
     );
   }
 }
@@ -45,8 +47,6 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  //late final GroupsViewModel _viewModel = context.watch<GroupsViewModel>();
-
   @override
   Widget build(BuildContext context) {
     return FirestoreQueryBuilder(

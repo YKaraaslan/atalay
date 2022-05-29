@@ -11,12 +11,8 @@ class BaseViewModel extends ChangeNotifier {
 
   void initStates() {
     isConnected();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.ethernet) {
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi || result == ConnectivityResult.ethernet) {
         connected = true;
       } else if (result == ConnectivityResult.none) {
         connected = false;
@@ -27,9 +23,7 @@ class BaseViewModel extends ChangeNotifier {
 
   Future isConnected() async {
     connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.ethernet) {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.ethernet) {
       connected = true;
     } else {
       connected = false;

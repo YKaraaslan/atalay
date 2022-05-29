@@ -65,143 +65,13 @@ class _BodyState extends State<_Body> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          _viewModel.getSelection(context);
-                        },
-                        child: const CircleAvatar(
-                          radius: 25,
-                          child: Icon(Icons.photo_camera),
-                        ),
-                      ),
-                      const SizedBox(width: 25),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NetworkImageViewer(
-                                heroAttribute: 'image',
-                                imageURL: snapshot.data!.get('imageURL'),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: 'image',
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 25),
-                      const CircleAvatar(
-                        radius: 25,
-                        child: Icon(Icons.settings),
-                      ),
-                    ],
-                  ),
+                  _ProfileImage(viewModel: _viewModel, snapshot: snapshot),
                   const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(text: snapshot.data!.get('fullName'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold), children: [
-                      const TextSpan(
-                        text: '   |   ',
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
-                      ),
-                      TextSpan(
-                        text: snapshot.data!.get('position'),
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                    ]),
-                  ),
+                  _NameAndPosition(snapshot: snapshot),
                   const SizedBox(height: 20),
-                  Visibility(
-                    visible: false,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '15',
-                              style: cardTitleStyle(),
-                            ),
-                            const Text('Gonderi'),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        const VerticalDivider(),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '10',
-                              style: cardTitleStyle(),
-                            ),
-                            const Text('Toplanti'),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        const VerticalDivider(),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '7',
-                              style: cardTitleStyle(),
-                            ),
-                            const Text('Gorev'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
                   const Divider(),
                   const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hakkimda',
-                          style: cardTitleStyle(),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          snapshot.data!.get('aboutMe'),
-                          style: TextStyle(color: Theme.of(context).textTheme.bodySmall!.color),
-                        ),
-                        const SizedBox(height: 30),
-                        Text(
-                          'Ilgi Alanlarim',
-                          style: cardTitleStyle(),
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 6,
-                          runSpacing: 6,
-                          children: List.generate(
-                            snapshot.data!.get('interests').length,
-                            (index) => Chip(
-                              label: Text(snapshot.data!.get('interests')[index]),
-                              backgroundColor: Colors.blue.shade100,
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              elevation: 2,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _AboutMe(snapshot: snapshot),
                 ],
               );
             }
@@ -210,6 +80,130 @@ class _BodyState extends State<_Body> {
           },
         ),
       ),
+    );
+  }
+}
+
+class _AboutMe extends StatelessWidget {
+  const _AboutMe({Key? key, required this.snapshot}) : super(key: key);
+
+  final AsyncSnapshot<DocumentSnapshot<Object?>> snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Hakkimda',
+            style: Styles.cardTitleStyle(),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            snapshot.data!.get('aboutMe'),
+            style: TextStyle(color: Theme.of(context).textTheme.bodySmall!.color),
+          ),
+          const SizedBox(height: 30),
+          Text(
+            'Ilgi Alanlarim',
+            style: Styles.cardTitleStyle(),
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: List.generate(
+              snapshot.data!.get('interests').length,
+              (index) => Chip(
+                label: Text(snapshot.data!.get('interests')[index]),
+                backgroundColor: Colors.blue.shade100,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                elevation: 2,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NameAndPosition extends StatelessWidget {
+  const _NameAndPosition({Key? key, required this.snapshot}) : super(key: key);
+
+  final AsyncSnapshot<DocumentSnapshot<Object?>> snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(text: snapshot.data!.get('fullName'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold), children: [
+        const TextSpan(
+          text: '   |   ',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        TextSpan(
+          text: snapshot.data!.get('position'),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+      ]),
+    );
+  }
+}
+
+class _ProfileImage extends StatelessWidget {
+  const _ProfileImage({
+    Key? key,
+    required this.snapshot,
+    required ProfileViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final AsyncSnapshot<DocumentSnapshot<Object?>> snapshot;
+  final ProfileViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            _viewModel.getSelection(context);
+          },
+          child: const CircleAvatar(
+            radius: 25,
+            child: Icon(Icons.photo_camera),
+          ),
+        ),
+        const SizedBox(width: 25),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NetworkImageViewer(
+                  heroAttribute: 'image',
+                  imageURL: snapshot.data!.get('imageURL'),
+                ),
+              ),
+            );
+          },
+          child: Hero(
+            tag: 'image',
+            child: CircleAvatar(
+              radius: 50,
+              backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+            ),
+          ),
+        ),
+        const SizedBox(width: 25),
+        const CircleAvatar(
+          radius: 25,
+          child: Icon(Icons.settings),
+        ),
+      ],
     );
   }
 }

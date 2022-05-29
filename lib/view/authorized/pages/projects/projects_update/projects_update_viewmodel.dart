@@ -120,14 +120,7 @@ class ProjectsUpdateViewModel extends ChangeNotifier {
 
     for (int i = 0; i < projectToDoModels.length; i++) {
       projectToDoModels.add(
-        ProjectToDoModel(
-            toDoID: '',
-            text: toDo[i],
-            createdBy: ServicePath.auth.currentUser!.uid,
-            createdAt: Timestamp.now(),
-            status: 'active',
-            urgency: 0,
-            index: i),
+        ProjectToDoModel(toDoID: '', text: toDo[i], createdBy: ServicePath.auth.currentUser!.uid, createdAt: Timestamp.now(), status: 'active', urgency: 0, index: i),
       );
     }
 
@@ -173,8 +166,7 @@ class ProjectsUpdateViewModel extends ChangeNotifier {
   Future setPage(ProjectModel model) async {
     titleController.text = model.title;
     explanationController.text = model.explanation;
-    deadlineController.text =
-        DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.deadline.millisecondsSinceEpoch)).toString();
+    deadlineController.text = DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.deadline.millisecondsSinceEpoch)).toString();
     await getTeamInfo(model.team);
     await getGroupInfo(model.groupIDs);
     /*await getToDos(model.projectID);*/

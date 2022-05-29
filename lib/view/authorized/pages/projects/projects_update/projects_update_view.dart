@@ -82,88 +82,17 @@ class _BodyState extends State<_Body> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFormField(
-                controller: _viewModel.titleController,
-                decoration: InputDecoration(
-                  labelText: 'project_title'.tr(),
-                  icon: const Icon(Icons.title),
-                ),
-                maxLength: 50,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'cannot_be_blank'.tr();
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _viewModel.explanationController,
-                decoration: InputDecoration(labelText: 'project_explanation'.tr(), icon: const Icon(Icons.text_fields)),
-                maxLength: 200,
-                maxLines: 3,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'cannot_be_blank'.tr();
-                  }
-                  return null;
-                },
-              ),
+              _Title(viewModel: _viewModel),
+              _Description(viewModel: _viewModel),
               const SizedBox(height: 15),
-              BaseTextFormField(
-                hint: 'deadline'.tr(),
-                controller: _viewModel.deadlineController,
-                textInputAction: TextInputAction.next,
-                textInputType: TextInputType.datetime,
-                prefixIcon: const Icon(Icons.date_range_outlined),
-                isReadOnly: true,
-                fun: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'deadline_validator'.tr();
-                  }
-                  return null;
-                },
-                onTap: () {
-                  _viewModel.showDateTimePicker(context);
-                },
-              ),
+              _Deadline(viewModel: _viewModel),
               const SizedBox(height: 15),
               Text(
                 'team'.tr(),
                 style: TextStyle(color: Colors.grey[600]),
               ),
-              Consumer(
-                builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
-                  width: double.infinity,
-                  child: Card(
-                    child: ListTile(
-                      onTap: () {
-                        viewModel.navigateAndDisplaySelectionForTeam(context);
-                      },
-                      leading: Image.asset(
-                        Assets.groupsTeam,
-                        height: 30,
-                      ),
-                      title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: TextButton(
-                  child: Text(
-                    'see_team'.tr(),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              const _Team(),
+              _SeeTeam(viewModel: _viewModel),
               const SizedBox(
                 height: 15,
               ),
@@ -171,24 +100,7 @@ class _BodyState extends State<_Body> {
                 'group'.tr(),
                 style: TextStyle(color: Colors.grey[600]),
               ),
-              Consumer(
-                builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
-                  width: double.infinity,
-                  child: Card(
-                    child: ListTile(
-                      onTap: () {
-                        viewModel.navigateAndDisplaySelectionForGroups(context);
-                      },
-                      leading: Image.asset(
-                        Assets.groupsTeam,
-                        height: 30,
-                      ),
-                      title: Text("${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
-                  ),
-                ),
-              ),
+              const _Group(),
               /*const Divider(height: 10),
               Align(
                 alignment: Alignment.center,
@@ -233,25 +145,212 @@ class _BodyState extends State<_Body> {
               ),*/
               const Divider(height: 10),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: BaseButton(
-                    text: 'projects_update'.tr(),
-                    fun: () {
-                      if (_viewModel.formKey.currentState!.validate()) {
-                        _viewModel.updateProject(context, widget.model);
-                      }
-                    },
-                  ),
-                ),
-              ),
+              _UpdateButton(viewModel: _viewModel, widget: widget),
               const SizedBox(height: 10),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _UpdateButton extends StatelessWidget {
+  const _UpdateButton({
+    Key? key,
+    required ProjectsUpdateViewModel viewModel,
+    required this.widget,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final ProjectsUpdateViewModel _viewModel;
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'projects_update'.tr(),
+          fun: () {
+            if (_viewModel.formKey.currentState!.validate()) {
+              _viewModel.updateProject(context, widget.model);
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Group extends StatelessWidget {
+  const _Group({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
+        width: double.infinity,
+        child: Card(
+          child: ListTile(
+            onTap: () {
+              viewModel.navigateAndDisplaySelectionForGroups(context);
+            },
+            leading: Image.asset(
+              Assets.groupsTeam,
+              height: 30,
+            ),
+            title: Text("${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
+            trailing: const Icon(Icons.chevron_right),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SeeTeam extends StatelessWidget {
+  const _SeeTeam({
+    Key? key,
+    required ProjectsUpdateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final ProjectsUpdateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: TextButton(
+        child: Text(
+          'see_team'.tr(),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _Team extends StatelessWidget {
+  const _Team({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ProjectsUpdateViewModel viewModel, child) => SizedBox(
+        width: double.infinity,
+        child: Card(
+          child: ListTile(
+            onTap: () {
+              viewModel.navigateAndDisplaySelectionForTeam(context);
+            },
+            leading: Image.asset(
+              Assets.groupsTeam,
+              height: 30,
+            ),
+            title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+            trailing: const Icon(Icons.chevron_right),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Deadline extends StatelessWidget {
+  const _Deadline({
+    Key? key,
+    required ProjectsUpdateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final ProjectsUpdateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseTextFormField(
+      hint: 'deadline'.tr(),
+      controller: _viewModel.deadlineController,
+      textInputAction: TextInputAction.next,
+      textInputType: TextInputType.datetime,
+      prefixIcon: const Icon(Icons.date_range_outlined),
+      isReadOnly: true,
+      fun: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'deadline_validator'.tr();
+        }
+        return null;
+      },
+      onTap: () {
+        _viewModel.showDateTimePicker(context);
+      },
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+    required ProjectsUpdateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final ProjectsUpdateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _viewModel.explanationController,
+      decoration: InputDecoration(labelText: 'project_explanation'.tr(), icon: const Icon(Icons.text_fields)),
+      maxLength: 200,
+      maxLines: 3,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+    required ProjectsUpdateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final ProjectsUpdateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _viewModel.titleController,
+      decoration: InputDecoration(
+        labelText: 'project_title'.tr(),
+        icon: const Icon(Icons.title),
+      ),
+      maxLength: 50,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
     );
   }
 }

@@ -1,6 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DarkThemePreference {
+  DarkThemePreference._privateConstructor();
+  static final DarkThemePreference _instance = DarkThemePreference._privateConstructor();
+  factory DarkThemePreference() {
+    return _instance;
+  }
+
   static const themeStatus = 'THEMESTATUS';
 
   Future<void> setDarkTheme(bool value) async {

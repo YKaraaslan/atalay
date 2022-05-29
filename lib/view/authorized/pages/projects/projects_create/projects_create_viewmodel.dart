@@ -122,17 +122,10 @@ class ProjectsCreateViewModel extends ChangeNotifier {
 
     for (int i = 0; i < projectToDoModels.length; i++) {
       projectToDoModels.add(
-        ProjectToDoModel(
-            toDoID: '',
-            text: toDo[i],
-            createdBy: ServicePath.auth.currentUser!.uid,
-            createdAt: Timestamp.now(),
-            status: 'active',
-            urgency: 0,
-            index: i),
+        ProjectToDoModel(toDoID: '', text: toDo[i], createdBy: ServicePath.auth.currentUser!.uid, createdAt: Timestamp.now(), status: 'active', urgency: 0, index: i),
       );
     }
-    
+
     bool result = await createProjectService(model, projectToDoModels);
     if (result) {
       baseDialog.dismissDialog();
@@ -158,7 +151,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     final newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now() ,
+      firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 5),
     );
 

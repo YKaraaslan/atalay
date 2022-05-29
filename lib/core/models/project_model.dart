@@ -10,7 +10,7 @@ class ProjectModel {
   String createdBy;
   Timestamp createdAt;
   Timestamp deadline;
-  
+
   ProjectModel({
     required this.projectID,
     required this.title,
@@ -36,7 +36,6 @@ class ProjectModel {
       'deadline': deadline,
     };
   }
-  
 
   ProjectModel.fromJson(Map<String, Object?> json)
       : this(

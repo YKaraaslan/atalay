@@ -1,12 +1,11 @@
-import 'package:atalay/core/classes/auth_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../core/classes/auth_provider.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/sizes.dart';
 import '../../../core/constant/styles.dart';
@@ -34,34 +33,15 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late HomeViewModel viewModel = context.watch<HomeViewModel>();
-
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback(
-      (_) {
-        if (!context.watch<AuthProvider>().tabPosts) {
-          context.watch<HomeViewModel>().setPage(
-                ProfileView(
-                  zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController,
-                  userID: ServicePath.auth.currentUser!.uid,
-                ),
-              );
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        return viewModel.onWillPop();
+        return context.read<HomeViewModel>().onWillPop();
       },
       child: BaseView(
         onPageBuilder: (context, value) => ZoomDrawer(
-          controller: viewModel.zoomDrawerController,
+          controller: context.read<HomeViewModel>().zoomDrawerController,
           borderRadius: 24,
           style: DrawerStyle.defaultStyle,
           showShadow: true,
@@ -75,9 +55,8 @@ class _HomeViewState extends State<HomeView> {
           angle: 0.0,
           clipMainScreen: true,
           mainScreen: GestureDetector(
-            onTap: viewModel.menuTap,
-            child: viewModel.selectedWiget,
-            //child: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
+            onTap: context.read<HomeViewModel>().menuTap,
+            child: context.watch<HomeViewModel>().selectedWiget,
           ),
           menuScreen: const _Menu(),
           menuScreenWidth: double.infinity,
@@ -111,8 +90,8 @@ class _Menu extends StatelessWidget {
             right: 0,
             child: Align(
               alignment: Alignment.center,
-              child: Consumer(
-                builder: (context, HomeViewModel viewModel, child) => Text(
+              child: Consumer<HomeViewModel>(
+                builder: (context, viewModel, child) => Text(
                   'v${viewModel.version}',
                   style: const TextStyle(color: Colors.white),
                 ),
@@ -138,109 +117,22 @@ class _MenuItems extends StatelessWidget {
       left: 10,
       child: SizedBox(
         width: Sizes.width_60percent(context),
-        child: Consumer(
-          builder: (context, HomeViewModel viewModel, child) => Column(
+        child: Consumer<HomeViewModel>(
+          builder: (context, viewModel, child) => Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Visibility(
-                visible: context.watch<AuthProvider>().tabPosts,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.posts,
-                  title: 'posts'.tr(),
-                  widget: PostsView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabDashboard,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.dashboard,
-                  title: 'dashboard'.tr(),
-                  widget: DashboardView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabProjects,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.projects,
-                  title: 'projects'.tr(),
-                  widget: ProjectsView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabUsers,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.onlineUsers,
-                  title: 'users'.tr(),
-                  widget: UsersView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabGroups,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.groups,
-                  title: 'groups'.tr(),
-                  widget: GroupsView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabReferences,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.references,
-                  title: 'references'.tr(),
-                  widget: ReferencesView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabFinances,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.finance,
-                  title: 'finance'.tr(),
-                  widget: FinanceView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabMeetings,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.meetups,
-                  title: 'meetups'.tr(),
-                  widget: MeetupsView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
-              _Item(
-                viewModel: viewModel,
-                assetName: Assets.calendar,
-                title: 'calendar'.tr(),
-                widget: CalendarView(zoomDrawerController: viewModel.zoomDrawerController),
-              ),
-              _Item(
-                viewModel: viewModel,
-                assetName: Assets.profile,
-                title: 'profile'.tr(),
-                widget: ProfileView(zoomDrawerController: viewModel.zoomDrawerController, userID: ServicePath.auth.currentUser!.uid),
-              ),
-              _Item(
-                viewModel: viewModel,
-                assetName: Assets.settings,
-                title: 'settings'.tr(),
-                widget: SettingsView(zoomDrawerController: viewModel.zoomDrawerController),
-              ),
-              Visibility(
-                visible: context.watch<AuthProvider>().tabUsersOnHold,
-                child: _Item(
-                  viewModel: viewModel,
-                  assetName: Assets.usersOnHold,
-                  title: 'users_onhold'.tr(),
-                  widget: UsersOnHoldView(zoomDrawerController: viewModel.zoomDrawerController),
-                ),
-              ),
+            children: const [
+              _PostsMenuItem(),
+              _DashboardMenuItem(),
+              _ProjectsMenuItem(),
+              _UsersMenuItem(),
+              _GroupsMenuItem(),
+              _ReferencesMenuItem(),
+              _FinanceMenuItem(),
+              _MeetingsMenuItem(),
+              _CalendarMenuItem(),
+              _ProfileMenuItem(),
+              _SettingsMenuItem(),
+              _UsersOnHoldMenuItem(),
             ],
           ),
         ),
@@ -249,9 +141,215 @@ class _MenuItems extends StatelessWidget {
   }
 }
 
+class _PostsMenuItem extends StatelessWidget {
+  const _PostsMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabPosts,
+      child: _Item(
+        assetName: Assets.posts,
+        title: 'posts'.tr(),
+        widget: PostsView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _DashboardMenuItem extends StatelessWidget {
+  const _DashboardMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabDashboard,
+      child: _Item(
+        assetName: Assets.dashboard,
+        title: 'dashboard'.tr(),
+        widget: DashboardView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _ProjectsMenuItem extends StatelessWidget {
+  const _ProjectsMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabProjects,
+      child: _Item(
+        assetName: Assets.projects,
+        title: 'projects'.tr(),
+        widget: ProjectsView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _UsersMenuItem extends StatelessWidget {
+  const _UsersMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabUsers,
+      child: _Item(
+        assetName: Assets.onlineUsers,
+        title: 'users'.tr(),
+        widget: UsersView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _GroupsMenuItem extends StatelessWidget {
+  const _GroupsMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabGroups,
+      child: _Item(
+        assetName: Assets.groups,
+        title: 'groups'.tr(),
+        widget: GroupsView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _ReferencesMenuItem extends StatelessWidget {
+  const _ReferencesMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabReferences,
+      child: _Item(
+        assetName: Assets.references,
+        title: 'references'.tr(),
+        widget: ReferencesView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _FinanceMenuItem extends StatelessWidget {
+  const _FinanceMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabFinances,
+      child: _Item(
+        assetName: Assets.finance,
+        title: 'finance'.tr(),
+        widget: FinanceView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _MeetingsMenuItem extends StatelessWidget {
+  const _MeetingsMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabMeetings,
+      child: _Item(
+        assetName: Assets.meetups,
+        title: 'meetups'.tr(),
+        widget: MeetupsView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
+class _CalendarMenuItem extends StatelessWidget {
+  const _CalendarMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _Item(
+      assetName: Assets.calendar,
+      title: 'calendar'.tr(),
+      widget: CalendarView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+    );
+  }
+}
+
+class _ProfileMenuItem extends StatelessWidget {
+  const _ProfileMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _Item(
+      assetName: Assets.profile,
+      title: 'profile'.tr(),
+      widget: ProfileView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController, userID: ServicePath.auth.currentUser!.uid),
+    );
+  }
+}
+
+class _SettingsMenuItem extends StatelessWidget {
+  const _SettingsMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _Item(
+      assetName: Assets.settings,
+      title: 'settings'.tr(),
+      widget: SettingsView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+    );
+  }
+}
+
+class _UsersOnHoldMenuItem extends StatelessWidget {
+  const _UsersOnHoldMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: context.watch<AuthProvider>().tabUsersOnHold,
+      child: _Item(
+        assetName: Assets.usersOnHold,
+        title: 'users_onhold'.tr(),
+        widget: UsersOnHoldView(zoomDrawerController: context.read<HomeViewModel>().zoomDrawerController),
+      ),
+    );
+  }
+}
+
 class _Item extends StatelessWidget {
-  const _Item({Key? key, required this.viewModel, required this.assetName, required this.title, required this.widget}) : super(key: key);
-  final HomeViewModel viewModel;
+  const _Item({Key? key, required this.assetName, required this.title, required this.widget}) : super(key: key);
   final String assetName;
   final String title;
   final Widget widget;
@@ -260,8 +358,8 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        viewModel.setPage(widget);
-        viewModel.zoomDrawerController.toggle!();
+        context.read<HomeViewModel>().setPage(widget);
+        context.read<HomeViewModel>().zoomDrawerController.toggle!();
       },
       child: Row(
         children: [
@@ -271,7 +369,7 @@ class _Item extends StatelessWidget {
           ),
           Text(
             title,
-            style: zoomMenuTextStyle(),
+            style: Styles.zoomMenuTextStyle(),
           ),
         ],
       ),

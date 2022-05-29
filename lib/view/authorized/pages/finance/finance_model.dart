@@ -1,3 +1,1 @@
-class FinanceModel {
-  
-}
+class FinanceModel {}

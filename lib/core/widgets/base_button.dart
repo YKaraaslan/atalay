@@ -4,8 +4,7 @@ import '../constant/sizes.dart';
 import '../constant/styles.dart';
 
 class BaseButton extends StatelessWidget {
-  const BaseButton({Key? key, required this.text, required this.fun})
-      : super(key: key);
+  const BaseButton({Key? key, required this.text, required this.fun}) : super(key: key);
 
   final String text;
   final VoidCallback fun;
@@ -27,7 +26,7 @@ class BaseButton extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Text(
             text,
-            style: buttonTextStyle(),
+            style: Styles.buttonTextStyle(),
           ),
         ),
       ),

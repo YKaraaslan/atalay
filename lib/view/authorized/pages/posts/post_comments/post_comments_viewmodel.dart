@@ -17,8 +17,7 @@ class PostCommentsViewModel extends ChangeNotifier {
     }
     String comment = commentController.text.trim();
     commentController.clear();
-    PostCommentModel model =
-        PostCommentModel(userID: FirebaseAuth.instance.currentUser!.uid, comment: comment, commentedAt: Timestamp.now(), isUpdated: false);
+    PostCommentModel model = PostCommentModel(userID: FirebaseAuth.instance.currentUser!.uid, comment: comment, commentedAt: Timestamp.now(), isUpdated: false);
 
     if (!await saveCommentToDatabase(model, postID)) {
       showSnackbar(context, 'comment_unsuccessful'.tr());

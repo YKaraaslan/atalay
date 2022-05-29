@@ -33,8 +33,7 @@ class ForgotPasswordViewModel extends ChangeNotifier {
 
   Future<bool?> checkIfEmailInUse(String emailAddress) async {
     try {
-      final List<String> list =
-          await ServicePath.auth.fetchSignInMethodsForEmail(emailAddress);
+      final List<String> list = await ServicePath.auth.fetchSignInMethodsForEmail(emailAddress);
 
       if (list.isNotEmpty) {
         return true;

@@ -1,5 +1,3 @@
-import 'references_person_show_viewmodel.dart';
-import '../references_person_update/references_person_update_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_viewer/main.dart';
@@ -10,6 +8,8 @@ import '../../../../../../core/constant/paddings.dart';
 import '../../../../../../core/widgets/base_appbar.dart';
 import '../../../../../core/constant/sizes.dart';
 import '../../../../../core/models/reference_model.dart';
+import '../references_person_update/references_person_update_view.dart';
+import 'references_person_show_viewmodel.dart';
 
 class ReferencesPersonShowView extends StatelessWidget {
   const ReferencesPersonShowView({Key? key, required this.model}) : super(key: key);
@@ -71,99 +71,171 @@ class _BodyState extends State<_Body> {
             children: [
               _Photo(model: widget.model),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.nameTextController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Isim',
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.surnameTimeTextController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Soyisim',
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                ],
-              ),
+              const _NameSurname(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.descriptionTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Aciklama',
-                ),
-                      readOnly: true,
-              ),
+              const _Description(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.mailTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Mail',
-                ),
-                      readOnly: true,
-              ),
+              const _Mail(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.phoneTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Telefon',
-                ),
-                      readOnly: true,
-              ),
+              const _Phone(),
               const SizedBox(height: 50),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Referansi Sil',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onPressed: () {
-                      viewModel.delete(context, widget.model);
-                    },
-                  ),
-                ),
-              ),
+              _DeleteReferenceButton(widget: widget),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Referansi Duzenle',
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReferencesPersonUpdateView(model: widget.model),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              _UpdateReference(widget: widget),
               const SizedBox(height: 10),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _UpdateReference extends StatelessWidget {
+  const _UpdateReference({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Referansi Duzenle',
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReferencesPersonUpdateView(model: widget.model),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteReferenceButton extends StatelessWidget {
+  const _DeleteReferenceButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Referansi Sil',
+            style: TextStyle(color: Colors.red),
+          ),
+          onPressed: () {
+            context.read<ReferencesPersonShowViewModel>().delete(context, widget.model);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Phone extends StatelessWidget {
+  const _Phone({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonShowViewModel>().phoneTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Telefon',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Mail extends StatelessWidget {
+  const _Mail({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonShowViewModel>().mailTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Mail',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonShowViewModel>().descriptionTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Aciklama',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _NameSurname extends StatelessWidget {
+  const _NameSurname({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: context.read<ReferencesPersonShowViewModel>().nameTextController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Isim',
+            ),
+            readOnly: true,
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: TextFormField(
+            controller: context.read<ReferencesPersonShowViewModel>().surnameTimeTextController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Soyisim',
+            ),
+            readOnly: true,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -75,6 +75,6 @@ Future getToken() async {
     token = value ?? '';
     return token;
   });
-  
+
   return token;
 }

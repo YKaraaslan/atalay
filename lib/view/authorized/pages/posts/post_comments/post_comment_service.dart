@@ -15,4 +15,3 @@ Future<bool> saveCommentToDatabase(PostCommentModel model, String postID) async 
 Future<DocumentSnapshot<Object?>> getAuthorInfo(String userID) async {
   return ServicePath.usersCollectionReference.doc(userID).get();
 }
-

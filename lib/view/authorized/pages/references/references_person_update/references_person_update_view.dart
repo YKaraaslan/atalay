@@ -78,172 +78,249 @@ class _BodyState extends State<_Body> {
             key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _Photo(),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.nameTextController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Isim',
-                        ),
-                        onTap: () {},
-                        maxLength: 30,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.surnameTimeTextController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Soyisim',
-                        ),
-                        maxLength: 30,
-                        onTap: () {},
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.descriptionTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Aciklama',
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.mailTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mail',
-                  ),
-                  maxLength: 30,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'mail_validator'.tr();
-                    }
-                    if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
-                      return 'mail_invalid_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.phoneTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Telefon',
-                  ),
-                  maxLength: 15,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'phone_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Sirket',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-                const SizedBox(height: 10),
-                Consumer(
-                  builder: (context, ReferencesPersonUpdateViewModel viewModel, child) => SizedBox(
-                    width: double.infinity,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        if (viewModel.companySelected != null) {
-                          return Card(
-                            child: ListTile(
-                              onTap: () {
-                                viewModel.navigateAndDisplaySelection(context);
-                              },
-                              leading: viewModel.companySelected!.imageURL == '' ? CircleAvatar(
-                                backgroundImage: AssetImage(
-                                  Assets.groupsTeam,
-                                ),
-                                backgroundColor: Colors.transparent,
-                              ) : CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  viewModel.companySelected!.imageURL,
-                                ),
-                              ),
-                              title: Text(viewModel.companySelected!.companyName),
-                              subtitle: Text(viewModel.companySelected!.description),
-                              trailing: const Icon(Icons.chevron_right),
-                            ),
-                          );
-                        } else {
-                          return Card(
-                            child: ListTile(
-                              onTap: () {
-                                viewModel.navigateAndDisplaySelection(context);
-                              },
-                              leading: Image.asset(
-                                Assets.meetups,
-                                height: 30,
-                              ),
-                              title: const Text('Sirket'),
-                              trailing: const Icon(Icons.chevron_right),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: Sizes.width_65percent(context),
-                    child: BaseButton(
-                      text: 'Referansi Guncelle',
-                      fun: () async {
-                        if (viewModel.formKey.currentState!.validate()) {
-                          viewModel.updateReference(context);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
+              children: const [
+                _Photo(),
+                SizedBox(height: 20),
+                _NameSurname(),
+                SizedBox(height: 20),
+                _Description(),
+                SizedBox(height: 20),
+                _Mail(),
+                SizedBox(height: 20),
+                _Phone(),
+                SizedBox(height: 10),
+                _CompanyTitleField(),
+                SizedBox(height: 10),
+                _CompanyField(),
+                SizedBox(height: 20),
+                _Button(),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'Referansi Guncelle',
+          fun: () async {
+            if (context.read<ReferencesPersonUpdateViewModel>().formKey.currentState!.validate()) {
+              context.read<ReferencesPersonUpdateViewModel>().updateReference(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _CompanyField extends StatelessWidget {
+  const _CompanyField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ReferencesPersonUpdateViewModel viewModel, child) => SizedBox(
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (viewModel.companySelected != null) {
+              return Card(
+                child: ListTile(
+                  onTap: () {
+                    viewModel.navigateAndDisplaySelection(context);
+                  },
+                  leading: viewModel.companySelected!.imageURL == ''
+                      ? CircleAvatar(
+                          backgroundImage: AssetImage(
+                            Assets.groupsTeam,
+                          ),
+                          backgroundColor: Colors.transparent,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            viewModel.companySelected!.imageURL,
+                          ),
+                        ),
+                  title: Text(viewModel.companySelected!.companyName),
+                  subtitle: Text(viewModel.companySelected!.description),
+                  trailing: const Icon(Icons.chevron_right),
+                ),
+              );
+            } else {
+              return Card(
+                child: ListTile(
+                  onTap: () {
+                    viewModel.navigateAndDisplaySelection(context);
+                  },
+                  leading: Image.asset(
+                    Assets.meetups,
+                    height: 30,
+                  ),
+                  title: const Text('Sirket'),
+                  trailing: const Icon(Icons.chevron_right),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _CompanyTitleField extends StatelessWidget {
+  const _CompanyTitleField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Sirket',
+      style: TextStyle(color: Colors.grey[600]),
+    );
+  }
+}
+
+class _Phone extends StatelessWidget {
+  const _Phone({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonUpdateViewModel>().phoneTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Telefon',
+      ),
+      maxLength: 15,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.phone,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'phone_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Mail extends StatelessWidget {
+  const _Mail({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonUpdateViewModel>().mailTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Mail',
+      ),
+      maxLength: 30,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'mail_validator'.tr();
+        }
+        if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
+          return 'mail_invalid_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesPersonUpdateViewModel>().descriptionTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Aciklama',
+      ),
+      maxLength: 100,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _NameSurname extends StatelessWidget {
+  const _NameSurname({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: context.read<ReferencesPersonUpdateViewModel>().nameTextController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Isim',
+            ),
+            onTap: () {},
+            maxLength: 30,
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'cannot_be_blank'.tr();
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: TextFormField(
+            controller: context.read<ReferencesPersonUpdateViewModel>().surnameTimeTextController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Soyisim',
+            ),
+            maxLength: 30,
+            onTap: () {},
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'cannot_be_blank'.tr();
+              }
+              return null;
+            },
+          ),
+        ),
+      ],
     );
   }
 }

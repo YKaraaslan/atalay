@@ -1,3 +1,1 @@
-class MeetupsModel {
-  
-}
+class MeetupsModel {}

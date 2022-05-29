@@ -65,12 +65,12 @@ class CalendarCreateViewModel extends ChangeNotifier {
             Expanded(
               child: CupertinoTheme(
                 data: CupertinoThemeData(
-                        textTheme: CupertinoTextThemeData(
-                          dateTimePickerTextStyle: TextStyle(
-                            color: context.read<DarkThemeProvider>().darkTheme ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
+                  textTheme: CupertinoTextThemeData(
+                    dateTimePickerTextStyle: TextStyle(
+                      color: context.read<DarkThemeProvider>().darkTheme ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
                 child: CupertinoDatePicker(
                   mode: CupertinoDatePickerMode.time,
                   use24hFormat: true,

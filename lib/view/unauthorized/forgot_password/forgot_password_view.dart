@@ -68,8 +68,7 @@ class _MailField extends StatelessWidget {
           if (value == null || value.trim().isEmpty) {
             return 'mail_validator'.tr();
           }
-          if (!EmailValidator.validate(value.trim()) ||
-              !value.toString().trim().endsWith('.com')) {
+          if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
             return 'mail_invalid_validator'.tr();
           }
           return null;
@@ -85,8 +84,7 @@ class _ButtonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ForgotPasswordViewModel viewModel, child) =>
-          BaseButton(
+      builder: (context, ForgotPasswordViewModel viewModel, child) => BaseButton(
         text: 'reset_password'.tr(),
         fun: () {
           if (viewModel.formKey.currentState!.validate()) {

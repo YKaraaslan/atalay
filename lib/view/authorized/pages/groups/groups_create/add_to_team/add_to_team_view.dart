@@ -102,25 +102,41 @@ class _BodyState extends State<_Body> {
                 );
               },
             ),
-            Visibility(
-              visible: widget.multiSelection,
-              child: Positioned(
-                bottom: 10,
-                left: 100,
-                right: 100,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context, viewModel.selectedUsers);
-                  },
-                  child: Text(
-                    '${viewModel.selectedUsers.length} kisi sec',
-                  ),
-                ),
-              ),
-            ),
+            _Button(widget: widget),
           ],
         );
       },
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AddToTeamViewModel>(
+      builder: (context, viewModel, child) => Visibility(
+        visible: widget.multiSelection,
+        child: Positioned(
+          bottom: 10,
+          left: 100,
+          right: 100,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context, viewModel.selectedUsers);
+            },
+            child: Text(
+              '${viewModel.selectedUsers.length} kisi sec',
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

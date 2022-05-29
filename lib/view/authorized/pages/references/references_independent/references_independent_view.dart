@@ -52,11 +52,13 @@ class _Body extends StatelessWidget {
                       ),
                     );
                   },
-                  leading: referenceModel.imageURL != '' ? CircleAvatar(
-                    backgroundImage: NetworkImage(referenceModel.imageURL),
-                  ) : CircleAvatar(
-                    backgroundImage: AssetImage(Assets.profile),
-                  ),
+                  leading: referenceModel.imageURL != ''
+                      ? CircleAvatar(
+                          backgroundImage: NetworkImage(referenceModel.imageURL),
+                        )
+                      : CircleAvatar(
+                          backgroundImage: AssetImage(Assets.profile),
+                        ),
                   title: Text(referenceModel.fullName),
                   subtitle: Text(referenceModel.description),
                   trailing: const Icon(Icons.chevron_right),

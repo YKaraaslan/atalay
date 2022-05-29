@@ -76,133 +76,230 @@ class _BodyState extends State<_Body> {
             children: [
               _Photo(model: widget.model),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.nameTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Sirket Ismi',
-                ),
-                readOnly: true,
-              ),
+              const _CompanyName(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.descriptionTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Aciklama',
-                ),
-                readOnly: true,
-              ),
+              const _Description(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.mailTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Mail',
-                ),
-                readOnly: true,
-              ),
+              const _Mail(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.phoneTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Telefon',
-                ),
-                readOnly: true,
-              ),
+              const _Phone(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.locationTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Lokasyon',
-                ),
-                readOnly: true,
-              ),
+              const _Location(),
               const SizedBox(height: 20),
               Text(
                 'Referanslar',
-                style: buttonTextStyle().copyWith(color: Colors.blue.shade800),
+                style: Styles.buttonTextStyle().copyWith(color: Colors.blue.shade800),
               ),
               const SizedBox(height: 10),
-              FirestoreQueryBuilder(
-                query: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: widget.model.id),
-                builder: (context, snapshot, _) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemCount: snapshot.docs.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        ReferenceModel referenceModel = ReferenceModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
-
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReferencesPersonShowView(model: referenceModel),
-                              ),
-                            );
-                          },
-                          leading: CircleAvatar(
-                            radius: 25,
-                            backgroundImage: NetworkImage(
-                              referenceModel.imageURL,
-                            ),
-                          ),
-                          title: Text(referenceModel.fullName),
-                          subtitle: Text(referenceModel.description),
-                          trailing: const Icon(Icons.chevron_right),
-                        );
-                      },
-                    );
-                  }
-                  return Container();
-                },
-              ),
+              _ReferencesList(widget: widget),
               const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Sirketi Sil',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onPressed: () {
-                      viewModel.delete(context, widget.model);
-                    },
-                  ),
-                ),
-              ),
+              _DeleteReferencesButton(widget: widget),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Sirketi Duzenle',
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReferencesCompanyUpdateView(model: widget.model),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              _UpdateReferenceButton(widget: widget),
               const SizedBox(height: 10),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _UpdateReferenceButton extends StatelessWidget {
+  const _UpdateReferenceButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Sirketi Duzenle',
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReferencesCompanyUpdateView(model: widget.model),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteReferencesButton extends StatelessWidget {
+  const _DeleteReferencesButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Sirketi Sil',
+            style: TextStyle(color: Colors.red),
+          ),
+          onPressed: () {
+            context.read<ReferencesCompanyShowViewModel>().delete(context, widget.model);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ReferencesList extends StatelessWidget {
+  const _ReferencesList({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return FirestoreQueryBuilder(
+      query: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: widget.model.id),
+      builder: (context, snapshot, _) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.docs.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              ReferenceModel referenceModel = ReferenceModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+
+              return ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReferencesPersonShowView(model: referenceModel),
+                    ),
+                  );
+                },
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    referenceModel.imageURL,
+                  ),
+                ),
+                title: Text(referenceModel.fullName),
+                subtitle: Text(referenceModel.description),
+                trailing: const Icon(Icons.chevron_right),
+              );
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+}
+
+class _Location extends StatelessWidget {
+  const _Location({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyShowViewModel>().locationTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Lokasyon',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Phone extends StatelessWidget {
+  const _Phone({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyShowViewModel>().phoneTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Telefon',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Mail extends StatelessWidget {
+  const _Mail({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyShowViewModel>().mailTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Mail',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyShowViewModel>().descriptionTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Aciklama',
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _CompanyName extends StatelessWidget {
+  const _CompanyName({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyShowViewModel>().nameTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Sirket Ismi',
+      ),
+      readOnly: true,
     );
   }
 }

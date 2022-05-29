@@ -5,7 +5,7 @@ Future<bool> saveMeetingToDatabase(MeetingModel model) async {
   try {
     await ServicePath.meetingsCollectionReference.add(model.toMap());
     return true;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 }

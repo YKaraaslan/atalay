@@ -65,9 +65,7 @@ class _UsersViewState extends State<UsersView> {
                   subtitle: users.online
                       ? Text('online'.tr(), style: const TextStyle(color: Colors.green))
                       : Text(
-                          DateFormat('dd MMMM yyyy hh:mm a')
-                              .format(DateTime.fromMillisecondsSinceEpoch(users.signUpTime.millisecondsSinceEpoch))
-                              .toString(),
+                          DateFormat('dd MMMM yyyy hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(users.signUpTime.millisecondsSinceEpoch)).toString(),
                         ),
                   trailing: users.online
                       ? const CircleAvatar(

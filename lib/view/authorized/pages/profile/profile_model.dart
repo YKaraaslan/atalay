@@ -1,3 +1,1 @@
-class ProfileModel {
-  
-}
+class ProfileModel {}

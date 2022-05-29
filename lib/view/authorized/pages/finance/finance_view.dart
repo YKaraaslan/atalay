@@ -29,13 +29,14 @@ class FinanceView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: 
-                context.read<AuthProvider>().financesCreate ? FloatingActionButton(
-        child: const Icon(Icons.create),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.financeCreate);
-        },
-      ) : null,
+      floatingActionButton: context.read<AuthProvider>().financesCreate
+          ? FloatingActionButton(
+              child: const Icon(Icons.create),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.financeCreate);
+              },
+            )
+          : null,
     );
   }
 }
@@ -57,103 +58,121 @@ class _BodyState extends State<_Body> {
           const SizedBox(height: 10),
           Text(
             'balance_available'.tr(),
-            style: cardTitleStyle(),
+            style: Styles.cardTitleStyle(),
           ),
           const SizedBox(height: 10),
-          Consumer(
-            builder: (context, FinanceViewModel viewModel, child) => StreamBuilder<DocumentSnapshot>(
-              stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  viewModel.balance = double.parse(snapshot.data!.get('balance').toString());
-                  return Text(
-                    '${viewModel.balance} ₺',
-                    style: financeTitleStyle,
-                  );
-                }
-                return Container();
-              },
-            ),
-          ),
+          const _Balance(),
           const SizedBox(height: 20),
           Container(
             height: 10,
             color: Theme.of(context).dividerColor,
           ),
-          FirestoreQueryBuilder(
-            query: ServicePath.financesCollectionReference.orderBy('transactedAt', descending: true),
-            builder: (context, snapshot, _) {
-              if (snapshot.hasError) {
-                return Text('error ${snapshot.error}');
+          const _TransactionList(),
+        ],
+      ),
+    );
+  }
+}
+
+class _TransactionList extends StatelessWidget {
+  const _TransactionList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FirestoreQueryBuilder(
+      query: ServicePath.financesCollectionReference.orderBy('transactedAt', descending: true),
+      builder: (context, snapshot, _) {
+        if (snapshot.hasError) {
+          return Text('error ${snapshot.error}');
+        }
+        if (snapshot.hasData) {
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(
+              height: 1,
+            ),
+            itemCount: snapshot.docs.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
+                snapshot.fetchMore();
               }
-              if (snapshot.hasData) {
-                return ListView.separated(
-                  separatorBuilder: (context, index) => const Divider(
-                    height: 1,
-                  ),
-                  itemCount: snapshot.docs.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
-                      snapshot.fetchMore();
-                    }
 
-                    FinanceTransactionModel model = FinanceTransactionModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+              FinanceTransactionModel model = FinanceTransactionModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
 
-                    if (model.type == 'addition') {
-                      return ListTile(
-                        onLongPress: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return _BottomSheet(id: snapshot.docs[index].id, model: model);
-                            },
-                          );
-                        },
-                        leading: const CircleAvatar(
-                          backgroundColor: Colors.green,
-                          child: Icon(
-                            Icons.move_up,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text('+ ${model.money.toString()} ₺'),
-                        subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm')
-                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
-                        isThreeLine: true,
-                      );
-                    } else {
-                      return ListTile(
-                        onLongPress: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return _BottomSheet(id: snapshot.docs[index].id, model: model);
-                            },
-                          );
-                        },
-                        leading: const CircleAvatar(
-                          backgroundColor: Colors.red,
-                          child: Icon(
-                            Icons.move_down_rounded,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text('+ ${model.money.toString()} ₺'),
-                        subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm')
-                                .format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
-                        isThreeLine: true,
-                      );
-                    }
+              if (model.type == 'addition') {
+                return ListTile(
+                  onLongPress: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return _BottomSheet(id: snapshot.docs[index].id, model: model);
+                      },
+                    );
                   },
+                  leading: const CircleAvatar(
+                    backgroundColor: Colors.green,
+                    child: Icon(
+                      Icons.move_up,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Text('+ ${model.money.toString()} ₺'),
+                  subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
+                  isThreeLine: true,
+                );
+              } else {
+                return ListTile(
+                  onLongPress: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return _BottomSheet(id: snapshot.docs[index].id, model: model);
+                      },
+                    );
+                  },
+                  leading: const CircleAvatar(
+                    backgroundColor: Colors.red,
+                    child: Icon(
+                      Icons.move_down_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Text('+ ${model.money.toString()} ₺'),
+                  subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
+                  isThreeLine: true,
                 );
               }
-              return Container();
             },
-            pageSize: 20,
-          ),
-        ],
+          );
+        }
+        return Container();
+      },
+      pageSize: 20,
+    );
+  }
+}
+
+class _Balance extends StatelessWidget {
+  const _Balance({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, FinanceViewModel viewModel, child) => StreamBuilder<DocumentSnapshot>(
+        stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            viewModel.balance = double.parse(snapshot.data!.get('balance').toString());
+            return Text(
+              '${viewModel.balance} ₺',
+              style: Styles.financeTitleStyle,
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

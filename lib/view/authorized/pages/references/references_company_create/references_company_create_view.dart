@@ -71,114 +71,178 @@ class _BodyState extends State<_Body> {
             key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _Photo(),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.nameTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Sirket Ismi',
-                  ),
-                  onTap: () {},
-                  maxLength: 30,
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.descriptionTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Aciklama',
-                  ),
-                  maxLength: 100,
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.mailTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mail',
-                  ),
-                  maxLength: 30,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'mail_validator'.tr();
-                    }
-                    if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
-                      return 'mail_invalid_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.phoneTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Telefon',
-                  ),
-                  maxLength: 15,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'phone_validator'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: viewModel.locationTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Lokasyon',
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: Sizes.width_65percent(context),
-                    child: BaseButton(
-                      text: 'create_event'.tr(),
-                      fun: () async {
-                        if (viewModel.formKey.currentState!.validate()) {
-                          viewModel.createCompany(context);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
+              children: const [
+                _Photo(),
+                SizedBox(height: 20),
+                _CompanyName(),
+                SizedBox(height: 10),
+                _Description(),
+                SizedBox(height: 10),
+                _Mail(),
+                SizedBox(height: 10),
+                _Phone(),
+                SizedBox(height: 10),
+                _Location(),
+                SizedBox(height: 20),
+                _CreateButton(),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _CreateButton extends StatelessWidget {
+  const _CreateButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'create_event'.tr(),
+          fun: () async {
+            if (context.read<ReferencesCompanyCreateViewModel>().formKey.currentState!.validate()) {
+              context.read<ReferencesCompanyCreateViewModel>().createCompany(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Location extends StatelessWidget {
+  const _Location({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyCreateViewModel>().locationTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Lokasyon',
+      ),
+      maxLength: 100,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Phone extends StatelessWidget {
+  const _Phone({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyCreateViewModel>().phoneTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Telefon',
+      ),
+      maxLength: 15,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.phone,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'phone_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Mail extends StatelessWidget {
+  const _Mail({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyCreateViewModel>().mailTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Mail',
+      ),
+      maxLength: 30,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'mail_validator'.tr();
+        }
+        if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
+          return 'mail_invalid_validator'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyCreateViewModel>().descriptionTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Aciklama',
+      ),
+      maxLength: 100,
+      textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _CompanyName extends StatelessWidget {
+  const _CompanyName({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<ReferencesCompanyCreateViewModel>().nameTextController,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Sirket Ismi',
+      ),
+      onTap: () {},
+      maxLength: 30,
+      textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'cannot_be_blank'.tr();
+        }
+        return null;
+      },
     );
   }
 }

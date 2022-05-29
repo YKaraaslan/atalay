@@ -5,7 +5,7 @@ Future<bool> updateMeetings(MeetingModel model, String id) async {
   try {
     await ServicePath.meetingsCollectionReference.doc(id).update(model.toMap());
     return true;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 }

@@ -3,7 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class ServicePath {
-  ServicePath._();
+  ServicePath._privateConstructor();
+  static final ServicePath _instance = ServicePath._privateConstructor();
+  factory ServicePath() {
+    return _instance;
+  }
+
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final CollectionReference applicationCollectionReference = FirebaseFirestore.instance.collection('Application');
   static final CollectionReference usersCollectionReference = FirebaseFirestore.instance.collection('Users');

@@ -8,7 +8,7 @@ class ProjectToDoModel {
   String status;
   int urgency;
   int index;
-  
+
   ProjectToDoModel({
     required this.toDoID,
     required this.text,
@@ -42,7 +42,6 @@ class ProjectToDoModel {
       index: map['index']?.toInt() ?? 0,
     );
   }
-  
 
   ProjectToDoModel.fromJson(Map<String, Object?> json)
       : this(

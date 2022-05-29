@@ -57,7 +57,7 @@ class _MyComments extends StatelessWidget {
                     children: [
                       Text(
                         model.comment,
-                        style: commentSubTitleStyle(),
+                        style: Styles.commentSubTitleStyle(),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -66,10 +66,8 @@ class _MyComments extends StatelessWidget {
                     right: 0,
                     bottom: 0,
                     child: Text(
-                      model.isUpdated
-                          ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}"
-                          : TimeAgo.timeAgoSinceDate(model.commentedAt),
-                      style: commentTimeStyle(),
+                      model.isUpdated ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}" : TimeAgo.timeAgoSinceDate(model.commentedAt),
+                      style: Styles.commentTimeStyle(),
                     ),
                   ),
                 ],
@@ -149,13 +147,13 @@ class _TheirComments extends StatelessWidget {
                         },
                         child: Text(
                           model.authorNameSurname,
-                          style: commentTitleStyle(),
+                          style: Styles.commentTitleStyle(),
                         ),
                       ),
                       const SizedBox(height: 3),
                       Text(
                         model.comment,
-                        style: commentSubTitleStyle(),
+                        style: Styles.commentSubTitleStyle(),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -164,10 +162,8 @@ class _TheirComments extends StatelessWidget {
                     right: 0,
                     bottom: 0,
                     child: Text(
-                      model.isUpdated
-                          ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}"
-                          : TimeAgo.timeAgoSinceDate(model.commentedAt),
-                      style: commentTimeStyle(),
+                      model.isUpdated ? "${"updated".tr()} • ${TimeAgo.timeAgoSinceDate(model.commentedAt)}" : TimeAgo.timeAgoSinceDate(model.commentedAt),
+                      style: Styles.commentTimeStyle(),
                     ),
                   ),
                 ],

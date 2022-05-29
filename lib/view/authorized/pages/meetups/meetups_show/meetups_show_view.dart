@@ -75,62 +75,17 @@ class _BodyState extends State<_Body> {
           builder: (context, MeetupsShowViewModel viewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFormField(
-                controller: viewModel.titleTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'title'.tr(),
-                ),
-                readOnly: true,
-              ),
+              const _Title(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.descriptionTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'description'.tr(),
-                ),
-                readOnly: true,
-              ),
+              const _Description(),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.locationTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'location'.tr(),
-                ),
-                readOnly: true,
-              ),
+              const _Location(),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.startTimeTextController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: 'start_time'.tr(),
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.endTimeTextController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: 'end_time'.tr(),
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                ],
-              ),
+              const _Time(),
               const SizedBox(height: 20),
               Text(
                 viewModel.listTiles.isNotEmpty ? 'Katilimcilar' : '',
-                style: buttonTextStyle().copyWith(color: Colors.blue.shade800),
+                style: Styles.buttonTextStyle().copyWith(color: Colors.blue.shade800),
               ),
               const SizedBox(height: 10),
               ListView.builder(
@@ -139,47 +94,161 @@ class _BodyState extends State<_Body> {
                 itemBuilder: (context, index) => viewModel.listTiles[index],
               ),
               const SizedBox(height: 30),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Toplantiyi Sil',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    onPressed: () {
-                      viewModel.delete(context);
-                    },
-                  ),
-                ),
-              ),
+              const _DeleteMeetingButton(),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Toplantiyi Duzenle',
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MeetupsUpdateView(model: widget.model, id: widget.id),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              _UpdateMeetingButton(widget: widget),
               const SizedBox(height: 10),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _UpdateMeetingButton extends StatelessWidget {
+  const _UpdateMeetingButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final _Body widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Toplantiyi Duzenle',
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MeetupsUpdateView(model: widget.model, id: widget.id),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteMeetingButton extends StatelessWidget {
+  const _DeleteMeetingButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: OutlinedButton(
+          child: const Text(
+            'Toplantiyi Sil',
+            style: TextStyle(color: Colors.red),
+          ),
+          onPressed: () {
+            context.read<MeetupsShowViewModel>().delete(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Time extends StatelessWidget {
+  const _Time({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: context.read<MeetupsShowViewModel>().startTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'start_time'.tr(),
+            ),
+            readOnly: true,
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: TextFormField(
+            controller: context.read<MeetupsShowViewModel>().endTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'end_time'.tr(),
+            ),
+            readOnly: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _Location extends StatelessWidget {
+  const _Location({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<MeetupsShowViewModel>().locationTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'location'.tr(),
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<MeetupsShowViewModel>().descriptionTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'description'.tr(),
+      ),
+      readOnly: true,
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<MeetupsShowViewModel>().titleTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'title'.tr(),
+      ),
+      readOnly: true,
     );
   }
 }

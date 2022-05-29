@@ -1,3 +1,1 @@
-class ReferencesModel {
-  
-}
+class ReferencesModel {}

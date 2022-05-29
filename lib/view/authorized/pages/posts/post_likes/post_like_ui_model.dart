@@ -4,7 +4,7 @@ class PostLikeUiModel {
   String nameSurname;
   String imageURL;
   Timestamp likedAt;
-  
+
   PostLikeUiModel({
     required this.nameSurname,
     required this.imageURL,

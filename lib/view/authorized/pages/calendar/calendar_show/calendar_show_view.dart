@@ -29,10 +29,8 @@ class _CalendarShowViewState extends State<CalendarShowView> {
     _viewModel.descriptionTextController = TextEditingController();
 
     _viewModel.titleTextController.text = widget.model.title;
-    _viewModel.startTimeTextController.text =
-        DateFormat('hh:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.model.dateStart.millisecondsSinceEpoch));
-    _viewModel.endTimeTextController.text =
-        DateFormat('hh:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.model.dateEnd.millisecondsSinceEpoch));
+    _viewModel.startTimeTextController.text = DateFormat('hh:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.model.dateStart.millisecondsSinceEpoch));
+    _viewModel.endTimeTextController.text = DateFormat('hh:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.model.dateEnd.millisecondsSinceEpoch));
     _viewModel.descriptionTextController.text = widget.model.description;
 
     _viewModel.time = widget.model.dateStart;
@@ -67,76 +65,120 @@ class _Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: AppPaddings.contentPadding,
-        child: Consumer(
-          builder: (context, CalendarShowViewModel viewModel, child) => Column(
+        child: Consumer<CalendarShowViewModel>(
+          builder: (context, viewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                controller: viewModel.titleTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'title'.tr(),
-                ),
-                maxLength: 30,
-                readOnly: true,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.startTimeTextController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: 'start_time'.tr(),
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: TextFormField(
-                      controller: viewModel.endTimeTextController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: 'end_time'.tr(),
-                      ),
-                      readOnly: true,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: viewModel.descriptionTextController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'description'.tr(),
-                ),
-                maxLength: 100,
-                readOnly: true,
-              ),
-              const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: Sizes.width_65percent(context),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red.withOpacity(0.7)),
-                    ),
-                    child: const Text('Sil'),
-                    onPressed: () {
-                      viewModel.delete(context);
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
+            children: const [
+              _Title(),
+              SizedBox(height: 20),
+              _Time(),
+              SizedBox(height: 20),
+              _Description(),
+              SizedBox(height: 10),
+              _Button(),
+              SizedBox(height: 10),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red.withOpacity(0.7)),
+          ),
+          child: const Text('Sil'),
+          onPressed: () {
+            context.read<CalendarShowViewModel>().delete(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: context.read<CalendarShowViewModel>().descriptionTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'description'.tr(),
+      ),
+      maxLength: 100,
+      readOnly: true,
+    );
+  }
+}
+
+class _Time extends StatelessWidget {
+  const _Time({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: context.read<CalendarShowViewModel>().startTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'start_time'.tr(),
+            ),
+            readOnly: true,
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: TextFormField(
+            controller: context.read<CalendarShowViewModel>().endTimeTextController,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'end_time'.tr(),
+            ),
+            readOnly: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: context.read<CalendarShowViewModel>().titleTextController,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: 'title'.tr(),
+      ),
+      maxLength: 30,
+      readOnly: true,
     );
   }
 }

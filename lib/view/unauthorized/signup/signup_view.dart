@@ -90,12 +90,10 @@ class _Photo extends StatelessWidget {
           },
           child: ClipOval(
             child: viewModel.image == null
-                ? Image.asset(Assets.profile,
-                    width: 100, height: 100, fit: BoxFit.cover)
+                ? Image.asset(Assets.profile, width: 100, height: 100, fit: BoxFit.cover)
                 : Hero(
                     tag: 'photo',
-                    child: Image.file(viewModel.image!,
-                        width: 100, height: 100, fit: BoxFit.cover),
+                    child: Image.file(viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
                   ),
           ),
         ),
@@ -112,8 +110,7 @@ class _NameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'name'.tr(),
         controller: viewModel.nameController,
         textInputAction: TextInputAction.next,
@@ -138,8 +135,7 @@ class _SurnameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'surname'.tr(),
         controller: viewModel.surnameController,
         textInputAction: TextInputAction.next,
@@ -162,8 +158,7 @@ class _Birthday extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'birthday'.tr(),
         controller: viewModel.birthdayController,
         textInputAction: TextInputAction.next,
@@ -192,8 +187,7 @@ class _PhoneField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'phone'.tr(),
         controller: viewModel.phoneController,
         textInputAction: TextInputAction.next,
@@ -220,8 +214,7 @@ class _MailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'mail'.tr(),
         controller: viewModel.mailController,
         textInputAction: TextInputAction.next,
@@ -249,8 +242,7 @@ class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'password'.tr(),
         controller: viewModel.passwordController,
         textInputAction: TextInputAction.next,
@@ -278,8 +270,7 @@ class _PasswordRepeatField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, SignUpViewModel viewModel, child) =>
-          BaseTextFormField(
+      builder: (context, SignUpViewModel viewModel, child) => BaseTextFormField(
         hint: 'password_repeat'.tr(),
         textInputAction: TextInputAction.done,
         textInputType: TextInputType.text,

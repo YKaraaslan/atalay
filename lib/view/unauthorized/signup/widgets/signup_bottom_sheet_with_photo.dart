@@ -39,7 +39,9 @@ class SignUpBottomSheet extends StatelessWidget {
               margin: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                 color: Colors.blue[300],
-                borderRadius: const BorderRadius.all(Radius.circular(20),),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
               ),
             ),
           ),

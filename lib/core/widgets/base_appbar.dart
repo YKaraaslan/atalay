@@ -22,7 +22,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: zoomDrawerController == null
-          ? BackButton(color: Theme.of(context).iconTheme.color,)
+          ? BackButton(
+              color: Theme.of(context).iconTheme.color,
+            )
           : IconButton(
               icon: SvgPicture.asset(Assets.menu, color: Theme.of(context).iconTheme.color),
               onPressed: () {
@@ -37,7 +39,10 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               IconButton(
                 onPressed: () => Navigator.pushNamed(context, Routes.notifications),
-                icon: SvgPicture.asset(Assets.notification, color: Theme.of(context).iconTheme.color,),
+                icon: SvgPicture.asset(
+                  Assets.notification,
+                  color: Theme.of(context).iconTheme.color,
+                ),
               )
             ]
           : actions,

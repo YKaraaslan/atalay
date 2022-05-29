@@ -85,9 +85,6 @@ class _ProjectsFinishedViewState extends State<ProjectsFinishedView> {
   }
 }
 
-
-
-
 class _ShimmerEffect extends StatelessWidget {
   const _ShimmerEffect({Key? key}) : super(key: key);
 

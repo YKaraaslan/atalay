@@ -75,156 +75,245 @@ class _BodyState extends State<_Body> {
             key: viewModel.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: viewModel.titleTextController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: 'title'.tr(),
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.descriptionTextController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: 'description'.tr(),
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: viewModel.locationTextController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: 'location'.tr(),
-                  ),
-                  maxLength: 100,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'cannot_be_blank'.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.startTimeTextController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'start_time'.tr(),
-                        ),
-                        readOnly: true,
-                        onTap: () {
-                          viewModel.showTimePicker(context, 'start_time'.tr());
-                        },
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: TextFormField(
-                        controller: viewModel.endTimeTextController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'end_time'.tr(),
-                        ),
-                        readOnly: true,
-                        onTap: () {
-                          viewModel.showTimePicker(context, 'end_time'.tr());
-                        },
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'cannot_be_blank'.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Consumer(
-                  builder: (context, MeetupsCreateViewModel viewModel, child) => SizedBox(
-                    width: double.infinity,
-                    child: InkWell(
-                      onTap: (() {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
-                        ));
-                      }),
-                      child: Card(
-                        child: ListTile(
-                          onTap: () {
-                            viewModel.navigateAndDisplaySelection(context);
-                          },
-                          leading: Image.asset(
-                            Assets.groupsTeam,
-                            height: 30,
-                          ),
-                          title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
-                          trailing: const Icon(Icons.chevron_right),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                    child: Text(
-                      'see_team'.tr(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: Sizes.width_65percent(context),
-                    child: BaseButton(
-                      text: 'create_event'.tr(),
-                      fun: () async {
-                        if (viewModel.formKey.currentState!.validate()) {
-                          viewModel.createMeetup(context);
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
+              children: const [
+                _Title(),
+                SizedBox(height: 20),
+                _Description(),
+                SizedBox(height: 20),
+                _Location(),
+                SizedBox(height: 20),
+                _Time(),
+                SizedBox(height: 10),
+                _Team(),
+                _SeeTeamButton(),
+                SizedBox(height: 10),
+                _CreateEventButton(),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _CreateEventButton extends StatelessWidget {
+  const _CreateEventButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: Sizes.width_65percent(context),
+          child: BaseButton(
+            text: 'create_event'.tr(),
+            fun: () async {
+              if (viewModel.formKey.currentState!.validate()) {
+                viewModel.createMeetup(context);
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SeeTeamButton extends StatelessWidget {
+  const _SeeTeamButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => Align(
+        alignment: Alignment.topRight,
+        child: TextButton(
+          child: Text(
+            'see_team'.tr(),
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _Team extends StatelessWidget {
+  const _Team({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, MeetupsCreateViewModel viewModel, child) => SizedBox(
+        width: double.infinity,
+        child: InkWell(
+          onTap: (() {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
+            ));
+          }),
+          child: Card(
+            child: ListTile(
+              onTap: () {
+                viewModel.navigateAndDisplaySelection(context);
+              },
+              leading: Image.asset(
+                Assets.groupsTeam,
+                height: 30,
+              ),
+              title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+              trailing: const Icon(Icons.chevron_right),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Time extends StatelessWidget {
+  const _Time({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              controller: viewModel.startTimeTextController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: 'start_time'.tr(),
+              ),
+              readOnly: true,
+              onTap: () {
+                viewModel.showTimePicker(context, 'start_time'.tr());
+              },
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'cannot_be_blank'.tr();
+                }
+                return null;
+              },
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: TextFormField(
+              controller: viewModel.endTimeTextController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: 'end_time'.tr(),
+              ),
+              readOnly: true,
+              onTap: () {
+                viewModel.showTimePicker(context, 'end_time'.tr());
+              },
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'cannot_be_blank'.tr();
+                }
+                return null;
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Location extends StatelessWidget {
+  const _Location({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => TextFormField(
+        controller: viewModel.locationTextController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: 'location'.tr(),
+        ),
+        maxLength: 100,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'cannot_be_blank'.tr();
+          }
+          return null;
+        },
+      ),
+    );
+  }
+}
+
+class _Description extends StatelessWidget {
+  const _Description({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => TextFormField(
+        controller: viewModel.descriptionTextController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: 'description'.tr(),
+        ),
+        maxLength: 100,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'cannot_be_blank'.tr();
+          }
+          return null;
+        },
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MeetupsCreateViewModel>(
+      builder: (context, viewModel, child) => TextFormField(
+        controller: viewModel.titleTextController,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: 'title'.tr(),
+        ),
+        maxLength: 100,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'cannot_be_blank'.tr();
+          }
+          return null;
+        },
       ),
     );
   }

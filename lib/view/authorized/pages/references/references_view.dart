@@ -29,12 +29,14 @@ class ReferencesView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: context.read<AuthProvider>().referencesCreate ? FloatingActionButton(
-        child: const Icon(Icons.create),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.referencesCreate);
-        },
-      ) : null,
+      floatingActionButton: context.read<AuthProvider>().referencesCreate
+          ? FloatingActionButton(
+              child: const Icon(Icons.create),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.referencesCreate);
+              },
+            )
+          : null,
     );
   }
 }
@@ -53,85 +55,109 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
-          FutureBuilder<QuerySnapshot>(
-              future: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: '').get(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Visibility(
-                    visible: snapshot.data!.docs.isNotEmpty,
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ReferencesIndependenView(),
-                          ),
-                        );
-                      },
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(Assets.groupsProjects),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      title: const Text(
-                        'Bagimsiz',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                      subtitle: Text('${snapshot.data!.docs.length} Referans bulunmaktadir'),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
-                  );
-                }
-                return Container();
-              }),
-          FirestoreQueryBuilder(
-            query: ServicePath.companiesCollectionReference.orderBy('createdAt', descending: true),
-            builder: (context, snapshot, _) {
-              if (snapshot.hasError) {
-                return Text('error ${snapshot.error}');
-              }
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.docs.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    CompanyModel company = CompanyModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
-                    return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReferencesCompanyShowView(model: company),
-                          ),
-                        );
-                      },
-                      leading: company.imageURL != '' ? CircleAvatar(
-                        backgroundImage: NetworkImage(company.imageURL),
-                      ) : CircleAvatar(
-                        backgroundImage: AssetImage(Assets.groupCreatePhoto),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      title: Text(company.companyName),
-                      subtitle: FutureBuilder<QuerySnapshot>(
-                        future: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: company.id).get(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Text('${snapshot.data!.docs.length} Referans bulunmaktadir');
-                          }
-                          return const Text('Referans bulunmamaktadir');
-                        },
-                      ),
-                      trailing: const Icon(Icons.chevron_right),
-                    );
-                  },
-                );
-              }
-              return Container();
-            },
-          ),
+        children: const [
+          _WithoutCompany(),
+          _WithCompany(),
         ],
       ),
     );
+  }
+}
+
+class _WithCompany extends StatelessWidget {
+  const _WithCompany({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FirestoreQueryBuilder(
+      query: ServicePath.companiesCollectionReference.orderBy('createdAt', descending: true),
+      builder: (context, snapshot, _) {
+        if (snapshot.hasError) {
+          return Text('error ${snapshot.error}');
+        }
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.docs.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              CompanyModel company = CompanyModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+              return ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReferencesCompanyShowView(model: company),
+                    ),
+                  );
+                },
+                leading: company.imageURL != ''
+                    ? CircleAvatar(
+                        backgroundImage: NetworkImage(company.imageURL),
+                      )
+                    : CircleAvatar(
+                        backgroundImage: AssetImage(Assets.groupCreatePhoto),
+                        backgroundColor: Colors.transparent,
+                      ),
+                title: Text(company.companyName),
+                subtitle: FutureBuilder<QuerySnapshot>(
+                  future: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: company.id).get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text('${snapshot.data!.docs.length} Referans bulunmaktadir');
+                    }
+                    return const Text('Referans bulunmamaktadir');
+                  },
+                ),
+                trailing: const Icon(Icons.chevron_right),
+              );
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+}
+
+class _WithoutCompany extends StatelessWidget {
+  const _WithoutCompany({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<QuerySnapshot>(
+        future: ServicePath.referencesCollectionReference.where('companyID', isEqualTo: '').get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Visibility(
+              visible: snapshot.data!.docs.isNotEmpty,
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReferencesIndependenView(),
+                    ),
+                  );
+                },
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(Assets.groupsProjects),
+                  backgroundColor: Colors.transparent,
+                ),
+                title: const Text(
+                  'Bagimsiz',
+                  style: TextStyle(color: Colors.blue),
+                ),
+                subtitle: Text('${snapshot.data!.docs.length} Referans bulunmaktadir'),
+                trailing: const Icon(Icons.chevron_right),
+              ),
+            );
+          }
+          return Container();
+        });
   }
 }

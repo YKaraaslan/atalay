@@ -53,75 +53,108 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Row(
-            children: [
-              const BackButton(),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    showBarModalBottomSheet(
-                      context: context,
-                      builder: (context) => PostLikesView(model: widget.model),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FutureBuilder(
-                        future: _viewModel.getLikes(widget.model.postID),
-                        builder: (context, snapshot) {
-                          int counter = 0;
-                          if (snapshot.hasData) {
-                            counter = snapshot.data as int;
-                          }
-                          return Text("${counter.toString()} ${'likes_received'.tr()}");
-                        },
-                      ),
-                      const SizedBox(width: 25),
-                      const Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+        _Likes(widget: widget, viewModel: _viewModel),
         const SizedBox(height: 5),
-        Expanded(
-          child: FirestoreQueryBuilder(
-            query: ServicePath.postsCommentsCollectionReference(widget.model.postID).orderBy('commentedAt'),
-            builder: (context, snapshot, _) {
-              if (snapshot.hasError) {
-                return Text('error ${snapshot.error}');
-              }
-
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.docs.length,
-                    itemBuilder: (context, index) {
-                      PostCommentModel model = PostCommentModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
-
-                      return FutureBuilder(
-                        future: _viewModel.getUserInfos(model),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return PostCommentItem(model: snapshot.data as PostCommentUiModel);
-                          }
-
-                          return Container();
-                        },
-                      );
-                    });
-              }
-
-              return Container();
-            },
-          ),
-        ),
+        _Comments(widget: widget, viewModel: _viewModel),
         _BottomPart(postID: widget.model.postID),
       ],
+    );
+  }
+}
+
+class _Comments extends StatelessWidget {
+  const _Comments({
+    Key? key,
+    required this.widget,
+    required PostCommentsViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final _Body widget;
+  final PostCommentsViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: FirestoreQueryBuilder(
+        query: ServicePath.postsCommentsCollectionReference(widget.model.postID).orderBy('commentedAt'),
+        builder: (context, snapshot, _) {
+          if (snapshot.hasError) {
+            return Text('error ${snapshot.error}');
+          }
+
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.docs.length,
+                itemBuilder: (context, index) {
+                  PostCommentModel model = PostCommentModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+
+                  return FutureBuilder(
+                    future: _viewModel.getUserInfos(model),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return PostCommentItem(model: snapshot.data as PostCommentUiModel);
+                      }
+
+                      return Container();
+                    },
+                  );
+                });
+          }
+          return Container();
+        },
+      ),
+    );
+  }
+}
+
+class _Likes extends StatelessWidget {
+  const _Likes({
+    Key? key,
+    required this.widget,
+    required PostCommentsViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final _Body widget;
+  final PostCommentsViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Row(
+        children: [
+          const BackButton(),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                showBarModalBottomSheet(
+                  context: context,
+                  builder: (context) => PostLikesView(model: widget.model),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FutureBuilder(
+                    future: _viewModel.getLikes(widget.model.postID),
+                    builder: (context, snapshot) {
+                      int counter = 0;
+                      if (snapshot.hasData) {
+                        counter = snapshot.data as int;
+                      }
+                      return Text("${counter.toString()} ${'likes_received'.tr()}");
+                    },
+                  ),
+                  const SizedBox(width: 25),
+                  const Icon(Icons.chevron_right),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

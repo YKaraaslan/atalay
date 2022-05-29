@@ -62,9 +62,7 @@ class _UsersOnHoldViewState extends State<UsersOnHoldView> {
                     backgroundImage: NetworkImage(usersOnHold.imageURL),
                   ),
                   title: Text(usersOnHold.fullName),
-                  subtitle: Text(DateFormat('dd MMMM yyyy hh:mm a')
-                      .format(DateTime.fromMillisecondsSinceEpoch(usersOnHold.signUpTime.millisecondsSinceEpoch))
-                      .toString()),
+                  subtitle: Text(DateFormat('dd MMMM yyyy hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(usersOnHold.signUpTime.millisecondsSinceEpoch)).toString()),
                   trailing: const Icon(
                     Icons.chevron_right,
                     size: 20,

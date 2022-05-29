@@ -21,46 +21,95 @@ class BaseBottomSheet extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Column(
-        children: [
-          Center(
-            child: Icon(
-              Icons.minimize,
-              color: Colors.blue[200],
-              size: 25,
-            ),
-          ),
-          ListTile(
-            leading: Image.asset(
-              Assets.edit,
-              width: 25,
-            ),
-            title: Text('edit'.tr()),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PostUpdateView(model: model),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Image.asset(
-              Assets.delete,
-              width: 25,
-            ),
-            title: Text('delete'.tr()),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.pop(context);
-              onDelete();
-            },
-          ),
-        ],
+      child: _Column(model: model, onDelete: onDelete),
+    );
+  }
+}
+
+class _Column extends StatelessWidget {
+  const _Column({
+    Key? key,
+    required this.model,
+    required this.onDelete,
+  }) : super(key: key);
+
+  final PostUiModel model;
+  final void Function() onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const _DragArea(),
+        _Item(
+          model: model,
+          leading: Assets.edit,
+          title: 'edit'.tr(),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostUpdateView(model: model),
+              ),
+            );
+          },
+        ),
+        _Item(
+          model: model,
+          leading: Assets.delete,
+          title: 'delete'.tr(),
+          onTap: () {
+            Navigator.pop(context);
+            onDelete();
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _DragArea extends StatelessWidget {
+  const _DragArea({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Icon(
+        Icons.minimize,
+        color: Colors.blue[200],
+        size: 25,
       ),
+    );
+  }
+}
+
+class _Item extends StatelessWidget {
+  const _Item({
+    Key? key,
+    required this.model,
+    required this.leading,
+    required this.title,
+    required this.onTap,
+  }) : super(key: key);
+
+  final PostUiModel model;
+  final String leading;
+  final String title;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Image.asset(
+        leading,
+        width: 25,
+      ),
+      title: Text(title),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: onTap,
     );
   }
 }

@@ -1,4 +1,10 @@
 class Assets {
+  Assets._privateConstructor();
+  static final Assets _instance = Assets._privateConstructor();
+  factory Assets() {
+    return _instance;
+  }
+  
   static final String logo = _path('logo', 'png');
   static final String loginBackground = _path('login_background', 'jpg');
   static final String facebook = _path('facebook', 'png');
@@ -10,7 +16,7 @@ class Assets {
   static final String notification = _path('ic_notification', 'svg');
   static final String megaphone = _path('ic_megaphone', 'png');
   static final String notificationBell = _path('ic_notification_bell', 'png');
-  
+
   static final String posts = _path('ic_posts', 'png');
   static final String dashboard = _path('ic_dashboard', 'png');
   static final String projects = _path('ic_projects', 'png');

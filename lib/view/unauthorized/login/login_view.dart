@@ -80,8 +80,7 @@ class _FormField extends StatelessWidget {
                 if (value == null || value.trim().isEmpty) {
                   return 'mail_validator'.tr();
                 }
-                if (!EmailValidator.validate(value.trim()) ||
-                    !value.toString().trim().endsWith('.com')) {
+                if (!EmailValidator.validate(value.trim()) || !value.toString().trim().endsWith('.com')) {
                   return 'mail_invalid_validator'.tr();
                 }
                 return null;
@@ -121,9 +120,7 @@ class _FormField extends StatelessWidget {
                                   viewModel.checkClicked(value);
                                 }
                               }),
-                          GestureDetector(
-                              onTap: () => viewModel.checkClickedReverse(),
-                              child: const Text('remember_me').tr())
+                          GestureDetector(onTap: () => viewModel.checkClickedReverse(), child: const Text('remember_me').tr())
                         ],
                       ),
                     ),

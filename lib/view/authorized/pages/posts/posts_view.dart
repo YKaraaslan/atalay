@@ -30,12 +30,17 @@ class PostsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton:  context.read<AuthProvider>().postsCreate ?  FloatingActionButton(
-        child: Icon(Icons.create, color: Theme.of(context).iconTheme.color,),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.postCreate);
-        },
-      ) : null,
+      floatingActionButton: context.read<AuthProvider>().postsCreate
+          ? FloatingActionButton(
+              child: Icon(
+                Icons.create,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.postCreate);
+              },
+            )
+          : null,
     );
   }
 }
@@ -87,7 +92,7 @@ class _BodyState extends State<_Body> {
                         onSavePressed: () {
                           _viewModel.save(snapshot.data);
                         },
-                        onDelete: (){
+                        onDelete: () {
                           _viewModel.delete(context, snapshot.data);
                         },
                       );

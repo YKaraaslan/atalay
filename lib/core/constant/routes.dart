@@ -17,6 +17,12 @@ import '../../view/unauthorized/signup/widgets/show_photo.dart';
 import '../widgets/base_photo_viewer.dart';
 
 class Routes {
+  Routes._privateConstructor();
+  static final Routes _instance = Routes._privateConstructor();
+  factory Routes() {
+    return _instance;
+  }
+
   static const String login = '/login';
   static const String signup = '/signup';
   static const String signupShowPhoto = '/signup_show_photo';

@@ -43,8 +43,7 @@ class UnauthorizedBaseView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child:
-                          Text('login_title', style: titleStyle(context)).tr(),
+                      child: Text('login_title', style: Styles.titleStyle(context)).tr(),
                     ),
                     const SizedBox(
                       height: 25,

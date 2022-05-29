@@ -31,10 +31,7 @@ class NoConnectionView extends StatelessWidget {
               const SizedBox(height: 15),
               Text(
                 'no_connection_found'.tr(),
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 50),

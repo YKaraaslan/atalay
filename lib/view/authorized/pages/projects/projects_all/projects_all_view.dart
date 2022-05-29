@@ -85,8 +85,6 @@ class _ProjectsAllViewState extends State<ProjectsAllView> {
   }
 }
 
-
-
 class _ShimmerEffect extends StatelessWidget {
   const _ShimmerEffect({Key? key}) : super(key: key);
 

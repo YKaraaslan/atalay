@@ -61,184 +61,251 @@ class _BodyState extends State<_Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: TextFormField(
-              controller: _viewModel.postController,
-              decoration: InputDecoration(border: InputBorder.none, hintText: 'post_create_hint_text'.tr()),
-              maxLines: 15,
-              maxLength: 500,
-            ),
-          ),
+          _TextField(viewModel: _viewModel),
           const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: () => _viewModel.addLabel(context),
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(5, 5, 15, 5),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      border: Border.all(color: Colors.grey.shade200)),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Icon(Icons.new_label_outlined, color: Colors.grey.shade500),
-                      const SizedBox(width: 5),
-                      Text('add_label'.tr()),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  _viewModel.getSelection(context);
-                },
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(5, 5, 15, 5),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      border: Border.all(color: Colors.grey.shade200)),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Icon(Icons.photo_library_outlined, color: Colors.grey.shade500),
-                      const SizedBox(width: 5),
-                      Text('add_image'.tr()),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          _LabelOrImageField(viewModel: _viewModel),
           const SizedBox(height: 10),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 5,
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Consumer(
-                  builder: (context, PostCreateViewModel viewModel, child) => Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: List.generate(
-                      viewModel.labels.length,
-                      (index) => Chip(
-                        label: Text(viewModel.labels[index]),
-                        backgroundColor: Colors.blue.shade100,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        deleteIcon: const CircleAvatar(
-                          radius: 10,
-                          backgroundColor: Colors.black54,
-                          child: Icon(
-                            Icons.close_rounded,
-                            size: 13,
-                          ),
-                        ),
-                        onDeleted: () {
-                          viewModel.onDeletedMethod(index);
-                        },
-                        elevation: 2,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Consumer(
-            builder: (context, PostCreateViewModel viewModel, child) => Padding(
-              padding: AppPaddings.appPadding,
-              child: Visibility(
-                visible: viewModel.images.isNotEmpty,
-                child: GridView.extent(
-                  maxCrossAxisExtent: 150,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: List.generate(viewModel.images.length, (index) {
-                    if (viewModel.images.isEmpty || index == viewModel.maxAllowedImage) {
-                      return Container();
-                    }
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FileGalleryViewer(
-                              imageList: viewModel.images,
-                              index: index,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Hero(
-                              tag: index.toString(),
-                              child: Image.file(
-                                viewModel.images[index],
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 5,
-                            top: 5,
-                            child: InkWell(
-                              onTap: () {
-                                viewModel.deleteImage(index);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  color: Colors.black54.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(Icons.close, size: 13, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-              ),
-            ),
-          ),
+          const _ChipsField(),
+          const _PhotoField(),
           const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: Sizes.width_65percent(context),
-              child: BaseButton(
-                text: 'post_create'.tr(),
-                fun: () {
-                  _viewModel.createPost(context);
-                },
-              ),
-            ),
-          ),
+          _Button(viewModel: _viewModel),
           const SizedBox(height: 10),
         ],
+      ),
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    Key? key,
+    required PostCreateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final PostCreateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: Sizes.width_65percent(context),
+        child: BaseButton(
+          text: 'post_create'.tr(),
+          fun: () {
+            _viewModel.createPost(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _PhotoField extends StatelessWidget {
+  const _PhotoField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, PostCreateViewModel viewModel, child) => Padding(
+        padding: AppPaddings.appPadding,
+        child: Visibility(
+          visible: viewModel.images.isNotEmpty,
+          child: GridView.extent(
+            maxCrossAxisExtent: 150,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: List.generate(viewModel.images.length, (index) {
+              if (viewModel.images.isEmpty || index == viewModel.maxAllowedImage) {
+                return Container();
+              }
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FileGalleryViewer(
+                        imageList: viewModel.images,
+                        index: index,
+                      ),
+                    ),
+                  );
+                },
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Hero(
+                        tag: index.toString(),
+                        child: Image.file(
+                          viewModel.images[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 5,
+                      top: 5,
+                      child: InkWell(
+                        onTap: () {
+                          viewModel.deleteImage(index);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.black54.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(Icons.close, size: 13, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChipsField extends StatelessWidget {
+  const _ChipsField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 5,
+        ),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Consumer(
+            builder: (context, PostCreateViewModel viewModel, child) => Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: List.generate(
+                viewModel.labels.length,
+                (index) => Chip(
+                  label: Text(viewModel.labels[index]),
+                  backgroundColor: Colors.blue.shade100,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  deleteIcon: const CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Colors.black54,
+                    child: Icon(
+                      Icons.close_rounded,
+                      size: 13,
+                    ),
+                  ),
+                  onDeleted: () {
+                    viewModel.onDeletedMethod(index);
+                  },
+                  elevation: 2,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LabelOrImageField extends StatelessWidget {
+  const _LabelOrImageField({
+    Key? key,
+    required PostCreateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final PostCreateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+          onTap: () => _viewModel.addLabel(context),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(5, 5, 15, 5),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                border: Border.all(color: Colors.grey.shade200)),
+            child: Row(
+              children: [
+                const SizedBox(width: 10),
+                Icon(Icons.new_label_outlined, color: Colors.grey.shade500),
+                const SizedBox(width: 5),
+                Text('add_label'.tr()),
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            _viewModel.getSelection(context);
+          },
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(5, 5, 15, 5),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                border: Border.all(color: Colors.grey.shade200)),
+            child: Row(
+              children: [
+                const SizedBox(width: 10),
+                Icon(Icons.photo_library_outlined, color: Colors.grey.shade500),
+                const SizedBox(width: 5),
+                Text('add_image'.tr()),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _TextField extends StatelessWidget {
+  const _TextField({
+    Key? key,
+    required PostCreateViewModel viewModel,
+  })  : _viewModel = viewModel,
+        super(key: key);
+
+  final PostCreateViewModel _viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: TextFormField(
+        controller: _viewModel.postController,
+        decoration: InputDecoration(border: InputBorder.none, hintText: 'post_create_hint_text'.tr()),
+        maxLines: 15,
+        maxLength: 500,
       ),
     );
   }

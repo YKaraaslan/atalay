@@ -49,11 +49,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _viewModel.controller = TabController(length: context.read<GroupDetailsViewModel>().tabs.length, vsync: this);
-    _viewModel.pages = [
-      Container(),
-      Container(),
-      Container(),
-    ];
+    _viewModel.pages = List.filled(2, Container());
     Future.delayed(const Duration(microseconds: 0), (() {
       _viewModel.setTabs(widget.model);
     }));
@@ -73,8 +69,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
           SliverAppBar(
             pinned: true,
             floating: false,
-            leading: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.2), child: BackButton(color: Colors.black, onPressed: () => Navigator.pop(context))),
+            leading: CircleAvatar(backgroundColor: Colors.white.withOpacity(0.2), child: BackButton(color: Colors.black, onPressed: () => Navigator.pop(context))),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
@@ -122,7 +117,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                                   children: [
                                     Text(
                                       'Sorumlu personel',
-                                      style: cardTitleStyle(),
+                                      style: Styles.cardTitleStyle(),
                                     ),
                                     ListTile(
                                       onTap: () {
@@ -151,7 +146,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                         const SizedBox(height: 10),
                         Text(
                           'Aciklama',
-                          style: cardTitleStyle(),
+                          style: Styles.cardTitleStyle(),
                         ),
                         const SizedBox(height: 10),
                         Text(widget.model.explanation),

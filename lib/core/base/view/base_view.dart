@@ -6,16 +6,7 @@ import 'connection/no_connection.dart';
 
 class BaseView<T> extends StatefulWidget {
   const BaseView(
-      {Key? key,
-      required this.onPageBuilder,
-      this.viewModel,
-      this.onModelReady,
-      this.onDispose,
-      this.backgroundColor,
-      this.appBar,
-      this.bottomNavigationBar,
-      this.drawer,
-      this.floatingActionButton})
+      {Key? key, required this.onPageBuilder, this.viewModel, this.onModelReady, this.onDispose, this.backgroundColor, this.appBar, this.bottomNavigationBar, this.drawer, this.floatingActionButton})
       : super(key: key);
 
   final Widget Function(BuildContext context, T value) onPageBuilder;
@@ -57,11 +48,8 @@ class _BaseViewState extends State<BaseView> {
         bottomNavigationBar: widget.bottomNavigationBar,
         drawer: widget.drawer,
         floatingActionButton: widget.floatingActionButton,
-        backgroundColor:
-            widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-        body: viewModel.connected == true
-            ? widget.onPageBuilder(context, widget.viewModel)
-            : const NoConnectionView(),
+        backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        body: viewModel.connected == true ? widget.onPageBuilder(context, widget.viewModel) : const NoConnectionView(),
       ),
     );
   }

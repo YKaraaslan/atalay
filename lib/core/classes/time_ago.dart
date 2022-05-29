@@ -2,6 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class TimeAgo {
+  TimeAgo._privateConstructor();
+  static final TimeAgo _instance = TimeAgo._privateConstructor();
+  factory TimeAgo() {
+    return _instance;
+  }
+
   static String timeAgoSinceDate(Timestamp timestamp) {
     Duration diff = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
     if (diff.inDays > 365) {

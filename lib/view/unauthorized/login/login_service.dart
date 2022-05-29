@@ -7,8 +7,7 @@ import 'login_model.dart';
 
 Future<dynamic> loginService(LoginModel model) async {
   try {
-    await ServicePath.auth.signInWithEmailAndPassword(
-        email: model.mail, password: model.password);
+    await ServicePath.auth.signInWithEmailAndPassword(email: model.mail, password: model.password);
     return 'true';
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -23,13 +22,10 @@ Future<dynamic> loginService(LoginModel model) async {
 
 Future<bool> updatePasswordandToken(LoginModel model) async {
   try {
-    await ServicePath.usersCollectionReference
-        .where('mail', isEqualTo: model.mail)
-        .get()
-        .then((value) {
+    await ServicePath.usersCollectionReference.where('mail', isEqualTo: model.mail).get().then((value) {
       DocumentReference<Object?> docRef = ServicePath.usersCollectionReference.doc(value.docs.first.id);
-          docRef.update({'password': model.password});
-          docRef.update({'token': getToken()});
+      docRef.update({'password': model.password});
+      docRef.update({'token': getToken()});
     });
     return true;
   } catch (e) {
@@ -40,10 +36,7 @@ Future<bool> updatePasswordandToken(LoginModel model) async {
 Future<String> checkIfUser(LoginModel model) async {
   String result = 'not_found';
   try {
-    await ServicePath.usersOnHoldCollectionReference
-        .where('mail', isEqualTo: model.mail)
-        .get()
-        .then((value) {
+    await ServicePath.usersOnHoldCollectionReference.where('mail', isEqualTo: model.mail).get().then((value) {
       if (value.docs.first.exists) {
         result = 'exists';
       }
@@ -61,6 +54,6 @@ Future getToken() async {
     token = value ?? '';
     return token;
   });
-  
+
   return token;
 }

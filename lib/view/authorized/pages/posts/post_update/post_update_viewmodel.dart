@@ -32,7 +32,7 @@ class PostUpdateViewModel extends ChangeNotifier {
       'text': postController.text.trim(),
       'updatedAt': Timestamp.now(),
       'isUpdated': true,
-      };
+    };
 
     if (await updatePostService(map, images, imagesLink, model.postID)) {
       baseDialog.dismissDialog();
