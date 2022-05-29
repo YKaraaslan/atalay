@@ -1,6 +1,5 @@
-import '../../../../../core/models/reference_model.dart';
-
 import '../../../../../../core/service/service_path.dart';
+import '../../../../../core/models/reference_model.dart';
 
 Future<bool> deleteReferencePersonService(ReferenceModel model) async {
   try {

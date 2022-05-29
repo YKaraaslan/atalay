@@ -5,6 +5,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutterfire_ui/firestore.dart';
 
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/classes/time_ago.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/service/service_path.dart';
 import '../../../../core/widgets/base_appbar.dart';
@@ -65,7 +66,7 @@ class _UsersViewState extends State<UsersView> {
                   subtitle: users.online
                       ? Text('online'.tr(), style: const TextStyle(color: Colors.green))
                       : Text(
-                          DateFormat('dd MMMM yyyy hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(users.signUpTime.millisecondsSinceEpoch)).toString(),
+                          TimeAgo.timeAgoSinceDate(users.onlineTime),
                         ),
                   trailing: users.online
                       ? const CircleAvatar(

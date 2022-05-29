@@ -150,7 +150,13 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     appCheck.onTokenChange.listen((event) {});
     appCheck.setTokenAutoRefreshEnabled(true);
-    ServicePath.auth.currentUser == null ? child = const LoginView() : child = const HomeView();
+
+    if (ServicePath.auth.currentUser == null) {
+      child = const LoginView();
+    } else {
+      child = const HomeView();
+      Future.sync(() => getAuth());
+    }
 
     getCurrentAppTheme();
 
@@ -164,7 +170,7 @@ class _MyAppState extends State<MyApp> {
         } else {
           setState(() {
             child = const HomeView();
-            getAuth();
+            Future.sync(() => getAuth());
             FlutterNativeSplash.remove();
           });
         }

@@ -30,7 +30,7 @@ class PostsView extends StatelessWidget {
         actions: const [],
       ),
       onPageBuilder: (context, value) => const _Body(),
-      floatingActionButton: context.read<AuthProvider>().postsCreate
+      floatingActionButton: context.watch<AuthProvider>().postsCreate
           ? FloatingActionButton(
               child: Icon(
                 Icons.create,
