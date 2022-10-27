@@ -44,7 +44,7 @@ class ReferencesCompanyShowViewModel extends ChangeNotifier {
     );
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

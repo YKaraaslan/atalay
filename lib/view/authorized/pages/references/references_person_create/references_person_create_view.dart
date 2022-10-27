@@ -127,7 +127,7 @@ class _Button extends StatelessWidget {
           text: 'create_event'.tr(),
           fun: () async {
             if (context.read<ReferencesPersonCreateViewModel>().formKey.currentState!.validate()) {
-              context.read<ReferencesPersonCreateViewModel>().createReference(context);
+              await context.read<ReferencesPersonCreateViewModel>().createReference(context);
             }
           },
         ),

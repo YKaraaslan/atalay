@@ -9,7 +9,7 @@ Future<bool> saveGroupsToDatabase(GroupsModel model, File image) async {
     await ServicePath.groupsCollectionReference.add(model.toMap()).then((value) async {
       await ServicePath.groupsPhotoReference.child(value.id).child(image.path.split('/').last).putFile(image);
       imageURL = await ServicePath.groupsPhotoReference.child(value.id).child(image.path.split('/').last).getDownloadURL();
-      ServicePath.groupsCollectionReference.doc(value.id).update({'imageURL': imageURL, 'groupID': value.id});
+      await ServicePath.groupsCollectionReference.doc(value.id).update({'imageURL': imageURL, 'groupID': value.id});
     });
     return true;
   } on Exception {

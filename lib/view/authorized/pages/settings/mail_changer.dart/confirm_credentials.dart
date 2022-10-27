@@ -129,7 +129,7 @@ class _FormField extends StatelessWidget {
                   return;
                 }
                 if (ServicePath.auth.currentUser!.email != mailController.text.trim()) {
-                  showDialog(
+                  await showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
@@ -148,8 +148,8 @@ class _FormField extends StatelessWidget {
                 }
                 String signInResult = await loginService(LoginModel(mail: mailController.text.trim(), password: passwordController.text.trim()));
                 if (signInResult == 'true') {
-                  ServicePath.auth.signInWithEmailAndPassword(email: mailController.text.trim(), password: passwordController.text.trim());
-                  Navigator.pushReplacement(
+                  await ServicePath.auth.signInWithEmailAndPassword(email: mailController.text.trim(), password: passwordController.text.trim());
+                  await Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const MailChanger(),

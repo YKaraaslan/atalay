@@ -15,7 +15,7 @@ class LoginViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
 
   Future setFieldsforInit() async {
-    final prefs = await SharedPreferences.getInstance();
+    var prefs = await SharedPreferences.getInstance();
     mailController.text = prefs.getString('loginMail') ?? '';
     passwordController.text = prefs.getString('loginPassword') ?? '';
   }
@@ -24,17 +24,19 @@ class LoginViewModel extends ChangeNotifier {
     baseDialog.text = 'logging_in'.tr();
     baseDialog.showLoadingDialog(context);
 
-    LoginModel model = LoginModel(mail: mailController.text.trim(), password: passwordController.text);
+    LoginModel model = LoginModel(
+        mail: mailController.text.trim(), password: passwordController.text);
 
     if (await checkIfUser(model) == 'exists') {
-      setFieldsForLogin();
+      await setFieldsForLogin();
       return dismissDialog(context, 'login_user_not_accepted_yet'.tr());
     }
 
     String signInResult = await loginService(model);
     if (signInResult == 'true') {
       baseDialog.dismissDialog();
-      updatePasswordandToken(LoginModel(mail: mailController.text.trim(), password: passwordController.text));
+      await updatePasswordandToken(LoginModel(
+          mail: mailController.text.trim(), password: passwordController.text));
       return setFieldsForLogin();
     } else if (signInResult == 'user-not-found') {
       return dismissDialog(context, 'login_user_not_found'.tr());
@@ -89,13 +91,13 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }
 
   Future setFieldsForLogin() async {
-    final prefs = await SharedPreferences.getInstance();
+    var prefs = await SharedPreferences.getInstance();
     await prefs.setString('loginMail', mailController.text.trim());
     await prefs.setString('loginPassword', passwordController.text);
   }

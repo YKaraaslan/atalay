@@ -23,7 +23,7 @@ class BaseButton extends StatelessWidget {
         ),
         onPressed: fun,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12),
           child: Text(
             text,
             style: Styles.buttonTextStyle(),

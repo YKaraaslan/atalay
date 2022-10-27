@@ -65,6 +65,6 @@ Future deleteFromDatabase(String postID) async {
 
   ListResult result = await ServicePath.postsPhotoReference.child(postID).list();
   for (var item in result.items) {
-    item.delete();
+    await item.delete();
   }
 }

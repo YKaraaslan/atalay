@@ -27,8 +27,8 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future getFromCamera() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     showSheetToAccept();
@@ -36,8 +36,8 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future getFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     showSheetToAccept();
@@ -95,7 +95,7 @@ class ProfileViewModel extends ChangeNotifier {
     );
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

@@ -10,7 +10,7 @@ Future<bool> updatePostService(Map<String, dynamic> model, List<File> images, Li
     for (var item in results.items) {
       String downloadURL = await item.getDownloadURL();
       if (!imageLinks.any((element) => element == downloadURL)) {
-        item.delete();
+        await item.delete();
       }
     }
 

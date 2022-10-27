@@ -59,19 +59,19 @@ class Styles {
     fontWeight: FontWeight.bold,
   );
 
-  static TextStyle defaultMonthTextStyle(context) => TextStyle(
+  static TextStyle defaultMonthTextStyle(BuildContext context) => TextStyle(
         color: Theme.of(context).textTheme.bodyLarge!.color,
         fontSize: Dimen.monthTextSize,
         fontWeight: FontWeight.w500,
       );
 
-  static TextStyle defaultDateTextStyle(context) => TextStyle(
+  static TextStyle defaultDateTextStyle(BuildContext context) => TextStyle(
         color: Theme.of(context).textTheme.bodyLarge!.color,
         fontSize: Dimen.dateTextSize,
         fontWeight: FontWeight.w500,
       );
 
-  static TextStyle defaultDayTextStyle(context) => TextStyle(
+  static TextStyle defaultDayTextStyle(BuildContext context) => TextStyle(
         color: Theme.of(context).textTheme.bodyLarge!.color,
         fontSize: Dimen.dayTextSize,
         fontWeight: FontWeight.w500,

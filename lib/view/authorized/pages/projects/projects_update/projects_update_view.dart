@@ -38,7 +38,8 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  late final ProjectsUpdateViewModel _viewModel = context.read<ProjectsUpdateViewModel>();
+  late final ProjectsUpdateViewModel _viewModel =
+      context.read<ProjectsUpdateViewModel>();
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _BodyState extends State<_Body> {
     _viewModel.toDo = [];
     _viewModel.toDoId = [];
 
-    Future.delayed(const Duration(microseconds: 0), () => _viewModel.setPage(widget.model));
+    Future.delayed(Duration.zero, () => _viewModel.setPage(widget.model));
   }
 
   @override
@@ -204,7 +205,8 @@ class _Group extends StatelessWidget {
               Assets.groupsTeam,
               height: 30,
             ),
-            title: Text("${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
+            title: Text(
+                "${viewModel.groupsSelectedForTeam.length.toString()} ${'group'.tr()}"),
             trailing: const Icon(Icons.chevron_right),
           ),
         ),
@@ -233,7 +235,8 @@ class _SeeTeam extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => GroupsSelectedView(usersSelectedForTeam: _viewModel.usersSelectedForTeam),
+              builder: (context) => GroupsSelectedView(
+                  usersSelectedForTeam: _viewModel.usersSelectedForTeam),
             ),
           );
         },
@@ -261,7 +264,8 @@ class _Team extends StatelessWidget {
               Assets.groupsTeam,
               height: 30,
             ),
-            title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+            title: Text(
+                "${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
             trailing: const Icon(Icons.chevron_right),
           ),
         ),
@@ -314,7 +318,9 @@ class _Description extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _viewModel.explanationController,
-      decoration: InputDecoration(labelText: 'project_explanation'.tr(), icon: const Icon(Icons.text_fields)),
+      decoration: InputDecoration(
+          labelText: 'project_explanation'.tr(),
+          icon: const Icon(Icons.text_fields)),
       maxLength: 200,
       maxLines: 3,
       validator: (value) {

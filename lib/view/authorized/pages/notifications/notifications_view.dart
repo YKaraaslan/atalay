@@ -115,7 +115,7 @@ class _NewNotificationNotifier extends StatelessWidget {
                 color: Colors.blue.shade200.withOpacity(0.5),
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Text(
                       '2 yeni bildiriminiz mevcut',
                       style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),

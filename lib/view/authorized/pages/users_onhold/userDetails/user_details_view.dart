@@ -265,7 +265,7 @@ class _AcceptButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4),
           child: Text('confirm_user'.tr(), style: const TextStyle(fontSize: 13, color: Colors.green)),
         ),
       ),
@@ -293,7 +293,7 @@ class _DeclineButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4),
           child: Text('decline_user'.tr(), style: const TextStyle(fontSize: 13, color: Colors.orange)),
         ),
       ),

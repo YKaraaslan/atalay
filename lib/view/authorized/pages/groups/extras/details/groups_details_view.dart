@@ -43,16 +43,18 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
-  late final GroupDetailsViewModel _viewModel = context.read<GroupDetailsViewModel>();
+  late final GroupDetailsViewModel _viewModel =
+      context.read<GroupDetailsViewModel>();
 
   @override
   void initState() {
     super.initState();
-    _viewModel.controller = TabController(length: context.read<GroupDetailsViewModel>().tabs.length, vsync: this);
+    _viewModel.controller = TabController(
+        length: context.read<GroupDetailsViewModel>().tabs.length, vsync: this);
     _viewModel.pages = List.filled(2, Container());
-    Future.delayed(const Duration(microseconds: 0), (() {
+    Future.delayed(Duration.zero, () {
       _viewModel.setTabs(widget.model);
-    }));
+    });
   }
 
   @override
@@ -64,12 +66,17 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, GroupDetailsViewModel viewModel, child) => NestedScrollView(
+      builder: (context, GroupDetailsViewModel viewModel, child) =>
+          NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             pinned: true,
             floating: false,
-            leading: CircleAvatar(backgroundColor: Colors.white.withOpacity(0.2), child: BackButton(color: Colors.black, onPressed: () => Navigator.pop(context))),
+            leading: CircleAvatar(
+                backgroundColor: Colors.white.withOpacity(0.2),
+                child: BackButton(
+                    color: Colors.black,
+                    onPressed: () => Navigator.pop(context))),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
@@ -79,7 +86,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                   Stack(
                     children: [
                       Container(
-                        height: 200.0,
+                        height: 200,
                         width: double.infinity,
                         color: Colors.grey,
                         child: Image.network(
@@ -96,20 +103,25 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                             padding: AppPaddings.appPadding,
                             child: Text(
                               widget.model.title,
-                              style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
                             )),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         InkWell(
                           onTap: () => true,
                           child: FutureBuilder<DocumentSnapshot>(
-                            future: ServicePath.usersCollectionReference.doc(widget.model.userInCharge).get(),
+                            future: ServicePath.usersCollectionReference
+                                .doc(widget.model.userInCharge)
+                                .get(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Column(
@@ -123,16 +135,21 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                                       onTap: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
-                                            builder: (context) => ProfileView(userID: snapshot.data!.get('id')),
+                                            builder: (context) => ProfileView(
+                                                userID:
+                                                    snapshot.data!.get('id')),
                                           ),
                                         );
                                       },
                                       contentPadding: EdgeInsets.zero,
                                       leading: CircleAvatar(
-                                        backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                        backgroundImage: NetworkImage(
+                                            snapshot.data!.get('imageURL')),
                                       ),
-                                      title: Text(snapshot.data!.get('fullName')),
-                                      subtitle: Text(snapshot.data!.get('position')),
+                                      title:
+                                          Text(snapshot.data!.get('fullName')),
+                                      subtitle:
+                                          Text(snapshot.data!.get('position')),
                                       trailing: const Icon(Icons.chevron_right),
                                     ),
                                   ],
@@ -156,7 +173,7 @@ class _BodyState extends State<_Body> with SingleTickerProviderStateMixin {
                 ],
               ),
             ),
-            expandedHeight: 470.0,
+            expandedHeight: 470,
             bottom: TabBar(
               tabs: viewModel.tabs,
               controller: viewModel.controller,

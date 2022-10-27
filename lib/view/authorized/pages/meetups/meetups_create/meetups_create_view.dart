@@ -114,7 +114,7 @@ class _CreateEventButton extends StatelessWidget {
             text: 'create_event'.tr(),
             fun: () async {
               if (viewModel.formKey.currentState!.validate()) {
-                viewModel.createMeetup(context);
+                await viewModel.createMeetup(context);
               }
             },
           ),
@@ -162,11 +162,11 @@ class _Team extends StatelessWidget {
       builder: (context, MeetupsCreateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: Card(
             child: ListTile(
               onTap: () {

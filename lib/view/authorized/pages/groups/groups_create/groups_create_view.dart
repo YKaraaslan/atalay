@@ -168,11 +168,11 @@ class _Team extends StatelessWidget {
       builder: (context, GroupsCreateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: Card(
             child: ListTile(
               onTap: () {
@@ -234,11 +234,11 @@ class _PersonInCharge extends StatelessWidget {
       builder: (context, GroupsCreateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: LayoutBuilder(
             builder: (context, constraints) {
               if (viewModel.personInCharge != null) {

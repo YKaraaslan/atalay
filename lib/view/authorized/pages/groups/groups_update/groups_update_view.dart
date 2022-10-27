@@ -37,7 +37,8 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  late final GroupsUpdateViewModel _viewModel = context.read<GroupsUpdateViewModel>();
+  late final GroupsUpdateViewModel _viewModel =
+      context.read<GroupsUpdateViewModel>();
 
   @override
   void initState() {
@@ -48,7 +49,7 @@ class _BodyState extends State<_Body> {
     _viewModel.usersSelectedForTeam = [];
     _viewModel.image = null;
 
-    Future.delayed(const Duration(microseconds: 0), () => _viewModel.getData(widget.model));
+    Future.delayed(Duration.zero, () => _viewModel.getData(widget.model));
   }
 
   @override
@@ -171,17 +172,19 @@ class _Team extends StatelessWidget {
       builder: (context, GroupsUpdateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
+              builder: (context) => GroupsSelectedView(
+                  usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: Card(
             child: ListTile(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
+                    builder: (context) => GroupsSelectedView(
+                        usersSelectedForTeam: viewModel.usersSelectedForTeam),
                   ),
                 );
               },
@@ -189,7 +192,8 @@ class _Team extends StatelessWidget {
                 Assets.groupsTeam,
                 height: 30,
               ),
-              title: Text("${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
+              title: Text(
+                  "${viewModel.usersSelectedForTeam.length.toString()} ${'person'.tr()}"),
               trailing: const Icon(Icons.chevron_right),
             ),
           ),
@@ -241,18 +245,20 @@ class _PersonInCharge extends StatelessWidget {
       builder: (context, GroupsUpdateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
+              builder: (context) => GroupsSelectedView(
+                  usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: LayoutBuilder(
             builder: (context, constraints) {
               if (viewModel.personInCharge != null) {
                 return Card(
                   child: ListTile(
                     onTap: () {
-                      viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
+                      viewModel.navigateAndDisplaySelectionForPersonInCharge(
+                          context);
                     },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
@@ -268,7 +274,8 @@ class _PersonInCharge extends StatelessWidget {
                 return Card(
                   child: ListTile(
                     onTap: () {
-                      viewModel.navigateAndDisplaySelectionForPersonInCharge(context);
+                      viewModel.navigateAndDisplaySelectionForPersonInCharge(
+                          context);
                     },
                     leading: Image.asset(
                       Assets.profile,
@@ -300,7 +307,9 @@ class _GroupDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _viewModel.explanationController,
-      decoration: InputDecoration(labelText: 'group_explanation'.tr(), icon: const Icon(Icons.text_fields)),
+      decoration: InputDecoration(
+          labelText: 'group_explanation'.tr(),
+          icon: const Icon(Icons.text_fields)),
       maxLength: 200,
       maxLines: 3,
       validator: (value) {
@@ -364,11 +373,13 @@ class _GroupPhoto extends StatelessWidget {
               child: viewModel.image == null
                   ? Hero(
                       tag: 'photo',
-                      child: Image.network(widget.model.imageURL, width: 100, height: 100, fit: BoxFit.cover),
+                      child: Image.network(widget.model.imageURL,
+                          width: 100, height: 100, fit: BoxFit.cover),
                     )
                   : Hero(
                       tag: 'photo',
-                      child: Image.file(viewModel.image!, width: 100, height: 100, fit: BoxFit.cover),
+                      child: Image.file(viewModel.image!,
+                          width: 100, height: 100, fit: BoxFit.cover),
                     ),
             ),
           ),

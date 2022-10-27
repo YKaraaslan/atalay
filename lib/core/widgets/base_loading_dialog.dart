@@ -19,7 +19,7 @@ class LoadingDialog extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Text(
                     text,
                     textAlign: TextAlign.center,

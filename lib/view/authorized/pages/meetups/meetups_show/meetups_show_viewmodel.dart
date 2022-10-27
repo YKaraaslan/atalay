@@ -56,7 +56,7 @@ class MeetupsShowViewModel extends ChangeNotifier {
   }
 
   Future<void> delete(BuildContext context) async {
-    deleteMeeting(id);
+    await deleteMeeting(id);
     Navigator.pop(context);
     showSnackbar(context, 'Toplanti silindi');
   }

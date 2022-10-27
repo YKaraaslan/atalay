@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_final
+
 import 'dart:io';
 
 import 'package:base_dialog/main.dart';
@@ -28,7 +30,7 @@ class GroupsUpdateViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> navigateAndDisplaySelection(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -42,7 +44,8 @@ class GroupsUpdateViewModel extends ChangeNotifier {
     });
   }
 
-  void navigateAndDisplaySelectionForPersonInCharge(BuildContext context) async {
+  Future<void> navigateAndDisplaySelectionForPersonInCharge(
+      BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -97,7 +100,7 @@ class GroupsUpdateViewModel extends ChangeNotifier {
     );
   }
 
-  void getData(GroupsModel model) async {
+  Future<void> getData(GroupsModel model) async {
     nameController.text = model.title;
     explanationController.text = model.explanation;
     usersSelectedForTeam = [];

@@ -20,7 +20,7 @@ Future<bool> updateGroupsOnDatabase(GroupsModel model, File? image) async {
         await FirebaseStorage.instance.refFromURL(model.imageURL).delete();
         await ServicePath.groupsPhotoReference.child(model.groupID).child(image.path.split('/').last).putFile(image);
         imageURL = await ServicePath.groupsPhotoReference.child(model.groupID).child(image.path.split('/').last).getDownloadURL();
-        ServicePath.groupsCollectionReference.doc(model.groupID).update({'imageURL': imageURL});
+        await ServicePath.groupsCollectionReference.doc(model.groupID).update({'imageURL': imageURL});
       });
       return true;
     } on Exception {

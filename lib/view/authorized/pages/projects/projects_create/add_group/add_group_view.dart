@@ -9,7 +9,11 @@ import '../../../../../../core/widgets/base_appbar.dart';
 import 'add_group_viewmodel.dart';
 
 class AddGroupView extends StatelessWidget {
-  const AddGroupView({Key? key, required this.groupsSelectedForTeam, this.multiSelection = true}) : super(key: key);
+  const AddGroupView(
+      {Key? key,
+      required this.groupsSelectedForTeam,
+      this.multiSelection = true})
+      : super(key: key);
   final List<GroupsModel> groupsSelectedForTeam;
   final bool multiSelection;
 
@@ -20,13 +24,19 @@ class AddGroupView extends StatelessWidget {
         title: 'choose_groups'.tr(),
         actions: const [SizedBox()],
       ),
-      onPageBuilder: (context, value) => _Body(groupsSelectedForTeam: groupsSelectedForTeam, multiSelection: multiSelection),
+      onPageBuilder: (context, value) => _Body(
+          groupsSelectedForTeam: groupsSelectedForTeam,
+          multiSelection: multiSelection),
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({Key? key, required this.groupsSelectedForTeam, required this.multiSelection}) : super(key: key);
+  const _Body(
+      {Key? key,
+      required this.groupsSelectedForTeam,
+      required this.multiSelection})
+      : super(key: key);
   final List<GroupsModel> groupsSelectedForTeam;
   final bool multiSelection;
 
@@ -49,7 +59,8 @@ class _BodyState extends State<_Body> {
   }
 
   bool isSelected(AddGroupViewModel viewModel, int index) {
-    return viewModel.selectedUsers.any((element) => element.groupID == viewModel.userModels[index].groupID);
+    return viewModel.selectedUsers.any(
+        (element) => element.groupID == viewModel.userModels[index].groupID);
   }
 
   @override
@@ -79,7 +90,8 @@ class _BodyState extends State<_Body> {
                     }
                   },
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(viewModel.userModels[index].imageURL),
+                    backgroundImage:
+                        NetworkImage(viewModel.userModels[index].imageURL),
                   ),
                   title: isSelected(viewModel, index)
                       ? Text(
@@ -130,7 +142,7 @@ class _ShimmerEffect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

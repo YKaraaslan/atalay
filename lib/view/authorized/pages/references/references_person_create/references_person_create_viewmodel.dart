@@ -22,7 +22,7 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
   BaseDialog baseDialog = BaseDialog();
   late File? image;
 
-  void navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> navigateAndDisplaySelection(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -39,8 +39,8 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
   }
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -61,7 +61,8 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
       companyID: companyID,
       name: nameTextController.text.trim(),
       surname: surnameTimeTextController.text.trim(),
-      fullName: '${nameTextController.text.trim()} ${surnameTimeTextController.text.trim()}',
+      fullName:
+          '${nameTextController.text.trim()} ${surnameTimeTextController.text.trim()}',
       createdAt: Timestamp.now(),
       createdBy: ServicePath.auth.currentUser!.uid,
       imageURL: '',
@@ -90,7 +91,7 @@ class ReferencesPersonCreateViewModel extends ChangeNotifier {
     );
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

@@ -16,7 +16,8 @@ class ForgotPasswordViewModel extends ChangeNotifier {
       showSnackbar(context, 'password_reset_mail_not_found'.tr());
       return;
     }
-    ServicePath.auth.sendPasswordResetEmail(email: mailController.text.trim());
+    await ServicePath.auth
+        .sendPasswordResetEmail(email: mailController.text.trim());
     showSnackbar(context, 'password_reset_mail_sent'.tr());
     Navigator.pop(context);
   }
@@ -33,7 +34,8 @@ class ForgotPasswordViewModel extends ChangeNotifier {
 
   Future<bool?> checkIfEmailInUse(String emailAddress) async {
     try {
-      final List<String> list = await ServicePath.auth.fetchSignInMethodsForEmail(emailAddress);
+      List<String> list =
+          await ServicePath.auth.fetchSignInMethodsForEmail(emailAddress);
 
       if (list.isNotEmpty) {
         return true;

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_final
+
 import 'dart:io';
 
 import 'package:base_dialog/main.dart';
@@ -23,13 +25,14 @@ class GroupsCreateViewModel extends ChangeNotifier {
 
   Future getFromGallery() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? imagePicked =
+        await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
   }
 
-  void navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> navigateAndDisplaySelection(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -43,7 +46,8 @@ class GroupsCreateViewModel extends ChangeNotifier {
     });
   }
 
-  void navigateAndDisplaySelectionForPersonInCharge(BuildContext context) async {
+  Future<void> navigateAndDisplaySelectionForPersonInCharge(
+      BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -75,7 +79,8 @@ class GroupsCreateViewModel extends ChangeNotifier {
         title: nameController.text.trim(),
         explanation: explanationController.text.trim(),
         userInCharge: personInCharge!.id,
-        people: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
+        people: List.generate(usersSelectedForTeam.length,
+            (index) => usersSelectedForTeam[index].id),
         imageURL: '',
         createdAt: Timestamp.now(),
         createdBy: FirebaseAuth.instance.currentUser!.uid);

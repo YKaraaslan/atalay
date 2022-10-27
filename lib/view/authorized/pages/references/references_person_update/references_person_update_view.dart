@@ -119,7 +119,7 @@ class _Button extends StatelessWidget {
           text: 'Referansi Guncelle',
           fun: () async {
             if (context.read<ReferencesPersonUpdateViewModel>().formKey.currentState!.validate()) {
-              context.read<ReferencesPersonUpdateViewModel>().updateReference(context);
+              await context.read<ReferencesPersonUpdateViewModel>().updateReference(context);
             }
           },
         ),

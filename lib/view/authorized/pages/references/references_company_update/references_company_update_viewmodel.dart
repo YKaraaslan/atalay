@@ -19,8 +19,8 @@ class ReferencesCompanyUpdateViewModel extends ChangeNotifier {
   late CompanyModel model;
 
   Future<void> openGallery(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
@@ -62,7 +62,7 @@ class ReferencesCompanyUpdateViewModel extends ChangeNotifier {
     );
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

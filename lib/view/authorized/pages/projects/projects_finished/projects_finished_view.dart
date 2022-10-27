@@ -90,7 +90,7 @@ class _ShimmerEffect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -70,7 +70,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   runApp(
     MultiProvider(
       providers: [
@@ -168,7 +168,7 @@ class _MyAppState extends State<MyApp> {
       child = const LoginView();
     } else {
       child = const HomeView();
-      Future.sync(() => getAuth());
+      Future.sync(getAuth);
     }
 
     getCurrentAppTheme();
@@ -183,7 +183,7 @@ class _MyAppState extends State<MyApp> {
         } else {
           setState(() {
             child = const HomeView();
-            Future.sync(() => getAuth());
+            Future.sync(getAuth);
             FlutterNativeSplash.remove();
           });
         }

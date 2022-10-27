@@ -53,7 +53,7 @@ class _BodyState extends State<_Body> {
     _viewModel.id = widget.id;
     _viewModel.setFields();
 
-    Future.delayed(const Duration(microseconds: 0), () => _viewModel.getParticipants(context));
+    Future.delayed(Duration.zero, () => _viewModel.getParticipants(context));
   }
 
   @override

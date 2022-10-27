@@ -50,9 +50,9 @@ class _WeeklyDaysBaseView extends StatelessWidget {
         child: Container(
           width: 100,
           height: 70,
-          margin: const EdgeInsets.all(3.0),
+          margin: const EdgeInsets.all(3),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
             color: selectionColor ?? Colors.transparent,
           ),
           child: Padding(

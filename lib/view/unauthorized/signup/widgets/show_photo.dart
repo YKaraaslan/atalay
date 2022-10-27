@@ -10,7 +10,7 @@ class SignUpShowPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final File imagePath = ModalRoute.of(context)!.settings.arguments as File;
+    File imagePath = ModalRoute.of(context)!.settings.arguments as File;
     return BaseView(
       backgroundColor: Colors.black,
       onPageBuilder: (context, value) => Center(

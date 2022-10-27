@@ -106,8 +106,8 @@ class PostUpdateViewModel extends ChangeNotifier {
   }
 
   Future getFromCamera() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     if (images.length + imagesLink.length >= maxAllowedImage) {
       return showSnackbar(buildContext, 'images_max_amount_reached'.tr());
@@ -117,8 +117,8 @@ class PostUpdateViewModel extends ChangeNotifier {
   }
 
   Future getFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-    final List<XFile>? imagesPicked = await picker.pickMultiImage();
+    ImagePicker picker = ImagePicker();
+    List<XFile>? imagesPicked = await picker.pickMultiImage();
     if (imagesPicked == null) return;
 
     for (var image in imagesPicked) {

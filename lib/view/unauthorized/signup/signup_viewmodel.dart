@@ -25,7 +25,8 @@ class SignUpViewModel extends ChangeNotifier {
     baseDialog.text = 'signing_up'.tr();
     baseDialog.showLoadingDialog(context);
 
-    String? userID = await signUpService(mailController.text.trim(), passwordController.text);
+    String? userID = await signUpService(
+        mailController.text.trim(), passwordController.text);
     if (userID == null) {
       return dismissDialog(context, 'signing_up_failed'.tr());
     } else if (userID == 'weak-password') {
@@ -46,9 +47,11 @@ class SignUpViewModel extends ChangeNotifier {
       id: userID,
       name: nameController.text.trim(),
       surname: surnameController.text.trim(),
-      fullName: '${nameController.text.trim()} ${surnameController.text.trim()}',
+      fullName:
+          '${nameController.text.trim()} ${surnameController.text.trim()}',
       phone: phoneController.text.trim(),
-      birthday: Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
+      birthday: Timestamp.fromDate(
+          DateFormat('dd MMMM yyyy').parse(birthdayController.text.trim())),
       mail: mailController.text.trim(),
       password: passwordController.text.trim(),
       imageURL: photoURL,
@@ -89,23 +92,23 @@ class SignUpViewModel extends ChangeNotifier {
   }
 
   Future getFromCamera() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.camera);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
   }
 
   Future getFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
+    ImagePicker picker = ImagePicker();
+    XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
     if (imagePicked == null) return;
     image = File(imagePicked.path);
     notifyListeners();
   }
 
   Future showDateTimePicker(BuildContext context) async {
-    final newDate = await showDatePicker(
+    var newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 100),
@@ -115,7 +118,7 @@ class SignUpViewModel extends ChangeNotifier {
     birthdayController.text = DateFormat('dd MMMM yyyy').format(newDate!);
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

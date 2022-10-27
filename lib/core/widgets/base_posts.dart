@@ -24,7 +24,7 @@ class BasePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,9 +94,7 @@ class _Author extends StatelessWidget {
                     builder: (context) {
                       return BaseBottomSheet(
                         model: model,
-                        onDelete: () {
-                          onDelete();
-                        },
+                        onDelete: onDelete,
                       );
                     },
                   );
@@ -205,7 +203,7 @@ class _ImagePlaceHolder extends StatelessWidget {
           ),
           Visibility(
             visible: index == 2 && model.images.length > 3,
-            child: Container(
+            child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 color: Colors.black.withOpacity(0.6),

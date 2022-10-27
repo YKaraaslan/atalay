@@ -74,7 +74,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     );
   }
 
-  void navigateAndDisplaySelectionForTeam(BuildContext context) async {
+  Future<void> navigateAndDisplaySelectionForTeam(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -88,11 +88,13 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateAndDisplaySelectionForGroups(BuildContext context) async {
+  Future<void> navigateAndDisplaySelectionForGroups(
+      BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddGroupView(groupsSelectedForTeam: groupsSelectedForTeam),
+        builder: (context) =>
+            AddGroupView(groupsSelectedForTeam: groupsSelectedForTeam),
       ),
     ).then((value) {
       if (value != null) {
@@ -108,21 +110,31 @@ class ProjectsCreateViewModel extends ChangeNotifier {
 
     ProjectModel model = ProjectModel(
       projectID: '',
-      groupIDs: List.generate(groupsSelectedForTeam.length, (index) => groupsSelectedForTeam[index].groupID),
+      groupIDs: List.generate(groupsSelectedForTeam.length,
+          (index) => groupsSelectedForTeam[index].groupID),
       createdBy: ServicePath.auth.currentUser!.uid,
       createdAt: Timestamp.now(),
       status: 'active',
-      team: List.generate(usersSelectedForTeam.length, (index) => usersSelectedForTeam[index].id),
+      team: List.generate(usersSelectedForTeam.length,
+          (index) => usersSelectedForTeam[index].id),
       title: titleController.text.trim(),
       explanation: explanationController.text.trim(),
-      deadline: Timestamp.fromDate(DateFormat('dd MMMM yyyy').parse(deadlineController.text.trim())),
+      deadline: Timestamp.fromDate(
+          DateFormat('dd MMMM yyyy').parse(deadlineController.text.trim())),
     );
 
     List<ProjectToDoModel> projectToDoModels = [];
 
     for (int i = 0; i < projectToDoModels.length; i++) {
       projectToDoModels.add(
-        ProjectToDoModel(toDoID: '', text: toDo[i], createdBy: ServicePath.auth.currentUser!.uid, createdAt: Timestamp.now(), status: 'active', urgency: 0, index: i),
+        ProjectToDoModel(
+            toDoID: '',
+            text: toDo[i],
+            createdBy: ServicePath.auth.currentUser!.uid,
+            createdAt: Timestamp.now(),
+            status: 'active',
+            urgency: 0,
+            index: i),
       );
     }
 
@@ -148,7 +160,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
   }
 
   Future showDateTimePicker(BuildContext context) async {
-    final newDate = await showDatePicker(
+    var newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
@@ -158,7 +170,7 @@ class ProjectsCreateViewModel extends ChangeNotifier {
     deadlineController.text = DateFormat('dd MMMM yyyy').format(newDate!);
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

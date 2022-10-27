@@ -14,7 +14,7 @@ class CalendarViewModel extends ChangeNotifier {
     ServicePath.calendarCollectionReference(ServicePath.auth.currentUser!.uid).snapshots().listen((event) {
       events.clear();
       for (var doc in event.docs) {
-        final event = CalendarEventData(
+        var event = CalendarEventData(
           date: DateTime.fromMillisecondsSinceEpoch((doc.get('dateStart') as Timestamp).millisecondsSinceEpoch),
           title: doc.get('title'),
           description: doc.get('description'),

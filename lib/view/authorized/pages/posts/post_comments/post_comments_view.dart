@@ -175,7 +175,7 @@ class _BottomPart extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                child: Container(
+                child: DecoratedBox(
                   decoration: const BoxDecoration(
                     color: Colors.black12,
                     borderRadius: BorderRadius.all(
@@ -187,7 +187,7 @@ class _BottomPart extends StatelessWidget {
                     decoration: const InputDecoration(
                       hintText: 'Yorum yaz...',
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.fromLTRB(20.0, 5.0, 5.0, 5.0),
+                      contentPadding: EdgeInsets.fromLTRB(20, 5, 5, 5),
                     ),
                     maxLines: 5,
                     minLines: 1,

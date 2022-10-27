@@ -50,9 +50,7 @@ class _BodyState extends State<_Body> {
     _viewModel.imagesLink = [];
     _viewModel.model = widget.model;
 
-    Future.delayed(const Duration(microseconds: 1), () {
-      _viewModel.setData();
-    });
+    Future.delayed(const Duration(microseconds: 1), _viewModel.setData);
   }
 
   @override

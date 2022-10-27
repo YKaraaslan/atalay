@@ -115,7 +115,7 @@ class _UpdateButton extends StatelessWidget {
           text: 'Sirketi Guncelle',
           fun: () async {
             if (context.read<ReferencesCompanyUpdateViewModel>().formKey.currentState!.validate()) {
-              context.read<ReferencesCompanyUpdateViewModel>().updateCompany(context);
+              await context.read<ReferencesCompanyUpdateViewModel>().updateCompany(context);
             }
           },
         ),

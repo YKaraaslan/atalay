@@ -74,7 +74,7 @@ class MeetupsUpdateViewModel extends ChangeNotifier {
     );
   }
 
-  void navigateAndDisplaySelection(BuildContext context) async {
+  Future<void> navigateAndDisplaySelection(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -98,7 +98,7 @@ class MeetupsUpdateViewModel extends ChangeNotifier {
     );
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

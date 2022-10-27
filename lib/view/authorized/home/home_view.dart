@@ -81,7 +81,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
           slideWidth: Sizes.width_65percent(context),
           duration: const Duration(milliseconds: 500),
           menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          angle: 0.0,
+          angle: 0,
           clipMainScreen: true,
           mainScreen: GestureDetector(
             onTap: context.read<HomeViewModel>().menuTap,

@@ -62,7 +62,7 @@ class _BodyState extends State<_Body> {
 
     _viewModel.id = widget.id;
 
-    Future.delayed(const Duration(microseconds: 0), () => _viewModel.getData(widget.model));
+    Future.delayed(Duration.zero, () => _viewModel.getData(widget.model));
   }
 
   @override
@@ -129,7 +129,9 @@ class _CreateButton extends StatelessWidget {
           text: 'create_event'.tr(),
           fun: () async {
             if (context.read<MeetupsUpdateViewModel>().formKey.currentState!.validate()) {
-              context.read<MeetupsUpdateViewModel>().updateMeeting(context, widget.model);
+              await context
+                  .read<MeetupsUpdateViewModel>()
+                  .updateMeeting(context, widget.model);
             }
           },
         ),
@@ -174,11 +176,11 @@ class _Team extends StatelessWidget {
       builder: (context, MeetupsUpdateViewModel viewModel, child) => SizedBox(
         width: double.infinity,
         child: InkWell(
-          onTap: (() {
+          onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => GroupsSelectedView(usersSelectedForTeam: viewModel.usersSelectedForTeam),
             ));
-          }),
+          },
           child: Card(
             child: ListTile(
               onTap: () {

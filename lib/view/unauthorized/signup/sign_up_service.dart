@@ -20,7 +20,7 @@ Future<String?> signUpService(String mail, String password) async {
     if (userCredential!.user != null) {
       return userCredential!.user!.uid;
     }
-    tempApp.delete();
+    await tempApp.delete();
     return null;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

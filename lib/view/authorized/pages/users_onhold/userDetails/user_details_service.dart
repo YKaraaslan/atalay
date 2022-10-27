@@ -20,7 +20,7 @@ Future declineUserService(UsersOnHoldModel model) async {
   if (userCredential.user != null) {
     await userCredential.user!.delete();
   }
-  tempApp.delete();
+  await tempApp.delete();
   await ServicePath.usersOnHoldCollectionReference.doc(model.id).delete();
   await ServicePath.profilePhotoReference.child(model.id).delete();
 }

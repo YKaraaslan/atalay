@@ -110,7 +110,7 @@ class _MeetupsCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: ClipPath(
         clipper: ShapeBorderClipper(
           shape: RoundedRectangleBorder(

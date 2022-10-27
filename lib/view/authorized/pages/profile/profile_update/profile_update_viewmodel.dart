@@ -84,7 +84,7 @@ class ProfileUpdateViewModel extends ChangeNotifier {
   }
 
   Future showDateTimePicker(BuildContext context) async {
-    final newDate = await showDatePicker(
+    var newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 100),
@@ -94,7 +94,7 @@ class ProfileUpdateViewModel extends ChangeNotifier {
     birthdayController.text = DateFormat('dd MMMM yyyy').format(newDate!);
   }
 
-  void dismissDialog(BuildContext context, text) {
+  void dismissDialog(BuildContext context, String text) {
     baseDialog.dismissDialog();
     return showSnackbar(context, text);
   }

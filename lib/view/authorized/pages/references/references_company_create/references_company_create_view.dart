@@ -110,7 +110,7 @@ class _CreateButton extends StatelessWidget {
           text: 'create_event'.tr(),
           fun: () async {
             if (context.read<ReferencesCompanyCreateViewModel>().formKey.currentState!.validate()) {
-              context.read<ReferencesCompanyCreateViewModel>().createCompany(context);
+              await context.read<ReferencesCompanyCreateViewModel>().createCompany(context);
             }
           },
         ),

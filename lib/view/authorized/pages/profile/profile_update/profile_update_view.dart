@@ -48,7 +48,7 @@ class _BodyState extends State<_Body> {
     _viewModel.formKeyForDialog = GlobalKey<FormState>();
     _viewModel.labelTextController = TextEditingController();
 
-    Future.delayed(Duration.zero, (() => _viewModel.getUserInfo()));
+    Future.delayed(Duration.zero, _viewModel.getUserInfo);
   }
 
   @override

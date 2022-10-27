@@ -22,8 +22,10 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   Future isConnected() async {
-    connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.ethernet) {
+    connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.ethernet) {
       connected = true;
     } else {
       connected = false;

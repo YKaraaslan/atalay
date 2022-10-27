@@ -58,9 +58,7 @@ class _BodyState extends State<_Body> {
       return NoDataView(
         text: 'no_like_yet'.tr(),
         image: Assets.thumbsUp,
-        fun: () {
-          _viewModel.like();
-        },
+        fun: _viewModel.like,
       );
     }
   }
@@ -133,9 +131,7 @@ class _Likes extends StatelessWidget {
             return NoDataView(
               text: 'no_like_yet'.tr(),
               image: Assets.thumbsUp,
-              fun: () {
-                _viewModel.like();
-              },
+              fun: _viewModel.like,
             );
           }
         },
