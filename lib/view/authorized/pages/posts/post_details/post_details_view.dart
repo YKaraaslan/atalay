@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_viewer/main.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
@@ -151,7 +150,7 @@ class _LikesAndComments extends StatelessWidget {
                       );
                     }),
                 onPressed: () {
-                  showBarModalBottomSheet(
+                  showBottomSheet(
                     context: context,
                     builder: (context) => PostLikesView(model: widget.model),
                   );
@@ -182,7 +181,7 @@ class _LikesAndComments extends StatelessWidget {
                     );
                   }),
               onPressed: () {
-                showBarModalBottomSheet(
+                showBottomSheet(
                   context: context,
                   builder: (context) => PostCommentsView(model: widget.model),
                 );

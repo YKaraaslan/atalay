@@ -119,7 +119,6 @@ class PostUpdateViewModel extends ChangeNotifier {
   Future getFromGallery() async {
     ImagePicker picker = ImagePicker();
     List<XFile>? imagesPicked = await picker.pickMultiImage();
-    if (imagesPicked == null) return;
 
     for (var image in imagesPicked) {
       if (images.length + imagesLink.length >= maxAllowedImage) {

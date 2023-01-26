@@ -1,6 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -70,60 +69,113 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BaseViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => DarkThemeProvider(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => BaseViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => DarkThemeProvider(), lazy: true),
         ChangeNotifierProvider(create: (context) => AuthProvider(), lazy: true),
-        ChangeNotifierProvider(create: (context) => UpdatesViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => LoginViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => SignUpViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => HomeViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => DashboardViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => FinanceViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => GroupsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => MeetupsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProfileViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProjectsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => GroupDetailsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostDetailsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => SettingsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => UsersOnHoldViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => UserDetailsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => UsersViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostLikeViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostCommentsViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => PostUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProjectsCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => GroupsCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => GroupsUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => AddToTeamViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => AddGroupViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProjectsUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => FinanceTransactionViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => CalendarViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => CalendarCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => CalendarShowViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProfileViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ProfileUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => MeetupsCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => MeetupsShowViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => MeetupsUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesAddToCompaniesViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyShowViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesCompanyUpdateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonCreateViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonShowViewModel(), lazy: true),
-        ChangeNotifierProvider(create: (context) => ReferencesPersonUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => UpdatesViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => LoginViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => SignUpViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ForgotPasswordViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => HomeViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => DashboardViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => FinanceViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => GroupsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => MeetupsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProfileViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProjectsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => GroupDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => SettingsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => UsersOnHoldViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => UserDetailsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => UsersViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostLikeViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostCommentsViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => PostUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProjectsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => GroupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => GroupsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => AddToTeamViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => AddGroupViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProjectsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => FinanceTransactionViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => CalendarViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => CalendarCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => CalendarShowViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProfileViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ProfileUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => MeetupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => MeetupsCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => MeetupsShowViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => MeetupsUpdateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesAddToCompaniesViewModel(),
+            lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesCompanyCreateViewModel(),
+            lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesCompanyShowViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesCompanyUpdateViewModel(),
+            lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesPersonCreateViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesPersonShowViewModel(), lazy: true),
+        ChangeNotifierProvider(
+            create: (context) => ReferencesPersonUpdateViewModel(), lazy: true),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('tr', 'TR'), Locale('en', 'US')],
@@ -148,7 +200,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Key key = UniqueKey();
-  final appCheck = FirebaseAppCheck.instance;
   late Widget child;
   late final themeChangeProvider = context.read<DarkThemeProvider>();
 
@@ -161,8 +212,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    appCheck.onTokenChange.listen((event) {});
-    appCheck.setTokenAutoRefreshEnabled(true);
 
     if (ServicePath.auth.currentUser == null) {
       child = const LoginView();
@@ -192,31 +241,51 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+    themeChangeProvider.darkTheme =
+        await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   Future getAuth() async {
-    await ServicePath.usersCollectionReference.doc(ServicePath.auth.currentUser!.uid).get().then((value) async {
-      await ServicePath.authorizationCollectionReference.doc(value.get('authorization')).get().then((document) {
+    await ServicePath.usersCollectionReference
+        .doc(ServicePath.auth.currentUser!.uid)
+        .get()
+        .then((value) async {
+      await ServicePath.authorizationCollectionReference
+          .doc(value.get('authorization'))
+          .get()
+          .then((document) {
         if (document.exists) {
           context.read<AuthProvider>().index = document.get('index');
           context.read<AuthProvider>().name = document.get('name');
-          context.read<AuthProvider>().postsCreate = document.get('postsCreate');
-          context.read<AuthProvider>().announcementsCreate = document.get('announcementsCreate');
-          context.read<AuthProvider>().projectsCreate = document.get('projectsCreate');
-          context.read<AuthProvider>().groupsCreate = document.get('groupsCreate');
-          context.read<AuthProvider>().referencesCreate = document.get('referencesCreate');
-          context.read<AuthProvider>().financesCreate = document.get('financesCreate');
-          context.read<AuthProvider>().meetingsCreate = document.get('meetingsCreate');
+          context.read<AuthProvider>().postsCreate =
+              document.get('postsCreate');
+          context.read<AuthProvider>().announcementsCreate =
+              document.get('announcementsCreate');
+          context.read<AuthProvider>().projectsCreate =
+              document.get('projectsCreate');
+          context.read<AuthProvider>().groupsCreate =
+              document.get('groupsCreate');
+          context.read<AuthProvider>().referencesCreate =
+              document.get('referencesCreate');
+          context.read<AuthProvider>().financesCreate =
+              document.get('financesCreate');
+          context.read<AuthProvider>().meetingsCreate =
+              document.get('meetingsCreate');
           context.read<AuthProvider>().tabPosts = document.get('tabPosts');
-          context.read<AuthProvider>().tabDashboard = document.get('tabDashboard');
-          context.read<AuthProvider>().tabProjects = document.get('tabProjects');
+          context.read<AuthProvider>().tabDashboard =
+              document.get('tabDashboard');
+          context.read<AuthProvider>().tabProjects =
+              document.get('tabProjects');
           context.read<AuthProvider>().tabUsers = document.get('tabUsers');
           context.read<AuthProvider>().tabGroups = document.get('tabGroups');
-          context.read<AuthProvider>().tabReferences = document.get('tabReferences');
-          context.read<AuthProvider>().tabFinances = document.get('tabFinances');
-          context.read<AuthProvider>().tabMeetings = document.get('tabMeetings');
-          context.read<AuthProvider>().tabUsersOnHold = document.get('tabUsersOnHold');
+          context.read<AuthProvider>().tabReferences =
+              document.get('tabReferences');
+          context.read<AuthProvider>().tabFinances =
+              document.get('tabFinances');
+          context.read<AuthProvider>().tabMeetings =
+              document.get('tabMeetings');
+          context.read<AuthProvider>().tabUsersOnHold =
+              document.get('tabUsersOnHold');
           context.read<AuthProvider>().notify();
         }
       });
@@ -230,7 +299,9 @@ class _MyAppState extends State<MyApp> {
       child: CalendarControllerProvider(
         controller: EventController(),
         child: MaterialApp(
-          themeMode: context.watch<DarkThemeProvider>().darkTheme ? ThemeMode.dark : ThemeMode.light,
+          themeMode: context.watch<DarkThemeProvider>().darkTheme
+              ? ThemeMode.dark
+              : ThemeMode.light,
           theme: appLightTheme(context),
           darkTheme: appDarkTheme(context),
           debugShowCheckedModeBanner: false,

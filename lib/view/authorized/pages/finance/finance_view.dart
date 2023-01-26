@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
@@ -16,7 +16,8 @@ import '../../../../core/widgets/base_appbar.dart';
 import 'finance_viewmodel.dart';
 
 class FinanceView extends StatelessWidget {
-  const FinanceView({Key? key, required this.zoomDrawerController}) : super(key: key);
+  const FinanceView({Key? key, required this.zoomDrawerController})
+      : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -82,7 +83,8 @@ class _TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FirestoreQueryBuilder(
-      query: ServicePath.financesCollectionReference.orderBy('transactedAt', descending: true),
+      query: ServicePath.financesCollectionReference
+          .orderBy('transactedAt', descending: true),
       builder: (context, snapshot, _) {
         if (snapshot.hasError) {
           return Text('error ${snapshot.error}');
@@ -100,7 +102,8 @@ class _TransactionList extends StatelessWidget {
                 snapshot.fetchMore();
               }
 
-              FinanceTransactionModel model = FinanceTransactionModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+              FinanceTransactionModel model = FinanceTransactionModel.fromJson(
+                  snapshot.docs[index].data() as Map<String, Object?>);
 
               if (model.type == 'addition') {
                 return ListTile(
@@ -108,7 +111,8 @@ class _TransactionList extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return _BottomSheet(id: snapshot.docs[index].id, model: model);
+                        return _BottomSheet(
+                            id: snapshot.docs[index].id, model: model);
                       },
                     );
                   },
@@ -120,7 +124,8 @@ class _TransactionList extends StatelessWidget {
                     ),
                   ),
                   title: Text('+ ${model.money.toString()} ₺'),
-                  subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
+                  subtitle: Text(
+                      '${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
                   isThreeLine: true,
                 );
               } else {
@@ -129,7 +134,8 @@ class _TransactionList extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return _BottomSheet(id: snapshot.docs[index].id, model: model);
+                        return _BottomSheet(
+                            id: snapshot.docs[index].id, model: model);
                       },
                     );
                   },
@@ -141,7 +147,8 @@ class _TransactionList extends StatelessWidget {
                     ),
                   ),
                   title: Text('+ ${model.money.toString()} ₺'),
-                  subtitle: Text('${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
+                  subtitle: Text(
+                      '${model.title}\n${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.fromMillisecondsSinceEpoch(model.transactedAt.millisecondsSinceEpoch))}'),
                   isThreeLine: true,
                 );
               }
@@ -161,11 +168,13 @@ class _Balance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, FinanceViewModel viewModel, child) => StreamBuilder<DocumentSnapshot>(
+      builder: (context, FinanceViewModel viewModel, child) =>
+          StreamBuilder<DocumentSnapshot>(
         stream: ServicePath.applicationFinancesCollectionReference.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            viewModel.balance = double.parse(snapshot.data!.get('balance').toString());
+            viewModel.balance =
+                double.parse(snapshot.data!.get('balance').toString());
             return Text(
               '${viewModel.balance} ₺',
               style: Styles.financeTitleStyle,
@@ -179,7 +188,8 @@ class _Balance extends StatelessWidget {
 }
 
 class _BottomSheet extends StatelessWidget {
-  const _BottomSheet({Key? key, required this.id, required this.model}) : super(key: key);
+  const _BottomSheet({Key? key, required this.id, required this.model})
+      : super(key: key);
   final String id;
   final FinanceTransactionModel model;
 

@@ -92,7 +92,7 @@ class _FinishedProjects extends StatelessWidget {
             ),
             Text(
               'Biten Proje',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         )
@@ -131,7 +131,7 @@ class _ActiveProject extends StatelessWidget {
             ),
             Text(
               'Aktif Proje',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         )
@@ -170,7 +170,7 @@ class _TotalProject extends StatelessWidget {
             ),
             Text(
               'Toplam Proje',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         )

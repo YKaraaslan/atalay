@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
@@ -129,7 +128,7 @@ class _Likes extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                showBarModalBottomSheet(
+                showBottomSheet(
                   context: context,
                   builder: (context) => PostLikesView(model: widget.model),
                 );

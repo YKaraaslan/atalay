@@ -1,8 +1,8 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
@@ -14,7 +14,8 @@ import '../../../../core/widgets/base_appbar.dart';
 import 'extras/details/groups_details_view.dart';
 
 class GroupsView extends StatelessWidget {
-  const GroupsView({Key? key, required this.zoomDrawerController}) : super(key: key);
+  const GroupsView({Key? key, required this.zoomDrawerController})
+      : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -50,7 +51,8 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     return FirestoreQueryBuilder(
-      query: ServicePath.groupsCollectionReference.orderBy('createdAt', descending: true),
+      query: ServicePath.groupsCollectionReference
+          .orderBy('createdAt', descending: true),
       builder: (context, snapshot, _) {
         if (snapshot.hasError) {
           return Text('error ${snapshot.error}');
@@ -59,7 +61,8 @@ class _BodyState extends State<_Body> {
           return ListView.builder(
               itemCount: snapshot.docs.length,
               itemBuilder: (context, index) {
-                GroupsModel group = GroupsModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                GroupsModel group = GroupsModel.fromJson(
+                    snapshot.docs[index].data() as Map<String, Object?>);
 
                 return ListTile(
                   onTap: () {

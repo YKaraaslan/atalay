@@ -1,8 +1,8 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
-import 'package:flutterfire_ui/firestore.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/classes/time_ago.dart';
@@ -12,7 +12,8 @@ import '../../../../core/widgets/base_appbar.dart';
 import '../profile/profile_view.dart';
 
 class UsersView extends StatefulWidget {
-  const UsersView({Key? key, required this.zoomDrawerController}) : super(key: key);
+  const UsersView({Key? key, required this.zoomDrawerController})
+      : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -30,7 +31,9 @@ class _UsersViewState extends State<UsersView> {
         actions: const [],
       ),
       onPageBuilder: (context, value) => FirestoreQueryBuilder(
-        query: ServicePath.usersCollectionReference.orderBy('online', descending: true).orderBy('onlineTime', descending: true),
+        query: ServicePath.usersCollectionReference
+            .orderBy('online', descending: true)
+            .orderBy('onlineTime', descending: true),
         builder: (context, snapshot, _) {
           if (snapshot.isFetching) {
             return const _ShimmerEffect();
@@ -44,7 +47,8 @@ class _UsersViewState extends State<UsersView> {
               if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
                 snapshot.fetchMore();
               }
-              UserModel users = UserModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+              UserModel users = UserModel.fromJson(
+                  snapshot.docs[index].data() as Map<String, Object?>);
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -64,7 +68,8 @@ class _UsersViewState extends State<UsersView> {
                   ),
                   title: Text(users.fullName),
                   subtitle: users.online
-                      ? Text('online'.tr(), style: const TextStyle(color: Colors.green))
+                      ? Text('online'.tr(),
+                          style: const TextStyle(color: Colors.green))
                       : Text(
                           TimeAgo.timeAgoSinceDate(users.onlineTime),
                         ),

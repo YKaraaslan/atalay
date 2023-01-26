@@ -1,9 +1,8 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
-import 'package:flutterfire_ui/firestore.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/base/view/base_view.dart';
@@ -17,7 +16,8 @@ import 'post_comments/post_comments_view.dart';
 import 'posts_viewmodel.dart';
 
 class PostsView extends StatelessWidget {
-  const PostsView({Key? key, required this.zoomDrawerController}) : super(key: key);
+  const PostsView({Key? key, required this.zoomDrawerController})
+      : super(key: key);
 
   final ZoomDrawerController zoomDrawerController;
 
@@ -59,7 +59,9 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: FirestoreQueryBuilder(
-        query: ServicePath.postsCollectionReference.where('isVisible', isEqualTo: true).orderBy('publishedAt', descending: true),
+        query: ServicePath.postsCollectionReference
+            .where('isVisible', isEqualTo: true)
+            .orderBy('publishedAt', descending: true),
         builder: (context, snapshot, _) {
           if (snapshot.hasError) {
             return Text('error ${snapshot.error}');
@@ -70,7 +72,8 @@ class _BodyState extends State<_Body> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                PostModel post = PostModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                PostModel post = PostModel.fromJson(
+                    snapshot.docs[index].data() as Map<String, Object?>);
                 return FutureBuilder(
                   future: _viewModel.getUserInfos(post),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -84,9 +87,10 @@ class _BodyState extends State<_Body> {
                           _viewModel.like(snapshot.data);
                         },
                         onCommentPressed: () {
-                          showBarModalBottomSheet(
+                          showBottomSheet(
                             context: context,
-                            builder: (context) => PostCommentsView(model: snapshot.data),
+                            builder: (context) =>
+                                PostCommentsView(model: snapshot.data),
                           );
                         },
                         onSavePressed: () {

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../view/authorized/pages/posts/post_comments/post_comments_view.dart';
 import '../../view/authorized/pages/posts/post_details/post_details_view.dart';
@@ -372,7 +371,7 @@ class _Comments extends StatelessWidget {
 
               return InkWell(
                 onTap: () {
-                  showBarModalBottomSheet(
+                  showBottomSheet(
                     context: context,
                     builder: (context) => PostCommentsView(model: model),
                   );
@@ -454,7 +453,7 @@ class _Likes extends StatelessWidget {
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: () {
-                      showBarModalBottomSheet(
+                      showBottomSheet(
                         context: context,
                         builder: (context) => PostLikesView(model: model),
                       );

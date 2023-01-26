@@ -1,5 +1,5 @@
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 
 import '../../../../../core/base/view/base_view.dart';
 import '../../../../../core/constant/assets.dart';

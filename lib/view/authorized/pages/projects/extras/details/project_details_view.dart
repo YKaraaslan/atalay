@@ -71,7 +71,10 @@ class _BodyState extends State<_Body> {
             const SizedBox(height: 5),
             Text(
               widget.model.explanation,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 13),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(fontSize: 13),
             ),
             const SizedBox(height: 35),
             const Text(
@@ -98,20 +101,26 @@ class _ProjectsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
-      future: ServicePath.projectsToDoCollectionReference(widget.model.projectID).orderBy('index').get(),
+      future:
+          ServicePath.projectsToDoCollectionReference(widget.model.projectID)
+              .orderBy('index')
+              .get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              ProjectToDoModel project = ProjectToDoModel.fromJson(snapshot.data!.docs[index].data() as Map<String, Object?>);
+              ProjectToDoModel project = ProjectToDoModel.fromJson(
+                  snapshot.data!.docs[index].data() as Map<String, Object?>);
               return CheckboxListTile(
                 value: project.status == 'finished',
                 onChanged: (value) => false,
                 title: Text(
                   project.text,
-                  style: project.status == 'finished' ? const TextStyle(decoration: TextDecoration.lineThrough) : const TextStyle(),
+                  style: project.status == 'finished'
+                      ? const TextStyle(decoration: TextDecoration.lineThrough)
+                      : const TextStyle(),
                 ),
                 controlAffinity: ListTileControlAffinity.leading,
               );
@@ -135,10 +144,12 @@ class _Percentile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FutureBuilder(
-          future: context.read<ProjectsViewModel>().getPercentage(model.projectID),
+          future:
+              context.read<ProjectsViewModel>().getPercentage(model.projectID),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              Map<String, dynamic> snapshotData = snapshot.data as Map<String, dynamic>;
+              Map<String, dynamic> snapshotData =
+                  snapshot.data as Map<String, dynamic>;
               return CircularStepProgressIndicator(
                 width: Sizes.width_30percent(context),
                 height: Sizes.width_30percent(context),
@@ -153,7 +164,10 @@ class _Percentile extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "%${snapshotData['percentage']}",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.bold, fontSize: 33),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 33),
                   ),
                 ),
               );
@@ -178,7 +192,8 @@ class _Percentile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('team'.tr(), style: Theme.of(context).textTheme.bodyMedium),
+                  Text('team'.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   SizedBox(
                     height: 40,
                     child: ListView.builder(
@@ -187,14 +202,17 @@ class _Percentile extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return FutureBuilder<DocumentSnapshot>(
-                          future: ServicePath.usersCollectionReference.doc(model.team[index]).get(),
+                          future: ServicePath.usersCollectionReference
+                              .doc(model.team[index])
+                              .get(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: CircleAvatar(
                                   radius: 15,
-                                  backgroundImage: NetworkImage(snapshot.data!.get('imageURL')),
+                                  backgroundImage: NetworkImage(
+                                      snapshot.data!.get('imageURL')),
                                 ),
                               );
                             } else {
@@ -226,7 +244,10 @@ class _Percentile extends StatelessWidget {
                 ),
                 Text(
                     '${DateFormat('dd MMMM').format(DateTime.fromMillisecondsSinceEpoch(model.createdAt.millisecondsSinceEpoch)).toString()} - ${DateFormat('dd MMMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.deadline.millisecondsSinceEpoch)).toString()}',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 13)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 13)),
               ],
             )
           ],
@@ -248,7 +269,10 @@ class _CreatedBy extends StatelessWidget {
         if (snapshot.hasData) {
           return RichText(
             text: TextSpan(
-                text: DateFormat('dd MMMM').format(DateTime.fromMillisecondsSinceEpoch(model.createdAt.millisecondsSinceEpoch)).toString(),
+                text: DateFormat('dd MMMM')
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        model.createdAt.millisecondsSinceEpoch))
+                    .toString(),
                 style: Theme.of(context).textTheme.bodyMedium,
                 children: [
                   TextSpan(

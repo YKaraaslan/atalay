@@ -1,7 +1,7 @@
 import 'package:animated_shimmer/animated_shimmer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/base/view/base_view.dart';
@@ -79,7 +79,8 @@ class _Likes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: FirestoreQueryBuilder(
-        query: ServicePath.postsLikesCollectionReference(widget.model.postID).orderBy('likedAt'),
+        query: ServicePath.postsLikesCollectionReference(widget.model.postID)
+            .orderBy('likedAt'),
         builder: (context, snapshot, _) {
           if (snapshot.isFetching || snapshot.isFetchingMore) {
             return const _ShimmerEffect();
@@ -93,7 +94,8 @@ class _Likes extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.docs.length,
               itemBuilder: (context, index) {
-                PostLikeModel post = PostLikeModel.fromJson(snapshot.docs[index].data() as Map<String, Object?>);
+                PostLikeModel post = PostLikeModel.fromJson(
+                    snapshot.docs[index].data() as Map<String, Object?>);
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -110,14 +112,19 @@ class _Likes extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const _ShimmerEffect();
                       } else if (snapshot.hasData) {
-                        PostLikeUiModel model = snapshot.data as PostLikeUiModel;
+                        PostLikeUiModel model =
+                            snapshot.data as PostLikeUiModel;
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(model.imageURL),
                           ),
                           title: Text(model.nameSurname),
-                          subtitle: Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
-                          trailing: CircleAvatar(radius: 15, backgroundColor: Colors.transparent, child: Image.asset(Assets.likeFilled)),
+                          subtitle:
+                              Text(TimeAgo.timeAgoSinceDate(model.likedAt)),
+                          trailing: CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Colors.transparent,
+                              child: Image.asset(Assets.likeFilled)),
                         );
                       } else {
                         return Container();
